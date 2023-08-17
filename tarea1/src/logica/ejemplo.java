@@ -7,6 +7,7 @@ public class ejemplo {
 		System.out.println("helloworld");
 		System.out.println("fati");
 		System.out.println("gonzalo");
+		System.out.println("lautaro");
 		System.out.println("phil");
 	}
 
