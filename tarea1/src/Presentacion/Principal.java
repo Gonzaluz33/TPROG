@@ -1,6 +1,8 @@
 package Presentacion;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
@@ -14,6 +16,7 @@ import javax.swing.SwingConstants;
 public class Principal {
 
 	private JFrame frame;
+	private altaUsuario altaUsrInternalFrame;
 
 	/**
 	 * Launch the application.
@@ -36,6 +39,11 @@ public class Principal {
 	 */
 	public Principal() {
 		initialize();
+		altaUsrInternalFrame = new altaUsuario();
+		altaUsrInternalFrame.setResizable(true);
+		altaUsrInternalFrame.setBorder(null);
+		altaUsrInternalFrame.setVisible(false);
+		frame.getContentPane().add(altaUsrInternalFrame);
 	}
 
 	/**
@@ -53,8 +61,14 @@ public class Principal {
 		JMenu mnNewMenu = new JMenu("Menú");
 		menuBar.add(mnNewMenu);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Alta de Usuario");
-		mnNewMenu.add(mntmNewMenuItem);
+		JMenuItem menuItemAltaUsuario = new JMenuItem("Alta de Usuario");
+		menuItemAltaUsuario.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+	                // Muestro el InternalFrame para ver información de un usuario
+	                altaUsrInternalFrame.setVisible(true);
+	            }
+		});
+		mnNewMenu.add(menuItemAltaUsuario);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Consulta de Usuario");
 		mnNewMenu.add(mntmNewMenuItem_2);
@@ -63,10 +77,9 @@ public class Principal {
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Consulta de Oferta Laboral");
-		mntmNewMenuItem_3.setHorizontalAlignment(SwingConstants.LEFT);
 		mnNewMenu.add(mntmNewMenuItem_3);
 		
-		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Alta de Tipo de Publicacion de Oferta Laboral");
+		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Alta de Tipo de Publicación de Oferta Laboral");
 		mnNewMenu.add(mntmNewMenuItem_4);
 		
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Postulación a Oferta Laboral");
