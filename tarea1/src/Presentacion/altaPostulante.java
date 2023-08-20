@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import java.awt.Panel;
 import javax.swing.JToolBar;
 
-public class altaUsuario extends JInternalFrame {
+public class altaPostulante extends JInternalFrame {
 
 	/**
 	 * Launch the application.
@@ -17,7 +17,7 @@ public class altaUsuario extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					altaUsuario frame = new altaUsuario();
+					altaPostulante frame = new altaPostulante();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -29,11 +29,11 @@ public class altaUsuario extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public altaUsuario() {
+	public altaPostulante() {
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
-		setTitle("Alta de Usuario");
+		setTitle("Alta de Postulante");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 

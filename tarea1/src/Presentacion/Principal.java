@@ -11,13 +11,20 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 
 public class Principal {
 
 	private JFrame frame;
-	private altaUsuario altaUsrInternalFrame;
-
+	private altaPostulante altaPostulanteInternalFrame;
+	private altaEmpresa altaEmpresaInternalFrame;
+	private consultaUsuario consultaUsuarioInternalFrame;
+	private altaOfertaLaboral altaOfertaLaboralInternalFrame;
+	private consultaOfertaLaboral consultaOfertaLaboralInternalFrame;
+	private altaTipoPublicacionOL altaTipoPublicacionOLInternalFrame;
+	private postulacionOfertaLaboral postulacionOfertaLaboralInternalFrame;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -39,11 +46,51 @@ public class Principal {
 	 */
 	public Principal() {
 		initialize();
-		altaUsrInternalFrame = new altaUsuario();
-		altaUsrInternalFrame.setResizable(true);
-		altaUsrInternalFrame.setBorder(null);
-		altaUsrInternalFrame.setVisible(false);
-		frame.getContentPane().add(altaUsrInternalFrame);
+		altaPostulanteInternalFrame = new altaPostulante();
+		altaPostulanteInternalFrame.setResizable(true);
+		altaPostulanteInternalFrame.setBorder(null);
+		altaPostulanteInternalFrame.setVisible(false);
+		
+		altaEmpresaInternalFrame = new altaEmpresa();
+		altaEmpresaInternalFrame.setResizable(true);
+		altaEmpresaInternalFrame.setBorder(null);
+		altaEmpresaInternalFrame.setVisible(false);
+		
+		
+		consultaUsuarioInternalFrame = new consultaUsuario();
+		consultaUsuarioInternalFrame.setResizable(true);
+		consultaUsuarioInternalFrame.setBorder(null);
+		consultaUsuarioInternalFrame.setVisible(false);
+		
+		altaOfertaLaboralInternalFrame = new altaOfertaLaboral();
+		altaOfertaLaboralInternalFrame.setResizable(true);
+		altaOfertaLaboralInternalFrame.setBorder(null);
+		altaOfertaLaboralInternalFrame.setVisible(false);
+		
+		consultaOfertaLaboralInternalFrame = new consultaOfertaLaboral();
+		consultaOfertaLaboralInternalFrame.setResizable(true);
+		consultaOfertaLaboralInternalFrame.setBorder(null);
+		consultaOfertaLaboralInternalFrame.setVisible(false);
+		
+		altaTipoPublicacionOLInternalFrame = new altaTipoPublicacionOL();
+		altaTipoPublicacionOLInternalFrame.setResizable(true);
+		altaTipoPublicacionOLInternalFrame.setBorder(null);
+		altaTipoPublicacionOLInternalFrame.setVisible(false);
+		
+		postulacionOfertaLaboralInternalFrame = new postulacionOfertaLaboral();
+		postulacionOfertaLaboralInternalFrame.setResizable(true);
+		postulacionOfertaLaboralInternalFrame.setBorder(null);
+		postulacionOfertaLaboralInternalFrame.setVisible(false);
+		
+		
+		frame.getContentPane().add(altaPostulanteInternalFrame);
+		frame.getContentPane().add(altaEmpresaInternalFrame);
+		frame.getContentPane().add(consultaUsuarioInternalFrame);
+		frame.getContentPane().add(altaOfertaLaboralInternalFrame);
+		frame.getContentPane().add(consultaOfertaLaboralInternalFrame);
+		frame.getContentPane().add(altaTipoPublicacionOLInternalFrame);
+		frame.getContentPane().add(postulacionOfertaLaboralInternalFrame);
+		
 	}
 
 	/**
@@ -58,32 +105,69 @@ public class Principal {
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("Menú");
-		menuBar.add(mnNewMenu);
+		JMenu menuCasosDeUso = new JMenu("Casos de Uso");
+		menuBar.add(menuCasosDeUso);
 		
-		JMenuItem menuItemAltaUsuario = new JMenuItem("Alta de Usuario");
-		menuItemAltaUsuario.addActionListener(new ActionListener() {
+		JMenu menuAltaUsuario = new JMenu("Alta de Usuario");
+		menuCasosDeUso.add(menuAltaUsuario);
+			JMenuItem mItemAltaPostulante = new JMenuItem("Alta de Postulante");
+			mItemAltaPostulante.addActionListener(new ActionListener() {
+				 public void actionPerformed(ActionEvent e) {
+		                altaPostulanteInternalFrame.setVisible(true);
+		            }
+			});
+
+			
+			JMenuItem mItemAltaEmpresa = new JMenuItem("Alta de Empresa");
+			mItemAltaEmpresa.addActionListener(new ActionListener() {
+				 public void actionPerformed(ActionEvent e) {
+		                altaEmpresaInternalFrame.setVisible(true);
+		            }
+			});
+			
+		menuAltaUsuario.add(mItemAltaPostulante);
+		menuAltaUsuario.add(mItemAltaEmpresa);
+		
+		
+		JMenuItem mItemConsultaUsuario = new JMenuItem("Consulta de Usuario");
+		mItemConsultaUsuario.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
-	                // Muestro el InternalFrame para ver información de un usuario
-	                altaUsrInternalFrame.setVisible(true);
+	                consultaUsuarioInternalFrame.setVisible(true);
 	            }
 		});
-		mnNewMenu.add(menuItemAltaUsuario);
+		menuCasosDeUso.add(mItemConsultaUsuario);
 		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Consulta de Usuario");
-		mnNewMenu.add(mntmNewMenuItem_2);
+		JMenuItem mItemOfertaLaboral = new JMenuItem("Alta de Oferta Laboral");
+		mItemOfertaLaboral.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 altaOfertaLaboralInternalFrame.setVisible(true);
+	            }
+		});	
+		menuCasosDeUso.add(mItemOfertaLaboral);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Alta de Oferta Laboral");
-		mnNewMenu.add(mntmNewMenuItem_1);
+		JMenuItem mItemConsultaOfertaLaboral = new JMenuItem("Consulta de Oferta Laboral");
+		mItemConsultaOfertaLaboral.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 consultaOfertaLaboralInternalFrame.setVisible(true);
+	            }
+		});	
+		menuCasosDeUso.add(mItemConsultaOfertaLaboral);
 		
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Consulta de Oferta Laboral");
-		mnNewMenu.add(mntmNewMenuItem_3);
+		JMenuItem mItemAltaTipoPublicacion = new JMenuItem("Alta de Tipo de Publicación de Oferta Laboral");
+		mItemAltaTipoPublicacion.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 altaTipoPublicacionOLInternalFrame.setVisible(true);
+	            }
+		});	
+		menuCasosDeUso.add(mItemAltaTipoPublicacion);
 		
-		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Alta de Tipo de Publicación de Oferta Laboral");
-		mnNewMenu.add(mntmNewMenuItem_4);
-		
-		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Postulación a Oferta Laboral");
-		mnNewMenu.add(mntmNewMenuItem_5);
+		JMenuItem mItemPostulacionOfertaLaboral = new JMenuItem("Postulación a Oferta Laboral");
+		mItemPostulacionOfertaLaboral.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 postulacionOfertaLaboralInternalFrame.setVisible(true);
+	            }
+		});	
+		menuCasosDeUso.add(mItemPostulacionOfertaLaboral);
 	}
 
 }
