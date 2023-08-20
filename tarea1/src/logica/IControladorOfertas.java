@@ -1,5 +1,5 @@
 package logica;
 
-public class IControladorOfertas {
+public interface IControladorOfertas {
 
 }
