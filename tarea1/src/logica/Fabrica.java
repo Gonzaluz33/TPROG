@@ -15,7 +15,15 @@ public class Fabrica {
     }
 
     public IControladorUsuario getIControladorUsuario() {
-        return new ControladorUsuario();
+        return ControladorUsuarios.getInstance();
+    }
+    
+    public IControladorPublicaciones getIControladorPublicaciones() {
+    	return ControladorPublicaciones.getInstance();
     }
 
+    public IControladorOfertas getIControladorOfertas() {
+    	return ControladorOfertas.getInstance();
+    }
+    
 }
