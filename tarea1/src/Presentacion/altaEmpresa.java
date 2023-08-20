@@ -52,63 +52,63 @@ public class altaEmpresa extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		nicknameField = new JTextField();
-		nicknameField.setBounds(117, 19, 191, 20);
+		nicknameField.setBounds(161, 22, 191, 20);
 		getContentPane().add(nicknameField);
 		nicknameField.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Nickname:");
-		lblNewLabel.setBounds(27, 22, 74, 14);
+		lblNewLabel.setBounds(43, 25, 74, 14);
 		getContentPane().add(lblNewLabel);
 		
 		apellidoField = new JTextField();
-		apellidoField.setBounds(117, 72, 191, 20);
+		apellidoField.setBounds(161, 75, 191, 20);
 		getContentPane().add(apellidoField);
 		apellidoField.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre:");
-		lblNewLabel_1.setBounds(27, 47, 46, 14);
+		lblNewLabel_1.setBounds(43, 50, 74, 14);
 		getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Apellido:");
-		lblNewLabel_2.setBounds(27, 75, 46, 14);
+		lblNewLabel_2.setBounds(43, 78, 74, 14);
 		getContentPane().add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Correo:");
-		lblNewLabel_3.setBounds(27, 106, 46, 14);
+		lblNewLabel_3.setBounds(43, 109, 74, 14);
 		getContentPane().add(lblNewLabel_3);
 		
 		nombreField = new JTextField();
 		nombreField.setColumns(10);
-		nombreField.setBounds(117, 44, 191, 20);
+		nombreField.setBounds(161, 47, 191, 20);
 		getContentPane().add(nombreField);
 		
 		correoField = new JTextField();
-		correoField.setBounds(117, 103, 191, 20);
+		correoField.setBounds(161, 106, 191, 20);
 		getContentPane().add(correoField);
 		correoField.setColumns(10);
 		
 		Button button = new Button("Aceptar");
-		button.setBounds(27, 330, 70, 22);
+		button.setBounds(47, 313, 70, 22);
 		getContentPane().add(button);
 		
 		Button button_1 = new Button("Cancelar");
-		button_1.setBounds(222, 330, 70, 22);
+		button_1.setBounds(282, 313, 70, 22);
 		getContentPane().add(button_1);
 		
 		JLabel labelDescripcion = new JLabel("Descripcion General:");
-		labelDescripcion.setBounds(27, 144, 126, 14);
+		labelDescripcion.setBounds(43, 147, 126, 14);
 		getContentPane().add(labelDescripcion);
 		
 		JTextArea descripcionField = new JTextArea();
-		descripcionField.setBounds(145, 139, 163, 93);
+		descripcionField.setBounds(189, 142, 163, 93);
 		getContentPane().add(descripcionField);
 		
 		JLabel linkField = new JLabel("Link Web (Opcional):");
-		linkField.setBounds(27, 256, 167, 14);
+		linkField.setBounds(43, 256, 146, 14);
 		getContentPane().add(linkField);
 		
 		linkWebField = new JTextField();
-		linkWebField.setBounds(155, 253, 153, 20);
+		linkWebField.setBounds(199, 253, 153, 20);
 		getContentPane().add(linkWebField);
 		linkWebField.setColumns(10);
 

@@ -54,72 +54,72 @@ public class altaPostulante extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		nicknameField = new JTextField();
-		nicknameField.setBounds(117, 19, 176, 20);
+		nicknameField.setBounds(145, 16, 176, 20);
 		getContentPane().add(nicknameField);
 		nicknameField.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Nickname:");
-		lblNewLabel.setBounds(27, 22, 74, 14);
+		lblNewLabel.setBounds(27, 19, 102, 14);
 		getContentPane().add(lblNewLabel);
 		
 		nombreField = new JTextField();
-		nombreField.setBounds(117, 72, 176, 20);
+		nombreField.setBounds(145, 69, 176, 20);
 		getContentPane().add(nombreField);
 		nombreField.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre:");
-		lblNewLabel_1.setBounds(27, 47, 46, 14);
+		lblNewLabel_1.setBounds(27, 44, 102, 14);
 		getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Apellido:");
-		lblNewLabel_2.setBounds(27, 75, 46, 14);
+		lblNewLabel_2.setBounds(27, 72, 102, 14);
 		getContentPane().add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Correo:");
-		lblNewLabel_3.setBounds(27, 106, 46, 14);
+		lblNewLabel_3.setBounds(27, 97, 102, 14);
 		getContentPane().add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("Fecha de Nacimiento:");
-		lblNewLabel_4.setBounds(27, 140, 109, 14);
+		lblNewLabel_4.setBounds(27, 140, 139, 14);
 		getContentPane().add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Nacionalidad:");
-		lblNewLabel_5.setBounds(27, 168, 64, 14);
+		lblNewLabel_5.setBounds(27, 165, 102, 14);
 		getContentPane().add(lblNewLabel_5);
 		
 		apellidoField = new JTextField();
 		apellidoField.setColumns(10);
-		apellidoField.setBounds(117, 44, 176, 20);
+		apellidoField.setBounds(145, 41, 176, 20);
 		getContentPane().add(apellidoField);
 		
 		correoField = new JTextField();
-		correoField.setBounds(117, 103, 176, 20);
+		correoField.setBounds(145, 100, 176, 20);
 		getContentPane().add(correoField);
 		correoField.setColumns(10);
 		
 		JSpinner dia = new JSpinner();
-		dia.setBounds(174, 137, 33, 20);
+		dia.setBounds(202, 134, 33, 20);
 		getContentPane().add(dia);
 		
 		JSpinner mes = new JSpinner();
-		mes.setBounds(217, 137, 33, 20);
+		mes.setBounds(245, 134, 33, 20);
 		getContentPane().add(mes);
 		
 		JSpinner año = new JSpinner();
-		año.setBounds(260, 137, 33, 20);
+		año.setBounds(288, 134, 33, 20);
 		getContentPane().add(año);
 		
 		nacionalidadField = new JTextField();
-		nacionalidadField.setBounds(117, 165, 176, 20);
+		nacionalidadField.setBounds(145, 162, 176, 20);
 		getContentPane().add(nacionalidadField);
 		nacionalidadField.setColumns(10);
 		
 		Button button = new Button("Aceptar");
-		button.setBounds(66, 238, 70, 22);
+		button.setBounds(27, 214, 70, 22);
 		getContentPane().add(button);
 		
 		Button button_1 = new Button("Cancelar");
-		button_1.setBounds(176, 238, 70, 22);
+		button_1.setBounds(251, 214, 70, 22);
 		getContentPane().add(button_1);
 
 	}
