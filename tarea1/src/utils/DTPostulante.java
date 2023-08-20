@@ -1,5 +1,5 @@
 package utils;
 
-public class DTPostulante {
+public class DTPostulante extends DTUsuario {
 
 }
