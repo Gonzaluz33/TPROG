@@ -49,7 +49,7 @@ public class Empresa extends Usuario {
 	}
 	
 	/**
-	 * Retorna los datos del usuario como un datatype DTPostulante.
+	 * Retorna los datos del usuario como un datatype DTEmpresa.
 	 */
 	DTUsuario toDataType() {
 		return new DTEmpresa(getNickname(), getNombre(), getApellido(), getCorreo(), getNombreEmpresa(), getDescripcion(), getLinkWeb());
