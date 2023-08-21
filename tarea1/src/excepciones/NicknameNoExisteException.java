@@ -1,7 +1,12 @@
 package excepciones;
 
-@SuppressWarnings("serial")
+
 public class NicknameNoExisteException extends Exception {
+
+	/**
+	 * Sin esto me tira warning.
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public NicknameNoExisteException() {
 		super();
