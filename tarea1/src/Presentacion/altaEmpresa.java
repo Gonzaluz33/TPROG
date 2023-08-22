@@ -12,6 +12,10 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
 import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
+
 import javax.swing.JToolBar;
 import javax.swing.JTextArea;
 
@@ -41,11 +45,11 @@ public class altaEmpresa extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws PropertyVetoException 
 	 */
-	public altaEmpresa() {
-		setResizable(true);
-		setMaximizable(true);
-		setIconifiable(true);
+	public altaEmpresa() throws PropertyVetoException {
+		setResizable(false);
+		setMaximum(true);
 		setClosable(true);
 		setTitle("Alta de Empresa");
 		setBounds(100, 100, 631, 392);
@@ -87,13 +91,20 @@ public class altaEmpresa extends JInternalFrame {
 		getContentPane().add(correoField);
 		correoField.setColumns(10);
 		
-		Button button = new Button("Aceptar");
-		button.setBounds(47, 313, 70, 22);
-		getContentPane().add(button);
+		Button buttonAceptar = new Button("Aceptar");
+		buttonAceptar.setBounds(47, 313, 70, 22);
+		getContentPane().add(buttonAceptar);
 		
-		Button button_1 = new Button("Cancelar");
-		button_1.setBounds(282, 313, 70, 22);
-		getContentPane().add(button_1);
+		Button buttonCancelar = new Button("Cancelar");
+		buttonCancelar.setBounds(282, 313, 70, 22);
+		getContentPane().add(buttonCancelar);
+		
+		
+		buttonCancelar.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 dispose();
+	            }
+		});
 		
 		JLabel labelDescripcion = new JLabel("Descripcion General:");
 		labelDescripcion.setBounds(43, 147, 126, 14);

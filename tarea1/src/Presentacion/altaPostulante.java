@@ -6,6 +6,10 @@ import javax.swing.JInternalFrame;
 import java.awt.FlowLayout;
 import javax.swing.JPanel;
 import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
+
 import javax.swing.JToolBar;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -44,8 +48,11 @@ public class altaPostulante extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws PropertyVetoException 
 	 */
-	public altaPostulante() {
+	public altaPostulante() throws PropertyVetoException {
+		setResizable(false);
+		setMaximum(true);
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
@@ -114,13 +121,19 @@ public class altaPostulante extends JInternalFrame {
 		getContentPane().add(nacionalidadField);
 		nacionalidadField.setColumns(10);
 		
-		Button button = new Button("Aceptar");
-		button.setBounds(27, 214, 70, 22);
-		getContentPane().add(button);
+		Button buttonAceptar = new Button("Aceptar");
+		buttonAceptar.setBounds(27, 214, 70, 22);
+		getContentPane().add(buttonAceptar);
 		
-		Button button_1 = new Button("Cancelar");
-		button_1.setBounds(251, 214, 70, 22);
-		getContentPane().add(button_1);
+		Button buttonCancelar = new Button("Cancelar");
+		buttonCancelar.setBounds(251, 214, 70, 22);
+		getContentPane().add(buttonCancelar);
+		
+		buttonCancelar.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 dispose();
+	            }
+		});
 
 	}
 }

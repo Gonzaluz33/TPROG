@@ -8,6 +8,9 @@ import java.awt.Label;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 import java.awt.TextArea;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
@@ -38,8 +41,11 @@ public class altaOfertaLaboral extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws PropertyVetoException 
 	 */
-	public altaOfertaLaboral() {
+	public altaOfertaLaboral() throws PropertyVetoException {
+		setResizable(false);
+		setMaximum(true);
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
@@ -112,15 +118,21 @@ public class altaOfertaLaboral extends JInternalFrame {
 		departamentoField.setBounds(241, 390, 178, 22);
 		getContentPane().add(departamentoField);
 		
-		Button button = new Button("Aceptar ");
-		button.setBackground(new Color(255, 255, 255));
-		button.setBounds(25, 481, 70, 22);
-		getContentPane().add(button);
+		Button buttonAceptar = new Button("Aceptar ");
+		buttonAceptar.setBackground(new Color(255, 255, 255));
+		buttonAceptar.setBounds(25, 481, 70, 22);
+		getContentPane().add(buttonAceptar);
 		
-		Button button_1 = new Button("Cancelar");
-		button_1.setBackground(Color.WHITE);
-		button_1.setBounds(349, 481, 70, 22);
-		getContentPane().add(button_1);
+		Button buttonCancelar = new Button("Cancelar");
+		buttonCancelar.setBackground(Color.WHITE);
+		buttonCancelar.setBounds(349, 481, 70, 22);
+		getContentPane().add(buttonCancelar);
+		
+		buttonCancelar.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 dispose();
+	            }
+		});
 
 	}
 }

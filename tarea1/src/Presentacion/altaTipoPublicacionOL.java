@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 import java.awt.event.ActionEvent;
 
 public class altaTipoPublicacionOL extends JInternalFrame {
@@ -37,8 +38,11 @@ public class altaTipoPublicacionOL extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws PropertyVetoException 
 	 */
-	public altaTipoPublicacionOL() {
+	public altaTipoPublicacionOL() throws PropertyVetoException {
+		setResizable(false);
+		setMaximum(true);
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
@@ -87,17 +91,18 @@ public class altaTipoPublicacionOL extends JInternalFrame {
 		spinner_1.setBounds(23, 283, 149, 20);
 		getContentPane().add(spinner_1);
 		
-		JButton btnNewButton = new JButton("Aceptar");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton.setBounds(106, 368, 89, 23);
-		getContentPane().add(btnNewButton);
+		JButton buttonAceptar = new JButton("Aceptar");
+		buttonAceptar.setBounds(106, 368, 89, 23);
+		getContentPane().add(buttonAceptar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(332, 368, 89, 23);
 		getContentPane().add(btnCancelar);
 
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 	}
 }

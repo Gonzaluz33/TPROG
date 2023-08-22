@@ -19,9 +19,14 @@ import javax.swing.table.JTableHeader;
 import utilsPresentacion.CentrarColumnas;
 
 import java.awt.ScrollPane;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
+
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollBar;
+import javax.swing.JButton;
 
 public class consultaUsuario extends JInternalFrame {
 	private JTable tablaUsuario;
@@ -46,8 +51,11 @@ public class consultaUsuario extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws PropertyVetoException 
 	 */
-	public consultaUsuario() {
+	public consultaUsuario() throws PropertyVetoException {
+		setResizable(false);
+		setMaximum(true);
 		setResizable(true);
 		setMaximizable(true);
 		setIconifiable(true);
@@ -140,6 +148,16 @@ public class consultaUsuario extends JInternalFrame {
 		tablaEmpresa.getColumnModel().getColumn(2).setPreferredWidth(191);
 		panelEmpresa.add(headerEmpresa);
 		panelEmpresa.add(tablaEmpresa);
+		
+		JButton buttonCancelar = new JButton("Cancelar");
+		buttonCancelar.setBounds(574, 36, 89, 23);
+		getContentPane().add(buttonCancelar);
+		
+		buttonCancelar.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 dispose();
+	            }
+		});
 
 	}
 }
