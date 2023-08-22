@@ -1,10 +1,14 @@
 package logica;
 
+import java.util.*;
+
 import utils.DTUsuario;
 import utils.DTEmpresa;
+import utils.DTOferta;
 
 /**
  * Representa a la empresa en el sistema.
+ * Tiene nombreEmpresa, descripcion, linkWeb y un set ofertasLaborales de tipo DTOferta que contiene todas las ofertas asociadas a la empresa ordenadas por su nombre.
  * Clase hija de Usuario.
  *
  */
@@ -13,6 +17,7 @@ public class Empresa extends Usuario {
 	private String nombreEmpresa;
 	private String descripcion;
 	private String linkWeb;
+	private Set<DTOferta> ofertasLaborales;
 	
 	// constructores
 	public Empresa(String nickname, String nombre, String apellido, String correo, String nombreEmpresa, String descripcion, String linkWeb) {
@@ -20,6 +25,7 @@ public class Empresa extends Usuario {
 		this.setNombreEmpresa(nombreEmpresa);
 		this.setDescripcion(descripcion);
 		this.setLinkWeb(linkWeb);
+		this.ofertasLaborales = new TreeSet<>(Comparator.comparing(DTOferta::getNombre));
 	}
 	
 	// getters
@@ -33,6 +39,14 @@ public class Empresa extends Usuario {
 
 	public String getLinkWeb() {
 		return linkWeb;
+	}
+	
+	/**
+	 * Devuelve un set de DTOferta con todas las ofertas laborales asociadas a la empresa ordenadas segun su nombre.
+	 * El set devuelto no comparte memoria con el original.
+	 */
+	public Set<DTOferta> getOfertas() {
+		return new TreeSet<DTOferta>(this.ofertasLaborales);
 	}
 	
 	// setters
@@ -49,7 +63,14 @@ public class Empresa extends Usuario {
 	}
 	
 	/**
-	 * Retorna los datos del usuario como un datatype DTPostulante.
+	 * Agrega el nombre de la oferta laboral al set ordenado de ofertas laborales asociadas a la empresa.
+	 */
+	public void asociarOferta(DTOferta oferta) {
+		this.ofertasLaborales.add(oferta);
+	}
+	
+	/**
+	 * Retorna los datos de la empresa como un datatype DTUsuario excepto el set de ofertas laborales asociadas a la misma.
 	 */
 	DTUsuario toDataType() {
 		return new DTEmpresa(getNickname(), getNombre(), getApellido(), getCorreo(), getNombreEmpresa(), getDescripcion(), getLinkWeb());
