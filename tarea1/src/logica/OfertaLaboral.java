@@ -1,5 +1,12 @@
 package logica;
 
-public class OfertaLaboral {
+import utils.DTOferta;
 
+public class OfertaLaboral {
+	
+	public DTOferta toDataType() {
+		// TODO
+		return new DTOferta();
+	}
+	
 }
