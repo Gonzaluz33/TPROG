@@ -1,6 +1,9 @@
 package logica;
 
 import java.util.Date;
+import utils.DTTipoPublicacion;
+
+
 
 public class TipoPublicacion {
 	private String nombre;
@@ -64,5 +67,13 @@ public class TipoPublicacion {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	
+    /**
+     * Retorna los datos del usuario como un DataType DTTipoPublicacion.
+     */
+    DTTipoPublicacion toDataType() {
+    	return new DTTipoPublicacion(getNombre(), getDescripcion(), getDuracion(),getCosto(), getAlta());
+    }
+
 	
 }
