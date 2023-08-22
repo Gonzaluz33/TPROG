@@ -1,5 +1,7 @@
 package logica;
 
+import utils.DTOferta;
+
 import java.util.Date;
 
 public class OfertaLaboral {
@@ -69,4 +71,12 @@ public class OfertaLaboral {
 	public void setFechaAlta(Date fa) {
 		this.fechaAlta = fa;
 	}
+	/**
+	 * Devuelve los datos de la oferta como un datatype DTOferta.
+	 */
+	public DTOferta toDataType() {
+		// TODO
+		return new DTOferta();
+	}
+	
 }
