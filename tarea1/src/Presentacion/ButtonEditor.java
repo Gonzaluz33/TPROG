@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -14,7 +15,7 @@ public class ButtonEditor extends DefaultCellEditor {
     private String label;
     private boolean isPushed;
 
-    public ButtonEditor(JCheckBox checkBox, informacionOfertaLaboral informacionOfertaLaboralInternalFrame) {
+    public ButtonEditor(JCheckBox checkBox, JInternalFrame internalFrame) {
         super(checkBox);
         button = new JButton();
         button.setOpaque(true);
@@ -23,7 +24,8 @@ public class ButtonEditor extends DefaultCellEditor {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	informacionOfertaLaboralInternalFrame.setVisible(true);
+            	System.out.print("click");
+            	internalFrame.setVisible(true);
             }
         });
     }
