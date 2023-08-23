@@ -59,7 +59,7 @@ public class Postulante extends Usuario{
 	 */
 	@Override
 	public DTPostulante toDataType() {
-		return new DTPostulante(getNickname(), getNombre(), getApellido(), getCorreo(), getFechaNacimiento(), getNacionalidad());
+		return new DTPostulante(getNickname(), getNombre(), getApellido(), getCorreo(), getFechaNacimiento(), getNacionalidad(), getPostulaciones());
 	}
 	
 }
