@@ -2,7 +2,6 @@ package logica;
 
 import utils.DTOferta;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class OfertaLaboral {
