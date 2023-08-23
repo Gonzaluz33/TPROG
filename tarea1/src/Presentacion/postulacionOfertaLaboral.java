@@ -6,6 +6,8 @@ import javax.swing.JInternalFrame;
 import java.awt.FlowLayout;
 import javax.swing.JPanel;
 import java.awt.Panel;
+import java.beans.PropertyVetoException;
+
 import javax.swing.JToolBar;
 
 public class postulacionOfertaLaboral extends JInternalFrame {
@@ -28,8 +30,11 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws PropertyVetoException 
 	 */
-	public postulacionOfertaLaboral() {
+	public postulacionOfertaLaboral() throws PropertyVetoException {
+		setResizable(false);
+		setMaximum(true);
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
