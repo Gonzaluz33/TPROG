@@ -20,14 +20,14 @@ public class ManejadorUsuarios {
 	/**
 	 * Crea la empresa y la agrega a coleccionUsuarios.
 	 */
-	void altaEmpresa(String nickname, String nombre, String apellido, String email, String nombreEmpresa, String descripcion, String linkWeb) {
+	public void altaEmpresa(String nickname, String nombre, String apellido, String email, String nombreEmpresa, String descripcion, String linkWeb) {
 		coleccionUsuarios.put(nickname.toLowerCase(), new Empresa(nickname, nombre, apellido, email, nombreEmpresa, descripcion, linkWeb));
 	}
 	
 	/**
 	 * Crea el postulante y lo agrega a coleccionUsuarios.
 	 */
-	void altaPostulante(String nickname, String nombre, String apellido, String email, String fechaNacimiento, String nacionalidad) {
+	public void altaPostulante(String nickname, String nombre, String apellido, String email, String fechaNacimiento, String nacionalidad) {
 		coleccionUsuarios.put(nickname.toLowerCase(), new Postulante(nickname, nombre, apellido, email, fechaNacimiento, nacionalidad));
 	}
 
@@ -36,7 +36,7 @@ public class ManejadorUsuarios {
 	 * Si el nickname no existe en el sistema tira un NicknameNoExisteException.
 	 * Si el nickname es NULL tira una unchecked exception.
 	 */
-	DTUsuario obtenerUsuario(String nickname) throws NicknameNoExisteException {
+	public DTUsuario obtenerUsuario(String nickname) throws NicknameNoExisteException {
 		String nicknameLowerCase = nickname.toLowerCase();
 		if ( coleccionUsuarios.containsKey(nicknameLowerCase) ) {
 			return coleccionUsuarios.get(nicknameLowerCase).toDataType();
@@ -49,7 +49,7 @@ public class ManejadorUsuarios {
 	 * Devuelve una lista de DTUsuario con la informacion de todos los usuarios registrados en el sistema ordenados segun su cedula.
 	 * Si no hay usuarios registrados devuelve una lista vacia.
 	 */
-	List<DTUsuario> obtenerListaUsuarios() {
+	public List<DTUsuario> obtenerListaUsuarios() {
 		List<DTUsuario> out = new ArrayList<DTUsuario>();
 		for (Map.Entry<String, Usuario> entry : coleccionUsuarios.entrySet()) {
 			out.add(entry.getValue().toDataType());
