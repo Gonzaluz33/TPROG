@@ -3,6 +3,7 @@ package Presentacion;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
@@ -25,6 +26,7 @@ public class Principal {
 	private altaTipoPublicacionOL altaTipoPublicacionOLInternalFrame;
 	private postulacionOfertaLaboral postulacionOfertaLaboralInternalFrame;
 	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -43,42 +45,44 @@ public class Principal {
 
 	/**
 	 * Create the application.
+	 * @throws PropertyVetoException 
 	 */
-	public Principal() {
+	public Principal() throws PropertyVetoException {
 		initialize();
 		altaPostulanteInternalFrame = new altaPostulante();
-		altaPostulanteInternalFrame.setResizable(true);
+		altaPostulanteInternalFrame.setResizable(false);
 		altaPostulanteInternalFrame.setBorder(null);
 		altaPostulanteInternalFrame.setVisible(false);
 		
 		altaEmpresaInternalFrame = new altaEmpresa();
-		altaEmpresaInternalFrame.setResizable(true);
+		altaEmpresaInternalFrame.setResizable(false);
 		altaEmpresaInternalFrame.setBorder(null);
 		altaEmpresaInternalFrame.setVisible(false);
 		
 		
 		consultaUsuarioInternalFrame = new consultaUsuario();
-		consultaUsuarioInternalFrame.setResizable(true);
+		consultaUsuarioInternalFrame.setResizable(false);
 		consultaUsuarioInternalFrame.setBorder(null);
 		consultaUsuarioInternalFrame.setVisible(false);
 		
 		altaOfertaLaboralInternalFrame = new altaOfertaLaboral();
-		altaOfertaLaboralInternalFrame.setResizable(true);
+		altaOfertaLaboralInternalFrame.setResizable(false);
 		altaOfertaLaboralInternalFrame.setBorder(null);
 		altaOfertaLaboralInternalFrame.setVisible(false);
 		
 		consultaOfertaLaboralInternalFrame = new consultaOfertaLaboral();
-		consultaOfertaLaboralInternalFrame.setResizable(true);
+		consultaOfertaLaboralInternalFrame.setResizable(false);
 		consultaOfertaLaboralInternalFrame.setBorder(null);
 		consultaOfertaLaboralInternalFrame.setVisible(false);
 		
+		
 		altaTipoPublicacionOLInternalFrame = new altaTipoPublicacionOL();
-		altaTipoPublicacionOLInternalFrame.setResizable(true);
+		altaTipoPublicacionOLInternalFrame.setResizable(false);
 		altaTipoPublicacionOLInternalFrame.setBorder(null);
 		altaTipoPublicacionOLInternalFrame.setVisible(false);
 		
 		postulacionOfertaLaboralInternalFrame = new postulacionOfertaLaboral();
-		postulacionOfertaLaboralInternalFrame.setResizable(true);
+		postulacionOfertaLaboralInternalFrame.setResizable(false);
 		postulacionOfertaLaboralInternalFrame.setBorder(null);
 		postulacionOfertaLaboralInternalFrame.setVisible(false);
 		
@@ -98,7 +102,7 @@ public class Principal {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 1081, 687);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
