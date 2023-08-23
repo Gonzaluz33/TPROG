@@ -1,17 +1,17 @@
 package utils;
 
-import java.time.*;
+import java.util.Date;
 
 public class DTOferta {
 	
-	String nombre;
-	String descripcion;
-	String ciudad;
-	String departamento;
-	String horario;
-	int renumeracion;
-	LocalDateTime fechaAlta;
-	int costoAsociado;
+	private String nombre;
+	private String descripcion;
+	private String ciudad;
+	private String departamento;
+	private String horario;
+	private String remuneracion;
+	private Date fechaAlta;
+	//private int costoAsociado;
 	
 	// constructores
     public DTOferta() {
@@ -20,20 +20,20 @@ public class DTOferta {
         this.setCiudad(new String());
         this.setDepartamento(new String());
         this.setHorario(new String());
-        this.setRenumeracion(-1);
-        this.setFechaAlta(null);
-        this.setCostoAsociado(-1);
+        this.setRemuneracion(new String());
+        this.setFechaAlta(new Date());
+        //this.setCostoAsociado(-1);
     }
 
-    public DTOferta(String nombre, String descripcion, String ciudad, String departamento, String horario, int renumeracion, LocalDateTime fechaAlta, int costoAsociado) {
+    public DTOferta(String nombre, String descripcion, String ciudad, String departamento, String horario, String remuneracion, Date fechaAlta/*, int costoAsociado*/) {
         this.setNombre(nombre);
         this.setDescripcion(descripcion);
         this.setCiudad(ciudad);
         this.setDepartamento(departamento);
         this.setHorario(horario);
-        this.setRenumeracion(renumeracion);
+        this.setRemuneracion(remuneracion);
         this.setFechaAlta(fechaAlta);
-        this.setCostoAsociado(costoAsociado);
+        //this.setCostoAsociado(costoAsociado);
     }
 
     // getters
@@ -56,17 +56,19 @@ public class DTOferta {
         return horario;
     }
 
-    public int getRenumeracion() {
-        return renumeracion;
+    public String getRemuneracion() {
+        return remuneracion;
     }
 
-    public LocalDateTime getFechaAlta() {
+    public Date getFechaAlta() {
         return fechaAlta;
     }
 
+    /*
     public int getCostoAsociado() {
         return costoAsociado;
     }
+    */
 
     // setters
     private void setNombre(String nombre) {
@@ -89,16 +91,18 @@ public class DTOferta {
         this.horario = horario;
     }
 
-    private void setRenumeracion(int renumeracion) {
-        this.renumeracion = renumeracion;
+    private void setRemuneracion(String remuneracion) {
+        this.remuneracion = remuneracion;
     }
 
-    private void setFechaAlta(LocalDateTime fechaAlta) {
+    private void setFechaAlta(Date fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
 
+    /*
     private void setCostoAsociado(int costoAsociado) {
         this.costoAsociado = costoAsociado;
     }
+    */
 
 }
