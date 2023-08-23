@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.Date;
+
 /**
  * DataType para transportar la información de un postulante entre capa lógica y de presentación.
  * Clase hija de DTUsuario.
@@ -7,24 +9,24 @@ package utils;
  */
 public class DTPostulante extends DTUsuario {
 
-	private String fechaNacimiento;
+	private Date fechaNacimiento;
 	private String nacionalidad;
 	
 	// constructores
 	public DTPostulante() {
 		super();
-		this.setFechaNacimiento(new String());
+		this.setFechaNacimiento(new Date());
 		this.setNacionalidad(new String());
 	}
 	
-	public DTPostulante(String nickname, String nombre, String apellido, String correo, String fechaNacimiento, String nacionalidad) {
+	public DTPostulante(String nickname, String nombre, String apellido, String correo, Date fechaNacimiento, String nacionalidad) {
 		super(nickname, nombre, apellido, correo);
 		this.setFechaNacimiento(fechaNacimiento);
         this.setNacionalidad(nacionalidad);
 	}
 	
 	// getters
-	public String getFechaNacimiento() {
+	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
@@ -33,7 +35,7 @@ public class DTPostulante extends DTUsuario {
 	}
 	
 	// setters
-	private void setFechaNacimiento(String fechaNacimiento) {
+	private void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

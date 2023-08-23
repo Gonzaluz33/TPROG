@@ -1,5 +1,7 @@
 package logica;
 
+import java.util.Date;
+
 import utils.DTPostulante; 
 
 /**
@@ -9,18 +11,18 @@ import utils.DTPostulante;
  */
 public class Postulante extends Usuario{
 
-	private String fechaNacimiento;
+	private Date fechaNacimiento;
 	private String nacionalidad;
 	
 	// constructores
-	public Postulante(String nickname, String nombre, String apellido, String correo, String fechaNacimiento, String nacionalidad) {
+	public Postulante(String nickname, String nombre, String apellido, String correo, Date fechaNacimiento, String nacionalidad) {
 		super(nickname, nombre, apellido, correo);
 		this.setFechaNacimiento(fechaNacimiento);
 		this.setNacionalidad(nacionalidad);
 	}
 	
 	// getters
-	public String getFechaNacimiento() {
+	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 	
@@ -29,7 +31,7 @@ public class Postulante extends Usuario{
 	}
 	
 	// setters
-	private void setFechaNacimiento(String fechaNacimiento) {
+	private void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	

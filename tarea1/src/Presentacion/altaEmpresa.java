@@ -12,7 +12,13 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
 import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JToolBar;
+
+import logica.ControladorUsuarios;
+
 import javax.swing.JTextArea;
 
 public class altaEmpresa extends JInternalFrame {
@@ -91,6 +97,12 @@ public class altaEmpresa extends JInternalFrame {
 		button.setBounds(27, 330, 70, 22);
 		getContentPane().add(button);
 		
+		button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                registrarEmpresa(arg0);
+            }
+        });
+		
 		Button button_1 = new Button("Cancelar");
 		button_1.setBounds(222, 330, 70, 22);
 		getContentPane().add(button_1);
@@ -113,5 +125,23 @@ public class altaEmpresa extends JInternalFrame {
 		linkWebField.setColumns(10);
 
 
+	}
+	
+	public void registrarEmpresa(ActionEvent arg0) {
+		
+		if (esValido()) {
+			String nick = this.nicknameField.getText();
+			String nombre = this.nombreField.getText();
+			String apellido = this.apellidoField.getText();
+			String email = this.correoField.getText();
+			String desc = "desc";
+			String link = "link";
+			ControladorUsuarios contUsuarios = ControladorUsuarios.getInstance();
+			contUsuarios.altaEmpresa(nick, nombre, apellido, email, desc, link);
+		}
+	}
+	
+	public Boolean esValido() {
+		return true;
 	}
 }
