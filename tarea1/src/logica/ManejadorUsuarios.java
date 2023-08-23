@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.*;
+
 import excepciones.*;
 import utils.DTUsuario;
 
@@ -30,13 +31,11 @@ public class ManejadorUsuarios {
 		coleccionUsuarios.put(nickname.toLowerCase(), new Postulante(nickname, nombre, apellido, email, fechaNacimiento, nacionalidad));
 	}
 
-	// TODO: el DT que devuelve tiene que contener las ofertasAsociadas en caso de ser una empresa o las postulacionesAsociadas en caso de ser un postulante.
 	/**
-	 * Devuelve un DTUsuario con los datos del usuario con el nickname dado.
+	 * Devuelve un DTUsuario con los datos del usuario con el nickname dado. Si es una empresa tambien devuelve sus ofertas y si es un postulante tambien devuelve sus postulaciones.
 	 * Si el nickname no existe en el sistema tira un NicknameNoExisteException.
 	 * Si el nickname es NULL tira una unchecked exception.
 	 */
-	/*
 	DTUsuario obtenerUsuario(String nickname) throws NicknameNoExisteException {
 		String nicknameLowerCase = nickname.toLowerCase();
 		if ( coleccionUsuarios.containsKey(nicknameLowerCase) ) {
@@ -44,9 +43,7 @@ public class ManejadorUsuarios {
 		} else {
 			throw new NicknameNoExisteException("El usuario con el nickname " + nickname + " no existe.");
 		}
-		
 	}
-	*/
 	
 	/**
 	 * Devuelve una lista de DTUsuario con la informacion de todos los usuarios registrados en el sistema ordenados segun su cedula.
