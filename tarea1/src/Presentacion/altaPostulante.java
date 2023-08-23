@@ -9,8 +9,13 @@ import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JToolBar;
+
+import logica.ControladorUsuarios;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JScrollBar;
@@ -28,7 +33,7 @@ public class altaPostulante extends JInternalFrame {
 	private JTextField nacionalidadField;
 	private JSpinner dia;
 	private JSpinner mes;
-	private JSpinner año;
+	private JSpinner ano;
 
 	/**
 	 * Launch the application.
@@ -125,6 +130,12 @@ public class altaPostulante extends JInternalFrame {
 		buttonAceptar.setBounds(27, 214, 70, 22);
 		getContentPane().add(buttonAceptar);
 		
+		buttonAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                registrarPostulante(e);
+			}
+		});
+		
 		Button buttonCancelar = new Button("Cancelar");
 		buttonCancelar.setBounds(251, 214, 70, 22);
 		getContentPane().add(buttonCancelar);
@@ -134,6 +145,24 @@ public class altaPostulante extends JInternalFrame {
 				 dispose();
 	            }
 		});
+
+	}
+	
+	public void registrarPostulante(ActionEvent e) {
+		String nick = this.nicknameField.getText();
+		String nombre = this.nombreField.getText();
+		String apellido = this.apellidoField.getText();
+		String email = this.correoField.getText();
+		int year = (Integer) this.ano.getValue();
+		String stringifiedMonth = this.mes.getValue() + "";
+		Integer month = Integer.parseInt(stringifiedMonth);
+		String stringifiedDay = this.dia.getValue() + "";
+		Integer day = Integer.parseInt(stringifiedDay);
+		Date date = new GregorianCalendar(year, month-1, day).getTime();
+		String nacion = this.nacionalidadField.getText();
+		
+		ControladorUsuarios contUsuarios = ControladorUsuarios.getInstance();
+		contUsuarios.altaPostulante(nick, nombre, apellido, email, date, nacion);
 
 	}
 }

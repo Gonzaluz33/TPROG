@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.FlowLayout;
 import javax.swing.JPanel;
@@ -14,10 +15,8 @@ import javax.swing.JTextField;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-<<<<<<< HEAD
-=======
+
 import java.beans.PropertyVetoException;
->>>>>>> swing
 
 import javax.swing.JToolBar;
 
@@ -31,7 +30,7 @@ public class altaEmpresa extends JInternalFrame {
 	private JTextField nombreField;
 	private JTextField correoField;
 	private JTextField linkWebField;
-
+	private JTextArea descripcionField;
 
 	/**
 	 * Launch the application.
@@ -101,17 +100,12 @@ public class altaEmpresa extends JInternalFrame {
 		buttonAceptar.setBounds(47, 313, 70, 22);
 		getContentPane().add(buttonAceptar);
 		
-<<<<<<< HEAD
-		button.addActionListener(new ActionListener() {
+		buttonAceptar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 registrarEmpresa(arg0);
             }
         });
-		
-		Button button_1 = new Button("Cancelar");
-		button_1.setBounds(222, 330, 70, 22);
-		getContentPane().add(button_1);
-=======
+
 		Button buttonCancelar = new Button("Cancelar");
 		buttonCancelar.setBounds(282, 313, 70, 22);
 		getContentPane().add(buttonCancelar);
@@ -122,7 +116,6 @@ public class altaEmpresa extends JInternalFrame {
 				 dispose();
 	            }
 		});
->>>>>>> swing
 		
 		JLabel labelDescripcion = new JLabel("Descripcion General:");
 		labelDescripcion.setBounds(43, 147, 126, 14);
@@ -151,14 +144,24 @@ public class altaEmpresa extends JInternalFrame {
 			String nombre = this.nombreField.getText();
 			String apellido = this.apellidoField.getText();
 			String email = this.correoField.getText();
-			String desc = "desc";
-			String link = "link";
+			String desc = this.descripcionField.getText();
+			String link = this.linkWebField.getText();
 			ControladorUsuarios contUsuarios = ControladorUsuarios.getInstance();
 			contUsuarios.altaEmpresa(nick, nombre, apellido, email, desc, link);
 		}
 	}
 	
 	public Boolean esValido() {
-		return true;
+		String nick = this.nicknameField.getText();
+		String nombre = this.nombreField.getText();
+		String apellido = this.apellidoField.getText();
+		String email = this.correoField.getText();
+//		String desc = this.descripcionField.getText();
+		String link = this.linkWebField.getText();
+		if (nick.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else return true;
 	}
 }
