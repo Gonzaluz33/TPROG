@@ -1,5 +1,5 @@
 package logica;
 
-public class IControladorUsuario {
+public interface IControladorUsuario {
 
 }

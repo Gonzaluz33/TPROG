@@ -1,17 +1,13 @@
-package logica;
+package utils;
 
-import utils.DTPaquete;
-
-
-
-public class Paquete {
+public class DTPaquete {
 	private String nombre;
 	private String descripcion;
 	private Integer validez;
 	private Integer descuento;
 	private Integer costoAsociado;
 	
-	public Paquete(String nombre, String descripcion, Integer validez, Integer descuento, Integer costoAsociado ) {
+	public DTPaquete(String nombre, String descripcion, Integer validez, Integer descuento, Integer costoAsociado ) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.validez = validez;
@@ -59,13 +55,6 @@ public class Paquete {
 
     public void setCostoAsociado(Integer costoAsociado) {
         this.costoAsociado = costoAsociado;
-    }
-
-    /**
-     * Retorna los datos del usuario como un DataType DTPaquete.
-     */
-    DTPaquete toDataType() {
-    	return new DTPaquete(getNombre(), getDescripcion(), getValidez(),getDescuento(), getCostoAsociado());
     }
 
 }
