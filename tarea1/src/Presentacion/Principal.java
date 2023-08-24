@@ -69,7 +69,7 @@ public class Principal {
 		altaPostulanteInternalFrame.setBorder(null);
 		altaPostulanteInternalFrame.setVisible(false);
 		
-		altaEmpresaInternalFrame = new altaEmpresa();
+		altaEmpresaInternalFrame = new altaEmpresa(ICU);
 		altaEmpresaInternalFrame.setResizable(false);
 		altaEmpresaInternalFrame.setBorder(null);
 		altaEmpresaInternalFrame.setVisible(false);

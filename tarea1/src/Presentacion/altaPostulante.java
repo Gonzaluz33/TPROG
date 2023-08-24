@@ -27,10 +27,8 @@ import javax.swing.JSpinner;
 import java.awt.Button;
 
 public class altaPostulante extends JInternalFrame {
-	
 	// Controlador de usuarios que se utilizará para las acciones del JFrame
     private IControladorUsuario controlUsr;
-	
     //Componentes Graficos
 	private JTextField nicknameField;
 	private JTextField nombreField;
@@ -190,10 +188,6 @@ public class altaPostulante extends JInternalFrame {
 			return false;
 		}
 	}
-
-
-	
-	
 	
 	private boolean checkFormulario() {
 		String nick = this.nicknameField.getText();
@@ -210,7 +204,7 @@ public class altaPostulante extends JInternalFrame {
        return esValidoFecha();
     }
 	
-	 private void limpiarFormulario() {
+	private void limpiarFormulario() {
 		nicknameField.setText("");
 		nombreField.setText("");
 		apellidoField.setText("");
