@@ -3,6 +3,10 @@ package logica;
 public class Keyword {
 	private String nombre;
 	
+	public Keyword() {
+		
+	}
+	
 	public Keyword(String nombre) {
 		this.nombre = nombre;
 	}
