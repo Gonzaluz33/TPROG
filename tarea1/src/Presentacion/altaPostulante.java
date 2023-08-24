@@ -14,7 +14,9 @@ import java.util.GregorianCalendar;
 
 import javax.swing.JToolBar;
 
+import excepciones.UsuarioRepetidoException;
 import logica.ControladorUsuarios;
+import logica.IControladorUsuario;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -26,7 +28,10 @@ import java.awt.Button;
 
 public class altaPostulante extends JInternalFrame {
 	
+	// Controlador de usuarios que se utilizará para las acciones del JFrame
+    private IControladorUsuario controlUsr;
 	
+    //Componentes Graficos
 	private JTextField nicknameField;
 	private JTextField nombreField;
 	private JTextField apellidoField;
@@ -37,28 +42,14 @@ public class altaPostulante extends JInternalFrame {
 	private JSpinner ano;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					altaPostulante frame = new altaPostulante();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 * @throws PropertyVetoException 
 	 */
-	public altaPostulante() throws PropertyVetoException {
+	public altaPostulante(IControladorUsuario icu) throws PropertyVetoException {
+		//Inicializacion internal frame con controlador de usuarios.
+		controlUsr = icu;
+		
 		setResizable(false);
-		setMaximum(true);
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
@@ -111,15 +102,15 @@ public class altaPostulante extends JInternalFrame {
 		correoField.setColumns(10);
 		
 		dia = new JSpinner();
-		dia.setBounds(202, 134, 33, 20);
+		dia.setBounds(176, 137, 33, 20);
 		getContentPane().add(dia);
 		
 		mes = new JSpinner();
-		mes.setBounds(245, 134, 33, 20);
+		mes.setBounds(219, 137, 33, 20);
 		getContentPane().add(mes);
 		
 		ano = new JSpinner();
-		ano.setBounds(288, 134, 33, 20);
+		ano.setBounds(262, 137, 59, 20);
 		getContentPane().add(ano);
 		
 		nacionalidadField = new JTextField();
@@ -148,23 +139,37 @@ public class altaPostulante extends JInternalFrame {
 		});
 
 	}
-	
+
+
 	public void registrarPostulante(ActionEvent e) {
-		if(esValidoFecha()) {
-			String nick = this.nicknameField.getText();
-			String nombre = this.nombreField.getText();
-			String apellido = this.apellidoField.getText();
-			String email = this.correoField.getText();
-			int year = (Integer) this.ano.getValue();
-			String stringifiedMonth = this.mes.getValue() + "";
-			Integer month = Integer.parseInt(stringifiedMonth);
-			String stringifiedDay = this.dia.getValue() + "";
-			Integer day = Integer.parseInt(stringifiedDay);
-			Date date = new GregorianCalendar(year, month-1, day).getTime();
-			String nacion = this.nacionalidadField.getText();
-			
-			ControladorUsuarios contUsuarios = ControladorUsuarios.getInstance();
-			contUsuarios.altaPostulante(nick, nombre, apellido, email, date, nacion);
+		String nick = this.nicknameField.getText();
+		String nombre = this.nombreField.getText();
+		String apellido = this.apellidoField.getText();
+		String email = this.correoField.getText();
+		int year = (Integer) this.ano.getValue();
+		String stringifiedMonth = this.mes.getValue() + "";
+		Integer month = Integer.parseInt(stringifiedMonth);
+		String stringifiedDay = this.dia.getValue() + "";
+		Integer day = Integer.parseInt(stringifiedDay);
+		Date date = new GregorianCalendar(year, month-1, day).getTime();
+		String nacion = this.nacionalidadField.getText();
+		
+		if(checkFormulario()) {
+			  try {
+	                controlUsr.altaPostulante(nick, nombre, apellido, email, date, nacion);
+	                // Muestro éxito de la operación
+	                JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
+	                        JOptionPane.INFORMATION_MESSAGE);
+
+	            } catch (UsuarioRepetidoException err) {
+	                // Muestro error de registro
+	                JOptionPane.showMessageDialog(this, err.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+	            }
+			  
+			// Limpio el internal frame antes de cerrar la ventana
+	            limpiarFormulario();
+	            setVisible(false);
+
 		}
 	}
 	
@@ -185,5 +190,37 @@ public class altaPostulante extends JInternalFrame {
 			return false;
 		}
 	}
+
+
+	
+	
+	
+	private boolean checkFormulario() {
+		String nick = this.nicknameField.getText();
+		String nombre = this.nombreField.getText();
+		String apellido = this.apellidoField.getText();
+		String email = this.correoField.getText();
+		String nacion = this.nacionalidadField.getText();
+
+        if (nick.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || nacion.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+       return esValidoFecha();
+    }
+	
+	 private void limpiarFormulario() {
+		nicknameField.setText("");
+		nombreField.setText("");
+		apellidoField.setText("");
+		correoField.setText("");
+		ano.setValue(Integer.valueOf(0));
+		mes.setValue(Integer.valueOf(0));
+		dia.setValue(Integer.valueOf(0));;
+		nacionalidadField.setText("");
+	   }
+	
+	
 }
 

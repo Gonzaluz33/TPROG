@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * DataType para transportar la información de un postulante entre capa lógica y de presentación.
@@ -14,7 +15,7 @@ public class DTPostulante extends DTUsuario {
 	private List<DTPostulacion> postulaciones;
 	
 	// constructores
-	public DTPostulante() {
+	public DTPostulante(String string, String string2, String string3, String string4, Date date, String string5, List<DTPostulacion> list) {
 		super();
 		this.setFechaNacimiento(new Date());
 		this.setNacionalidad(new String());

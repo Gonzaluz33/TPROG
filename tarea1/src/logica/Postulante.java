@@ -3,6 +3,7 @@ package logica;
 import utils.DTPostulante;
 import utils.DTPostulacion;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

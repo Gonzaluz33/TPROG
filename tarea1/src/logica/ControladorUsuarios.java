@@ -1,8 +1,8 @@
 package logica;
 
+import java.util.Date;
 import java.util.List;
 
-import excepciones.NicknameNoExisteException;
 import utils.DTUsuario;
 import excepciones.*;
 
@@ -18,12 +18,8 @@ public class ControladorUsuarios implements IControladorUsuario{
     }
 
 	public void altaPostulante(String nickname, String nombre, String apellido, String email, Date fechaNacimiento,
-			String nacionalidad) {
+			String nacionalidad) throws UsuarioRepetidoException {
         ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
-//        Usuario u = mu.obtenerUsuario(ci);
-//        if (u != null)
-//            throw new UsuarioRepetidoException("El usuario " + ci + " ya esta registrado");
-
         Postulante p = new Postulante(nickname, nombre, apellido, email, fechaNacimiento, nacionalidad);
         manejadorU.altaPostulante(p);
 	}

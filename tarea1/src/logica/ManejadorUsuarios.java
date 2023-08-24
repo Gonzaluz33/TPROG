@@ -28,9 +28,13 @@ public class ManejadorUsuarios {
 	/**
 	 * Crea el postulante y lo agrega a coleccionUsuarios.
 	 */
-	void altaPostulante(Postulante p) {
-		coleccionUsuarios.put(p.getNickname().toLowerCase(), p);
-		System.out.println(coleccionUsuarios.keySet());
+	void altaPostulante(Postulante p) throws UsuarioRepetidoException {
+		if (coleccionUsuarios.containsKey(p.getNickname())){
+			throw new UsuarioRepetidoException("Ya existe un usuario con el nickname ingresado.");
+		}
+		else {
+			coleccionUsuarios.put(p.getNickname().toLowerCase(), p);
+		}
 	}
 
 	/**
@@ -40,7 +44,7 @@ public class ManejadorUsuarios {
 	 */
 	public DTUsuario obtenerUsuario(String nickname) throws NicknameNoExisteException {
 		String nicknameLowerCase = nickname.toLowerCase();
-		if ( coleccionUsuarios.containsKey(nicknameLowerCase) ) {
+		if (coleccionUsuarios.containsKey(nicknameLowerCase) ) {
 			return coleccionUsuarios.get(nicknameLowerCase).toDataType();
 		} else {
 			throw new NicknameNoExisteException("El usuario con el nickname " + nickname + " no existe.");
