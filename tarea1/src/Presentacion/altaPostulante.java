@@ -9,10 +9,16 @@ import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JToolBar;
+
+import logica.ControladorUsuarios;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
@@ -28,7 +34,7 @@ public class altaPostulante extends JInternalFrame {
 	private JTextField nacionalidadField;
 	private JSpinner dia;
 	private JSpinner mes;
-	private JSpinner año;
+	private JSpinner ano;
 
 	/**
 	 * Launch the application.
@@ -104,17 +110,17 @@ public class altaPostulante extends JInternalFrame {
 		getContentPane().add(correoField);
 		correoField.setColumns(10);
 		
-		JSpinner dia = new JSpinner();
+		dia = new JSpinner();
 		dia.setBounds(202, 134, 33, 20);
 		getContentPane().add(dia);
 		
-		JSpinner mes = new JSpinner();
+		mes = new JSpinner();
 		mes.setBounds(245, 134, 33, 20);
 		getContentPane().add(mes);
 		
-		JSpinner año = new JSpinner();
-		año.setBounds(288, 134, 33, 20);
-		getContentPane().add(año);
+		ano = new JSpinner();
+		ano.setBounds(288, 134, 33, 20);
+		getContentPane().add(ano);
 		
 		nacionalidadField = new JTextField();
 		nacionalidadField.setBounds(145, 162, 176, 20);
@@ -124,6 +130,12 @@ public class altaPostulante extends JInternalFrame {
 		Button buttonAceptar = new Button("Aceptar");
 		buttonAceptar.setBounds(27, 214, 70, 22);
 		getContentPane().add(buttonAceptar);
+		
+		buttonAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                registrarPostulante(e);
+			}
+		});
 		
 		Button buttonCancelar = new Button("Cancelar");
 		buttonCancelar.setBounds(251, 214, 70, 22);
@@ -136,4 +148,42 @@ public class altaPostulante extends JInternalFrame {
 		});
 
 	}
+	
+	public void registrarPostulante(ActionEvent e) {
+		if(esValidoFecha()) {
+			String nick = this.nicknameField.getText();
+			String nombre = this.nombreField.getText();
+			String apellido = this.apellidoField.getText();
+			String email = this.correoField.getText();
+			int year = (Integer) this.ano.getValue();
+			String stringifiedMonth = this.mes.getValue() + "";
+			Integer month = Integer.parseInt(stringifiedMonth);
+			String stringifiedDay = this.dia.getValue() + "";
+			Integer day = Integer.parseInt(stringifiedDay);
+			Date date = new GregorianCalendar(year, month-1, day).getTime();
+			String nacion = this.nacionalidadField.getText();
+			
+			ControladorUsuarios contUsuarios = ControladorUsuarios.getInstance();
+			contUsuarios.altaPostulante(nick, nombre, apellido, email, date, nacion);
+		}
+	}
+	
+	public Boolean esValidoFecha() {
+		Integer year = (Integer) this.ano.getValue();
+		String stringifiedMonth = this.mes.getValue() + "";
+		Integer month = Integer.parseInt(stringifiedMonth) - 1;
+		String stringifiedDay = this.dia.getValue() + "";
+		Integer day = Integer.parseInt(stringifiedDay);
+		
+		GregorianCalendar calendar = new GregorianCalendar(year, month, day);
+		
+		if (day.equals(calendar.get(GregorianCalendar.DAY_OF_MONTH)) && (year > 1900 && year < 3000)) {
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(this, "Fecha Inválida", "Registrar Usuario",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+	}
 }
+
