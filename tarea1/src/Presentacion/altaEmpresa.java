@@ -141,8 +141,7 @@ public class altaEmpresa extends JInternalFrame {
 
 	}
 	
-	public void registrarEmpresa(ActionEvent arg0) {
-		
+	public void registrarEmpresa(ActionEvent arg0) {	
 		if (esValido()) {
 			String nick = this.nicknameField.getText();
 			String nombre = this.nombreField.getText();
@@ -157,15 +156,14 @@ public class altaEmpresa extends JInternalFrame {
 				//Muestro mensaje de éxito
                 JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
                         JOptionPane.INFORMATION_MESSAGE);
+    			// Limpio el internal frame antes de cerrar la ventana
+                limpiarFormulario();
+                setVisible(false);
 			}
 			catch(UsuarioRepetidoException err){
 				// Muestro error de registro
                 JOptionPane.showMessageDialog(this, err.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
 			}
-			// Limpio el internal frame antes de cerrar la ventana
-            limpiarFormulario();
-            setVisible(false);
-
 		}
 	}
 	

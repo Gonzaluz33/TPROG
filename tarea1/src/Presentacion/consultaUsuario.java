@@ -1,5 +1,6 @@
 package Presentacion;
 
+import utils.DTUsuario;
 import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
@@ -16,12 +17,18 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import logica.IControladorUsuario;
 import utilsPresentacion.CentrarColumnas;
 
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyVetoException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -29,31 +36,24 @@ import javax.swing.JScrollBar;
 import javax.swing.JButton;
 
 public class consultaUsuario extends JInternalFrame {
+	
+	
+	// Controlador de usuarios que se utilizará para las acciones del JFrame
+    private IControladorUsuario controlUsr;
+    
+    //Componentes Swing
 	private JTable tablaUsuario;
 	private JTable tablaPostulante;
 	private JTable tablaEmpresa;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					consultaUsuario frame = new consultaUsuario();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 * @throws PropertyVetoException 
 	 */
-	public consultaUsuario() throws PropertyVetoException {
+	public consultaUsuario(IControladorUsuario icu) throws PropertyVetoException {
+		//Inicializacion internal frame con controlador de usuarios.
+		controlUsr = icu;
+		
 		setResizable(false);
 		setMaximum(true);
 		setResizable(true);
@@ -68,7 +68,21 @@ public class consultaUsuario extends JInternalFrame {
 		lblNewLabel.setBounds(20, 11, 931, 14);
 		getContentPane().add(lblNewLabel);
 		
-		JComboBox comboBox = new JComboBox();
+		
+		JComboBox<Object> comboBox = new JComboBox<>();
+		
+		comboBox.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				List<DTUsuario> datos = new ArrayList<>();
+				datos = controlUsr.obtenerListaUsuarios();
+				for (DTUsuario u : datos) {
+					System.out.println(u.getNombre());
+					comboBox.addItem(u.getNombre()+ " "+ u.getApellido());
+				}
+			}
+		});
+		
 		comboBox.setBounds(20, 36, 544, 22);
 		getContentPane().add(comboBox);
 		

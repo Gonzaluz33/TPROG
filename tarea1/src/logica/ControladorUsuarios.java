@@ -43,4 +43,10 @@ public class ControladorUsuarios implements IControladorUsuario{
 		return manejadorU.obtenerUsuario(nicknameUsuario);
 	}
 
+	@Override
+	public List<DTUsuario> obtenerListaUsuarios() {
+		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+		return manejadorU.obtenerListaUsuarios();
+	}
+
 }
