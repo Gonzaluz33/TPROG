@@ -45,6 +45,8 @@ public class consultaUsuario extends JInternalFrame {
 	private JTable tablaUsuario;
 	private JTable tablaPostulante;
 	private JTable tablaEmpresa;
+	
+	private JComboBox<String> listaUsuarios;
 
 	/**
 	 * Create the frame.
@@ -69,22 +71,9 @@ public class consultaUsuario extends JInternalFrame {
 		getContentPane().add(lblNewLabel);
 		
 		
-		JComboBox<Object> comboBox = new JComboBox<>();
-		
-		comboBox.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				List<DTUsuario> datos = new ArrayList<>();
-				datos = controlUsr.obtenerListaUsuarios();
-				for (DTUsuario u : datos) {
-					System.out.println(u.getNombre());
-					comboBox.addItem(u.getNombre()+ " "+ u.getApellido());
-				}
-			}
-		});
-		
-		comboBox.setBounds(20, 36, 544, 22);
-		getContentPane().add(comboBox);
+		listaUsuarios = new JComboBox<>();
+		listaUsuarios.setBounds(20, 36, 544, 22);
+		getContentPane().add(listaUsuarios);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(20, 67, 1019, 14);
@@ -204,4 +193,14 @@ public class consultaUsuario extends JInternalFrame {
 		});
 
 	}
+	
+	public void llenar_comboListaUsuario(){
+		List<DTUsuario> datos = new ArrayList<>();
+		datos = controlUsr.obtenerListaUsuarios();
+		for (DTUsuario u : datos) {
+			System.out.println(u.getNombre());
+			listaUsuarios.addItem(u.getNombre()+ " "+ u.getApellido());
+		}
+	}
+	
 }

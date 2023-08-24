@@ -23,8 +23,6 @@ public class Principal {
 	//Interfaces
 	private IControladorUsuario ICU;
 	
-	
-	
 	//Componentes Swing
 	private JFrame frame;
 	private altaPostulante altaPostulanteInternalFrame;
@@ -151,6 +149,7 @@ public class Principal {
 		JMenuItem mItemConsultaUsuario = new JMenuItem("Consulta de Usuario");
 		mItemConsultaUsuario.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
+				 	consultaUsuarioInternalFrame.llenar_comboListaUsuario();
 	                consultaUsuarioInternalFrame.setVisible(true);
 	            }
 		});
