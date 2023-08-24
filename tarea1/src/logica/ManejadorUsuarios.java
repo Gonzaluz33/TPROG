@@ -20,15 +20,17 @@ public class ManejadorUsuarios {
 	/**
 	 * Crea la empresa y la agrega a coleccionUsuarios.
 	 */
-	public void altaEmpresa(String nickname, String nombre, String apellido, String email, String nombreEmpresa, String descripcion, String linkWeb) {
-		coleccionUsuarios.put(nickname.toLowerCase(), new Empresa(nickname, nombre, apellido, email, nombreEmpresa, descripcion, linkWeb));
+	void altaEmpresa(Empresa e) {
+		coleccionUsuarios.put(e.getNickname().toLowerCase(), e);
+		System.out.println(coleccionUsuarios.keySet());
 	}
 	
 	/**
 	 * Crea el postulante y lo agrega a coleccionUsuarios.
 	 */
-	public void altaPostulante(String nickname, String nombre, String apellido, String email, String fechaNacimiento, String nacionalidad) {
-		coleccionUsuarios.put(nickname.toLowerCase(), new Postulante(nickname, nombre, apellido, email, fechaNacimiento, nacionalidad));
+	void altaPostulante(Postulante p) {
+		coleccionUsuarios.put(p.getNickname().toLowerCase(), p);
+		System.out.println(coleccionUsuarios.keySet());
 	}
 
 	/**

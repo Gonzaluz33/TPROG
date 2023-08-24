@@ -157,7 +157,7 @@ public class altaEmpresa extends JInternalFrame {
 		String apellido = this.apellidoField.getText();
 		String email = this.correoField.getText();
 //		String desc = this.descripcionField.getText();
-//		String link = this.linkWebField.getText();
+		String link = this.linkWebField.getText();
 		if (nick.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
                     JOptionPane.ERROR_MESSAGE);
