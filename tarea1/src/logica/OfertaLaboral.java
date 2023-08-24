@@ -71,12 +71,12 @@ public class OfertaLaboral {
 	public void setFechaAlta(Date fa) {
 		this.fechaAlta = fa;
 	}
+	
 	/**
 	 * Devuelve los datos de la oferta como un datatype DTOferta.
 	 */
 	public DTOferta toDataType() {
-		// TODO
-		return new DTOferta();
+		return new DTOferta(this.nombre, this.descripcion, this.ciudad, this.departamento, this.horario, this.remuneracion, this.fechaAlta);
 	}
 	
 }

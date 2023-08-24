@@ -85,7 +85,7 @@ public class consultaUsuario extends JInternalFrame {
 
 		tablaUsuario.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"Juan52", "Juan", "Rodríguez", "jr@fing.edu.uy"},
+				{"Juan52", "Juan", "Rodr\u00EDguez", "jr@fing.edu.uy"},
 			},
 			new String[] {
 				"Nickname", "Nombre", "Apellido", "Correo"
@@ -97,13 +97,23 @@ public class consultaUsuario extends JInternalFrame {
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
 		});
+		tablaUsuario.getColumnModel().getColumn(0).setResizable(false);
+		tablaUsuario.getColumnModel().getColumn(0).setPreferredWidth(110);
+		tablaUsuario.getColumnModel().getColumn(1).setResizable(false);
+		tablaUsuario.getColumnModel().getColumn(1).setPreferredWidth(114);
+		tablaUsuario.getColumnModel().getColumn(2).setResizable(false);
+		tablaUsuario.getColumnModel().getColumn(2).setPreferredWidth(109);
+		tablaUsuario.getColumnModel().getColumn(3).setResizable(false);
+		tablaUsuario.getColumnModel().getColumn(3).setPreferredWidth(251);
 		tablaUsuario.setDefaultRenderer(Object.class, new CentrarColumnas());
 		JTableHeader headerUsuario = tablaUsuario.getTableHeader();
-		tablaUsuario.getColumnModel().getColumn(0).setPreferredWidth(110);
-		tablaUsuario.getColumnModel().getColumn(1).setPreferredWidth(114);
-		tablaUsuario.getColumnModel().getColumn(2).setPreferredWidth(109);
-		tablaUsuario.getColumnModel().getColumn(3).setPreferredWidth(251);
 		panelUsuario.add(headerUsuario);
 		panelUsuario.add(tablaUsuario);
 		
@@ -119,12 +129,22 @@ public class consultaUsuario extends JInternalFrame {
 			new String[] {
 				"Tipo de Usuario", "Fecha de Nacimiento", "Nacionalidad"
 			}
-		));
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tablaPostulante.getColumnModel().getColumn(0).setResizable(false);
+		tablaPostulante.getColumnModel().getColumn(0).setPreferredWidth(109);
+		tablaPostulante.getColumnModel().getColumn(1).setResizable(false);
+		tablaPostulante.getColumnModel().getColumn(1).setPreferredWidth(127);
+		tablaPostulante.getColumnModel().getColumn(2).setResizable(false);
+		tablaPostulante.getColumnModel().getColumn(2).setPreferredWidth(124);
 		tablaPostulante.setDefaultRenderer(Object.class, new CentrarColumnas());
 		JTableHeader headerPostulante = tablaPostulante.getTableHeader();
-		tablaPostulante.getColumnModel().getColumn(0).setPreferredWidth(109);
-		tablaPostulante.getColumnModel().getColumn(1).setPreferredWidth(127);
-		tablaPostulante.getColumnModel().getColumn(2).setPreferredWidth(124);
 		panelPostulante.add(headerPostulante);
 		panelPostulante.add(tablaPostulante);
 		
@@ -140,12 +160,22 @@ public class consultaUsuario extends JInternalFrame {
 			new String[] {
 				"Nombre de Empresa", "Descripci\u00F3n", "Link Web"
 			}
-		));
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tablaEmpresa.getColumnModel().getColumn(0).setResizable(false);
+		tablaEmpresa.getColumnModel().getColumn(0).setPreferredWidth(143);
+		tablaEmpresa.getColumnModel().getColumn(1).setResizable(false);
+		tablaEmpresa.getColumnModel().getColumn(1).setPreferredWidth(240);
+		tablaEmpresa.getColumnModel().getColumn(2).setResizable(false);
+		tablaEmpresa.getColumnModel().getColumn(2).setPreferredWidth(191);
 		tablaEmpresa.setDefaultRenderer(Object.class, new CentrarColumnas());
 		JTableHeader headerEmpresa = tablaEmpresa.getTableHeader();
-		tablaEmpresa.getColumnModel().getColumn(0).setPreferredWidth(143);
-		tablaEmpresa.getColumnModel().getColumn(1).setPreferredWidth(240);
-		tablaEmpresa.getColumnModel().getColumn(2).setPreferredWidth(191);
 		panelEmpresa.add(headerEmpresa);
 		panelEmpresa.add(tablaEmpresa);
 		

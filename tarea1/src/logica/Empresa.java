@@ -72,8 +72,9 @@ public class Empresa extends Usuario {
 	/**
 	 * Retorna los datos de la empresa como un datatype DTUsuario excepto el set de ofertas laborales asociadas a la misma.
 	 */
-	DTUsuario toDataType() {
-		return new DTEmpresa(getNickname(), getNombre(), getApellido(), getCorreo(), getNombreEmpresa(), getDescripcion(), getLinkWeb());
+	@Override
+	public DTUsuario toDataType() {
+		return new DTEmpresa(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getNombreEmpresa(), this.getDescripcion(), this.getLinkWeb(), this.getOfertas());
 	}
-	
+
 }

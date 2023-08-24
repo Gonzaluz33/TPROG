@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.*;
+
 import excepciones.*;
 import utils.DTUsuario;
 
@@ -32,29 +33,25 @@ public class ManejadorUsuarios {
 		System.out.println(coleccionUsuarios.keySet());
 	}
 
-	// TODO: el DT que devuelve tiene que contener las ofertasAsociadas en caso de ser una empresa o las postulacionesAsociadas en caso de ser un postulante.
 	/**
-	 * Devuelve un DTUsuario con los datos del usuario con el nickname dado.
+	 * Devuelve un DTUsuario con los datos del usuario con el nickname dado. Si es una empresa tambien devuelve sus ofertas y si es un postulante tambien devuelve sus postulaciones.
 	 * Si el nickname no existe en el sistema tira un NicknameNoExisteException.
 	 * Si el nickname es NULL tira una unchecked exception.
 	 */
-	/*
-	DTUsuario obtenerUsuario(String nickname) throws NicknameNoExisteException {
+	public DTUsuario obtenerUsuario(String nickname) throws NicknameNoExisteException {
 		String nicknameLowerCase = nickname.toLowerCase();
 		if ( coleccionUsuarios.containsKey(nicknameLowerCase) ) {
 			return coleccionUsuarios.get(nicknameLowerCase).toDataType();
 		} else {
 			throw new NicknameNoExisteException("El usuario con el nickname " + nickname + " no existe.");
 		}
-		
 	}
-	*/
 	
 	/**
 	 * Devuelve una lista de DTUsuario con la informacion de todos los usuarios registrados en el sistema ordenados segun su cedula.
 	 * Si no hay usuarios registrados devuelve una lista vacia.
 	 */
-	List<DTUsuario> obtenerListaUsuarios() {
+	public List<DTUsuario> obtenerListaUsuarios() {
 		List<DTUsuario> out = new ArrayList<DTUsuario>();
 		for (Map.Entry<String, Usuario> entry : coleccionUsuarios.entrySet()) {
 			out.add(entry.getValue().toDataType());

@@ -11,6 +11,7 @@ public class DTPostulante extends DTUsuario {
 
 	private Date fechaNacimiento;
 	private String nacionalidad;
+	private List<DTPostulacion> postulaciones;
 	
 	// constructores
 	public DTPostulante() {
@@ -23,6 +24,7 @@ public class DTPostulante extends DTUsuario {
 		super(nickname, nombre, apellido, correo);
 		this.setFechaNacimiento(fechaNacimiento);
         this.setNacionalidad(nacionalidad);
+        this.setPostulaciones(postulaciones);
 	}
 	
 	// getters
@@ -34,6 +36,10 @@ public class DTPostulante extends DTUsuario {
 		return nacionalidad;
 	}
 	
+	public List<DTPostulacion> getPostulaciones() {
+		return postulaciones;
+	}
+	
 	// setters
 	private void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
@@ -41,6 +47,10 @@ public class DTPostulante extends DTUsuario {
 
 	private void setNacionalidad(String nacionalidad) {
 		this.nacionalidad = nacionalidad;
+	}
+	
+	private void setPostulaciones(List<DTPostulacion> postulaciones) {
+		this.postulaciones = postulaciones;
 	}
 	
 }

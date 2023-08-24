@@ -121,7 +121,7 @@ public class altaEmpresa extends JInternalFrame {
 		labelDescripcion.setBounds(43, 147, 126, 14);
 		getContentPane().add(labelDescripcion);
 		
-		JTextArea descripcionField = new JTextArea();
+		descripcionField = new JTextArea();
 		descripcionField.setBounds(189, 142, 163, 93);
 		getContentPane().add(descripcionField);
 		
@@ -165,3 +165,5 @@ public class altaEmpresa extends JInternalFrame {
         } else return true;
 	}
 }
+
+

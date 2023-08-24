@@ -65,8 +65,21 @@ public class informacionOfertaLaboral extends JInternalFrame {
 			new String[] {
 				"Nombre", "Descripcion", "Ciudad", "Departamento", "Horario", "Remuneraci\u00F3n", "Fecha Alta"
 			}
-		));
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, true, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tableDatosOferta.getColumnModel().getColumn(0).setResizable(false);
+		tableDatosOferta.getColumnModel().getColumn(1).setResizable(false);
+		tableDatosOferta.getColumnModel().getColumn(2).setResizable(false);
+		tableDatosOferta.getColumnModel().getColumn(3).setResizable(false);
+		tableDatosOferta.getColumnModel().getColumn(5).setResizable(false);
 		tableDatosOferta.getColumnModel().getColumn(5).setPreferredWidth(91);
+		tableDatosOferta.getColumnModel().getColumn(6).setResizable(false);
 		tablePaneDatosOferta.setLayout(new GridLayout(0, 1, 0, 0));
 		tablePaneDatosOferta.add(tableDatosOferta);
 		
@@ -105,7 +118,17 @@ public class informacionOfertaLaboral extends JInternalFrame {
 			new String[] {
 				"Fecha", "CV", "Motivaci\u00F3n"
 			}
-		));
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tablePostulaciones.getColumnModel().getColumn(0).setResizable(false);
+		tablePostulaciones.getColumnModel().getColumn(1).setResizable(false);
+		tablePostulaciones.getColumnModel().getColumn(2).setResizable(false);
 		tablePostulaciones.setBounds(220, 342, 1, 1);
 		tablePanePostulaciones.add(tablePostulaciones);
 		

@@ -57,7 +57,6 @@ public class consultaOfertaLaboral extends JInternalFrame {
 	 */
 	public consultaOfertaLaboral() throws PropertyVetoException {
 		
-
 		informacionOfertaLaboralInternalFrame = new informacionOfertaLaboral();
 		informacionOfertaLaboralInternalFrame.setResizable(false);
 		informacionOfertaLaboralInternalFrame.setBorder(null);

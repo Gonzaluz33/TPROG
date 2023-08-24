@@ -59,7 +59,7 @@ public class Usuario {
     /**
      * Retorna los datos del usuario como un DataType DTUsuario.
      */
-    DTUsuario toDataType() {
+    public DTUsuario toDataType() {
     	return new DTUsuario(getNickname(), getNombre(), getApellido(), getCorreo());
     }
 
