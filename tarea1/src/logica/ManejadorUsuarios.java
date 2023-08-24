@@ -19,16 +19,27 @@ public class ManejadorUsuarios {
 	
 	/**
 	 * Crea la empresa y la agrega a coleccionUsuarios.
+	 * @throws UsuarioRepetidoException 
 	 */
-	void altaEmpresa(String nickname, String nombre, String apellido, String email, String nombreEmpresa, String descripcion, String linkWeb) {
-		coleccionUsuarios.put(nickname.toLowerCase(), new Empresa(nickname, nombre, apellido, email, nombreEmpresa, descripcion, linkWeb));
+	void altaEmpresa(Empresa e) throws UsuarioRepetidoException {
+		if (coleccionUsuarios.containsKey(e.getNickname())){
+			throw new UsuarioRepetidoException("Ya existe un usuario con el nickname ingresado.");
+		}
+		else {
+			coleccionUsuarios.put(e.getNickname().toLowerCase(), e);
+		}
 	}
 	
 	/**
 	 * Crea el postulante y lo agrega a coleccionUsuarios.
 	 */
-	void altaPostulante(String nickname, String nombre, String apellido, String email, String fechaNacimiento, String nacionalidad) {
-		coleccionUsuarios.put(nickname.toLowerCase(), new Postulante(nickname, nombre, apellido, email, fechaNacimiento, nacionalidad));
+	void altaPostulante(Postulante p) throws UsuarioRepetidoException {
+		if (coleccionUsuarios.containsKey(p.getNickname())){
+			throw new UsuarioRepetidoException("Ya existe un usuario con el nickname ingresado.");
+		}
+		else {
+			coleccionUsuarios.put(p.getNickname().toLowerCase(), p);
+		}
 	}
 
 	/**
@@ -36,9 +47,9 @@ public class ManejadorUsuarios {
 	 * Si el nickname no existe en el sistema tira un NicknameNoExisteException.
 	 * Si el nickname es NULL tira una unchecked exception.
 	 */
-	DTUsuario obtenerUsuario(String nickname) throws NicknameNoExisteException {
+	public DTUsuario obtenerUsuario(String nickname) throws NicknameNoExisteException {
 		String nicknameLowerCase = nickname.toLowerCase();
-		if ( coleccionUsuarios.containsKey(nicknameLowerCase) ) {
+		if (coleccionUsuarios.containsKey(nicknameLowerCase) ) {
 			return coleccionUsuarios.get(nicknameLowerCase).toDataType();
 		} else {
 			throw new NicknameNoExisteException("El usuario con el nickname " + nickname + " no existe.");
@@ -49,7 +60,7 @@ public class ManejadorUsuarios {
 	 * Devuelve una lista de DTUsuario con la informacion de todos los usuarios registrados en el sistema ordenados segun su cedula.
 	 * Si no hay usuarios registrados devuelve una lista vacia.
 	 */
-	List<DTUsuario> obtenerListaUsuarios() {
+	public List<DTUsuario> obtenerListaUsuarios() {
 		List<DTUsuario> out = new ArrayList<DTUsuario>();
 		for (Map.Entry<String, Usuario> entry : coleccionUsuarios.entrySet()) {
 			out.add(entry.getValue().toDataType());

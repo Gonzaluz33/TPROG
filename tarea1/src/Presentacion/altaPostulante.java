@@ -9,18 +9,27 @@ import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JToolBar;
+
+import excepciones.UsuarioRepetidoException;
+import logica.ControladorUsuarios;
+import logica.IControladorUsuario;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import java.awt.Button;
 
 public class altaPostulante extends JInternalFrame {
-	
-	
+	// Controlador de usuarios que se utilizará para las acciones del JFrame
+    private IControladorUsuario controlUsr;
+    //Componentes Graficos
 	private JTextField nicknameField;
 	private JTextField nombreField;
 	private JTextField apellidoField;
@@ -28,31 +37,17 @@ public class altaPostulante extends JInternalFrame {
 	private JTextField nacionalidadField;
 	private JSpinner dia;
 	private JSpinner mes;
-	private JSpinner año;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					altaPostulante frame = new altaPostulante();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JSpinner ano;
 
 	/**
 	 * Create the frame.
 	 * @throws PropertyVetoException 
 	 */
-	public altaPostulante() throws PropertyVetoException {
+	public altaPostulante(IControladorUsuario icu) throws PropertyVetoException {
+		//Inicializacion internal frame con controlador de usuarios.
+		controlUsr = icu;
+		
 		setResizable(false);
-		setMaximum(true);
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
@@ -104,17 +99,17 @@ public class altaPostulante extends JInternalFrame {
 		getContentPane().add(correoField);
 		correoField.setColumns(10);
 		
-		JSpinner dia = new JSpinner();
-		dia.setBounds(202, 134, 33, 20);
+		dia = new JSpinner();
+		dia.setBounds(176, 137, 33, 20);
 		getContentPane().add(dia);
 		
-		JSpinner mes = new JSpinner();
-		mes.setBounds(245, 134, 33, 20);
+		mes = new JSpinner();
+		mes.setBounds(219, 137, 33, 20);
 		getContentPane().add(mes);
 		
-		JSpinner año = new JSpinner();
-		año.setBounds(288, 134, 33, 20);
-		getContentPane().add(año);
+		ano = new JSpinner();
+		ano.setBounds(262, 137, 59, 20);
+		getContentPane().add(ano);
 		
 		nacionalidadField = new JTextField();
 		nacionalidadField.setBounds(145, 162, 176, 20);
@@ -124,6 +119,12 @@ public class altaPostulante extends JInternalFrame {
 		Button buttonAceptar = new Button("Aceptar");
 		buttonAceptar.setBounds(27, 214, 70, 22);
 		getContentPane().add(buttonAceptar);
+		
+		buttonAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                registrarPostulante(e);
+			}
+		});
 		
 		Button buttonCancelar = new Button("Cancelar");
 		buttonCancelar.setBounds(251, 214, 70, 22);
@@ -136,4 +137,84 @@ public class altaPostulante extends JInternalFrame {
 		});
 
 	}
+
+
+	public void registrarPostulante(ActionEvent e) {
+		String nick = this.nicknameField.getText();
+		String nombre = this.nombreField.getText();
+		String apellido = this.apellidoField.getText();
+		String email = this.correoField.getText();
+		int year = (Integer) this.ano.getValue();
+		String stringifiedMonth = this.mes.getValue() + "";
+		Integer month = Integer.parseInt(stringifiedMonth);
+		String stringifiedDay = this.dia.getValue() + "";
+		Integer day = Integer.parseInt(stringifiedDay);
+		Date date = new GregorianCalendar(year, month-1, day).getTime();
+		String nacion = this.nacionalidadField.getText();
+		
+		if(checkFormulario()) {
+			  try {
+	                controlUsr.altaPostulante(nick, nombre, apellido, email, date, nacion);
+	                // Muestro éxito de la operación
+	                JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
+	                        JOptionPane.INFORMATION_MESSAGE);
+
+	            } catch (UsuarioRepetidoException err) {
+	                // Muestro error de registro
+	                JOptionPane.showMessageDialog(this, err.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+	            }
+			  
+			// Limpio el internal frame antes de cerrar la ventana
+	            limpiarFormulario();
+	            setVisible(false);
+
+		}
+	}
+	
+	public Boolean esValidoFecha() {
+		Integer year = (Integer) this.ano.getValue();
+		String stringifiedMonth = this.mes.getValue() + "";
+		Integer month = Integer.parseInt(stringifiedMonth) - 1;
+		String stringifiedDay = this.dia.getValue() + "";
+		Integer day = Integer.parseInt(stringifiedDay);
+		
+		GregorianCalendar calendar = new GregorianCalendar(year, month, day);
+		
+		if (day.equals(calendar.get(GregorianCalendar.DAY_OF_MONTH)) && (year > 1900 && year < 3000)) {
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(this, "Fecha Inválida", "Registrar Usuario",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+	}
+	
+	private boolean checkFormulario() {
+		String nick = this.nicknameField.getText();
+		String nombre = this.nombreField.getText();
+		String apellido = this.apellidoField.getText();
+		String email = this.correoField.getText();
+		String nacion = this.nacionalidadField.getText();
+
+        if (nick.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || nacion.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+       return esValidoFecha();
+    }
+	
+	private void limpiarFormulario() {
+		nicknameField.setText("");
+		nombreField.setText("");
+		apellidoField.setText("");
+		correoField.setText("");
+		ano.setValue(Integer.valueOf(0));
+		mes.setValue(Integer.valueOf(0));
+		dia.setValue(Integer.valueOf(0));;
+		nacionalidadField.setText("");
+	   }
+	
+	
 }
+

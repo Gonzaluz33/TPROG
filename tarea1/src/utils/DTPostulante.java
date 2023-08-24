@@ -1,5 +1,6 @@
 package utils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -9,26 +10,18 @@ import java.util.List;
  */
 public class DTPostulante extends DTUsuario {
 
-	private String fechaNacimiento;
+	private Date fechaNacimiento;
 	private String nacionalidad;
 	private List<DTPostulacion> postulaciones;
 	
 	// constructores
-	/**
-	 * Constructor SIN la lista de postulaciones asociada al postulante.
-	 */
-	public DTPostulante(String nickname, String nombre, String apellido, String correo, String fechaNacimiento, String nacionalidad) {
-		super(nickname, nombre, apellido, correo);
-		this.setFechaNacimiento(fechaNacimiento);
-        this.setNacionalidad(nacionalidad);
-        this.setPostulaciones(null);
+	public DTPostulante(String string, String string2, String string3, String string4, Date date, String string5, List<DTPostulacion> list) {
+		super();
+		this.setFechaNacimiento(new Date());
+		this.setNacionalidad(new String());
 	}
 	
-
-	/**
-	 * Constructor CON la lista de postulaciones asociada al postulante.
-	 */
-	public DTPostulante(String nickname, String nombre, String apellido, String correo, String fechaNacimiento, String nacionalidad, List<DTPostulacion> postulaciones) {
+	public DTPostulante(String nickname, String nombre, String apellido, String correo, Date fechaNacimiento, String nacionalidad) {
 		super(nickname, nombre, apellido, correo);
 		this.setFechaNacimiento(fechaNacimiento);
         this.setNacionalidad(nacionalidad);
@@ -36,7 +29,7 @@ public class DTPostulante extends DTUsuario {
 	}
 	
 	// getters
-	public String getFechaNacimiento() {
+	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
@@ -49,7 +42,7 @@ public class DTPostulante extends DTUsuario {
 	}
 	
 	// setters
-	private void setFechaNacimiento(String fechaNacimiento) {
+	private void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

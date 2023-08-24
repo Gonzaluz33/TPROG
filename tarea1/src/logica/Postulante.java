@@ -3,6 +3,7 @@ package logica;
 import utils.DTPostulante;
 import utils.DTPostulacion;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,12 +18,12 @@ import java.util.stream.Collectors;
  */
 public class Postulante extends Usuario{
 
-	private String fechaNacimiento;
+	private Date fechaNacimiento;
 	private String nacionalidad;
 	private Map<String, Postulacion> postulaciones;
 	
 	// constructores
-	public Postulante(String nickname, String nombre, String apellido, String correo, String fechaNacimiento, String nacionalidad) {
+	public Postulante(String nickname, String nombre, String apellido, String correo, Date fechaNacimiento, String nacionalidad) {
 		super(nickname, nombre, apellido, correo);
 		this.setFechaNacimiento(fechaNacimiento);
 		this.setNacionalidad(nacionalidad);
@@ -30,7 +31,7 @@ public class Postulante extends Usuario{
 	}
 	
 	// getters
-	public String getFechaNacimiento() {
+	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 	
@@ -46,7 +47,7 @@ public class Postulante extends Usuario{
 	}
 	
 	// setters
-	private void setFechaNacimiento(String fechaNacimiento) {
+	private void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	

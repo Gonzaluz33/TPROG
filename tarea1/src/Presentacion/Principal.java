@@ -15,8 +15,17 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 
-public class Principal {
+import logica.Fabrica;
+import logica.IControladorUsuario;
 
+public class Principal {
+	
+	//Interfaces
+	private IControladorUsuario ICU;
+	
+	
+	
+	//Componentes Swing
 	private JFrame frame;
 	private altaPostulante altaPostulanteInternalFrame;
 	private altaEmpresa altaEmpresaInternalFrame;
@@ -49,12 +58,18 @@ public class Principal {
 	 */
 	public Principal() throws PropertyVetoException {
 		initialize();
-		altaPostulanteInternalFrame = new altaPostulante();
+		
+		
+		//Inicializacion fabrica y controladores
+		Fabrica fabrica = Fabrica.getInstance();
+		ICU = fabrica.getIControladorUsuario();	
+		
+		altaPostulanteInternalFrame = new altaPostulante(ICU);
 		altaPostulanteInternalFrame.setResizable(false);
 		altaPostulanteInternalFrame.setBorder(null);
 		altaPostulanteInternalFrame.setVisible(false);
 		
-		altaEmpresaInternalFrame = new altaEmpresa();
+		altaEmpresaInternalFrame = new altaEmpresa(ICU);
 		altaEmpresaInternalFrame.setResizable(false);
 		altaEmpresaInternalFrame.setBorder(null);
 		altaEmpresaInternalFrame.setVisible(false);
