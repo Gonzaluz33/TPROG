@@ -11,14 +11,16 @@ public class TipoPublicacion {
 	private Integer duracionPublicacion;
 	private Integer costo;
 	private Date fechaAlta;
+	private EnumExposicion exposicion;
 	
 	
-	public TipoPublicacion(String nombre, String descripcion, Integer duracionPublicacion, Integer costo, Date alta ){
+	public TipoPublicacion(String nombre, String descripcion, Integer duracionPublicacion, Integer costo, Date alta, EnumExposicion exposicion ){
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionPublicacion = duracionPublicacion;
 		this.costo = costo;
 		this.fechaAlta = alta;
+		this.exposicion = exposicion;
 	}
 	
 	public enum EnumExposicion {
