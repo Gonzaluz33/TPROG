@@ -25,12 +25,11 @@ public class ControladorUsuarios implements IControladorUsuario{
 	}
 
 	@Override
-	public void altaEmpresa(String nickname, String nombre, String apellido, String email, String desc,
-			String linkWeb) {
+	public void altaEmpresa(String nickname, String nombre, String apellido, String email, String nomEmpresa ,String desc,
+			String linkWeb) throws UsuarioRepetidoException {
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
-		Empresa e = new Empresa(nickname, nombre, apellido, email, desc, linkWeb);
+		Empresa e = new Empresa(nickname, nombre, apellido, email, nomEmpresa ,desc, linkWeb);
         manejadorU.altaEmpresa(e);
-		
 	}
 	
 	

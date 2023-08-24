@@ -19,10 +19,15 @@ public class ManejadorUsuarios {
 	
 	/**
 	 * Crea la empresa y la agrega a coleccionUsuarios.
+	 * @throws UsuarioRepetidoException 
 	 */
-	void altaEmpresa(Empresa e) {
-		coleccionUsuarios.put(e.getNickname().toLowerCase(), e);
-		System.out.println(coleccionUsuarios.keySet());
+	void altaEmpresa(Empresa e) throws UsuarioRepetidoException {
+		if (coleccionUsuarios.containsKey(e.getNickname())){
+			throw new UsuarioRepetidoException("Ya existe un usuario con el nickname ingresado.");
+		}
+		else {
+			coleccionUsuarios.put(e.getNickname().toLowerCase(), e);
+		}
 	}
 	
 	/**

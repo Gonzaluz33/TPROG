@@ -20,48 +20,43 @@ import java.beans.PropertyVetoException;
 
 import javax.swing.JToolBar;
 
+import excepciones.UsuarioRepetidoException;
 import logica.ControladorUsuarios;
+import logica.IControladorUsuario;
 
 import javax.swing.JTextArea;
 
 public class altaEmpresa extends JInternalFrame {
+	
+	// Controlador de usuarios que se utilizará para las acciones del JFrame
+    private IControladorUsuario controlUsr;
+	
 	private JTextField nicknameField;
 	private JTextField apellidoField;
 	private JTextField nombreField;
 	private JTextField correoField;
 	private JTextField linkWebField;
 	private JTextArea descripcionField;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					altaEmpresa frame = new altaEmpresa();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JTextField nombreEmpresaField;
 
 	/**
 	 * Create the frame.
 	 * @throws PropertyVetoException 
 	 */
-	public altaEmpresa() throws PropertyVetoException {
+	public altaEmpresa(IControladorUsuario icu) throws PropertyVetoException {
+		//Inicializacion internal frame con controlador de usuarios.
+		controlUsr = icu;
+		
+		
 		setResizable(false);
 		setMaximum(true);
 		setClosable(true);
 		setTitle("Alta de Empresa");
-		setBounds(100, 100, 631, 392);
+		setBounds(100, 100, 631, 595);
 		getContentPane().setLayout(null);
 		
 		nicknameField = new JTextField();
-		nicknameField.setBounds(161, 22, 191, 20);
+		nicknameField.setBounds(185, 25, 191, 20);
 		getContentPane().add(nicknameField);
 		nicknameField.setColumns(10);
 		
@@ -70,7 +65,7 @@ public class altaEmpresa extends JInternalFrame {
 		getContentPane().add(lblNewLabel);
 		
 		apellidoField = new JTextField();
-		apellidoField.setBounds(161, 75, 191, 20);
+		apellidoField.setBounds(185, 78, 191, 20);
 		getContentPane().add(apellidoField);
 		apellidoField.setColumns(10);
 		
@@ -88,16 +83,16 @@ public class altaEmpresa extends JInternalFrame {
 		
 		nombreField = new JTextField();
 		nombreField.setColumns(10);
-		nombreField.setBounds(161, 47, 191, 20);
+		nombreField.setBounds(185, 50, 191, 20);
 		getContentPane().add(nombreField);
 		
 		correoField = new JTextField();
-		correoField.setBounds(161, 106, 191, 20);
+		correoField.setBounds(185, 109, 191, 20);
 		getContentPane().add(correoField);
 		correoField.setColumns(10);
 		
 		Button buttonAceptar = new Button("Aceptar");
-		buttonAceptar.setBounds(47, 313, 70, 22);
+		buttonAceptar.setBounds(47, 312, 70, 22);
 		getContentPane().add(buttonAceptar);
 		
 		buttonAceptar.addActionListener(new ActionListener() {
@@ -107,7 +102,7 @@ public class altaEmpresa extends JInternalFrame {
         });
 
 		Button buttonCancelar = new Button("Cancelar");
-		buttonCancelar.setBounds(282, 313, 70, 22);
+		buttonCancelar.setBounds(282, 312, 70, 22);
 		getContentPane().add(buttonCancelar);
 		
 		
@@ -118,21 +113,30 @@ public class altaEmpresa extends JInternalFrame {
 		});
 		
 		JLabel labelDescripcion = new JLabel("Descripcion General:");
-		labelDescripcion.setBounds(43, 147, 126, 14);
+		labelDescripcion.setBounds(43, 170, 126, 14);
 		getContentPane().add(labelDescripcion);
 		
 		descripcionField = new JTextArea();
-		descripcionField.setBounds(189, 142, 163, 93);
+		descripcionField.setBounds(213, 168, 163, 93);
 		getContentPane().add(descripcionField);
 		
 		JLabel linkField = new JLabel("Link Web (Opcional):");
-		linkField.setBounds(43, 256, 146, 14);
+		linkField.setBounds(43, 272, 146, 14);
 		getContentPane().add(linkField);
 		
 		linkWebField = new JTextField();
-		linkWebField.setBounds(199, 253, 153, 20);
+		linkWebField.setBounds(223, 272, 153, 20);
 		getContentPane().add(linkWebField);
 		linkWebField.setColumns(10);
+		
+		nombreEmpresaField = new JTextField();
+		nombreEmpresaField.setColumns(10);
+		nombreEmpresaField.setBounds(185, 137, 191, 20);
+		getContentPane().add(nombreEmpresaField);
+		
+		JLabel lblNewLabel_4 = new JLabel("Nombre de Empresa:");
+		lblNewLabel_4.setBounds(43, 137, 146, 14);
+		getContentPane().add(lblNewLabel_4);
 
 
 	}
@@ -144,10 +148,24 @@ public class altaEmpresa extends JInternalFrame {
 			String nombre = this.nombreField.getText();
 			String apellido = this.apellidoField.getText();
 			String email = this.correoField.getText();
+			String nomEmpresa = this.nombreEmpresaField.getText();
 			String desc = this.descripcionField.getText();
 			String link = this.linkWebField.getText();
-			ControladorUsuarios contUsuarios = ControladorUsuarios.getInstance();
-			contUsuarios.altaEmpresa(nick, nombre, apellido, email, desc, link);
+			
+			try {
+				controlUsr.altaEmpresa(nick, nombre, apellido, email, nomEmpresa,desc, link);
+				//Muestro mensaje de éxito
+                JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
+                        JOptionPane.INFORMATION_MESSAGE);
+			}
+			catch(UsuarioRepetidoException err){
+				// Muestro error de registro
+                JOptionPane.showMessageDialog(this, err.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+			}
+			// Limpio el internal frame antes de cerrar la ventana
+            limpiarFormulario();
+            setVisible(false);
+
 		}
 	}
 	
@@ -156,14 +174,25 @@ public class altaEmpresa extends JInternalFrame {
 		String nombre = this.nombreField.getText();
 		String apellido = this.apellidoField.getText();
 		String email = this.correoField.getText();
-//		String desc = this.descripcionField.getText();
+		String nomEmpresa = this.nombreEmpresaField.getText();
+		String desc = this.descripcionField.getText();
 		String link = this.linkWebField.getText();
-		if (nick.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty()) {
+		if (nick.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || nomEmpresa.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         } else return true;
 	}
+	
+	private void limpiarFormulario() {
+		nicknameField.setText("");
+		nombreField.setText("");
+		apellidoField.setText("");
+		correoField.setText("");
+		nombreEmpresaField.setText("");
+		descripcionField.setText("");
+		linkWebField.setText("");
+	   }
 }
 
 
