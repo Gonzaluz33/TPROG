@@ -1,6 +1,6 @@
 package logica;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import excepciones.TipoPublicExisteException;
 
 public class ControladorPublicaciones implements IControladorPublicaciones {
@@ -14,7 +14,7 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
         return instancia;
     }
 	
-	public void altaTipoPublicacionOL(String nombre, String descripcion, String exposicion, Integer duracion, Integer costoPublic, Date fechaAlta ) 
+	public void altaTipoPublicacionOL(String nombre, String descripcion, String exposicion, Integer duracion, Integer costoPublic, LocalDateTime fechaAlta ) 
 			throws TipoPublicExisteException {
 		ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
 		

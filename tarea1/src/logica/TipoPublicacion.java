@@ -1,6 +1,6 @@
 package logica;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import utils.DTTipoPublicacion;
 
 
@@ -10,11 +10,11 @@ public class TipoPublicacion {
 	private String descripcion;
 	private Integer duracionPublicacion;
 	private Integer costo;
-	private Date fechaAlta;
+	private LocalDateTime fechaAlta;
 	private EnumExposicion exposicion;
 	
 	
-	public TipoPublicacion(String nombre, String descripcion, Integer duracionPublicacion, Integer costo, Date alta, EnumExposicion exposicion ){
+	public TipoPublicacion(String nombre, String descripcion, Integer duracionPublicacion, Integer costo, LocalDateTime alta, EnumExposicion exposicion ){
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionPublicacion = duracionPublicacion;
@@ -45,7 +45,7 @@ public class TipoPublicacion {
 		return costo;
 	}
 	
-	public Date getAlta() {
+	public LocalDateTime getAlta() {
 		return fechaAlta;
 	}
 	
@@ -58,7 +58,7 @@ public class TipoPublicacion {
 		this.duracionPublicacion = duracion;
 	}
 	
-	public void setAlta(Date alta) {
+	public void setAlta(LocalDateTime alta) {
 		this.fechaAlta = alta;
 	}
 	

@@ -22,6 +22,7 @@ import javax.swing.JSpinner;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.time.LocalDateTime;
 import java.awt.event.ActionEvent;
 
 public class altaTipoPublicacionOL extends JInternalFrame {
@@ -30,7 +31,7 @@ public class altaTipoPublicacionOL extends JInternalFrame {
 	
 	private JTextField nombreField;
 	private JTextArea descripcionArea; 
-    private JComboBox comboBox; 
+    private JComboBox<String> comboBox; 
     private JSpinner spinner; 
     private JSpinner spinner_1;
 
@@ -41,7 +42,8 @@ public class altaTipoPublicacionOL extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					altaTipoPublicacionOL frame = new altaTipoPublicacionOL();
+					IControladorPublicaciones controlPub = new ControladorPublicaciones();
+					altaTipoPublicacionOL frame = new altaTipoPublicacionOL(controlPub);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,7 +56,10 @@ public class altaTipoPublicacionOL extends JInternalFrame {
 	 * Create the frame.
 	 * @throws PropertyVetoException 
 	 */
-	public altaTipoPublicacionOL() throws PropertyVetoException {
+	public altaTipoPublicacionOL(IControladorPublicaciones ipu) throws PropertyVetoException {
+		
+		controlPub = ipu;
+		
 		setResizable(false);
 		setMaximum(true);
 		setMaximizable(true);
@@ -85,9 +90,13 @@ public class altaTipoPublicacionOL extends JInternalFrame {
 		lblNewLabel_1.setBounds(23, 172, 514, 14);
 		getContentPane().add(lblNewLabel_1);
 		
-		comboBox = new JComboBox();
+		comboBox = new JComboBox<String>();
 		comboBox.setBounds(23, 188, 271, 22);
 		getContentPane().add(comboBox);
+		
+		comboBox.addItem("Baja");
+        comboBox.addItem("Media");
+        comboBox.addItem("Alta");
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Duración de Publicación (Días):");
 		lblNewLabel_1_1.setBounds(23, 221, 514, 14);
@@ -136,6 +145,8 @@ public class altaTipoPublicacionOL extends JInternalFrame {
 			 Integer costoTipo = (int) this.spinner_1.getValue();
 			 
 			 try {
+				//Obtengo fecha y hora actual
+				 LocalDateTime fecha = LocalDateTime.now();
 				 controlPub.altaTipoPublicacionOL(nombreTipo, descripcionTipo, exposicionTipo, duracionTipo, costoTipo, fecha);
 				 //Muestro mensake de exito
 				 JOptionPane.showMessageDialog(this, "El Tipo de Publicacion de Oferta Laboral se ha creado con éxito", "Registrar Tipo de Publicacion",

@@ -15,8 +15,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 
+import logica.Fabrica;
+import logica.IControladorPublicaciones;
+
 public class Principal {
 
+	private IControladorPublicaciones ipu;
+	
 	private JFrame frame;
 	private altaPostulante altaPostulanteInternalFrame;
 	private altaEmpresa altaEmpresaInternalFrame;
@@ -49,6 +54,10 @@ public class Principal {
 	 */
 	public Principal() throws PropertyVetoException {
 		initialize();
+		
+		Fabrica fabrica = Fabrica.getInstance();
+		ipu = fabrica.getIControladorPublicaciones();	
+		
 		altaPostulanteInternalFrame = new altaPostulante();
 		altaPostulanteInternalFrame.setResizable(false);
 		altaPostulanteInternalFrame.setBorder(null);
@@ -76,7 +85,7 @@ public class Principal {
 		consultaOfertaLaboralInternalFrame.setVisible(false);
 		
 		
-		altaTipoPublicacionOLInternalFrame = new altaTipoPublicacionOL();
+		altaTipoPublicacionOLInternalFrame = new altaTipoPublicacionOL(ipu);
 		altaTipoPublicacionOLInternalFrame.setResizable(false);
 		altaTipoPublicacionOLInternalFrame.setBorder(null);
 		altaTipoPublicacionOLInternalFrame.setVisible(false);
