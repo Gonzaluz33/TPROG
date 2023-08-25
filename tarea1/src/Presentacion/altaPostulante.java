@@ -158,9 +158,12 @@ public class altaPostulante extends JInternalFrame {
 	                // Muestro éxito de la operación
 	                JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
 	                        JOptionPane.INFORMATION_MESSAGE);
+	                
+	                
 	    			// Limpio el internal frame antes de cerrar la ventana
 		            limpiarFormulario();
 		            setVisible(false);
+		            
 
 	            } catch (UsuarioRepetidoException err) {
 	                // Muestro error de registro

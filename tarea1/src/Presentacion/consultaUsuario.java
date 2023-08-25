@@ -1,6 +1,8 @@
 package Presentacion;
 
 import utils.DTUsuario;
+import utilsPresentacion.*;
+
 import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
@@ -36,8 +38,11 @@ import javax.swing.JScrollBar;
 import javax.swing.JButton;
 
 public class consultaUsuario extends JInternalFrame {
-	
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	// Controlador de usuarios que se utilizará para las acciones del JFrame
     private IControladorUsuario controlUsr;
     
@@ -45,16 +50,21 @@ public class consultaUsuario extends JInternalFrame {
 	private JTable tablaUsuario;
 	private JTable tablaPostulante;
 	private JTable tablaEmpresa;
-	
-	private JComboBox<String> listaUsuarios;
-
+	private JComboBox<DTUsuario> listaUsuariosCombobox;
 	/**
 	 * Create the frame.
 	 * @throws PropertyVetoException 
 	 */
 	public consultaUsuario(IControladorUsuario icu) throws PropertyVetoException {
+
 		//Inicializacion internal frame con controlador de usuarios.
 		controlUsr = icu;
+		
+		String nickname = "";
+		String nombre = "";
+		String apellido = "";
+		String correo = "";
+		
 		
 		setResizable(false);
 		setMaximum(true);
@@ -71,9 +81,9 @@ public class consultaUsuario extends JInternalFrame {
 		getContentPane().add(lblNewLabel);
 		
 		
-		listaUsuarios = new JComboBox<>();
-		listaUsuarios.setBounds(20, 36, 544, 22);
-		getContentPane().add(listaUsuarios);
+		listaUsuariosCombobox = new JComboBox<DTUsuario>();
+		listaUsuariosCombobox.setBounds(20, 36, 544, 22);
+		getContentPane().add(listaUsuariosCombobox);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(20, 67, 1019, 14);
@@ -88,7 +98,7 @@ public class consultaUsuario extends JInternalFrame {
 
 		tablaUsuario.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"Juan52", "Juan", "Rodr\u00EDguez", "jr@fing.edu.uy"},
+				{nickname, nombre, apellido, correo},
 			},
 			new String[] {
 				"Nickname", "Nombre", "Apellido", "Correo"
@@ -116,6 +126,7 @@ public class consultaUsuario extends JInternalFrame {
 		tablaUsuario.getColumnModel().getColumn(3).setResizable(false);
 		tablaUsuario.getColumnModel().getColumn(3).setPreferredWidth(251);
 		tablaUsuario.setDefaultRenderer(Object.class, new CentrarColumnas());
+		
 		JTableHeader headerUsuario = tablaUsuario.getTableHeader();
 		panelUsuario.add(headerUsuario);
 		panelUsuario.add(tablaUsuario);
@@ -191,15 +202,14 @@ public class consultaUsuario extends JInternalFrame {
 				 dispose();
 	            }
 		});
-
 	}
 	
 	public void llenar_comboListaUsuario(){
+		listaUsuariosCombobox.removeAllItems();
 		List<DTUsuario> datos = new ArrayList<>();
 		datos = controlUsr.obtenerListaUsuarios();
 		for (DTUsuario u : datos) {
-			System.out.println(u.getNombre());
-			listaUsuarios.addItem(u.getNombre()+ " "+ u.getApellido());
+			listaUsuariosCombobox.addItem(u);
 		}
 	}
 	

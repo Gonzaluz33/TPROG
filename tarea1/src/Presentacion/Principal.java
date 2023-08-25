@@ -8,6 +8,7 @@ import java.beans.PropertyVetoException;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -56,8 +57,6 @@ public class Principal {
 	 */
 	public Principal() throws PropertyVetoException {
 		initialize();
-		
-		
 		//Inicializacion fabrica y controladores
 		Fabrica fabrica = Fabrica.getInstance();
 		ICU = fabrica.getIControladorUsuario();	
