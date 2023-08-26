@@ -1,5 +1,7 @@
 package logica;
 
+import excepciones.OfertaNoExisteException;
+import utils.DTOferta;
 import excepciones.KeywordExisteException;
 
 public class ControladorOfertas implements IControladorOfertas{
@@ -12,10 +14,16 @@ public class ControladorOfertas implements IControladorOfertas{
         }
         return instancia;
     }
-	
+
+	public DTOferta obtenerDatosOferta(String nombreOferta) throws OfertaNoExisteException {
+		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+		return manejadorOL.obtenerOfertaLaboral(nombreOferta);
+	}
+
 	public void altaKeyword(String nombre) throws KeywordExisteException {
 		Keyword key = new Keyword(nombre);
 		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
 		mOL.addKeyword(key);
 	}
+
 }

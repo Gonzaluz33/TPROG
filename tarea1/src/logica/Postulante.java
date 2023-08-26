@@ -56,6 +56,13 @@ public class Postulante extends Usuario{
 	}
 	
 	/**
+	 * Asocia la postulacion al postulante y usa el nombre de la oferta asociada a la postulacion como la key en el mapa de postulaciones.
+	 */
+	public void asociarPostulacion(Postulacion postulacion, String nombreOferta) {
+		this.postulaciones.put(nombreOferta, postulacion);
+	}
+	
+	/**
 	 * Retorna los datos del usuario como un datatype DTPostulante.
 	 */
 	@Override

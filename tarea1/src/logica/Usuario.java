@@ -4,6 +4,7 @@ import utils.DTUsuario;
 
 /**
  * Representa al usuario en el sistema.
+ * Tiene los campos nickname, nombre, apellido y correo.
  * Clase padre de Empresa y Postulante.
  *
  */
@@ -15,11 +16,18 @@ public class Usuario {
     private String correo; //unico
 
     // constructores
+    public Usuario() {
+        setNickname(new String());;
+        setNombre(new String());;
+        setApellido(new String());;
+        setCorreo(new String());;
+    }
+    
     public Usuario(String nickname, String nombre, String apellido, String correo) {
-        this.nickname = nickname;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.correo = correo;
+        this.setNickname(nickname);
+        this.setNombre(nombre);
+        this.setApellido(apellido);
+        this.setCorreo(correo);
     }
 
     // getters
@@ -52,7 +60,7 @@ public class Usuario {
         this.apellido = apellido;
     }
 
-    public void setCedulaIdentidad(String correo) {
+    public void setCorreo(String correo) {
         this.correo = correo;
     }
     
@@ -60,7 +68,9 @@ public class Usuario {
      * Retorna los datos del usuario como un DataType DTUsuario.
      */
     public DTUsuario toDataType() {
-    	return new DTUsuario(getNickname(), getNombre(), getApellido(), getCorreo());
+    	if (this instanceof Empresa)
+    		return ( (Empresa) this ).toDataType();
+    	return ( (Postulante) this ).toDataType();
     }
 
 }

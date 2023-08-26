@@ -20,7 +20,15 @@ public class Empresa extends Usuario {
 	private Set<DTOferta> ofertasLaborales;
 	
 	// constructores
-	public Empresa(String nickname, String nombre, String apellido, String correo,String nomEmpresa ,String descripcion, String linkWeb) {
+	public Empresa() {
+		super();
+		this.setNombreEmpresa(new String());
+		this.setDescripcion(new String());
+		this.setLinkWeb(new String());
+		this.ofertasLaborales = new TreeSet<>(Comparator.comparing(DTOferta::getNombre));
+	}
+	
+	public Empresa(String nickname, String nombre, String apellido, String correo, String nombreEmpresa, String descripcion, String linkWeb) {
 		super(nickname, nombre, apellido, correo);
 		this.setNombreEmpresa(nomEmpresa);
 		this.setDescripcion(descripcion);
@@ -50,15 +58,15 @@ public class Empresa extends Usuario {
 	}
 	
 	// setters
-	private void setNombreEmpresa(String nombreEmpresa) {
+	public void setNombreEmpresa(String nombreEmpresa) {
 		this.nombreEmpresa = nombreEmpresa;
 	}
 	
-	private void setDescripcion(String descripcion) {
+	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 	
-	private void setLinkWeb(String linkWeb) {
+	public void setLinkWeb(String linkWeb) {
 		this.linkWeb = linkWeb;
 	}
 	

@@ -3,9 +3,6 @@ package excepciones;
 
 public class NicknameNoExisteException extends Exception {
 
-	/**
-	 * Sin esto me tira warning.
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public NicknameNoExisteException() {
@@ -24,8 +21,7 @@ public class NicknameNoExisteException extends Exception {
 		super(message, cause);
 	}
 
-	public NicknameNoExisteException(String message, Throwable cause, boolean enableSuppression,
-			boolean writableStackTrace) {
+	public NicknameNoExisteException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
 
