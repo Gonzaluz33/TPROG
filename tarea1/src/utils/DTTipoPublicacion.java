@@ -1,5 +1,6 @@
 package utils;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class DTTipoPublicacion {
@@ -7,9 +8,9 @@ public class DTTipoPublicacion {
 	private String descripcion;
 	private Integer duracionPublicacion;
 	private Integer costo;
-	private Date fechaAlta;
+	private LocalDate  fechaAlta;
 	
-	public DTTipoPublicacion(String nombre, String descripcion, Integer duracionPublicacion, Integer costo, Date alta ){
+	public DTTipoPublicacion(String nombre, String descripcion, Integer duracionPublicacion, Integer costo, LocalDate alta ){
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionPublicacion = duracionPublicacion;
@@ -39,7 +40,7 @@ public class DTTipoPublicacion {
 		return costo;
 	}
 	
-	public Date getAlta() {
+	public LocalDate  getAlta() {
 		return fechaAlta;
 	}
 	
@@ -52,7 +53,7 @@ public class DTTipoPublicacion {
 		this.duracionPublicacion = duracion;
 	}
 	
-	public void setAlta(Date alta) {
+	public void setAlta(LocalDate  alta) {
 		this.fechaAlta = alta;
 	}
 	

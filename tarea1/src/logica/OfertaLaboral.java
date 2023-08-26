@@ -3,6 +3,8 @@ package logica;
 import utils.DTOferta;
 
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OfertaLaboral {
 	
@@ -13,6 +15,8 @@ public class OfertaLaboral {
 	private String horario;
 	private String remuneracion;
 	private Date fechaAlta;
+	private List<Publicacion> publicaciones = new ArrayList<Publicacion>();
+	private List<Keyword> keywords = new ArrayList<Keyword>();
 	
 	public OfertaLaboral(String n, String desc, String c, String dep, String hora, Date fecha, String remuneracion) {
 		this.ciudad = c;
@@ -23,7 +27,15 @@ public class OfertaLaboral {
 		this.nombre = n;
 		this.remuneracion = remuneracion;
 	}
-
+	
+	public void addPublicacion(Publicacion pub) {
+        publicaciones.add(pub);
+    }
+	
+	public void addKeyword(Keyword keyword) {
+        keywords.add(keyword);
+    }
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -44,10 +56,12 @@ public class OfertaLaboral {
 	}
 	public Date getFechaAlta() {
 		return fechaAlta;
-	};
+	}
+	public List<Keyword> getKeywords(){
+		return keywords;
+	}
 	
-	
-	
+		
 	public void setNombre(String n) {
 		this.nombre = n;
 	}
@@ -70,6 +84,12 @@ public class OfertaLaboral {
 	}
 	public void setFechaAlta(Date fa) {
 		this.fechaAlta = fa;
+	}
+	public void setPublicacion(ArrayList<Publicacion> pub) {
+		this.publicaciones = pub;
+	}
+	public void setKeywords(ArrayList<Keyword> keys) {
+		this.keywords = keys;
 	}
 	
 	/**

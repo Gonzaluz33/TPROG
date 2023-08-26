@@ -1,6 +1,11 @@
 package logica;
 
+import java.util.Date;
+import java.util.List;
+
 import excepciones.KeywordExisteException;
+import excepciones.NombreExisteException;
+import utils.DTTipoPublicacion;
 
 public class ControladorOfertas implements IControladorOfertas{
 	
@@ -18,4 +23,16 @@ public class ControladorOfertas implements IControladorOfertas{
 		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
 		mOL.addKeyword(key);
 	}
+	
+	public void altaOferta(String nombre, String desc, String remuner, String horario, List<String> keywords, String ciudad, String depa, DTTipoPublicacion tipo) throws NombreExisteException, KeywordExisteException {
+		Date fecha = new Date();
+		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
+		OfertaLaboral ofL = new OfertaLaboral(nombre, desc, ciudad, depa, horario, fecha, remuner);
+		mOL.addOferta(ofL, keywords);
+		// despues de crear la oferta, creo la publicacion con el tipo
+		ControladorPublicaciones contPub = ControladorPublicaciones.getInstance();
+		Publicacion pub = contPub.addPublicacion(ofL, tipo);
+		ofL.addPublicacion(pub);
+	}
+	
 }

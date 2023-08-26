@@ -77,5 +77,6 @@ public class ManejadorUsuarios {
 		});
 		return out;
 	}
+	
 
 }

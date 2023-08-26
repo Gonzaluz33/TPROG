@@ -1,25 +1,32 @@
 package logica;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Publicacion {
 	private Integer id;
 	private Integer costoAsociado;
-	private Date fechaAlta;
-	private Date fechaVencimiento;
+	private LocalDate  fechaAlta;
+	private LocalDate  fechaVencimiento;
+	private OfertaLaboral oferta;
 	
-	public Publicacion(Integer id, Integer costo, Date alta, Date fin){
+	public Publicacion(Integer id, Integer costo, LocalDate  alta, LocalDate  fin, OfertaLaboral oferta){
 		this.costoAsociado = costo;
 		this.fechaAlta = alta;
 		this.fechaVencimiento = fin;
 		this.id = id;
+		this.oferta = oferta;
 	}
 	
 	public Integer getCosto() {
 		return costoAsociado;
 	}
 	
-	public Date getAlta() {
+	public OfertaLaboral getOferta() {
+		return oferta;
+	}
+	
+	public LocalDate  getAlta() {
 		return fechaAlta;
 	}
 	
@@ -27,7 +34,7 @@ public class Publicacion {
 		return id;
 	}
 	
-	public Date getFin() {
+	public LocalDate  getFin() {
 		return fechaVencimiento;
 	}
 	
@@ -35,7 +42,11 @@ public class Publicacion {
 		this.costoAsociado=costo;
 	}
 	
-	public void setAlta(Date alta) {
+	public void setOferta(OfertaLaboral oferta) {
+		this.oferta=oferta;
+	}
+	
+	public void setAlta(LocalDate  alta) {
 		this.fechaAlta=alta;
 	}
 	
@@ -43,7 +54,7 @@ public class Publicacion {
 		this.id=id;
 	}
 	
-	public void setFin(Date fin) {
+	public void setFin(LocalDate  fin) {
 		this.fechaVencimiento=fin;
 	}
 	
