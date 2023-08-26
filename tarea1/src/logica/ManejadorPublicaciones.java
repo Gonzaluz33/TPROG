@@ -25,7 +25,7 @@ public class ManejadorPublicaciones {
 		if(coleccionTipos.get(p.getNombre()) != null) {
 			throw new TipoPublicExisteException("El Tipo Publicacion de Oferta Laboral con nombre" + p.getNombre() + " ya existe");
 		}
-		coleccionTipos.put(p.getNombre().toLowerCase(), p);
+		coleccionTipos.put(p.getNombre(), p);
 	}
 
 }
