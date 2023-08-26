@@ -17,12 +17,16 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 
 import logica.Fabrica;
+import logica.IControladorOfertas;
+import logica.IControladorPublicaciones;
 import logica.IControladorUsuario;
 
 public class Principal {
 	
 	//Interfaces
 	private IControladorUsuario ICU;
+	private IControladorOfertas ICO;
+	private IControladorPublicaciones ICP;
 	
 	//Componentes Swing
 	private JFrame frame;
@@ -59,7 +63,10 @@ public class Principal {
 		initialize();
 		//Inicializacion fabrica y controladores
 		Fabrica fabrica = Fabrica.getInstance();
-		ICU = fabrica.getIControladorUsuario();	
+		ICU = fabrica.getIControladorUsuario();
+		ICP = fabrica.getIControladorPublicaciones();	
+		ICO = fabrica.getIControladorOfertas();	
+	
 		
 		altaPostulanteInternalFrame = new altaPostulante(ICU);
 		altaPostulanteInternalFrame.setResizable(false);
@@ -77,7 +84,7 @@ public class Principal {
 		consultaUsuarioInternalFrame.setBorder(null);
 		consultaUsuarioInternalFrame.setVisible(false);
 		
-		altaOfertaLaboralInternalFrame = new altaOfertaLaboral();
+		altaOfertaLaboralInternalFrame = new altaOfertaLaboral(ICU, ICP, ICO);
 		altaOfertaLaboralInternalFrame.setResizable(false);
 		altaOfertaLaboralInternalFrame.setBorder(null);
 		altaOfertaLaboralInternalFrame.setVisible(false);
@@ -157,6 +164,8 @@ public class Principal {
 		JMenuItem mItemOfertaLaboral = new JMenuItem("Alta de Oferta Laboral");
 		mItemOfertaLaboral.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
+				 altaOfertaLaboralInternalFrame.cargarUsuarios();
+				 altaOfertaLaboralInternalFrame.cargarTipos();
 				 altaOfertaLaboralInternalFrame.setVisible(true);
 	            }
 		});	

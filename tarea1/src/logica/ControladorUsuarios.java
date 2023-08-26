@@ -48,5 +48,9 @@ public class ControladorUsuarios implements IControladorUsuario{
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
 		return manejadorU.obtenerListaUsuarios();
 	}
-
+	
+	public List<DTUsuario> obtenerListaEmpresas() {
+		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+		return manejadorU.obtenerListaEmpresas();
+	}
 }

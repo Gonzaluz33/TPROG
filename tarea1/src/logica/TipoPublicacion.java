@@ -1,5 +1,6 @@
 package logica;
 
+import java.time.LocalDate;
 import java.util.Date;
 import utils.DTTipoPublicacion;
 
@@ -10,10 +11,10 @@ public class TipoPublicacion {
 	private String descripcion;
 	private Integer duracionPublicacion;
 	private Integer costo;
-	private Date fechaAlta;
+	private LocalDate fechaAlta;
 	
 	
-	public TipoPublicacion(String nombre, String descripcion, Integer duracionPublicacion, Integer costo, Date alta ){
+	public TipoPublicacion(String nombre, String descripcion, Integer duracionPublicacion, Integer costo, LocalDate alta ){
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionPublicacion = duracionPublicacion;
@@ -43,7 +44,7 @@ public class TipoPublicacion {
 		return costo;
 	}
 	
-	public Date getAlta() {
+	public LocalDate getAlta() {
 		return fechaAlta;
 	}
 	
@@ -56,7 +57,7 @@ public class TipoPublicacion {
 		this.duracionPublicacion = duracion;
 	}
 	
-	public void setAlta(Date alta) {
+	public void setAlta(LocalDate alta) {
 		this.fechaAlta = alta;
 	}
 	

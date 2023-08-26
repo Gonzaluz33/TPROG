@@ -39,4 +39,9 @@ public class ManejadorPublicaciones {
 	public void addPublicacion(Publicacion pub) {
 		coleccionPublicaciones.put(pub.getId(), pub);
 	}
+	
+	public TipoPublicacion getTipo(String nombre) {
+		return coleccionTipos.get(nombre);
+	}
+
 }

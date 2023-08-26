@@ -6,13 +6,26 @@ import javax.swing.JInternalFrame;
 import java.awt.Panel;
 import java.awt.Label;
 import javax.swing.JLabel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.TextArea;
 import javax.swing.JTextField;
+
+import excepciones.KeywordExisteException;
+import excepciones.NombreExisteException;
+import logica.ControladorUsuarios;
+import logica.IControladorOfertas;
+import logica.IControladorPublicaciones;
+import logica.IControladorUsuario;
+import utils.DTTipoPublicacion;
+import utils.DTUsuario;
+
 import javax.swing.JSpinner;
 import java.awt.Button;
 import java.awt.Color;
@@ -22,28 +35,42 @@ import java.awt.Color;
 @SuppressWarnings("serial")
 public class altaOfertaLaboral extends JInternalFrame {
 	private JTextField horarioField;
+	private JComboBox<DTUsuario> boxEmpresa;
+	private JComboBox<DTTipoPublicacion> boxTipoPublicacion;
+	private IControladorUsuario ctrlUsuario;
+	private IControladorOfertas ctrlOfertas;
+	private IControladorPublicaciones ctrlPublicaciones;
+	private TextField nombreField;
+	private TextArea descripcionTextArea;
+	private JSpinner remuneracionSpiner;
+	private TextField ciudadField;
+	private TextField departamentoField;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					altaOfertaLaboral frame = new altaOfertaLaboral();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					altaOfertaLaboral frame = new altaOfertaLaboral(ctrlUsuario);
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 * @throws PropertyVetoException 
 	 */
-	public altaOfertaLaboral() throws PropertyVetoException {
+	public altaOfertaLaboral(IControladorUsuario ICU, IControladorPublicaciones ICP, IControladorOfertas ICO) throws PropertyVetoException {
+		ctrlUsuario = ICU;
+		ctrlPublicaciones = ICP;
+		ctrlOfertas = ICO;
+		
 		setResizable(false);
 		setMaximum(true);
 		setMaximizable(true);
@@ -57,15 +84,16 @@ public class altaOfertaLaboral extends JInternalFrame {
 		lblNewLabel.setBounds(25, 21, 878, 14);
 		getContentPane().add(lblNewLabel);
 		
-		JComboBox boxEmpresa = new JComboBox();
+		boxEmpresa = new JComboBox<DTUsuario>();
 		boxEmpresa.setBounds(25, 46, 721, 22);
 		getContentPane().add(boxEmpresa);
+		this.cargarUsuarios();
 		
 		JLabel lblSeleccioneUnTipo = new JLabel("Seleccione un tipo de publicación:");
 		lblSeleccioneUnTipo.setBounds(25, 79, 878, 14);
 		getContentPane().add(lblSeleccioneUnTipo);
 		
-		JComboBox boxTipoPublicacion = new JComboBox();
+		boxTipoPublicacion = new JComboBox();
 		boxTipoPublicacion.setBounds(25, 102, 721, 22);
 		getContentPane().add(boxTipoPublicacion);
 		
@@ -73,7 +101,7 @@ public class altaOfertaLaboral extends JInternalFrame {
 		lblIngreseNombreDe.setBounds(25, 135, 878, 14);
 		getContentPane().add(lblIngreseNombreDe);
 		
-		TextField nombreField = new TextField();
+		nombreField = new TextField();
 		nombreField.setBounds(25, 155, 354, 22);
 		getContentPane().add(nombreField);
 		
@@ -81,7 +109,7 @@ public class altaOfertaLaboral extends JInternalFrame {
 		lblDescripcion.setBounds(25, 191, 878, 14);
 		getContentPane().add(lblDescripcion);
 		
-		TextArea descripcionTextArea = new TextArea();
+		descripcionTextArea = new TextArea();
 		descripcionTextArea.setBounds(25, 211, 721, 88);
 		getContentPane().add(descripcionTextArea);
 		
@@ -98,7 +126,7 @@ public class altaOfertaLaboral extends JInternalFrame {
 		lblNewLabel_2.setBounds(25, 366, 178, 14);
 		getContentPane().add(lblNewLabel_2);
 		
-		JSpinner remuneracionSpiner = new JSpinner();
+		remuneracionSpiner = new JSpinner();
 		remuneracionSpiner.setBounds(25, 392, 178, 20);
 		getContentPane().add(remuneracionSpiner);
 		
@@ -106,7 +134,7 @@ public class altaOfertaLaboral extends JInternalFrame {
 		lblNewLabel_3.setBounds(241, 310, 178, 14);
 		getContentPane().add(lblNewLabel_3);
 		
-		TextField ciudadField = new TextField();
+		ciudadField = new TextField();
 		ciudadField.setBounds(241, 333, 178, 22);
 		getContentPane().add(ciudadField);
 		
@@ -114,7 +142,7 @@ public class altaOfertaLaboral extends JInternalFrame {
 		lblNewLabel_3_1.setBounds(241, 366, 178, 14);
 		getContentPane().add(lblNewLabel_3_1);
 		
-		TextField departamentoField = new TextField();
+		departamentoField = new TextField();
 		departamentoField.setBounds(241, 390, 178, 22);
 		getContentPane().add(departamentoField);
 		
@@ -133,6 +161,52 @@ public class altaOfertaLaboral extends JInternalFrame {
 				 dispose();
 	            }
 		});
+		
+		buttonAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					crearOferta(e);
+				} catch (NombreExisteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (KeywordExisteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	public void cargarUsuarios() {
+		boxEmpresa.removeAllItems();
+		List<DTUsuario> datos = new ArrayList<>();
+		datos = ctrlUsuario.obtenerListaEmpresas();
+		for (DTUsuario u : datos) {
+			boxEmpresa.addItem(u);
+		}
 
+    }
+	
+	public void cargarTipos() {
+		boxTipoPublicacion.removeAllItems();
+		List<DTTipoPublicacion> datos = new ArrayList<>();
+		datos = ctrlPublicaciones.obtenerTipos();
+		for (DTTipoPublicacion t : datos) {
+			boxTipoPublicacion.addItem(t);
+		}
+
+    }
+	
+	public void crearOferta(ActionEvent e) throws NombreExisteException, KeywordExisteException {
+		String nombre = this.nombreField.getText();
+		String desc = this.descripcionTextArea.getText();
+		String depa = this.departamentoField.getText();
+		String ciudad = this.ciudadField.getText();
+		String horario = this.horarioField.getText();
+		DTUsuario empresa = (DTUsuario) this.boxEmpresa.getSelectedItem();
+		DTTipoPublicacion tipo = (DTTipoPublicacion) this.boxTipoPublicacion.getSelectedItem();
+		String rem = this.remuneracionSpiner.getValue().toString();
+		
+		this.ctrlOfertas.altaOferta(nombre, desc, rem, rem, null, ciudad, depa, tipo);
 	}
 }
