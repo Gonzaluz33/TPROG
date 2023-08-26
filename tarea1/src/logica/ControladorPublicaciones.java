@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import utils.DTTipoPublicacion;
+import java.time.LocalDateTime;
+import excepciones.TipoPublicExisteException;
 
 public class ControladorPublicaciones implements IControladorPublicaciones {
 
@@ -33,4 +35,15 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		//find tipo, agregar asociacion si no existe, y pumquepam
 		return pub;
 	}
+	public void altaTipoPublicacionOL(String nombre, String descripcion, String exposicion, Integer duracion, Integer costoPublic, LocalDate fechaAlta ) 
+			throws TipoPublicExisteException {
+		ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
+		
+		TipoPublicacion.EnumExposicion exposicionEnum = TipoPublicacion.EnumExposicion.valueOf(exposicion); // Convertir la cadena a EnumExposicion
+		
+		TipoPublicacion tipoP = new TipoPublicacion( nombre, descripcion, duracion, costoPublic, fechaAlta, exposicionEnum);
+		manejadorP.altaTipoPublicacionOL(tipoP);
+	}
+	
+	
 }

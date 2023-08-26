@@ -20,6 +20,7 @@ import logica.Fabrica;
 import logica.IControladorOfertas;
 import logica.IControladorPublicaciones;
 import logica.IControladorUsuario;
+import logica.IControladorPublicaciones;
 
 public class Principal {
 	
@@ -28,7 +29,7 @@ public class Principal {
 	private IControladorOfertas ICO;
 	private IControladorPublicaciones ICP;
 	
-	//Componentes Swing
+	//Componentes Swing	
 	private JFrame frame;
 	private altaPostulante altaPostulanteInternalFrame;
 	private altaEmpresa altaEmpresaInternalFrame;
@@ -65,8 +66,7 @@ public class Principal {
 		Fabrica fabrica = Fabrica.getInstance();
 		ICU = fabrica.getIControladorUsuario();
 		ICP = fabrica.getIControladorPublicaciones();	
-		ICO = fabrica.getIControladorOfertas();	
-	
+		ICO = fabrica.getIControladorOfertas();		
 		
 		altaPostulanteInternalFrame = new altaPostulante(ICU);
 		altaPostulanteInternalFrame.setResizable(false);
@@ -95,7 +95,7 @@ public class Principal {
 		consultaOfertaLaboralInternalFrame.setVisible(false);
 		
 		
-		altaTipoPublicacionOLInternalFrame = new altaTipoPublicacionOL();
+		altaTipoPublicacionOLInternalFrame = new altaTipoPublicacionOL(ICP);
 		altaTipoPublicacionOLInternalFrame.setResizable(false);
 		altaTipoPublicacionOLInternalFrame.setBorder(null);
 		altaTipoPublicacionOLInternalFrame.setVisible(false);

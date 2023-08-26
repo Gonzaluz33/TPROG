@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import excepciones.TipoPublicExisteException;
 import utils.DTTipoPublicacion;
 
 
@@ -42,6 +44,17 @@ public class ManejadorPublicaciones {
 	
 	public TipoPublicacion getTipo(String nombre) {
 		return coleccionTipos.get(nombre);
+	}
+
+	/**
+	 * Crea el Tipo de Publicacion y lo agrega a coleccionTipos.
+	 */
+	public void altaTipoPublicacionOL(TipoPublicacion p) throws TipoPublicExisteException {
+		if(coleccionTipos.get(p.getNombre()) != null) {
+			throw new TipoPublicExisteException("El Tipo Publicacion de Oferta Laboral con nombre" + p.getNombre() + " ya existe");
+		}
+		coleccionTipos.put(p.getNombre(), p);
+
 	}
 
 }

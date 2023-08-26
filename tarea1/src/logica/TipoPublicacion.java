@@ -2,6 +2,7 @@ package logica;
 
 import java.time.LocalDate;
 import java.util.Date;
+
 import utils.DTTipoPublicacion;
 
 
@@ -13,13 +14,16 @@ public class TipoPublicacion {
 	private Integer costo;
 	private LocalDate fechaAlta;
 	
+	private EnumExposicion exposicion;
 	
-	public TipoPublicacion(String nombre, String descripcion, Integer duracionPublicacion, Integer costo, LocalDate alta ){
+	
+	public TipoPublicacion(String nombre, String descripcion, Integer duracionPublicacion, Integer costo, LocalDate alta, EnumExposicion exposicion ){
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionPublicacion = duracionPublicacion;
 		this.costo = costo;
 		this.fechaAlta = alta;
+		this.exposicion = exposicion;
 	}
 	
 	public enum EnumExposicion {
@@ -45,6 +49,7 @@ public class TipoPublicacion {
 	}
 	
 	public LocalDate getAlta() {
+	
 		return fechaAlta;
 	}
 	
