@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 
 import logica.Fabrica;
 import logica.IControladorUsuario;
+import logica.IControladorPublicaciones;
 
 public class Principal {
 	
@@ -25,6 +26,9 @@ public class Principal {
 	private IControladorUsuario ICU;
 	
 	//Componentes Swing
+
+	private IControladorPublicaciones ipu;
+	
 	private JFrame frame;
 	private altaPostulante altaPostulanteInternalFrame;
 	private altaEmpresa altaEmpresaInternalFrame;
@@ -60,6 +64,7 @@ public class Principal {
 		//Inicializacion fabrica y controladores
 		Fabrica fabrica = Fabrica.getInstance();
 		ICU = fabrica.getIControladorUsuario();	
+		ipu = fabrica.getIControladorPublicaciones();	
 		
 		altaPostulanteInternalFrame = new altaPostulante(ICU);
 		altaPostulanteInternalFrame.setResizable(false);
@@ -88,7 +93,7 @@ public class Principal {
 		consultaOfertaLaboralInternalFrame.setVisible(false);
 		
 		
-		altaTipoPublicacionOLInternalFrame = new altaTipoPublicacionOL();
+		altaTipoPublicacionOLInternalFrame = new altaTipoPublicacionOL(ipu);
 		altaTipoPublicacionOLInternalFrame.setResizable(false);
 		altaTipoPublicacionOLInternalFrame.setBorder(null);
 		altaTipoPublicacionOLInternalFrame.setVisible(false);
