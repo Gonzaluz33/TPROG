@@ -45,20 +45,6 @@ class ControladorUsuarioTest {
 		manejadorP.limpiarColeccionTipos();
 	}
 	
-
-	@Test
-	void antesDeConsulta() {
-		try {
-			DTUsuario usuarioConsultado = controladorUsuario.consultarUsuario("nicknameEmpresaUno");
-			
-			assertEquals(usuarioConsultado.getNickname(), "nicknameEmpresaUno");
-		} catch (NicknameNoExisteException e) {
-			// TODO Auto-generated catch block
-			fail(e.getMessage());
-			e.printStackTrace();
-		}
-	}
-	
 	@Test
 	void testConsultarUsuarioOK() {
 		String nicknameTest = "nicknameEmpresaUno";
@@ -82,7 +68,6 @@ class ControladorUsuarioTest {
 			assertEquals(((DTEmpresa) usuarioConsultado).getDescripcion(), descripcionTest);
 			assertEquals(((DTEmpresa) usuarioConsultado).getLinkWeb(), linkWebTest);
 		} catch (NicknameNoExisteException | UsuarioRepetidoException e) {
-			// TODO Auto-generated catch block
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -90,16 +75,30 @@ class ControladorUsuarioTest {
 	}
 	
 	@Test
-	void despuesDeConsulta() {
+	void testConsultarUsuarioNoExiste() {
+		String nicknameUsuarioQueNoExiste = "eu nao esisto";
+		
+		// testeo sobre la coleccion vacia
+		assertThrows(NicknameNoExisteException.class, () -> controladorUsuario.consultarUsuario(nicknameUsuarioQueNoExiste));
+		
+		// le cargo un usuario al sistema
+		String nicknameTest = "nicknameEmpresaUno";
+		String nombreTest = "nombrePersonaEmpresaUno";
+		String apellidoTest = "apellidoEmpresaUno";
+		String emailTest = "emailEmpresaUno";
+		String nombreEmpresaTest = "nombreEmpresaUno";
+		String descripcionTest = "descripcionEmpresaUno";
+		String linkWebTest = "linkWebEmpresaUno";
 		try {
-			DTUsuario usuarioConsultado = controladorUsuario.consultarUsuario("nicknameEmpresaUno");
-			
-			assertEquals(usuarioConsultado.getNickname(), "nicknameEmpresaUno");
-		} catch (NicknameNoExisteException e) {
+			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, nombreEmpresaTest, descripcionTest, linkWebTest);
+		} catch (UsuarioRepetidoException e) {
 			// TODO Auto-generated catch block
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
+		
+		// testeo sobre una coleccion con 1 usuario en el sistema
+		assertThrows(NicknameNoExisteException.class, () -> controladorUsuario.consultarUsuario(nicknameUsuarioQueNoExiste));
 	}
-
+	
 }
