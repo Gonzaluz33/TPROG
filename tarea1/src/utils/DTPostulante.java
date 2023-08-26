@@ -15,13 +15,8 @@ public class DTPostulante extends DTUsuario {
 	private List<DTPostulacion> postulaciones;
 	
 	// constructores
-	public DTPostulante(String string, String string2, String string3, String string4, Date date, String string5, List<DTPostulacion> list) {
-		super();
-		this.setFechaNacimiento(new Date());
-		this.setNacionalidad(new String());
-	}
 	
-	public DTPostulante(String nickname, String nombre, String apellido, String correo, Date fechaNacimiento, String nacionalidad) {
+	public DTPostulante(String nickname, String nombre, String apellido, String correo, Date fechaNacimiento, String nacionalidad, List<DTPostulacion> postulaciones) {
 		super(nickname, nombre, apellido, correo);
 		this.setFechaNacimiento(fechaNacimiento);
         this.setNacionalidad(nacionalidad);

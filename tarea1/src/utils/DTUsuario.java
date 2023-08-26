@@ -43,6 +43,10 @@ public class DTUsuario {
     public String getCorreo() {
         return correo;
     }
+    
+    public String toString(){
+        return nombre + " " + apellido;
+    }
 
     // setters
     private void setNickname(String nickname) {

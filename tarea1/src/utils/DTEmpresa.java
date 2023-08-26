@@ -17,11 +17,12 @@ public class DTEmpresa extends DTUsuario {
 	
 	// constructores
 	public DTEmpresa(String nickname, String nombre, String apellido, String correo, String nombreEmpresa, String descripcion, String linkWeb, Set<DTOferta> ofertas) {
-		super();
+		super(nickname, nombre, apellido, correo);
 		this.setNombreEmpresa(nombreEmpresa);
 		this.setDescripcion(descripcion);
 		this.setLinkWeb(linkWeb);
 		this.setOfertas(ofertas);
+		
 	}
 	
 	// getters

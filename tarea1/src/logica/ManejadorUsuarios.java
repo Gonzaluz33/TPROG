@@ -63,6 +63,7 @@ public class ManejadorUsuarios {
 	public List<DTUsuario> obtenerListaUsuarios() {
 		List<DTUsuario> out = new ArrayList<DTUsuario>();
 		for (Map.Entry<String, Usuario> entry : coleccionUsuarios.entrySet()) {
+			System.out.print("llegue a manejador");
 			out.add(entry.getValue().toDataType());
 		}
 		Collections.sort(out, new Comparator<DTUsuario>() {
