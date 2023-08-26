@@ -103,5 +103,12 @@ public class ManejadorUsuarios {
 			throw new UsuarioNoEsEmpresaException("El usuario con el nickname " + nicknameEmpresa + " no es una empresa.");
 		return ( (Empresa) coleccionUsuarios.get(nicknameEmpresa) ).getOfertas();
 	}
+	
+	/**
+	 * Sustituye la coleccion de usuarios por una vacia.
+	 */
+	public void limpiarColeccionUsuarios() {
+		this.coleccionUsuarios = new HashMap<String,Usuario>();
+	}
 
 }

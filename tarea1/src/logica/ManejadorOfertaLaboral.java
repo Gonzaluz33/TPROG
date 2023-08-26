@@ -38,5 +38,19 @@ public class ManejadorOfertaLaboral {
 		}
 		coleccionKeyword.put(key.getNombre(), key);
 	}
+	
+	/**
+	 * Sustituye la coleccion de ofertas laborales por una vacia.
+	 */
+	public void limpiarColeccionOfertasLaborales() {
+		this.coleccionOfertasLaborales = new TreeMap<String, OfertaLaboral>();
+	}
+	
+	/**
+	 * Sustituye la coleccion de keywords por una vacia.
+	 */
+	public void limpiarColeccionKeywords() {
+		this.coleccionKeyword = new HashMap<String, Keyword>();
+	}
 
 }
