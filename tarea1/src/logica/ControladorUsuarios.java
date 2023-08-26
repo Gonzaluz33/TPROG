@@ -3,8 +3,9 @@ package logica;
 import java.util.Date;
 import java.util.List;
 
+import excepciones.NicknameNoExisteException;
+import utils.DTEmpresa;
 import utils.DTUsuario;
-import excepciones.*;
 
 public class ControladorUsuarios implements IControladorUsuario{
 	
@@ -36,6 +37,11 @@ public class ControladorUsuarios implements IControladorUsuario{
 	public List<DTUsuario> listarUsuarios() {
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
 		return manejadorU.obtenerListaUsuarios();
+	}
+	
+	public List<DTEmpresa> listarEmpresas() {
+		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+		return manejadorU.obtenerListaEmpresas();
 	}
 	
 	public DTUsuario consultarUsuario(String nicknameUsuario) throws NicknameNoExisteException {
