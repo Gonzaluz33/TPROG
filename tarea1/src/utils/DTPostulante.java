@@ -18,7 +18,7 @@ public class DTPostulante extends DTUsuario {
 	// constructores
 	public DTPostulante() {
 		super();
-		this.setFechaNacimiento(new String());
+		this.setFechaNacimiento(new Date());
         this.setNacionalidad(new String());
         this.setPostulaciones(new ArrayList<DTPostulacion>());
 	}
@@ -26,7 +26,7 @@ public class DTPostulante extends DTUsuario {
 	/**
 	 * Constructor SIN la lista de postulaciones asociada al postulante.
 	 */
-	public DTPostulante(String nickname, String nombre, String apellido, String correo, String fechaNacimiento, String nacionalidad) {
+	public DTPostulante(String nickname, String nombre, String apellido, String correo, Date fechaNacimiento, String nacionalidad) {
 		super(nickname, nombre, apellido, correo);
 		this.setFechaNacimiento(fechaNacimiento);
         this.setNacionalidad(nacionalidad);

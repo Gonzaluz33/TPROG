@@ -2,6 +2,7 @@ package logica;
 
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.HashMap;
 
 import excepciones.OfertaNoExisteException;
 import excepciones.KeywordExisteException;

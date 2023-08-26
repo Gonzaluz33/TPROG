@@ -30,7 +30,7 @@ public class Empresa extends Usuario {
 	
 	public Empresa(String nickname, String nombre, String apellido, String correo, String nombreEmpresa, String descripcion, String linkWeb) {
 		super(nickname, nombre, apellido, correo);
-		this.setNombreEmpresa(nomEmpresa);
+		this.setNombreEmpresa(nombreEmpresa);
 		this.setDescripcion(descripcion);
 		this.setLinkWeb(linkWeb);
 		this.ofertasLaborales = new TreeSet<>(Comparator.comparing(DTOferta::getNombre));

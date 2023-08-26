@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import excepciones.NicknameNoExisteException;
+import excepciones.UsuarioRepetidoException;
 import utils.DTEmpresa;
 import utils.DTUsuario;
 
