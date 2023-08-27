@@ -23,6 +23,13 @@ public class Postulante extends Usuario{
 	private Map<String, Postulacion> postulaciones;
 	
 	// constructores
+	public Postulante() {
+		super();
+		this.setFechaNacimiento(new Date());
+		this.setNacionalidad(new String());
+		this.postulaciones = new HashMap<String, Postulacion>();
+	}
+	
 	public Postulante(String nickname, String nombre, String apellido, String correo, Date fechaNacimiento, String nacionalidad) {
 		super(nickname, nombre, apellido, correo);
 		this.setFechaNacimiento(fechaNacimiento);

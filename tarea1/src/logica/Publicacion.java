@@ -8,6 +8,13 @@ public class Publicacion {
 	private Date fechaAlta;
 	private Date fechaVencimiento;
 	
+	public Publicacion(){
+		this.costoAsociado = 0;
+		this.fechaAlta = new Date();
+		this.fechaVencimiento = new Date();
+		this.id = 0;
+	}
+	
 	public Publicacion(Integer id, Integer costo, Date alta, Date fin){
 		this.costoAsociado = costo;
 		this.fechaAlta = alta;
