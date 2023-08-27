@@ -2,6 +2,8 @@ package logica;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import utils.DTTipoPublicacion;
 
@@ -13,6 +15,7 @@ public class TipoPublicacion {
 	private Integer duracionPublicacion;
 	private Integer costo;
 	private LocalDate fechaAlta;
+	private Map<String, ContadorPublicaciones> cantidades = new HashMap<String, ContadorPublicaciones>();
 	
 	private EnumExposicion exposicion;
 	
@@ -30,6 +33,15 @@ public class TipoPublicacion {
 	    Alta,
 	    Media,
 	    Baja
+	}
+	
+	public void addCantidad(String nombre, ContadorPublicaciones contador) {
+		if (!cantidades.containsKey(nombre)) {
+			cantidades.put(nombre, contador);
+		}
+	}
+	public ContadorPublicaciones getContador(String nickname) {
+		return cantidades.get(nickname);
 	}
 	
 	public String getNombre() {

@@ -4,22 +4,28 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class Publicacion {
-	private Integer id;
-	private Integer costoAsociado;
+	private int id;
+	private int costoAsociado;
 	private LocalDate  fechaAlta;
 	private LocalDate  fechaVencimiento;
 	private OfertaLaboral oferta;
+	private ContadorPublicaciones contador;
 	
-	public Publicacion(Integer id, Integer costo, LocalDate  alta, LocalDate  fin, OfertaLaboral oferta){
+	public Publicacion(int id, int costo, LocalDate  alta, LocalDate  fin, OfertaLaboral oferta, ContadorPublicaciones cont){
 		this.costoAsociado = costo;
 		this.fechaAlta = alta;
 		this.fechaVencimiento = fin;
 		this.id = id;
+		this.contador = cont;
 		this.oferta = oferta;
 	}
 	
-	public Integer getCosto() {
+	public int getCosto() {
 		return costoAsociado;
+	}
+	
+	public ContadorPublicaciones getContador() {
+		return contador;
 	}
 	
 	public OfertaLaboral getOferta() {
@@ -30,7 +36,7 @@ public class Publicacion {
 		return fechaAlta;
 	}
 	
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 	
@@ -38,7 +44,7 @@ public class Publicacion {
 		return fechaVencimiento;
 	}
 	
-	public void setCosto(Integer costo) {
+	public void setCosto(int costo) {
 		this.costoAsociado=costo;
 	}
 	
@@ -50,7 +56,7 @@ public class Publicacion {
 		this.fechaAlta=alta;
 	}
 	
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id=id;
 	}
 	

@@ -24,18 +24,31 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		return manP.obtenerTipos();
 	}
 	
+	public void addPaquete(String nombre, String descripcion, int validez, int descuento, int costoAsociado) {
+		Paquete paq = new Paquete(nombre, descripcion, validez, descuento, costoAsociado);
+		ManejadorPublicaciones manPub = ManejadorPublicaciones.getInstance();
+		manPub.addPaquete(paq);
+	}
+	
 	public Publicacion addPublicacion(OfertaLaboral ofL, String tipo) {
 //		Integer id, Integer costo, Date alta, Date fin
 		ManejadorPublicaciones manPub = ManejadorPublicaciones.getInstance();
-		Integer id = manPub.getLastPubId();
+		int id = manPub.getLastPubId();
 		TipoPublicacion datosTipo = manPub.getTipo(tipo);
 		LocalDate inicio = datosTipo.getAlta();
 		LocalDate fin = LocalDate.of(inicio.getYear(),inicio.getMonthValue(),inicio.getDayOfMonth() + datosTipo.getDuracion());
-		Publicacion pub = new Publicacion(id, datosTipo.getCosto(), inicio, fin, ofL);
+		ContadorPublicaciones contador;
+		if (datosTipo.getContador(ofL.getNombre()) != null) {
+			contador = datosTipo.getContador(ofL.getNombre());
+		} else {
+			contador = new ContadorPublicaciones(datosTipo);
+		}
+		Publicacion pub = new Publicacion(id, datosTipo.getCosto(), inicio, fin, ofL, contador);
+		contador.addPublicacion(pub);
 		manPub.addPublicacion(pub);
-		//find tipo, agregar asociacion si no existe, y pumquepam
 		return pub;
 	}
+	
 	public void altaTipoPublicacionOL(String nombre, String descripcion, String exposicion, Integer duracion, Integer costoPublic, LocalDate fechaAlta ) 
 			throws TipoPublicExisteException {
 		ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
@@ -43,7 +56,6 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		TipoPublicacion.EnumExposicion exposicionEnum = TipoPublicacion.EnumExposicion.valueOf(exposicion); // Convertir la cadena a EnumExposicion
 		
 		TipoPublicacion tipoP = new TipoPublicacion( nombre, descripcion, duracion, costoPublic, fechaAlta, exposicionEnum);
-		System.out.println(tipoP);
 		manejadorP.altaTipoPublicacionOL(tipoP);
 	}
 

@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 import excepciones.KeywordExisteException;
+import excepciones.NicknameNoExisteException;
 import excepciones.NombreExisteException;
 import logica.ControladorUsuarios;
 import logica.IControladorOfertas;
@@ -32,6 +33,7 @@ import javax.swing.JSpinner;
 import java.awt.Button;
 import java.awt.Color;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 
@@ -180,15 +182,22 @@ public class altaOfertaLaboral extends JInternalFrame {
 		
 		buttonAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					crearOferta(e);
-				} catch (NombreExisteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (KeywordExisteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				
+					try {
+						crearOferta(e);
+						limpiarFormulario();
+			            setVisible(false);
+					} catch (NombreExisteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (KeywordExisteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (NicknameNoExisteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				
 			}
 		});
 	}
@@ -223,17 +232,44 @@ public class altaOfertaLaboral extends JInternalFrame {
 
 	}
 	
-	public void crearOferta(ActionEvent e) throws NombreExisteException, KeywordExisteException {
-		String nombre = this.nombreField.getText();
-		String desc = this.descripcionTextArea.getText();
-		String depa = this.departamentoField.getText();
-		String ciudad = this.ciudadField.getText();
-		String horario = this.horarioField.getText();
-		String empresa = (String) this.boxEmpresa.getSelectedItem();
-		String tipo = (String) this.boxTipoPublicacion.getSelectedItem();
-		String rem = this.remuneracionSpiner.getValue().toString();
-		List<String> keys = this.keywordsList.getSelectedValuesList();
-		
-		this.ctrlOfertas.altaOferta(nombre, desc, rem, horario, keys, ciudad, depa, tipo, empresa);
+	public void crearOferta(ActionEvent e) throws NombreExisteException, KeywordExisteException, NicknameNoExisteException {
+		try {
+			
+			String nombre = this.nombreField.getText();
+			String desc = this.descripcionTextArea.getText();
+			String depa = this.departamentoField.getText();
+			String ciudad = this.ciudadField.getText();
+			String horario = this.horarioField.getText();
+			String empresa = (String) this.boxEmpresa.getSelectedItem();
+			String tipo = (String) this.boxTipoPublicacion.getSelectedItem();
+			String rem = this.remuneracionSpiner.getValue().toString();
+			List<String> keys = this.keywordsList.getSelectedValuesList();
+			
+			this.ctrlOfertas.altaOferta(nombre, desc, rem, horario, keys, ciudad, depa, tipo, empresa);
+			JOptionPane.showMessageDialog(this, "La Oferta Laboral se ha creado con éxito", "Alta Oferta",
+                    JOptionPane.INFORMATION_MESSAGE);
+		}
+		catch (NombreExisteException err) {
+			// TODO Auto-generated catch block
+            JOptionPane.showMessageDialog(this, err.getMessage(), "Alta Oferta", JOptionPane.ERROR_MESSAGE);
+		} catch (KeywordExisteException err) {
+			// TODO Auto-generated catch block
+            JOptionPane.showMessageDialog(this, err.getMessage(), "Alta Oferta", JOptionPane.ERROR_MESSAGE);
+		} catch (NicknameNoExisteException err) {
+			// TODO Auto-generated catch block
+            JOptionPane.showMessageDialog(this, err.getMessage(), "Alta Oferta", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public void limpiarFormulario() {
+		this.nombreField.setText("");
+		this.descripcionTextArea.setText("");
+		this.departamentoField.setText("");
+		 this.ciudadField.setText("");
+		this.horarioField.setText("");
+		this.boxEmpresa.removeAllItems();
+		this.boxTipoPublicacion.removeAllItems();
+		this.remuneracionSpiner.setValue(0);
+		this.keywordsList.clearSelection();
 	}
 }

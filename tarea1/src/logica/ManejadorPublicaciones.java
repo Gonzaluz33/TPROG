@@ -31,12 +31,15 @@ public class ManejadorPublicaciones {
 			TipoPublicacion tipo = entry.getValue();
 			res.add(tipo.toDataType());
 		}
-		System.out.print(res);
 		return res;
 	}
 	
-	public Integer getLastPubId() {
+	public int getLastPubId() {
 		return this.coleccionPublicaciones.size();
+	}
+	
+	public void addPaquete(Paquete pub) {
+		coleccionPaquetes.put(pub.getNombre(), pub);
 	}
 	
 	public void addPublicacion(Publicacion pub) {
@@ -55,7 +58,6 @@ public class ManejadorPublicaciones {
 			throw new TipoPublicExisteException("El Tipo Publicacion de Oferta Laboral con nombre" + p.getNombre() + " ya existe");
 		}
 		coleccionTipos.put(p.getNombre(), p);
-		System.out.print(coleccionTipos);
 	}
 
 }

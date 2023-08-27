@@ -17,7 +17,7 @@ public class Empresa extends Usuario {
 	private String nombreEmpresa;
 	private String descripcion;
 	private String linkWeb;
-	private Set<DTOferta> ofertasLaborales;
+	private Set<DTOferta> ofertasLaborales = new TreeSet<DTOferta>();
 	
 	// constructores
 	public Empresa(String nickname, String nombre, String apellido, String correo,String nomEmpresa ,String descripcion, String linkWeb) {
@@ -46,7 +46,8 @@ public class Empresa extends Usuario {
 	 * El set devuelto no comparte memoria con el original.
 	 */
 	public Set<DTOferta> getOfertas() {
-		return new TreeSet<DTOferta>(this.ofertasLaborales);
+//		return new TreeSet<DTOferta>(this.ofertasLaborales);
+		return ofertasLaborales;
 	}
 	
 	// setters
