@@ -37,6 +37,7 @@ public class Principal {
 	private consultaOfertaLaboral consultaOfertaLaboralInternalFrame;
 	private altaTipoPublicacionOL altaTipoPublicacionOLInternalFrame;
 	private postulacionOfertaLaboral postulacionOfertaLaboralInternalFrame;
+	private JInternalFrame currentInternalFrame = null;
 	
 	
 	/**
@@ -123,6 +124,7 @@ public class Principal {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
+		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 		
@@ -134,7 +136,12 @@ public class Principal {
 			JMenuItem mItemAltaPostulante = new JMenuItem("Alta de Postulante");
 			mItemAltaPostulante.addActionListener(new ActionListener() {
 				 public void actionPerformed(ActionEvent e) {
+					 if (currentInternalFrame != null) {
+				            currentInternalFrame.setVisible(false);
+				        }
+
 		                altaPostulanteInternalFrame.setVisible(true);
+		                currentInternalFrame = altaPostulanteInternalFrame;
 		            }
 			});
 
@@ -142,7 +149,11 @@ public class Principal {
 			JMenuItem mItemAltaEmpresa = new JMenuItem("Alta de Empresa");
 			mItemAltaEmpresa.addActionListener(new ActionListener() {
 				 public void actionPerformed(ActionEvent e) {
+					 if (currentInternalFrame != null) {
+				            currentInternalFrame.setVisible(false);
+				        }
 		                altaEmpresaInternalFrame.setVisible(true);
+		                currentInternalFrame = altaEmpresaInternalFrame;
 		            }
 			});
 			
@@ -153,8 +164,12 @@ public class Principal {
 		JMenuItem mItemConsultaUsuario = new JMenuItem("Consulta de Usuario");
 		mItemConsultaUsuario.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+			        }
 				 	consultaUsuarioInternalFrame.llenar_comboListaUsuario();
 	                consultaUsuarioInternalFrame.setVisible(true);
+	                currentInternalFrame = consultaUsuarioInternalFrame;
 	            }
 		});
 		menuCasosDeUso.add(mItemConsultaUsuario);
@@ -162,7 +177,11 @@ public class Principal {
 		JMenuItem mItemOfertaLaboral = new JMenuItem("Alta de Oferta Laboral");
 		mItemOfertaLaboral.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+			        }
 				 altaOfertaLaboralInternalFrame.setVisible(true);
+				 currentInternalFrame = altaOfertaLaboralInternalFrame;
 	            }
 		});	
 		menuCasosDeUso.add(mItemOfertaLaboral);
@@ -170,7 +189,11 @@ public class Principal {
 		JMenuItem mItemConsultaOfertaLaboral = new JMenuItem("Consulta de Oferta Laboral");
 		mItemConsultaOfertaLaboral.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+				 }
 				 consultaOfertaLaboralInternalFrame.setVisible(true);
+				 currentInternalFrame = consultaOfertaLaboralInternalFrame;
 	            }
 		});	
 		menuCasosDeUso.add(mItemConsultaOfertaLaboral);
@@ -178,7 +201,11 @@ public class Principal {
 		JMenuItem mItemAltaTipoPublicacion = new JMenuItem("Alta de Tipo de Publicación de Oferta Laboral");
 		mItemAltaTipoPublicacion.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+				 }
 				 altaTipoPublicacionOLInternalFrame.setVisible(true);
+				 currentInternalFrame = altaTipoPublicacionOLInternalFrame;
 	            }
 		});	
 		menuCasosDeUso.add(mItemAltaTipoPublicacion);
@@ -186,7 +213,11 @@ public class Principal {
 		JMenuItem mItemPostulacionOfertaLaboral = new JMenuItem("Postulación a Oferta Laboral");
 		mItemPostulacionOfertaLaboral.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+				 }
 				 postulacionOfertaLaboralInternalFrame.setVisible(true);
+				 currentInternalFrame = postulacionOfertaLaboralInternalFrame;
 	            }
 		});	
 		menuCasosDeUso.add(mItemPostulacionOfertaLaboral);

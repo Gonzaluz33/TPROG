@@ -7,6 +7,7 @@ import excepciones.*;
 import utils.DTUsuario;
 import utils.DTEmpresa;
 import utils.DTOferta;
+import utils.DTPostulante;
 
 public class ManejadorUsuarios {
 
@@ -69,18 +70,18 @@ public class ManejadorUsuarios {
 			System.out.print("llegue a manejador");
 			listaUsuarios.add(entry.getValue().toDataType());
 		}
-		listaUsuarios.sort(Comparator
-				.comparing(DTUsuario::getNombre)
+		listaUsuarios.sort(Comparator.comparing(DTUsuario::getNombre)
 				.thenComparing(DTUsuario::getApellido));
 		return listaUsuarios;
 	}
 	
 	/**
 	 * Devuelve una lista de DTUsuario con la informacion de todas las empresas registradas en el sistema ordenadas segun el nombre de la empresa.
-	 * Si no hay empresas registrados devuelve una lista vacia.
+	 * Si no hay empresas registradas devuelve una lista vacia.
 	 */
 	public List<DTEmpresa> obtenerListaEmpresas() {
-		List<DTEmpresa> listaEmpresas = this.coleccionUsuarios.values()
+		List<DTEmpresa> listaEmpresas = this.coleccionUsuarios
+				.values()
 				.stream()
 				.filter(usuario -> usuario instanceof Empresa)
 				.map(Usuario::toDataType)
@@ -88,6 +89,23 @@ public class ManejadorUsuarios {
 				.collect(Collectors.toList());
 		listaEmpresas.sort(Comparator.comparing(DTEmpresa::getNombreEmpresa));
 		return listaEmpresas;
+	}
+	
+	/**
+	 * Devuelve una lista de DTPostulante con la informacion de todos los postulantes registrados en el sistema ordenados segun su nombre.
+	 * Si no hay postulantes registrados devuelve una lista vacia.
+	 */
+	public List<DTPostulante> obtenerListaPostulantes() {
+		List<DTPostulante> listaPostulantes = this.coleccionUsuarios
+				.values()
+				.stream()
+				.filter(usuario -> usuario instanceof Postulante)
+				.map(Usuario::toDataType)
+				.map(usuarioDT -> (DTPostulante) usuarioDT)
+				.collect(Collectors.toList());
+		listaPostulantes.sort(Comparator.comparing(DTPostulante::getNombre)
+				.thenComparing(DTPostulante::getApellido));
+		return listaPostulantes;
 	}
 	
 	/**
@@ -103,6 +121,17 @@ public class ManejadorUsuarios {
 			throw new UsuarioNoEsEmpresaException("El usuario con el nickname " + nicknameEmpresa + " no es una empresa.");
 		return ( (Empresa) coleccionUsuarios.get(nicknameEmpresa) ).getOfertas();
 	}
+	
+	/**
+	 * Metodo que solo existe para ser llamado desde la clase ManejadorOfertaLaboral.
+	 * Asocia la postulacion a la coleccion de postulaciones del postulante de nombre postulacion.getNicknamePostulante(). 
+	 */
+	public void postularAOferta(Postulacion postulacion) {
+		Postulante postulante = (Postulante) this.coleccionUsuarios.get(postulacion.getNicknamePostulante());
+		postulante.asociarPostulacion(postulacion, postulacion.getNombreOfertaLaboral());
+	}
+	
+	
 	
 	/**
 	 * Sustituye la coleccion de usuarios por una vacia.

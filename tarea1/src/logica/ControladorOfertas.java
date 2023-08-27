@@ -1,8 +1,13 @@
 package logica;
 
 import excepciones.OfertaNoExisteException;
+import excepciones.UsuarioNoEsPostulanteException;
 import utils.DTOferta;
+
+import java.time.LocalDateTime;
+
 import excepciones.KeywordExisteException;
+import excepciones.NicknameNoExisteException;
 
 public class ControladorOfertas implements IControladorOfertas{
 	
@@ -24,6 +29,11 @@ public class ControladorOfertas implements IControladorOfertas{
 		Keyword key = new Keyword(nombre);
 		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
 		mOL.addKeyword(key);
+	}
+	
+	public void postularAOferta(String nombreOfertaLaboral, String nicknamePostulante, String cvReducido, String motivacion, LocalDateTime fechaPostulacion) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException {
+		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+		manejadorOL.postularAOferta(nombreOfertaLaboral, nicknamePostulante, cvReducido, motivacion, fechaPostulacion);
 	}
 
 }
