@@ -23,7 +23,7 @@ public class ControladorUsuarios implements IControladorUsuario{
         Postulante p = new Postulante(nickname, nombre, apellido, email, fechaNacimiento, nacionalidad);
         manejadorU.altaPostulante(p);
 	}
-
+	
 	@Override
 	public void altaEmpresa(String nickname, String nombre, String apellido, String email, String nomEmpresa ,String desc,
 			String linkWeb) throws UsuarioRepetidoException {
@@ -32,6 +32,10 @@ public class ControladorUsuarios implements IControladorUsuario{
         manejadorU.altaEmpresa(e);
 	}
 	
+	public Usuario obtenerUsuario(String nickname) throws NicknameNoExisteException {
+		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+		return manejadorU.getUsuario(nickname);
+	}
 	
 	public List<DTUsuario> listarUsuarios() {
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();

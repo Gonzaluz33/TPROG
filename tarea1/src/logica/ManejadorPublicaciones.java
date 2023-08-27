@@ -31,6 +31,7 @@ public class ManejadorPublicaciones {
 			TipoPublicacion tipo = entry.getValue();
 			res.add(tipo.toDataType());
 		}
+		System.out.print(res);
 		return res;
 	}
 	
@@ -54,7 +55,7 @@ public class ManejadorPublicaciones {
 			throw new TipoPublicExisteException("El Tipo Publicacion de Oferta Laboral con nombre" + p.getNombre() + " ya existe");
 		}
 		coleccionTipos.put(p.getNombre(), p);
-
+		System.out.print(coleccionTipos);
 	}
 
 }

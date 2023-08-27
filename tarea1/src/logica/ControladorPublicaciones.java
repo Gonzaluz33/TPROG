@@ -24,13 +24,14 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		return manP.obtenerTipos();
 	}
 	
-	public Publicacion addPublicacion(OfertaLaboral ofL, DTTipoPublicacion tipo) {
+	public Publicacion addPublicacion(OfertaLaboral ofL, String tipo) {
 //		Integer id, Integer costo, Date alta, Date fin
 		ManejadorPublicaciones manPub = ManejadorPublicaciones.getInstance();
 		Integer id = manPub.getLastPubId();
-		LocalDate inicio = tipo.getAlta();
-		LocalDate fin = LocalDate.of(inicio.getYear(),inicio.getMonthValue(),inicio.getDayOfMonth() + tipo.getDuracion());
-		Publicacion pub = new Publicacion(id, tipo.getCosto(), inicio, fin, ofL);
+		TipoPublicacion datosTipo = manPub.getTipo(tipo);
+		LocalDate inicio = datosTipo.getAlta();
+		LocalDate fin = LocalDate.of(inicio.getYear(),inicio.getMonthValue(),inicio.getDayOfMonth() + datosTipo.getDuracion());
+		Publicacion pub = new Publicacion(id, datosTipo.getCosto(), inicio, fin, ofL);
 		manPub.addPublicacion(pub);
 		//find tipo, agregar asociacion si no existe, y pumquepam
 		return pub;
@@ -42,8 +43,22 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		TipoPublicacion.EnumExposicion exposicionEnum = TipoPublicacion.EnumExposicion.valueOf(exposicion); // Convertir la cadena a EnumExposicion
 		
 		TipoPublicacion tipoP = new TipoPublicacion( nombre, descripcion, duracion, costoPublic, fechaAlta, exposicionEnum);
+		System.out.println(tipoP);
 		manejadorP.altaTipoPublicacionOL(tipoP);
 	}
+
+	@Override
+	public Publicacion addPublicacion(OfertaLaboral ofL, DTTipoPublicacion tipo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+//	@Override
+//	public void altaTipoPublicacionOL(String nombre, String descripcion, String exposicion, Integer duracion,
+//			Integer CostoPublic, LocalDate fechaAlta) throws TipoPublicExisteException {
+//		// TODO Auto-generated method stub
+//		
+//	}
 	
 	
 }

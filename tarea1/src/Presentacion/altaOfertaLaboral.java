@@ -7,6 +7,7 @@ import java.awt.Panel;
 import java.awt.Label;
 import javax.swing.JLabel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.TextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 import excepciones.KeywordExisteException;
 import excepciones.NombreExisteException;
@@ -29,14 +31,17 @@ import utils.DTUsuario;
 import javax.swing.JSpinner;
 import java.awt.Button;
 import java.awt.Color;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 
 
 
 @SuppressWarnings("serial")
 public class altaOfertaLaboral extends JInternalFrame {
+	
 	private JTextField horarioField;
-	private JComboBox<DTUsuario> boxEmpresa;
-	private JComboBox<DTTipoPublicacion> boxTipoPublicacion;
+	private JComboBox<String> boxEmpresa;
+	private JComboBox<String> boxTipoPublicacion;
 	private IControladorUsuario ctrlUsuario;
 	private IControladorOfertas ctrlOfertas;
 	private IControladorPublicaciones ctrlPublicaciones;
@@ -45,6 +50,7 @@ public class altaOfertaLaboral extends JInternalFrame {
 	private JSpinner remuneracionSpiner;
 	private TextField ciudadField;
 	private TextField departamentoField;
+	private JList<String> keywordsList;
 
 	/**
 	 * Launch the application.
@@ -77,14 +83,14 @@ public class altaOfertaLaboral extends JInternalFrame {
 		setIconifiable(true);
 		setClosable(true);
 		setTitle("Alta de Oferta Laboral");
-		setBounds(100, 100, 985, 543);
+		setBounds(100, 100, 985, 600);
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Seleccione una empresa:");
 		lblNewLabel.setBounds(25, 21, 878, 14);
 		getContentPane().add(lblNewLabel);
 		
-		boxEmpresa = new JComboBox<DTUsuario>();
+		boxEmpresa = new JComboBox<String>();
 		boxEmpresa.setBounds(25, 46, 721, 22);
 		getContentPane().add(boxEmpresa);
 		this.cargarUsuarios();
@@ -148,13 +154,23 @@ public class altaOfertaLaboral extends JInternalFrame {
 		
 		Button buttonAceptar = new Button("Aceptar ");
 		buttonAceptar.setBackground(new Color(255, 255, 255));
-		buttonAceptar.setBounds(25, 481, 70, 22);
+		buttonAceptar.setBounds(24, 542, 70, 22);
 		getContentPane().add(buttonAceptar);
 		
 		Button buttonCancelar = new Button("Cancelar");
 		buttonCancelar.setBackground(Color.WHITE);
-		buttonCancelar.setBounds(349, 481, 70, 22);
+		buttonCancelar.setBounds(309, 542, 70, 22);
 		getContentPane().add(buttonCancelar);
+		
+		JLabel lblNewLabel_4 = new JLabel("Keywords");
+        lblNewLabel_4.setBounds(24, 423, 70, 14);
+        getContentPane().add(lblNewLabel_4);
+
+        keywordsList = new JList<String>();
+        keywordsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        JScrollPane keywordsScrollPane = new JScrollPane(keywordsList);
+        keywordsScrollPane.setBounds(25, 440, 354, 80);
+        getContentPane().add(keywordsScrollPane);
 		
 		buttonCancelar.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
@@ -182,7 +198,7 @@ public class altaOfertaLaboral extends JInternalFrame {
 		List<DTUsuario> datos = new ArrayList<>();
 		datos = ctrlUsuario.obtenerListaEmpresas();
 		for (DTUsuario u : datos) {
-			boxEmpresa.addItem(u);
+			boxEmpresa.addItem(u.getNickname());
 		}
 
     }
@@ -191,11 +207,21 @@ public class altaOfertaLaboral extends JInternalFrame {
 		boxTipoPublicacion.removeAllItems();
 		List<DTTipoPublicacion> datos = new ArrayList<>();
 		datos = ctrlPublicaciones.obtenerTipos();
+		System.out.print(datos);
 		for (DTTipoPublicacion t : datos) {
-			boxTipoPublicacion.addItem(t);
+			boxTipoPublicacion.addItem(t.getNombre());
 		}
 
     }
+	
+	
+	public void cargarKeywords() {
+		List<String> keywordsDisponibles = ctrlOfertas.obtenerKeywords();
+
+        keywordsList.setListData(keywordsDisponibles.toArray(new String[keywordsDisponibles.size()]));
+
+
+	}
 	
 	public void crearOferta(ActionEvent e) throws NombreExisteException, KeywordExisteException {
 		String nombre = this.nombreField.getText();
@@ -203,10 +229,11 @@ public class altaOfertaLaboral extends JInternalFrame {
 		String depa = this.departamentoField.getText();
 		String ciudad = this.ciudadField.getText();
 		String horario = this.horarioField.getText();
-		DTUsuario empresa = (DTUsuario) this.boxEmpresa.getSelectedItem();
-		DTTipoPublicacion tipo = (DTTipoPublicacion) this.boxTipoPublicacion.getSelectedItem();
+		String empresa = (String) this.boxEmpresa.getSelectedItem();
+		String tipo = (String) this.boxTipoPublicacion.getSelectedItem();
 		String rem = this.remuneracionSpiner.getValue().toString();
+		List<String> keys = this.keywordsList.getSelectedValuesList();
 		
-		this.ctrlOfertas.altaOferta(nombre, desc, rem, rem, null, ciudad, depa, tipo);
+		this.ctrlOfertas.altaOferta(nombre, desc, rem, horario, keys, ciudad, depa, tipo, empresa);
 	}
 }

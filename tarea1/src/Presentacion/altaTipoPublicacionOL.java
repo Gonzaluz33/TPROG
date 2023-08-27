@@ -22,6 +22,7 @@ import javax.swing.JSpinner;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.awt.event.ActionEvent;
 
@@ -146,7 +147,7 @@ public class altaTipoPublicacionOL extends JInternalFrame {
 			 
 			 try {
 				//Obtengo fecha y hora actual
-				 LocalDateTime fecha = LocalDateTime.now();
+				 LocalDate fecha = LocalDate.now();
 				 controlPub.altaTipoPublicacionOL(nombreTipo, descripcionTipo, exposicionTipo, duracionTipo, costoTipo, fecha);
 				 //Muestro mensake de exito
 				 JOptionPane.showMessageDialog(this, "El Tipo de Publicacion de Oferta Laboral se ha creado con éxito", "Registrar Tipo de Publicacion",

@@ -17,8 +17,9 @@ public class OfertaLaboral {
 	private Date fechaAlta;
 	private List<Publicacion> publicaciones = new ArrayList<Publicacion>();
 	private List<Keyword> keywords = new ArrayList<Keyword>();
+	private Usuario empresa;
 	
-	public OfertaLaboral(String n, String desc, String c, String dep, String hora, Date fecha, String remuneracion) {
+	public OfertaLaboral(String n, String desc, String c, String dep, String hora, Date fecha, String remuneracion, Usuario emp) {
 		this.ciudad = c;
 		this.departamento = dep;
 		this.descripcion = desc;
@@ -26,6 +27,7 @@ public class OfertaLaboral {
 		this.horario = hora;
 		this.nombre = n;
 		this.remuneracion = remuneracion;
+		this.empresa = emp;
 	}
 	
 	public void addPublicacion(Publicacion pub) {

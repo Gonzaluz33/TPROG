@@ -56,6 +56,15 @@ public class ManejadorUsuarios {
 		}
 	}
 	
+	public Usuario getUsuario(String nickname) throws NicknameNoExisteException {
+		String nicknameLowerCase = nickname.toLowerCase();
+		if (coleccionUsuarios.containsKey(nicknameLowerCase) ) {
+			return coleccionUsuarios.get(nicknameLowerCase);
+		} else {
+			throw new NicknameNoExisteException("El usuario con el nickname " + nickname + " no existe.");
+		}
+	}
+	
 	/**
 	 * Devuelve una lista de DTUsuario con la informacion de todos los usuarios registrados en el sistema ordenados segun su cedula.
 	 * Si no hay usuarios registrados devuelve una lista vacia.

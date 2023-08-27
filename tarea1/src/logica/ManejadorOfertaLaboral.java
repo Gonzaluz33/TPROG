@@ -1,10 +1,14 @@
 package logica;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import excepciones.NombreExisteException;
+import utils.DTUsuario;
 import excepciones.KeywordExisteException;
 
 
@@ -41,5 +45,13 @@ public class ManejadorOfertaLaboral {
 			throw new KeywordExisteException("La Keyword con nombre" + key.getNombre() + " ya existe");
 		}
 		coleccionKeyword.put(key.getNombre(), key);
+	}
+
+	public List<String> obtenerKeywords() {
+		List<String> out = new ArrayList<String>();
+		for (Map.Entry<String, Keyword> entry : coleccionKeyword.entrySet()) {
+			out.add(entry.getKey());
+		}
+		return out;
 	}
 }

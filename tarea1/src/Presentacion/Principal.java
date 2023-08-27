@@ -166,6 +166,7 @@ public class Principal {
 			 public void actionPerformed(ActionEvent e) {
 				 altaOfertaLaboralInternalFrame.cargarUsuarios();
 				 altaOfertaLaboralInternalFrame.cargarTipos();
+				 altaOfertaLaboralInternalFrame.cargarKeywords();
 				 altaOfertaLaboralInternalFrame.setVisible(true);
 	            }
 		});	
