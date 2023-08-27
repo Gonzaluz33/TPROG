@@ -11,6 +11,14 @@ public class Publicacion {
 	private OfertaLaboral oferta;
 	private ContadorPublicaciones contador;
 	
+
+	public Publicacion(){
+		this.costoAsociado = 0;
+		this.fechaAlta = LocalDate.now();
+		this.fechaVencimiento = LocalDate.now();
+		this.id = 0;
+	}
+	
 	public Publicacion(int id, int costo, LocalDate  alta, LocalDate  fin, OfertaLaboral oferta, ContadorPublicaciones cont){
 		this.costoAsociado = costo;
 		this.fechaAlta = alta;

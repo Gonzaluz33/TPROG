@@ -2,9 +2,15 @@ package logica;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
+import excepciones.NicknameNoExisteException;
+import excepciones.UsuarioNoEsEmpresaException;
+import excepciones.UsuarioRepetidoException;
+import utils.DTEmpresa;
+import utils.DTOferta;
+import utils.DTPostulante;
 import utils.DTUsuario;
-import excepciones.*;
 
 public class ControladorUsuarios implements IControladorUsuario{
 	
@@ -42,6 +48,16 @@ public class ControladorUsuarios implements IControladorUsuario{
 		return manejadorU.obtenerListaUsuarios();
 	}
 	
+	public List<DTEmpresa> listarEmpresas() {
+		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+		return manejadorU.obtenerListaEmpresas();
+	}
+	
+	public List<DTPostulante> listarPostulantes() {
+		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+		return manejadorU.obtenerListaPostulantes();
+	}
+	
 	public DTUsuario consultarUsuario(String nicknameUsuario) throws NicknameNoExisteException {
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
 		return manejadorU.obtenerUsuario(nicknameUsuario);
@@ -57,4 +73,10 @@ public class ControladorUsuarios implements IControladorUsuario{
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
 		return manejadorU.obtenerListaEmpresas();
 	}
+
+	public Set<DTOferta> obtenerOfertasDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
+		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+		return manejadorU.obtenerOfertasDeEmpresa(nicknameEmpresa);
+	}
+
 }

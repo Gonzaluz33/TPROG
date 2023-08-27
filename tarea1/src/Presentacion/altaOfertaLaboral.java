@@ -26,6 +26,7 @@ import logica.ControladorUsuarios;
 import logica.IControladorOfertas;
 import logica.IControladorPublicaciones;
 import logica.IControladorUsuario;
+import utils.DTEmpresa;
 import utils.DTTipoPublicacion;
 import utils.DTUsuario;
 
@@ -204,7 +205,7 @@ public class altaOfertaLaboral extends JInternalFrame {
 	
 	public void cargarUsuarios() {
 		boxEmpresa.removeAllItems();
-		List<DTUsuario> datos = new ArrayList<>();
+		List<DTEmpresa> datos = new ArrayList<>();
 		datos = ctrlUsuario.obtenerListaEmpresas();
 		for (DTUsuario u : datos) {
 			boxEmpresa.addItem(u.getNickname());

@@ -23,6 +23,13 @@ public class Postulante extends Usuario{
 	private Map<String, Postulacion> postulaciones;
 	
 	// constructores
+	public Postulante() {
+		super();
+		this.setFechaNacimiento(new Date());
+		this.setNacionalidad(new String());
+		this.postulaciones = new HashMap<String, Postulacion>();
+	}
+	
 	public Postulante(String nickname, String nombre, String apellido, String correo, Date fechaNacimiento, String nacionalidad) {
 		super(nickname, nombre, apellido, correo);
 		this.setFechaNacimiento(fechaNacimiento);
@@ -53,6 +60,13 @@ public class Postulante extends Usuario{
 	
 	private void setNacionalidad(String nacionalidad) {
 		this.nacionalidad = nacionalidad;
+	}
+	
+	/**
+	 * Asocia la postulacion al postulante y usa el nombre de la oferta asociada a la postulacion como la key en el mapa de postulaciones.
+	 */
+	public void asociarPostulacion(Postulacion postulacion, String nombreOferta) {
+		this.postulaciones.put(nombreOferta, postulacion);
 	}
 	
 	/**

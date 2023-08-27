@@ -3,6 +3,7 @@ package logica;
 import utils.DTOferta;
 
 import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +15,12 @@ public class OfertaLaboral {
 	private String departamento;
 	private String horario;
 	private String remuneracion;
-	private Date fechaAlta;
+	private LocalDateTime fechaAlta;
 	private List<Publicacion> publicaciones = new ArrayList<Publicacion>();
 	private List<Keyword> keywords = new ArrayList<Keyword>();
 	private Usuario empresa;
 	
-	public OfertaLaboral(String n, String desc, String c, String dep, String hora, Date fecha, String remuneracion, Usuario emp) {
+	public OfertaLaboral(String n, String desc, String c, String dep, String hora, LocalDateTime fecha, String remuneracion, Usuario emp) {
 		this.ciudad = c;
 		this.departamento = dep;
 		this.descripcion = desc;
@@ -56,7 +57,7 @@ public class OfertaLaboral {
 	public String getRemuneracion() {
 		return remuneracion;
 	}
-	public Date getFechaAlta() {
+	public LocalDateTime getFechaAlta() {
 		return fechaAlta;
 	}
 	public List<Keyword> getKeywords(){
@@ -84,7 +85,7 @@ public class OfertaLaboral {
 	public void setRemuneracion(String r) {
 		this.remuneracion = r;
 	}
-	public void setFechaAlta(Date fa) {
+	public void setFechaAlta(LocalDateTime fa) {
 		this.fechaAlta = fa;
 	}
 	public void setPublicacion(ArrayList<Publicacion> pub) {
@@ -98,7 +99,7 @@ public class OfertaLaboral {
 	 * Devuelve los datos de la oferta como un datatype DTOferta.
 	 */
 	public DTOferta toDataType() {
-		return new DTOferta(this.nombre, this.descripcion, this.ciudad, this.departamento, this.horario, this.remuneracion, this.fechaAlta);
+		return new DTOferta(this.nombre, this.descripcion, this.ciudad, this.departamento, this.horario, this.remuneracion);
 	}
 	
 }

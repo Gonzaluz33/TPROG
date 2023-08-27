@@ -11,7 +11,15 @@ public class Paquete {
 	private Integer descuento;
 	private Integer costoAsociado;
 	
-	public Paquete(String nombre, String descripcion, Integer validez, Integer descuento, Integer costoAsociado ) {
+	public Paquete() {
+		this.nombre = new String();
+		this.descripcion = new String();
+		this.validez = 0;
+		this.descuento = 0;
+		this.costoAsociado = 0;
+	}
+	
+	public Paquete(String nombre, String descripcion, Integer validez, Integer descuento, Integer costoAsociado) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.validez = validez;

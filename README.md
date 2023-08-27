@@ -9,6 +9,15 @@ Falta testear.
 
 Falta conectar logica con presentacion. (alguien ya lo hizo?)
 
+```
+Utiliza los metodos:
+IControladorUsuario.listarUsuarios()
+IControladorUsuario.consultarUsuario()
+IControladorUsuario.obtenerOfertasDeEmpresa()
+IControladorOfertas.obtenerDatosOferta()
+```
+
+
 ## Alta de Oferta Laboral
 
 ## Consulta de Oferta Laboral
@@ -18,9 +27,30 @@ Falta testear.
 
 Falta conectar logica con presentacion.
 
+```
+Utiliza los metodos:
+IControladorUsuario.listarEmpresas()
+IControladorUsuario.obtenerOfertasDeEmpresa()
+IControladorOfertas.obtenerDatosOferta()
+```
+
 ## Alta de Tipo de publicación de Oferta Laboral
 
 ## Postulación a Oferta Laboral
+Logica implementada.
+
+Falta testear.
+
+Falta conectar logica con presentacion.
+
+```
+Utiliza los metodos:
+IControladorUsuario.listarEmpresas()
+IControladorUsuario.obtenerOfertasDeEmpresa()
+IControladorOfertas.obtenerDatosOferta()
+IControladorUsuario.listarPostulantes()
+IControladorOfertas.postularAOferta()
+```
 
 ## [SIN GUI] Alta de Keywords 
 

@@ -22,6 +22,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import logica.ControladorOfertas;
+import logica.ControladorPublicaciones;
+import logica.IControladorOfertas;
+import logica.IControladorPublicaciones;
 import utilsPresentacion.CentrarColumnas;
 
 import java.awt.GridLayout;
@@ -30,7 +34,7 @@ import java.awt.Button;
 public class postulacionOfertaLaboral extends JInternalFrame {
 	private JTable tableOfertas;
 	private postularAPostulante postularPostulanteInternalFrame;
-	
+	private IControladorOfertas controlOL;
 
 
 	/**
@@ -40,7 +44,8 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					postulacionOfertaLaboral frame = new postulacionOfertaLaboral();
+					IControladorOfertas controlOL = new ControladorOfertas();
+					postulacionOfertaLaboral frame = new postulacionOfertaLaboral(controlOL);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +58,10 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 	 * Create the frame.
 	 * @throws PropertyVetoException 
 	 */
-	public postulacionOfertaLaboral() throws PropertyVetoException {
+	public postulacionOfertaLaboral(IControladorOfertas iol) throws PropertyVetoException {
+		
+		controlOL = iol;
+		
 		postularPostulanteInternalFrame = new postularAPostulante();
 		postularPostulanteInternalFrame.setResizable(false);
 		postularPostulanteInternalFrame.setBorder(null);
@@ -80,6 +88,7 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 		JComboBox comboBoxEmpresa = new JComboBox();
 		comboBoxEmpresa.setBounds(10, 25, 438, 22);
 		getContentPane().add(comboBoxEmpresa);
+		comboMostrarEmpresas(comboBoxEmpresa);
 		
 		JLabel lblNewLabel_1 = new JLabel("Ofertas Laborales Vigentes:");
 		lblNewLabel_1.setBounds(10, 66, 600, 14);
@@ -143,6 +152,9 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 		panelHeadersOfertas.setLayout(new GridLayout(1, 0, 0, 0));
 		scrollPaneOfertas.add(tableOfertas);
 		
+		
+		
+		
 		Button buttonCancelar = new Button("Cancelar");
 		buttonCancelar.setBounds(472, 25, 70, 22);
 		getContentPane().add(buttonCancelar);
@@ -152,5 +164,9 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 	            }
 		});
 
+	}
+	
+	public void comboMostrarEmpresas(JComboBox combobox) {
+		
 	}
 }

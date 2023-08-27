@@ -19,8 +19,16 @@ public class TipoPublicacion {
 	
 	private EnumExposicion exposicion;
 	
+	public TipoPublicacion(){
+		this.nombre = new String();
+		this.descripcion = new String();
+		this.duracionPublicacion = 0;
+		this.costo = 0;
+		this.fechaAlta = null;
+		this.exposicion = EnumExposicion.Baja;
+	}
 	
-	public TipoPublicacion(String nombre, String descripcion, Integer duracionPublicacion, Integer costo, LocalDate alta, EnumExposicion exposicion ){
+public TipoPublicacion(String nombre, String descripcion, Integer duracionPublicacion, Integer costo, LocalDate alta, EnumExposicion exposicion ){
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionPublicacion = duracionPublicacion;
@@ -65,6 +73,10 @@ public class TipoPublicacion {
 		return fechaAlta;
 	}
 	
+	public EnumExposicion getExposicion() {
+		return exposicion;
+	}
+	
 	
 	public void setCosto(Integer costo) {
 		this.costo = costo;
@@ -84,6 +96,10 @@ public class TipoPublicacion {
 	
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	
+	public void setExposicion(EnumExposicion exposicion) {
+		this.exposicion = exposicion;
 	}
 	
     /**

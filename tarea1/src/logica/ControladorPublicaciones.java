@@ -31,7 +31,6 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 	}
 	
 	public Publicacion addPublicacion(OfertaLaboral ofL, String tipo) {
-//		Integer id, Integer costo, Date alta, Date fin
 		ManejadorPublicaciones manPub = ManejadorPublicaciones.getInstance();
 		int id = manPub.getLastPubId();
 		TipoPublicacion datosTipo = manPub.getTipo(tipo);
@@ -65,12 +64,6 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		return null;
 	}
 
-//	@Override
-//	public void altaTipoPublicacionOL(String nombre, String descripcion, String exposicion, Integer duracion,
-//			Integer CostoPublic, LocalDate fechaAlta) throws TipoPublicExisteException {
-//		// TODO Auto-generated method stub
-//		
-//	}
 	
 	
 }

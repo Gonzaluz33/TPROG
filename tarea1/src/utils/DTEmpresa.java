@@ -6,7 +6,6 @@ import java.util.Set;
  * DataType para transportar la información de una empresa entre capa lógica y de presentación.
  * Contiene nickname, nombre, apellido, correo, nombreEmpresa, descripcion, linkWeb y ofertas que es un set de DTOferta ordenado alfabeticamente por el nombre de las ofertas.
  * Clase hija de DTUsuario.
- *
  */
 public class DTEmpresa extends DTUsuario {
 

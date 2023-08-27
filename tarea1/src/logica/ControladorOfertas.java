@@ -1,12 +1,17 @@
 package logica;
 
-import java.util.Date;
+
+import excepciones.NombreExisteException;
+import excepciones.OfertaNoExisteException;
+import excepciones.UsuarioNoEsPostulanteException;
+import utils.DTOferta;
+import utils.DTTipoPublicacion;
 import java.util.List;
+
+import java.time.LocalDateTime;
 
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
-import excepciones.NombreExisteException;
-import utils.DTTipoPublicacion;
 
 public class ControladorOfertas implements IControladorOfertas{
 	
@@ -18,7 +23,12 @@ public class ControladorOfertas implements IControladorOfertas{
         }
         return instancia;
     }
-	
+
+	public DTOferta obtenerDatosOferta(String nombreOferta) throws OfertaNoExisteException {
+		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+		return manejadorOL.obtenerOfertaLaboral(nombreOferta);
+	}
+
 	public void altaKeyword(String nombre) throws KeywordExisteException {
 		Keyword key = new Keyword(nombre);
 		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
@@ -27,7 +37,7 @@ public class ControladorOfertas implements IControladorOfertas{
 	
 	public void altaOferta(String nombre, String desc, String remuner, String horario, List<String> keywords, String ciudad, String depa, String tipo, String empresa)
 			throws NombreExisteException, KeywordExisteException, NicknameNoExisteException {
-		Date fecha = new Date();
+		LocalDateTime fecha = LocalDateTime.now();
 		ControladorUsuarios contU = ControladorUsuarios.getInstance();
 		Empresa usuarioEmpresa = (Empresa) contU.obtenerUsuario(empresa);
 		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
@@ -45,4 +55,9 @@ public class ControladorOfertas implements IControladorOfertas{
 		return mOL.obtenerKeywords();
 	}
 	
+	public void postularAOferta(String nombreOfertaLaboral, String nicknamePostulante, String cvReducido, String motivacion, LocalDateTime fechaPostulacion) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException {
+		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+		manejadorOL.postularAOferta(nombreOfertaLaboral, nicknamePostulante, cvReducido, motivacion, fechaPostulacion);
+	}
+
 }

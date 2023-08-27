@@ -14,6 +14,7 @@ public class ManejadorPublicaciones {
 	private Map<Integer, Publicacion> coleccionPublicaciones =  new HashMap<Integer, Publicacion>();
 	private Map<String, TipoPublicacion> coleccionTipos = new HashMap<String, TipoPublicacion>();
 	private Map<String, Paquete> coleccionPaquetes = new HashMap<String, Paquete>();
+
 	
 	private static ManejadorPublicaciones instancia;
 	
@@ -58,6 +59,27 @@ public class ManejadorPublicaciones {
 			throw new TipoPublicExisteException("El Tipo Publicacion de Oferta Laboral con nombre" + p.getNombre() + " ya existe");
 		}
 		coleccionTipos.put(p.getNombre(), p);
+	}
+	
+	/**
+	 * Sustituye la coleccion de publicaciones por una vacia.
+	 */
+	public void limpiarColeccionPublicaciones() {
+		this.coleccionPublicaciones = new HashMap<Integer, Publicacion>();
+	}
+	
+	/**
+	 * Sustituye la coleccion de tipos de publicacione por una vacia.
+	 */
+	public void limpiarColeccionTipos() {
+		this.coleccionTipos = new HashMap<String, TipoPublicacion>();
+	}
+	
+	/**
+	 * Sustituye la coleccion de paquetes por una vacia.
+	 */
+	public void limpiarColeccionPaquetes() {
+		this.coleccionPaquetes = new HashMap<String, Paquete>();
 	}
 
 }
