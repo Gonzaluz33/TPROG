@@ -30,6 +30,7 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -37,6 +38,8 @@ import java.util.List;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import logica.Fabrica;
 import logica.IControladorOfertas;
@@ -299,6 +302,9 @@ public class Principal {
 					String csvFileOfertaLaboral = currentDirectory + File.separator + "Datos" + File.separator + "OfertasLaborales.csv";
 					cargarDatosOfertasLaborales(csvFileOfertaLaboral);
 					
+					String csvFilePostulaciones = currentDirectory + File.separator + "Datos" + File.separator + "Postulaciones.csv";
+					cargarDatosPostulaciones(csvFilePostulaciones);
+					
 				} catch (UsuarioRepetidoException e1) {
 					e1.printStackTrace();
 				} catch (TipoPublicExisteException e1) {
@@ -311,6 +317,12 @@ public class Principal {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (NicknameNoExisteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (UsuarioNoEsPostulanteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (OfertaNoExisteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
@@ -477,6 +489,35 @@ public class Principal {
 			            	 keys = Arrays.asList(ofertasLaboralesData[9].split("/"));
 		            	 }
 		            	 ICO.altaOferta(nombre, desc, rem, horario, keys, ciudad, depa, tipo, empresa);
+		            }      
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		   
+		}
+		private void cargarDatosPostulaciones(String csvFile) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException{	
+		    String line = "";
+		    String cvsSplitBy = ";";
+		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+		        while ((line = br.readLine()) != null) {
+		            String[] postulacionesData = line.split(cvsSplitBy);
+		            String nicknamePost = "";    
+		            String nombreOL = ""; 
+		            String cv = ""; 
+		            String motivacion = ""; 
+		            LocalDate fechaPostulacion = null; 
+		            
+		            if(postulacionesData.length > 0) {
+		            	nicknamePost = postulacionesData[0];
+		            	cv = postulacionesData[1];
+		            	nombreOL = postulacionesData[4];
+		            	motivacion = postulacionesData[2];
+		            	String fechaStr = postulacionesData[3];
+		            	fechaPostulacion = LocalDate.parse(fechaStr, formatter);
+		            	LocalDateTime fechaConTiempo = fechaPostulacion.atTime(00, 00, 0, 0);
+		            	ICO.postularAOferta(nombreOL, nicknamePost, cv, motivacion, fechaConTiempo);
 		            }      
 		        }
 		    } catch (IOException e) {
