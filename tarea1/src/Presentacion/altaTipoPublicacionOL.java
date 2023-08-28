@@ -6,10 +6,6 @@ import logica.IControladorPublicaciones;
 
 import java.awt.EventQueue;
 import javax.swing.JInternalFrame;
-import java.awt.FlowLayout;
-import javax.swing.JPanel;
-import java.awt.Panel;
-import javax.swing.JToolBar;
 
 import excepciones.TipoPublicExisteException;
 
@@ -17,24 +13,24 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
-import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.awt.event.ActionEvent;
 
 public class altaTipoPublicacionOL extends JInternalFrame {
 	
+	private static final long serialVersionUID = 1L;
+
 	private IControladorPublicaciones controlPub;
 	
 	private JTextField nombreField;
 	private JTextArea descripcionArea; 
-    private JComboBox<String> comboBox; 
     private JSpinner spinner; 
     private JSpinner spinner_1;
+    private JSpinner spinner_2;
 
 	/**
 	 * Launch the application.
@@ -91,14 +87,6 @@ public class altaTipoPublicacionOL extends JInternalFrame {
 		lblNewLabel_1.setBounds(23, 172, 514, 14);
 		getContentPane().add(lblNewLabel_1);
 		
-		comboBox = new JComboBox<String>();
-		comboBox.setBounds(23, 188, 271, 22);
-		getContentPane().add(comboBox);
-		
-		comboBox.addItem("Baja");
-        comboBox.addItem("Media");
-        comboBox.addItem("Alta");
-		
 		JLabel lblNewLabel_1_1 = new JLabel("Duración de Publicación (Días):");
 		lblNewLabel_1_1.setBounds(23, 221, 514, 14);
 		getContentPane().add(lblNewLabel_1_1);
@@ -127,6 +115,10 @@ public class altaTipoPublicacionOL extends JInternalFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(332, 368, 89, 23);
 		getContentPane().add(btnCancelar);
+		
+		JSpinner spinner_2 = new JSpinner();
+		spinner_2.setBounds(23, 190, 149, 20);
+		getContentPane().add(spinner_2);
 
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -141,7 +133,7 @@ public class altaTipoPublicacionOL extends JInternalFrame {
 			//Obtengo los datos de las entradas
 			 String nombreTipo = this.nombreField.getText();
 			 String descripcionTipo = this.descripcionArea.getText();
-			 String exposicionTipo = this.comboBox.getSelectedItem().toString();
+			 int exposicionTipo = (int) this.spinner_2.getValue();
 			 Integer duracionTipo = (int) this.spinner.getValue();
 			 Integer costoTipo = (int) this.spinner_1.getValue();
 			 
@@ -168,10 +160,10 @@ public class altaTipoPublicacionOL extends JInternalFrame {
 	 public Boolean esValido() {
 		 String nombreTipo = this.nombreField.getText();
 		 String descripcionTipo = this.descripcionArea.getText();
-		 String exposicionTipo = this.comboBox.getSelectedItem().toString();
+		 int exposicionTipo = (int) this.spinner_2.getValue();
 		 Integer duracionTipo = (int) this.spinner.getValue();
 		 Integer costoTipo = (int) this.spinner_1.getValue();
-			if (nombreTipo.isEmpty() || descripcionTipo.isEmpty() || exposicionTipo.isEmpty() || duracionTipo <= 0 || costoTipo < 0) {
+			if (nombreTipo.isEmpty() || descripcionTipo.isEmpty() || exposicionTipo < 0 || duracionTipo <= 0 || costoTipo < 0) {
 	            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Tipo de Publicacion de Oferta Laboral",
 	                    JOptionPane.ERROR_MESSAGE);
 	            return false;
@@ -181,10 +173,8 @@ public class altaTipoPublicacionOL extends JInternalFrame {
 	 private void limpiarFormulario() {
 		 nombreField.setText("");
 		 descripcionArea.setText("");
-		 comboBox.setSelectedIndex(0); 
+		 spinner_2.setValue(0);
 		 spinner.setValue(0); 
 		 spinner_1.setValue(0);
 		   }
-
-
 }

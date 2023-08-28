@@ -11,5 +11,5 @@ public interface IControladorPublicaciones {
 
 	 public List<DTTipoPublicacion> obtenerTipos();
 	 public Publicacion addPublicacion(OfertaLaboral ofL, DTTipoPublicacion tipo);
-	public abstract void altaTipoPublicacionOL (String nombre, String descripcion, String exposicion, Integer duracion, Integer CostoPublic, LocalDate fecha ) throws TipoPublicExisteException ;
+	public abstract void altaTipoPublicacionOL (String nombre, String descripcion, int exposicion, Integer duracion, Integer CostoPublic, LocalDate fecha ) throws TipoPublicExisteException ;
 }

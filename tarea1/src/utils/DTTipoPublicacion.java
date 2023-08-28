@@ -9,21 +9,27 @@ public class DTTipoPublicacion {
 	private Integer duracionPublicacion;
 	private Integer costo;
 	private LocalDate  fechaAlta;
+	private int exposicion;
 	
-	public DTTipoPublicacion(String nombre, String descripcion, Integer duracionPublicacion, Integer costo, LocalDate alta ){
 
+	public DTTipoPublicacion(){
+		this.nombre = new String();
+		this.descripcion = new String();
+		this.duracionPublicacion = 0;
+		this.costo = 0;
+		this.fechaAlta = null;
+		this.exposicion = 0;
+	}
+	
+	public DTTipoPublicacion(String nombre, String descripcion, Integer duracionPublicacion, Integer costo, LocalDate alta, int exposicion){
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionPublicacion = duracionPublicacion;
 		this.costo = costo;
 		this.fechaAlta = alta;
+		this.exposicion = exposicion;
 	}
 	
-	public enum EnumExposicion {
-	    Alta,
-	    Media,
-	    Baja
-	}
 	
 	public String getNombre() {
 		return nombre;
@@ -41,9 +47,12 @@ public class DTTipoPublicacion {
 		return costo;
 	}
 	
-	public LocalDate  getAlta() {
-
+	public LocalDate getAlta() {
 		return fechaAlta;
+	}
+	
+	public int getExposicion() {
+		return exposicion;
 	}
 	
 	
@@ -67,5 +76,8 @@ public class DTTipoPublicacion {
 		this.descripcion = descripcion;
 	}
 	
+	public void setExposicion(int exposicion) {
+		this.exposicion = exposicion;
+	}
 	
 }

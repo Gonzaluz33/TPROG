@@ -12,8 +12,7 @@ public class TipoPublicacion {
 	private Integer duracionPublicacion;
 	private Integer costo;
 	private LocalDate fechaAlta;
-	
-	private EnumExposicion exposicion;
+	private int exposicion;
 	
 	public TipoPublicacion(){
 		this.nombre = new String();
@@ -21,10 +20,10 @@ public class TipoPublicacion {
 		this.duracionPublicacion = 0;
 		this.costo = 0;
 		this.fechaAlta = null;
-		this.exposicion = EnumExposicion.Baja;
+		this.exposicion = 0;
 	}
 	
-public TipoPublicacion(String nombre, String descripcion, Integer duracionPublicacion, Integer costo, LocalDate alta, EnumExposicion exposicion ){
+	public TipoPublicacion(String nombre, String descripcion, Integer duracionPublicacion, Integer costo, LocalDate alta, int exposicion ){
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionPublicacion = duracionPublicacion;
@@ -32,12 +31,7 @@ public TipoPublicacion(String nombre, String descripcion, Integer duracionPublic
 		this.fechaAlta = alta;
 		this.exposicion = exposicion;
 	}
-	
-	public enum EnumExposicion {
-	    Alta,
-	    Media,
-	    Baja
-	}
+
 	
 	public String getNombre() {
 		return nombre;
@@ -60,7 +54,7 @@ public TipoPublicacion(String nombre, String descripcion, Integer duracionPublic
 		return fechaAlta;
 	}
 	
-	public EnumExposicion getExposicion() {
+	public int getExposicion() {
 		return exposicion;
 	}
 	
@@ -85,7 +79,7 @@ public TipoPublicacion(String nombre, String descripcion, Integer duracionPublic
 		this.descripcion = descripcion;
 	}
 	
-	public void setExposicion(EnumExposicion exposicion) {
+	public void setExposicion(int exposicion) {
 		this.exposicion = exposicion;
 	}
 	
@@ -93,7 +87,7 @@ public TipoPublicacion(String nombre, String descripcion, Integer duracionPublic
      * Retorna los datos del usuario como un DataType DTTipoPublicacion.
      */
     DTTipoPublicacion toDataType() {
-    	return new DTTipoPublicacion(getNombre(), getDescripcion(), getDuracion(),getCosto(), getAlta());
+    	return new DTTipoPublicacion(getNombre(), getDescripcion(), getDuracion(),getCosto(), getAlta(), getExposicion());
     }
 
 	
