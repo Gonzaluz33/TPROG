@@ -144,8 +144,8 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 		tableOfertas.getColumnModel().getColumn(5).setPreferredWidth(118);
 		tableOfertas.getColumnModel().getColumn(6).setResizable(false);
 		tableOfertas.getColumnModel().getColumn(7).setResizable(false);
-		tableOfertas.getColumnModel().getColumn(7).setCellRenderer(new buttonRenderer());
-		tableOfertas.getColumnModel().getColumn(7).setCellEditor(new ButtonEditor(new JCheckBox(), postularPostulanteInternalFrame));
+		//tableOfertas.getColumnModel().getColumn(7).setCellRenderer(new ButtonRenderer());
+		//tableOfertas.getColumnModel().getColumn(7).setCellEditor(new ButtonEditor(new JCheckBox(), postularPostulanteInternalFrame));
 		tableOfertas.setDefaultRenderer(Object.class, new CentrarColumnas());
 		tableOfertas.setBounds(325, 246, 1, 1);
 		JTableHeader headerOfertas = tableOfertas.getTableHeader();

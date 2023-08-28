@@ -120,7 +120,7 @@ public class Principal {
 		altaOfertaLaboralInternalFrame.setBorder(null);
 		altaOfertaLaboralInternalFrame.setVisible(false);
 		
-		consultaOfertaLaboralInternalFrame = new consultaOfertaLaboral(ICU);
+		consultaOfertaLaboralInternalFrame = new consultaOfertaLaboral(ICU, ICO);
 		consultaOfertaLaboralInternalFrame.setResizable(false);
 		consultaOfertaLaboralInternalFrame.setBorder(null);
 		consultaOfertaLaboralInternalFrame.setVisible(false);
