@@ -52,7 +52,7 @@ public class Empresa extends Usuario {
 	 * Devuelve un set de DTOferta con todas las ofertas laborales asociadas a la empresa ordenadas segun su nombre.
 	 */
 	public Set<DTOferta> getOfertas() {
-		return ofertasLaborales;
+		return this.ofertasLaborales;
 	}
 	
 	// setters

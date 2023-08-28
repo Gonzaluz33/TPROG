@@ -41,13 +41,14 @@ public class ControladorOfertas implements IControladorOfertas{
 			throws NombreExisteException, KeywordExisteException, NicknameNoExisteException {
 		LocalDateTime fecha = LocalDateTime.now();
 		ControladorUsuarios contU = ControladorUsuarios.getInstance();
-		Usuario usuarioEmpresa = contU.obtenerUsuario(empresa);
+		Empresa usuarioEmpresa = (Empresa) contU.obtenerUsuario(empresa);
 		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
 		OfertaLaboral ofL = new OfertaLaboral(nombre, desc, ciudad, depa, horario, fecha, remuner, usuarioEmpresa);
 		mOL.addOferta(ofL, keywords);
 		// despues de crear la oferta, creo la publicacion con el tipo
 		ControladorPublicaciones contPub = ControladorPublicaciones.getInstance();
 		Publicacion pub = contPub.addPublicacion(ofL, tipo);
+		usuarioEmpresa.asociarOferta(ofL.toDataType());
 		ofL.addPublicacion(pub);
 	}
 
