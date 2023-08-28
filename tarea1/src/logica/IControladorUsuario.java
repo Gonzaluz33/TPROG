@@ -42,8 +42,6 @@ public interface IControladorUsuario {
 
     public abstract void altaPostulante(String nickname, String nombre, String apellido, String email, Date fechaNacimiento, String nacionalidad) throws UsuarioRepetidoException;
     public abstract void altaEmpresa(String nickname, String nombre, String apellido, String email,String nomEmpresa ,String desc, String linkWeb)throws UsuarioRepetidoException;
-    public abstract  List<DTUsuario> obtenerListaUsuarios();
-    public abstract  List<DTEmpresa> obtenerListaEmpresas();
     
     /**
 	 * Devuelve un set de tipo DTOferta con todas las ofertas asociadas a la empresa con el nickname "nicknameEmpresa" ordenadas alfabeticamente por el nombre de las ofertas.

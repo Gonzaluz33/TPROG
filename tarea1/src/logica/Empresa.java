@@ -10,7 +10,6 @@ import utils.DTOferta;
  * Representa a la empresa en el sistema.
  * Tiene nombreEmpresa, descripcion, linkWeb y un set ofertasLaborales de tipo DTOferta que contiene todas las ofertas asociadas a la empresa ordenadas por su nombre.
  * Clase hija de Usuario.
- *
  */
 public class Empresa extends Usuario {
 
@@ -51,10 +50,9 @@ public class Empresa extends Usuario {
 	
 	/**
 	 * Devuelve un set de DTOferta con todas las ofertas laborales asociadas a la empresa ordenadas segun su nombre.
-	 * El set devuelto no comparte memoria con el original.
 	 */
 	public Set<DTOferta> getOfertas() {
-		return new TreeSet<DTOferta>(this.ofertasLaborales);
+		return ofertasLaborales;
 	}
 	
 	// setters

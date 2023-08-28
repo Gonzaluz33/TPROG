@@ -207,7 +207,7 @@ public class consultaUsuario extends JInternalFrame {
 	public void llenar_comboListaUsuario(){
 		listaUsuariosCombobox.removeAllItems();
 		List<DTUsuario> datos = new ArrayList<>();
-		datos = controlUsr.obtenerListaUsuarios();
+		datos = controlUsr.listarUsuarios();
 		for (DTUsuario u : datos) {
 			listaUsuariosCombobox.addItem(u);
 		}

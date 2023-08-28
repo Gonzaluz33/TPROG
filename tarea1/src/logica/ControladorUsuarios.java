@@ -63,17 +63,6 @@ public class ControladorUsuarios implements IControladorUsuario{
 		return manejadorU.obtenerUsuario(nicknameUsuario);
 	}
 
-	@Override
-	public List<DTUsuario> obtenerListaUsuarios() {
-		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
-		return manejadorU.obtenerListaUsuarios();
-	}
-	
-	public List<DTEmpresa> obtenerListaEmpresas() {
-		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
-		return manejadorU.obtenerListaEmpresas();
-	}
-
 	public Set<DTOferta> obtenerOfertasDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
 		return manejadorU.obtenerOfertasDeEmpresa(nicknameEmpresa);

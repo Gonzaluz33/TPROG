@@ -40,13 +40,5 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		System.out.println(tipoP);
 		manejadorP.altaTipoPublicacionOL(tipoP);
 	}
-
-	@Override
-	public Publicacion addPublicacion(OfertaLaboral ofL, DTTipoPublicacion tipo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
 	
 }

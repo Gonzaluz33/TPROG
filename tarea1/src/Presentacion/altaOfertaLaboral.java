@@ -195,7 +195,7 @@ public class altaOfertaLaboral extends JInternalFrame {
 	public void cargarUsuarios() {
 		boxEmpresa.removeAllItems();
 		List<DTEmpresa> datos = new ArrayList<>();
-		datos = ctrlUsuario.obtenerListaEmpresas();
+		datos = ctrlUsuario.listarEmpresas();
 		for (DTUsuario u : datos) {
 			boxEmpresa.addItem(u.getNickname());
 		}

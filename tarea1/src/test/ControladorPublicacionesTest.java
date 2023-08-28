@@ -3,6 +3,7 @@ package test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -74,7 +75,6 @@ public class ControladorPublicacionesTest {
 	
 	@Test
 	public void altaTipoPublicacionOL_Repetida() {
-
 		String nombreTipoP = "nombreTipoP";
 		String descripcionTipoP = "descripcionTipoP";
 		int exposicionTipoP = 4;
@@ -97,6 +97,54 @@ public class ControladorPublicacionesTest {
 	@Test
 	public void testObtenerTipos_SinTipos() {
 		assertEquals(controladorPublicaciones.obtenerTipos().size(), 0);
+	}
+	
+	@Test
+	public void testObtenerTipos_DosTipos() {
+		String nombreTipoP1 = "nombreTipoP";
+		String descripcionTipoP1 = "descripcionTipoP";
+		int exposicionTipoP1 = 4;
+		Integer duracionTipoP1 = 24;
+		Integer costoPublicTipoP1 = 69;
+		LocalDate fechaTipoP1 = LocalDate.now();
+		
+		String nombreTipoP2 = "nombreTipoP2";
+		String descripcionTipoP2 = "descripcionTipoP2";
+		int exposicionTipoP2 = 45;
+		Integer duracionTipoP2 = 25;
+		Integer costoPublicTipoP2 = 70;
+		LocalDate fechaTipoP2 = LocalDate.now().minusDays(1);
+		
+		try {
+			controladorPublicaciones.altaTipoPublicacionOL(nombreTipoP1, descripcionTipoP1, exposicionTipoP1, duracionTipoP1, costoPublicTipoP1, fechaTipoP1);
+		} catch (TipoPublicExisteException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		assertEquals(controladorPublicaciones.obtenerTipos().size(), 1);
+		
+		try {
+			controladorPublicaciones.altaTipoPublicacionOL(nombreTipoP2, descripcionTipoP2, exposicionTipoP2, duracionTipoP2, costoPublicTipoP2, fechaTipoP2);
+		} catch (TipoPublicExisteException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+
+		List<DTTipoPublicacion> listaTipos = controladorPublicaciones.obtenerTipos();
+		assertEquals(listaTipos.size(), 2);
+		assertTrue(listaTipos.stream().anyMatch(nombreTipoP -> nombreTipoP.getNombre().equals(nombreTipoP1)));
+		assertTrue(listaTipos.stream().anyMatch(nombreTipoP -> nombreTipoP.getNombre().equals(nombreTipoP2)));
+		assertTrue(listaTipos.stream().anyMatch(descripcionTipoP -> descripcionTipoP.getDescripcion().equals(descripcionTipoP1)));
+		assertTrue(listaTipos.stream().anyMatch(descripcionTipoP -> descripcionTipoP.getDescripcion().equals(descripcionTipoP2)));
+		assertTrue(listaTipos.stream().anyMatch(exposicionTipoP -> exposicionTipoP.getExposicion() == exposicionTipoP1));
+		assertTrue(listaTipos.stream().anyMatch(exposicionTipoP -> exposicionTipoP.getExposicion() == exposicionTipoP2));
+		assertTrue(listaTipos.stream().anyMatch(duracionTipoP -> duracionTipoP.getDuracion().equals(duracionTipoP1)));
+		assertTrue(listaTipos.stream().anyMatch(duracionTipoP -> duracionTipoP.getDuracion().equals(duracionTipoP2)));
+		assertTrue(listaTipos.stream().anyMatch(costoPublicTipoP -> costoPublicTipoP.getCosto().equals(costoPublicTipoP1)));
+		assertTrue(listaTipos.stream().anyMatch(costoPublicTipoP -> costoPublicTipoP.getCosto().equals(costoPublicTipoP2)));
+		assertTrue(listaTipos.stream().anyMatch(fechaTipoP -> fechaTipoP.getAlta().equals(fechaTipoP1)));
+		assertTrue(listaTipos.stream().anyMatch(fechaTipoP -> fechaTipoP.getAlta().equals(fechaTipoP2)));
 	}
 	
 }

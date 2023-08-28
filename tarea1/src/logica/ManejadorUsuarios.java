@@ -150,27 +150,5 @@ public class ManejadorUsuarios {
 	public void limpiarColeccionUsuarios() {
 		this.coleccionUsuarios = new HashMap<String,Usuario>();
 	}
-	
-//	public List<DTUsuario> obtenerListaEmpresas() {
-//		System.out.println(coleccionUsuarios);
-//		List<DTUsuario> out = new ArrayList<DTUsuario>();
-//		for (Map.Entry<String, Usuario> entry : coleccionUsuarios.entrySet()) {
-//			if (entry.getValue() instanceof Empresa) {
-//				out.add(entry.getValue().toDataType());	
-//			}
-//		}
-//		Collections.sort(out, new Comparator<DTUsuario>() {
-//			@Override
-//			public int compare(DTUsuario usuario1, DTUsuario usuario2) {
-//				int comparacionNombre = usuario1.getNombre().compareTo(usuario2.getNombre());
-//				if (comparacionNombre == 0) {
-//					return usuario1.getApellido().compareTo(usuario2.getApellido());
-//				}
-//				return comparacionNombre;
-//			}
-//		});
-//		return out;
-//	}
-	
 
 }
