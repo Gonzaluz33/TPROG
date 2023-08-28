@@ -19,6 +19,7 @@ import utilsPresentacion.CentrarColumnas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,8 +101,10 @@ public class consultaUsuario extends JInternalFrame {
                         tableEmpresaModel.addRow(new Object[] {nombreEmp , desc, link});
                     } else {
                     	((DefaultTableModel) tablaEmpresa.getModel()).setRowCount(0);
-
-                    	fecha = ((DTPostulante) selectedValue).getFechaNacimiento().toString();
+                    	
+                    	
+                    	String fechaFormateada = new SimpleDateFormat("dd-MM-yyyy").format(((DTPostulante) selectedValue).getFechaNacimiento());
+                    	fecha = fechaFormateada.toString();
                     	nacion = ((DTPostulante) selectedValue).getNacionalidad();
                     	DefaultTableModel tablePostModel = (DefaultTableModel) tablaPostulante.getModel();
                         tablePostModel.setRowCount(0); // Limpiar filas existentes

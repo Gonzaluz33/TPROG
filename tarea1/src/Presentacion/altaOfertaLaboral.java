@@ -202,10 +202,8 @@ public class altaOfertaLaboral extends JInternalFrame {
 
     }
 	
-	
 	public void cargarKeywords() {
 		List<String> keywordsDisponibles = ctrlOfertas.obtenerKeywords();
-
         keywordsList.setListData(keywordsDisponibles.toArray(new String[keywordsDisponibles.size()]));
 
 
