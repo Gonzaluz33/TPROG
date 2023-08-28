@@ -80,7 +80,6 @@ public class consultaUsuario extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 
                 DTUsuario selectedValue = (DTUsuario) listaUsuariosCombobox.getSelectedItem();
-                
                 if (selectedValue != null) {
                     nickname = selectedValue.getNickname();
                     nombre = selectedValue.getNombre();
@@ -110,10 +109,7 @@ public class consultaUsuario extends JInternalFrame {
                         tablePostModel.setRowCount(0); // Limpiar filas existentes
                         tablePostModel.addRow(new Object[] {"Postulante", fecha, nacion});
                     }
-                }
-                
-                // Call your custom method here
-                // customMethod(selectedValue);
+                }               
             }		
 		 });
 		JSeparator separator = new JSeparator();
@@ -169,7 +165,7 @@ public class consultaUsuario extends JInternalFrame {
 		tablaPostulante = new JTable();
 		tablaPostulante.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"Postulante", "", ""},
+				{"", "", ""},
 			},
 			new String[] {
 				"Tipo de Usuario", "Fecha de Nacimiento", "Nacionalidad"
@@ -200,7 +196,7 @@ public class consultaUsuario extends JInternalFrame {
 		tablaEmpresa = new JTable();
 		tablaEmpresa.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"Empresa", "Empresa", "Empresa"},
+				{"", "", ""},
 			},
 			new String[] {
 				"Nombre de Empresa", "Descripci\u00F3n", "Link Web"

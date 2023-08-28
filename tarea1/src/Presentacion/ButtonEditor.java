@@ -24,7 +24,6 @@ public class ButtonEditor extends DefaultCellEditor {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.print("click");
             	internalFrame.setVisible(true);
             }
         });

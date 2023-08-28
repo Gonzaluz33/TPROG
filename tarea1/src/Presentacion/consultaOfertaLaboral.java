@@ -16,12 +16,23 @@ import java.awt.Scrollbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import javax.swing.JTable;
 import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import logica.IControladorUsuario;
+import utils.DTEmpresa;
+import utils.DTOferta;
+import utils.DTPostulante;
+import utils.DTUsuario;
 import utilsPresentacion.CentrarColumnas;
 import java.awt.Point;
 import javax.swing.JScrollBar;
@@ -32,37 +43,38 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class consultaOfertaLaboral extends JInternalFrame {
+	
+	//Controlador
+	private IControladorUsuario controlUsr;
+	
+	//Componentes Swing
 	private JTable tablaOfertaLaboral;
 	private informacionOfertaLaboral informacionOfertaLaboralInternalFrame;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					consultaOfertaLaboral frame = new consultaOfertaLaboral();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	private JComboBox<DTUsuario> listaEmpresasCombobox;
+	
+	//datos ofertas
+	private String nombreOferta;
+	private String Descripcion;
+	private String Ciudad;
+	private String Departamento;
+	private String Horario;
+	private String Remuneracion;
+	private String fechaAlta;
+	
 	/**
 	 * Create the frame.
 	 * @throws PropertyVetoException 
 	 */
-	public consultaOfertaLaboral() throws PropertyVetoException {
+	public consultaOfertaLaboral(IControladorUsuario icu) throws PropertyVetoException {
+		//Inicializacion internal frame con controlador de usuarios.
+		controlUsr = icu;
 		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
 		informacionOfertaLaboralInternalFrame = new informacionOfertaLaboral();
 		informacionOfertaLaboralInternalFrame.setResizable(false);
 		informacionOfertaLaboralInternalFrame.setBorder(null);
 		informacionOfertaLaboralInternalFrame.setVisible(false);
 		getContentPane().add(informacionOfertaLaboralInternalFrame);
-		
 		
 		setResizable(false);
 		setMaximum(true);
@@ -77,9 +89,34 @@ public class consultaOfertaLaboral extends JInternalFrame {
 		lblNewLabel.setBounds(21, 22, 736, 14);
 		getContentPane().add(lblNewLabel);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(21, 38, 483, 22);
-		getContentPane().add(comboBox);
+		listaEmpresasCombobox = new JComboBox<DTUsuario>();
+		listaEmpresasCombobox.setBounds(21, 38, 483, 22);
+		getContentPane().add(listaEmpresasCombobox);
+		listaEmpresasCombobox.addActionListener(new ActionListener() {
+			@Override
+            public void actionPerformed(ActionEvent e) {  
+				 
+                DefaultTableModel tableModel = (DefaultTableModel) tablaOfertaLaboral.getModel();
+                tableModel.setRowCount(0); // Limpiar filas existentes
+				DTEmpresa selectedValue = (DTEmpresa) listaEmpresasCombobox.getSelectedItem();
+				if (selectedValue != null) {
+					Set<DTOferta> listadoOfertas = selectedValue.getOfertas();
+					if(!listadoOfertas.isEmpty()) {
+						for (DTOferta item : listadoOfertas) {
+							nombreOferta = item.getNombre();
+							Descripcion = item.getDescripcion();
+							Ciudad = item.getCiudad();
+							Departamento = item.getDepartamento();
+							Horario = item.getHorario();
+							Remuneracion = item.getRemuneracion();
+							fechaAlta = item.getFechaAlta().format(formatter);
+							tableModel.addRow(new Object[] {nombreOferta, Descripcion, Ciudad, Departamento,
+									Horario,Remuneracion,fechaAlta});
+						} 
+					}
+				}		
+            }		
+		});
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(21, 71, 1086, 2);
@@ -106,40 +143,6 @@ public class consultaOfertaLaboral extends JInternalFrame {
 		tablaOfertaLaboral.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
-				
 			},
 			new String[] {
 				"Nombre", "Descripci\u00F3n", "Ciudad", "Departamento", "Horario", "Remuneraci\u00F3n", "Fecha de Alta", "Acciones"
@@ -174,7 +177,17 @@ public class consultaOfertaLaboral extends JInternalFrame {
 				 dispose();
 	            }
 		});
-		
-		
+			
 	}
+
+	public void llenar_comboListaEmpresa(){
+		listaEmpresasCombobox.removeAllItems();
+		List<DTEmpresa> datos = new ArrayList<>();
+		datos = controlUsr.listarEmpresas();
+		for (DTUsuario u : datos) {
+			listaEmpresasCombobox.addItem(u);
+		}
+	}
+	
 }
+

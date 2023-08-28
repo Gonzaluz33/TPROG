@@ -143,7 +143,7 @@ public class OfertaLaboral {
 	 * Devuelve los datos de la oferta como un datatype DTOferta.
 	 */
 	public DTOferta toDataType() {
-		return new DTOferta(this.getNombre(), this.getDescripcion(), this.getCiudad(), this.getDepartamento(), this.getHorario(), this.getRemuneracion(), this.getPostulaciones());
+		return new DTOferta(this.getNombre(), this.getDescripcion(), this.getCiudad(), this.getDepartamento(), this.getHorario(), this.getRemuneracion(), this.getFechaAlta() ,this.getPostulaciones());
 	}
 	
 }

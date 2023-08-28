@@ -151,10 +151,7 @@ public class altaTipoPublicacionOL extends JInternalFrame {
 						// Muestro error de registro
 		                JOptionPane.showMessageDialog(this, err.getMessage(), "Registrar Tipo de Publicacion", JOptionPane.ERROR_MESSAGE);
 					}
-
 			 }
-		 
-		 
 	 }
 	 
 	 public Boolean esValido() {

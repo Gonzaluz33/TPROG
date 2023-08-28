@@ -93,7 +93,7 @@ public class Principal {
 		altaOfertaLaboralInternalFrame.setBorder(null);
 		altaOfertaLaboralInternalFrame.setVisible(false);
 		
-		consultaOfertaLaboralInternalFrame = new consultaOfertaLaboral();
+		consultaOfertaLaboralInternalFrame = new consultaOfertaLaboral(ICU);
 		consultaOfertaLaboralInternalFrame.setResizable(false);
 		consultaOfertaLaboralInternalFrame.setBorder(null);
 		consultaOfertaLaboralInternalFrame.setVisible(false);
@@ -217,6 +217,7 @@ public class Principal {
 				 if (currentInternalFrame != null) {
 			            currentInternalFrame.setVisible(false);
 				 }
+				 consultaOfertaLaboralInternalFrame.llenar_comboListaEmpresa();
 				 consultaOfertaLaboralInternalFrame.setVisible(true);
 				 currentInternalFrame = consultaOfertaLaboralInternalFrame;
 	            }

@@ -188,7 +188,6 @@ public class altaOfertaLaboral extends JInternalFrame {
 		for (DTUsuario u : datos) {
 			boxEmpresa.addItem(u.getNickname());
 		}
-
     }
 	
 	public void cargarTipos() {
@@ -199,13 +198,11 @@ public class altaOfertaLaboral extends JInternalFrame {
 		for (DTTipoPublicacion t : datos) {
 			boxTipoPublicacion.addItem(t.getNombre());
 		}
-
     }
 	
 	public void cargarKeywords() {
 		List<String> keywordsDisponibles = ctrlOfertas.obtenerKeywords();
         keywordsList.setListData(keywordsDisponibles.toArray(new String[keywordsDisponibles.size()]));
-
 
 	}
 	

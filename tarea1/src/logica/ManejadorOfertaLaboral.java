@@ -21,13 +21,9 @@ import utils.DTPostulante;
 
 
 public class ManejadorOfertaLaboral {
-
 	private Map<String, OfertaLaboral> coleccionOfertasLaborales = new TreeMap<String, OfertaLaboral>();
-
 	private Map<String, Keyword> coleccionKeyword = new HashMap<String, Keyword>();
-
 	private static ManejadorOfertaLaboral instancia;
-	
 	public static ManejadorOfertaLaboral getInstance() {
         if (instancia == null) {
             instancia = new ManejadorOfertaLaboral();
@@ -101,8 +97,6 @@ public class ManejadorOfertaLaboral {
 		oferta.asociarPostulacion(postulacion);
 		manejadorU.postularAOferta(postulacion);
 	}
-	
-	
 	
 	/**
 	 * Devuelve la cantidad de ofertas laborales actualmente en el sistema.

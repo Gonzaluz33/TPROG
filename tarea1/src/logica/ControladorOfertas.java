@@ -80,8 +80,7 @@ public class ControladorOfertas implements IControladorOfertas{
 
 
 	@Override
-	public Set<DTOferta> obtenerOfertasEmpresa(String nombreEmpresa)
-			throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
+	public Set<DTOferta> obtenerOfertasEmpresa(String nombreEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
 		// TODO Auto-generated method stub
 		return null;
 	}
