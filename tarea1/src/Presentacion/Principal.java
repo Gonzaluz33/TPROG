@@ -20,7 +20,6 @@ import logica.Fabrica;
 import logica.IControladorOfertas;
 import logica.IControladorPublicaciones;
 import logica.IControladorUsuario;
-import logica.IControladorPublicaciones;
 
 public class Principal {
 	
@@ -29,7 +28,11 @@ public class Principal {
 	private IControladorOfertas ICO;
 	private IControladorPublicaciones ICP;
 	
-	//Componentes Swing	
+	//Componentes Swing
+
+	private IControladorPublicaciones ipu;
+	private IControladorOfertas iol;
+	
 	private JFrame frame;
 	private altaPostulante altaPostulanteInternalFrame;
 	private altaEmpresa altaEmpresaInternalFrame;
@@ -127,6 +130,7 @@ public class Principal {
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		
+		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 		
@@ -142,7 +146,12 @@ public class Principal {
 				            currentInternalFrame.setVisible(false);
 				        }
 
+					 if (currentInternalFrame != null) {
+				            currentInternalFrame.setVisible(false);
+				        }
+
 		                altaPostulanteInternalFrame.setVisible(true);
+		                currentInternalFrame = altaPostulanteInternalFrame;
 		                currentInternalFrame = altaPostulanteInternalFrame;
 		            }
 			});
@@ -154,7 +163,11 @@ public class Principal {
 					 if (currentInternalFrame != null) {
 				            currentInternalFrame.setVisible(false);
 				        }
+					 if (currentInternalFrame != null) {
+				            currentInternalFrame.setVisible(false);
+				        }
 		                altaEmpresaInternalFrame.setVisible(true);
+		                currentInternalFrame = altaEmpresaInternalFrame;
 		                currentInternalFrame = altaEmpresaInternalFrame;
 		            }
 			});
@@ -166,6 +179,9 @@ public class Principal {
 		JMenuItem mItemConsultaUsuario = new JMenuItem("Consulta de Usuario");
 		mItemConsultaUsuario.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+			        }
 				 if (currentInternalFrame != null) {
 			            currentInternalFrame.setVisible(false);
 			        }
@@ -187,6 +203,7 @@ public class Principal {
 			        }
 				 altaOfertaLaboralInternalFrame.setVisible(true);
 				 currentInternalFrame = altaOfertaLaboralInternalFrame;
+				 currentInternalFrame = altaOfertaLaboralInternalFrame;
 	            }
 		});	
 		menuCasosDeUso.add(mItemOfertaLaboral);
@@ -194,6 +211,9 @@ public class Principal {
 		JMenuItem mItemConsultaOfertaLaboral = new JMenuItem("Consulta de Oferta Laboral");
 		mItemConsultaOfertaLaboral.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+				 }
 				 if (currentInternalFrame != null) {
 			            currentInternalFrame.setVisible(false);
 				 }
@@ -209,7 +229,11 @@ public class Principal {
 				 if (currentInternalFrame != null) {
 			            currentInternalFrame.setVisible(false);
 				 }
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+				 }
 				 altaTipoPublicacionOLInternalFrame.setVisible(true);
+				 currentInternalFrame = altaTipoPublicacionOLInternalFrame;
 				 currentInternalFrame = altaTipoPublicacionOLInternalFrame;
 	            }
 		});	
@@ -221,7 +245,9 @@ public class Principal {
 				 if (currentInternalFrame != null) {
 			            currentInternalFrame.setVisible(false);
 				 }
+				 postulacionOfertaLaboralInternalFrame.comboMostrarEmpresas();
 				 postulacionOfertaLaboralInternalFrame.setVisible(true);
+				 currentInternalFrame = postulacionOfertaLaboralInternalFrame;
 				 currentInternalFrame = postulacionOfertaLaboralInternalFrame;
 	            }
 		});	

@@ -76,7 +76,6 @@ public class ManejadorUsuarios {
 	public List<DTUsuario> obtenerListaUsuarios() {
 		List<DTUsuario> listaUsuarios = new ArrayList<DTUsuario>();
 		for (Map.Entry<String, Usuario> entry : coleccionUsuarios.entrySet()) {
-			System.out.print("llegue a manejador");
 			listaUsuarios.add(entry.getValue().toDataType());
 		}
 		listaUsuarios.sort(Comparator.comparing(DTUsuario::getNombre)
@@ -87,6 +86,10 @@ public class ManejadorUsuarios {
 	/**
 	 * Devuelve una lista de DTUsuario con la informacion de todas las empresas registradas en el sistema ordenadas segun el nombre de la empresa.
 	 * Si no hay empresas registradas devuelve una lista vacia.
+	 */
+	/**
+	 * Devuelve una lista de DTUsuario con la informacion de todas las empresas registradas en el sistema ordenadas segun el nombre de la empresa.
+	 * Si no hay empresas registrados devuelve una lista vacia.
 	 */
 	public List<DTEmpresa> obtenerListaEmpresas() {
 		List<DTEmpresa> listaEmpresas = this.coleccionUsuarios
@@ -99,7 +102,6 @@ public class ManejadorUsuarios {
 		listaEmpresas.sort(Comparator.comparing(DTEmpresa::getNombreEmpresa));
 		return listaEmpresas;
 	}
-	
 	/**
 	 * Devuelve una lista de DTPostulante con la informacion de todos los postulantes registrados en el sistema ordenados segun su nombre.
 	 * Si no hay postulantes registrados devuelve una lista vacia.

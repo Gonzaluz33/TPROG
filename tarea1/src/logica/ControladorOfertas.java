@@ -1,17 +1,18 @@
 package logica;
 
 
+import utils.DTEmpresa;
+import utils.DTOferta;
 import excepciones.NombreExisteException;
 import excepciones.OfertaNoExisteException;
 import excepciones.UsuarioNoEsPostulanteException;
-import utils.DTOferta;
-import utils.DTTipoPublicacion;
-import java.util.List;
-
-import java.time.LocalDateTime;
-
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
+
+import java.util.List;
+import java.time.LocalDateTime;
+
+
 
 public class ControladorOfertas implements IControladorOfertas{
 	
@@ -23,6 +24,7 @@ public class ControladorOfertas implements IControladorOfertas{
         }
         return instancia;
     }
+	
 
 	public DTOferta obtenerDatosOferta(String nombreOferta) throws OfertaNoExisteException {
 		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
@@ -34,7 +36,7 @@ public class ControladorOfertas implements IControladorOfertas{
 		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
 		mOL.addKeyword(key);
 	}
-	
+		
 	public void altaOferta(String nombre, String desc, String remuner, String horario, List<String> keywords, String ciudad, String depa, String tipo, String empresa)
 			throws NombreExisteException, KeywordExisteException, NicknameNoExisteException {
 		LocalDateTime fecha = LocalDateTime.now();
@@ -57,6 +59,12 @@ public class ControladorOfertas implements IControladorOfertas{
 	public void postularAOferta(String nombreOfertaLaboral, String nicknamePostulante, String cvReducido, String motivacion, LocalDateTime fechaPostulacion) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException {
 		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
 		manejadorOL.postularAOferta(nombreOfertaLaboral, nicknamePostulante, cvReducido, motivacion, fechaPostulacion);
+	}
+
+	public List<DTEmpresa> obtenerEmpresas(){
+		IControladorUsuario controlU = ControladorUsuarios.getInstance();
+		List<DTEmpresa> empresas = controlU.listarEmpresas();
+		return empresas;
 	}
 
 }

@@ -1,7 +1,6 @@
 package logica;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import utils.DTTipoPublicacion;
 

@@ -1,18 +1,16 @@
 package logica;
 
+import utils.DTEmpresa;
 import java.util.List;
+import java.time.LocalDateTime;
 
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
 import excepciones.NombreExisteException;
-import utils.DTTipoPublicacion;
-import utils.DTOferta;
-
-import java.time.LocalDateTime;
-
-import excepciones.NicknameNoExisteException;
 import excepciones.OfertaNoExisteException;
 import excepciones.UsuarioNoEsPostulanteException;
+import utils.DTOferta;
+
 
 public interface IControladorOfertas {
 
@@ -25,7 +23,8 @@ public interface IControladorOfertas {
 	 * Si no existe una oferta con ese nombre en el sistema tira una OfertaNoExisteException.
 	 */
 	public DTOferta obtenerDatosOferta(String nombreOferta) throws OfertaNoExisteException;
-	
+	public List<DTEmpresa> obtenerEmpresas();
+
 	/**
 	 * Postula al postulante con nick "nicknamePostulante" a la oferta de nombre "nombreOfertaLaboral".
 	 * Si no existe un usuario con ese nick tira una NicknameNoExisteException.

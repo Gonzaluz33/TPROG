@@ -1,24 +1,31 @@
 package utils;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class DTPostulacion {
 
 	private String nicknamePostulante;
 	private String nombreOfertaLaboral;
-	private Date fecha;
-	private String cv;
+	
+	private LocalDateTime fecha;
+	private String cvReducido;
 	private String motivacion;
-	private EnumEstadoSeleccion estadoSeleccion;
 	
 	// constructores
-	public DTPostulacion(String nicknamePostulante, String nombreOfertaLaboral, Date fecha, String cv, String motivacion, EnumEstadoSeleccion estadoSeleccion) {
+	public DTPostulacion() {
+		this.setNicknamePostulante(new String());
+		this.setNombreOfertaLaboral(new String());
+		this.setFecha(null);
+		this.setCvReducido(new String());
+		this.setMotivacion(new String());
+	}
+	
+	public DTPostulacion(String nicknamePostulante, String nombreOfertaLaboral, LocalDateTime fecha, String cvReducido, String motivacion) {
 		this.setNicknamePostulante(nicknamePostulante);
 		this.setNombreOfertaLaboral(nombreOfertaLaboral);
 		this.setFecha(fecha);
-		this.setCv(cv);
+		this.setCvReducido(cvReducido);
 		this.setMotivacion(motivacion);
-		this.setEstadoSeleccion(estadoSeleccion);
 	}
 	
 	// getters
@@ -30,20 +37,16 @@ public class DTPostulacion {
 		return this.nombreOfertaLaboral;
 	}
 	
-	public Date getFecha() {
+	public LocalDateTime getFecha() {
 		return this.fecha;
 	}
 	
-	public String getCv() {
-		return this.cv;
+	public String getCvReducido() {
+		return this.cvReducido;
 	}
 	
 	public String getMotivacion() {
 		return this.motivacion;
-	}
-	
-	public EnumEstadoSeleccion getEstadoSeleccion() {
-		return this.estadoSeleccion;
 	}
 	
 	// setters
@@ -55,20 +58,16 @@ public class DTPostulacion {
 		this.nombreOfertaLaboral = ofertaLaboral;
 	}
 	
-	private void setFecha(Date fecha) {
+	private void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
 	
-	private void setCv(String cv) {
-		this.cv = cv;
+	private void setCvReducido(String cvReducido) {
+		this.cvReducido = cvReducido;
 	}
 	
 	private void setMotivacion(String motivacion) {
 		this.motivacion = motivacion;
-	}
-	
-	private void setEstadoSeleccion(EnumEstadoSeleccion estadoSeleccion) {
-		this.estadoSeleccion = estadoSeleccion;
 	}
 	
 }

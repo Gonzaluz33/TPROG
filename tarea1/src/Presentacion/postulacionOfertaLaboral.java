@@ -3,12 +3,9 @@ package Presentacion;
 import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
-import java.awt.FlowLayout;
 import javax.swing.JPanel;
-import java.awt.Panel;
 import java.beans.PropertyVetoException;
-
-import javax.swing.JToolBar;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import javax.swing.JCheckBox;
@@ -23,20 +20,24 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import logica.ControladorOfertas;
-import logica.ControladorPublicaciones;
 import logica.IControladorOfertas;
-import logica.IControladorPublicaciones;
+import utils.DTEmpresa;
 import utilsPresentacion.CentrarColumnas;
 
 import java.awt.GridLayout;
 import java.awt.Button;
 
 public class postulacionOfertaLaboral extends JInternalFrame {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private JTable tableOfertas;
 	private postularAPostulante postularPostulanteInternalFrame;
 	private IControladorOfertas controlOL;
+	private JComboBox<String> comboBoxEmpresa;
 
 
+	
 	/**
 	 * Launch the application.
 	 */
@@ -85,10 +86,10 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 		separator.setBounds(10, 53, 1028, 2);
 		getContentPane().add(separator);
 		
-		JComboBox comboBoxEmpresa = new JComboBox();
+		comboBoxEmpresa = new JComboBox<String>();
 		comboBoxEmpresa.setBounds(10, 25, 438, 22);
 		getContentPane().add(comboBoxEmpresa);
-		comboMostrarEmpresas(comboBoxEmpresa);
+		comboMostrarEmpresas();
 		
 		JLabel lblNewLabel_1 = new JLabel("Ofertas Laborales Vigentes:");
 		lblNewLabel_1.setBounds(10, 66, 600, 14);
@@ -153,8 +154,6 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 		scrollPaneOfertas.add(tableOfertas);
 		
 		
-		
-		
 		Button buttonCancelar = new Button("Cancelar");
 		buttonCancelar.setBounds(472, 25, 70, 22);
 		getContentPane().add(buttonCancelar);
@@ -166,7 +165,16 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 
 	}
 	
-	public void comboMostrarEmpresas(JComboBox combobox) {
-		
+	public void comboMostrarEmpresas() {
+		JComboBox<String> combobox = this.comboBoxEmpresa;
+		combobox.removeAllItems();
+		if(controlOL != null) {
+		List<DTEmpresa> empresas = controlOL.obtenerEmpresas();
+		if (!empresas.isEmpty()) {
+			for (DTEmpresa empresa : empresas) {
+		        comboBoxEmpresa.addItem(empresa.getNombreEmpresa()); 
+		    }
+		}
+		}
 	}
 }

@@ -1,11 +1,9 @@
 package logica;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import utils.DTTipoPublicacion;
-import java.time.LocalDateTime;
 import excepciones.TipoPublicExisteException;
 
 public class ControladorPublicaciones implements IControladorPublicaciones {
