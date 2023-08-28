@@ -2,14 +2,17 @@ package logica;
 
 import utils.DTEmpresa;
 import java.util.List;
+import java.util.Set;
 import java.time.LocalDateTime;
 
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
 import excepciones.NombreExisteException;
 import excepciones.OfertaNoExisteException;
+import excepciones.UsuarioNoEsEmpresaException;
 import excepciones.UsuarioNoEsPostulanteException;
 import utils.DTOferta;
+import utils.DTPostulante;
 
 
 public interface IControladorOfertas {
@@ -32,5 +35,8 @@ public interface IControladorOfertas {
 	 * Si no existe una oferta con el nombre "nombreOfertaLaboral" tira una OfertaNoExisteException.
 	 */
 	public void postularAOferta(String nombreOfertaLaboral, String nicknamePostulante, String cvReducido, String motivacion, LocalDateTime fechaPostulacion) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException;
+	List<DTPostulante> obtenerPostulantes();
+	Set<DTOferta> obtenerOfertasEmpresa(String nombreEmpresa)
+			throws NicknameNoExisteException, UsuarioNoEsEmpresaException;
 
 }
