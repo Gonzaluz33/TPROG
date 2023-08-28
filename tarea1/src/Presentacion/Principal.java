@@ -16,6 +16,15 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 
+//para carga de datos
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import logica.Fabrica;
 import logica.IControladorOfertas;
 import logica.IControladorPublicaciones;
@@ -253,6 +262,97 @@ public class Principal {
 	            }
 		});	
 		menuCasosDeUso.add(mItemPostulacionOfertaLaboral);
+
+
+		JMenuItem mntmNewMenuItem = new JMenuItem("Cargar Datos");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		    	try {
+		    		String currentDirectory = System.getProperty("user.dir");
+		    		
+		            String csvFilePostulantes = currentDirectory + File.separator + "Datos" + File.separator + "Postulantes.csv";
+					cargarDatosPostulantes(csvFilePostulantes);
+					
+					
+		            String csvFileEmpresas = currentDirectory + File.separator + "Datos" + File.separator + "Empresas.csv";
+					cargarDatosEmpresas(csvFileEmpresas);
+				} catch (UsuarioRepetidoException e1) {
+					e1.printStackTrace();
+				}
+		    }
+		});
+		menuCasosDeUso.add(mntmNewMenuItem);
 	}
+
+		private void cargarDatosPostulantes(String csvFile) throws UsuarioRepetidoException {	
+		    String line = "";
+		    String cvsSplitBy = ";";
+		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+		        while ((line = br.readLine()) != null) {
+		            String[] postulanteData = line.split(cvsSplitBy);
+		            String nickname = "";
+		            String nombre = "";
+		            String apellido = "";
+		            String correo = "";
+		            Date fecha = null;
+		            String nacionalidad = "";
+		            if(postulanteData.length > 0) {
+		            	 nickname = postulanteData[0];
+		            	 nombre = postulanteData[1];
+		            	 apellido = postulanteData[2];
+		            	 correo = postulanteData[3];
+		            	 fecha = parseDate(postulanteData[4].trim());
+		            	 nacionalidad = postulanteData[5];
+		            	 ICU.altaPostulante(nickname, nombre, apellido, correo, fecha, nacionalidad);
+		            }
+		            
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		   
+		}
+
+		private Date parseDate(String dateString) {
+		    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		    try {
+		        return formatter.parse(dateString);
+		    } catch (ParseException e) {
+		        e.printStackTrace();
+		        return null;
+		    }
+		}
+		
+		private void cargarDatosEmpresas(String csvFile) throws UsuarioRepetidoException {	
+		    String line = "";
+		    String cvsSplitBy = ";";
+		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+		        while ((line = br.readLine()) != null) {
+		            String[] empresaData = line.split(cvsSplitBy);
+		            String nickname = "";
+		            String nombre = "";
+		            String apellido = "";
+		            String correo = "";
+		            String descripcion = "";
+		            String link = "";
+		            
+		            if(empresaData.length > 0) {
+		            	 nickname = empresaData[0];
+		            	 nombre = empresaData[1];
+		            	 apellido = empresaData[2];
+		            	 correo = empresaData[3];
+		            	 descripcion = empresaData[4];
+				         link = empresaData[5];
+		 
+		            	 ICU.altaEmpresa(nickname, nombre, apellido, correo,nickname, descripcion, link);
+		            }
+		            
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		   
+		}
+
 
 }
