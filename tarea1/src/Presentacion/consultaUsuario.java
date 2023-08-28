@@ -189,7 +189,7 @@ public class consultaUsuario extends JInternalFrame {
 		panelPostulante.add(tablaPostulante);
 		
 		Panel panelEmpresa = new Panel();
-		panelEmpresa.setBounds(20, 233, 585, 272);
+		panelEmpresa.setBounds(20, 233, 775, 272);
 		getContentPane().add(panelEmpresa);
 		
 		tablaEmpresa = new JTable();
@@ -209,13 +209,15 @@ public class consultaUsuario extends JInternalFrame {
 			}
 		});
 		tablaEmpresa.getColumnModel().getColumn(0).setResizable(false);
-		tablaEmpresa.getColumnModel().getColumn(0).setPreferredWidth(143);
+		tablaEmpresa.getColumnModel().getColumn(0).setPreferredWidth(200);
 		tablaEmpresa.getColumnModel().getColumn(1).setResizable(false);
-		tablaEmpresa.getColumnModel().getColumn(1).setPreferredWidth(240);
+		tablaEmpresa.getColumnModel().getColumn(1).setPreferredWidth(350);
 		tablaEmpresa.getColumnModel().getColumn(2).setResizable(false);
-		tablaEmpresa.getColumnModel().getColumn(2).setPreferredWidth(200);
+		tablaEmpresa.getColumnModel().getColumn(2).setPreferredWidth(210);
+		tablaEmpresa.getColumnModel().getColumn(0).setCellRenderer(new MultiLineCellRenderer());
 		tablaEmpresa.getColumnModel().getColumn(1).setCellRenderer(new MultiLineCellRenderer());
 		tablaEmpresa.getColumnModel().getColumn(2).setCellRenderer(new MultiLineCellRenderer());
+		tablaEmpresa.setDefaultRenderer(Object.class, new CentrarColumnas());
 		tablaEmpresa.setRowHeight(250);
 		JTableHeader headerEmpresa = tablaEmpresa.getTableHeader();
 		panelEmpresa.add(headerEmpresa);

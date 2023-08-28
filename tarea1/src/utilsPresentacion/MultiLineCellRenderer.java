@@ -14,6 +14,8 @@ public class MultiLineCellRenderer extends JTextArea implements TableCellRendere
         setLineWrap(true);
         setWrapStyleWord(true);
         setOpaque(true);
+        setAlignmentY(TOP_ALIGNMENT);
+        setAlignmentX(CENTER_ALIGNMENT);
     }
 
     @Override

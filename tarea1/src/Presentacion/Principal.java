@@ -16,6 +16,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 
+import excepciones.KeywordExisteException;
+import excepciones.NicknameNoExisteException;
+import excepciones.NombreExisteException;
+import excepciones.TipoPublicExisteException;
 import excepciones.UsuarioRepetidoException;
 
 //para carga de datos

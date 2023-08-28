@@ -34,6 +34,8 @@ import utils.DTOferta;
 import utils.DTPostulante;
 import utils.DTUsuario;
 import utilsPresentacion.CentrarColumnas;
+import utilsPresentacion.MultiLineCellRenderer;
+
 import java.awt.Point;
 import javax.swing.JScrollBar;
 import javax.swing.JButton;
@@ -160,9 +162,17 @@ public class consultaOfertaLaboral extends JInternalFrame {
 		tablaOfertaLaboral.getColumnModel().getColumn(3).setPreferredWidth(100);
 		tablaOfertaLaboral.getColumnModel().getColumn(5).setPreferredWidth(120);
 		tablaOfertaLaboral.getColumnModel().getColumn(6).setPreferredWidth(105);
+		tablaOfertaLaboral.setDefaultRenderer(Object.class, new CentrarColumnas());
+		tablaOfertaLaboral.setRowHeight(140);
+		tablaOfertaLaboral.getColumnModel().getColumn(0).setCellRenderer(new MultiLineCellRenderer());
+		tablaOfertaLaboral.getColumnModel().getColumn(1).setCellRenderer(new MultiLineCellRenderer());
+		tablaOfertaLaboral.getColumnModel().getColumn(2).setCellRenderer(new MultiLineCellRenderer());
+		tablaOfertaLaboral.getColumnModel().getColumn(3).setCellRenderer(new MultiLineCellRenderer());
+		tablaOfertaLaboral.getColumnModel().getColumn(4).setCellRenderer(new MultiLineCellRenderer());
+		tablaOfertaLaboral.getColumnModel().getColumn(5).setCellRenderer(new MultiLineCellRenderer());
+		tablaOfertaLaboral.getColumnModel().getColumn(6).setCellRenderer(new MultiLineCellRenderer());
 		tablaOfertaLaboral.getColumnModel().getColumn(7).setCellRenderer(new buttonRenderer());
 		tablaOfertaLaboral.getColumnModel().getColumn(7).setCellEditor(new ButtonEditor(new JCheckBox(), informacionOfertaLaboralInternalFrame));
-		tablaOfertaLaboral.setDefaultRenderer(Object.class, new CentrarColumnas());
 		JTableHeader headerOfertas = tablaOfertaLaboral.getTableHeader();
 		panelHeaders.add(headerOfertas);
 		tablaOfertaLaboral.setFont(new Font("Tahoma", Font.PLAIN, 11));
