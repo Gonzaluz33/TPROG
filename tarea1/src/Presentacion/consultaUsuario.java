@@ -1,40 +1,27 @@
 package Presentacion;
 
+import utils.DTEmpresa;
+import utils.DTPostulante;
 import utils.DTUsuario;
-import utilsPresentacion.*;
-
-import java.awt.EventQueue;
-
 import javax.swing.JInternalFrame;
-import java.awt.FlowLayout;
-import javax.swing.JPanel;
 import java.awt.Panel;
-import javax.swing.JToolBar;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JSeparator;
-import javax.swing.JEditorPane;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import logica.Empresa;
 import logica.IControladorUsuario;
 import utilsPresentacion.CentrarColumnas;
 
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
-import javax.swing.JScrollBar;
 import javax.swing.JButton;
 
 public class consultaUsuario extends JInternalFrame {
@@ -51,6 +38,15 @@ public class consultaUsuario extends JInternalFrame {
 	private JTable tablaPostulante;
 	private JTable tablaEmpresa;
 	private JComboBox<DTUsuario> listaUsuariosCombobox;
+	private String nickname;
+	private String nombre;
+	private String apellido;
+	private String correo;
+	private String fecha;
+	private String nacion;
+	private String desc;
+	private String link;
+	private String nombreEmp;
 	/**
 	 * Create the frame.
 	 * @throws PropertyVetoException 
@@ -59,12 +55,6 @@ public class consultaUsuario extends JInternalFrame {
 
 		//Inicializacion internal frame con controlador de usuarios.
 		controlUsr = icu;
-		
-		String nickname = "";
-		String nombre = "";
-		String apellido = "";
-		String correo = "";
-		
 		
 		setResizable(false);
 		setMaximum(true);
@@ -84,7 +74,45 @@ public class consultaUsuario extends JInternalFrame {
 		listaUsuariosCombobox = new JComboBox<DTUsuario>();
 		listaUsuariosCombobox.setBounds(20, 36, 544, 22);
 		getContentPane().add(listaUsuariosCombobox);
-		
+		listaUsuariosCombobox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                DTUsuario selectedValue = (DTUsuario) listaUsuariosCombobox.getSelectedItem();
+                
+                if (selectedValue != null) {
+                    nickname = selectedValue.getNickname();
+                    nombre = selectedValue.getNombre();
+                    apellido = selectedValue.getApellido();
+                    correo = selectedValue.getCorreo();
+                    
+                    DefaultTableModel tableModel = (DefaultTableModel) tablaUsuario.getModel();
+                    tableModel.setRowCount(0); // Limpiar filas existentes
+                    tableModel.addRow(new Object[] {nickname, nombre, apellido, correo});
+                    
+                    if(selectedValue instanceof DTEmpresa) {
+                    	desc = ((DTEmpresa) selectedValue).getDescripcion();
+                    	link = ((DTEmpresa) selectedValue).getLinkWeb();
+                    	nombreEmp = ((DTEmpresa) selectedValue).getNombreEmpresa();
+                    	((DefaultTableModel) tablaPostulante.getModel()).setRowCount(0);
+                    	DefaultTableModel tableEmpresaModel = (DefaultTableModel) tablaEmpresa.getModel();
+                        tableEmpresaModel.setRowCount(0); // Limpiar filas existentes
+                        tableEmpresaModel.addRow(new Object[] {nombreEmp , desc, link});
+                    } else {
+                    	((DefaultTableModel) tablaEmpresa.getModel()).setRowCount(0);
+
+                    	fecha = ((DTPostulante) selectedValue).getFechaNacimiento().toString();
+                    	nacion = ((DTPostulante) selectedValue).getNacionalidad();
+                    	DefaultTableModel tablePostModel = (DefaultTableModel) tablaPostulante.getModel();
+                        tablePostModel.setRowCount(0); // Limpiar filas existentes
+                        tablePostModel.addRow(new Object[] {"Postulante", fecha, nacion});
+                    }
+                }
+                
+                // Call your custom method here
+                // customMethod(selectedValue);
+            }		
+		 });
 		JSeparator separator = new JSeparator();
 		separator.setBounds(20, 67, 1019, 14);
 		getContentPane().add(separator);
@@ -138,7 +166,7 @@ public class consultaUsuario extends JInternalFrame {
 		tablaPostulante = new JTable();
 		tablaPostulante.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"Postulante", "25/03/1991", "Uruguayo"},
+				{"Postulante", "", ""},
 			},
 			new String[] {
 				"Tipo de Usuario", "Fecha de Nacimiento", "Nacionalidad"
@@ -203,7 +231,7 @@ public class consultaUsuario extends JInternalFrame {
 	            }
 		});
 	}
-	
+
 	public void llenar_comboListaUsuario(){
 		listaUsuariosCombobox.removeAllItems();
 		List<DTUsuario> datos = new ArrayList<>();
