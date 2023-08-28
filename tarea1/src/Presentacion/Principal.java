@@ -268,8 +268,13 @@ public class Principal {
 		    public void actionPerformed(ActionEvent e) {
 		    	try {
 		    		String currentDirectory = System.getProperty("user.dir");
+		    		
 		            String csvFilePostulantes = currentDirectory + File.separator + "Datos" + File.separator + "Postulantes.csv";
 					cargarDatosPostulantes(csvFilePostulantes);
+					
+					
+		            String csvFileEmpresas = currentDirectory + File.separator + "Datos" + File.separator + "Empresas.csv";
+					cargarDatosEmpresas(csvFileEmpresas);
 				} catch (UsuarioRepetidoException e1) {
 					e1.printStackTrace();
 				}
@@ -316,7 +321,37 @@ public class Principal {
 		        return null;
 		    }
 		}
-	}
+		
+		private void cargarDatosEmpresas(String csvFile) throws UsuarioRepetidoException {	
+		    String line = "";
+		    String cvsSplitBy = ";";
+		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+		        while ((line = br.readLine()) != null) {
+		            String[] empresaData = line.split(cvsSplitBy);
+		            String nickname = "";
+		            String nombre = "";
+		            String apellido = "";
+		            String correo = "";
+		            String descripcion = "";
+		            String link = "";
+		            
+		            if(empresaData.length > 0) {
+		            	 nickname = empresaData[0];
+		            	 nombre = empresaData[1];
+		            	 apellido = empresaData[2];
+		            	 correo = empresaData[3];
+		            	 descripcion = empresaData[4];
+				         link = empresaData[5];
+		 
+		            	 ICU.altaEmpresa(nickname, nombre, apellido, correo,nickname, descripcion, link);
+		            }
+		            
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		   
+		}
 
 
 }
