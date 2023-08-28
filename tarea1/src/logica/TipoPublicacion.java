@@ -24,12 +24,12 @@ public class TipoPublicacion {
 	}
 	
 	public TipoPublicacion(String nombre, String descripcion, Integer duracionPublicacion, Integer costo, LocalDate alta, int exposicion ){
-		this.nombre = nombre;
-		this.descripcion = descripcion;
-		this.duracionPublicacion = duracionPublicacion;
-		this.costo = costo;
-		this.fechaAlta = alta;
-		this.exposicion = exposicion;
+		this.setNombre(nombre);
+		this.setDescripcion(descripcion);
+		this.setDuracion(duracionPublicacion);
+		this.setCosto(costo);
+		this.setAlta(alta);
+		this.setExposicion(exposicion);
 	}
 
 	

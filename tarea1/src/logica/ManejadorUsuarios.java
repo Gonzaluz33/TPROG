@@ -26,7 +26,7 @@ public class ManejadorUsuarios {
 	 * @throws UsuarioRepetidoException 
 	 */
 	void altaEmpresa(Empresa e) throws UsuarioRepetidoException {
-		if (coleccionUsuarios.containsKey(e.getNickname())){
+		if (coleccionUsuarios.containsKey(e.getNickname().toLowerCase())){
 			throw new UsuarioRepetidoException("Ya existe un usuario con el nickname ingresado.");
 		}
 		else {
@@ -38,7 +38,7 @@ public class ManejadorUsuarios {
 	 * Crea el postulante y lo agrega a coleccionUsuarios.
 	 */
 	void altaPostulante(Postulante p) throws UsuarioRepetidoException {
-		if (coleccionUsuarios.containsKey(p.getNickname())){
+		if (coleccionUsuarios.containsKey(p.getNickname().toLowerCase())){
 			throw new UsuarioRepetidoException("Ya existe un usuario con el nickname ingresado.");
 		}
 		else {
@@ -128,9 +128,9 @@ public class ManejadorUsuarios {
 	public Set<DTOferta> obtenerOfertasDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
 		if ( !coleccionUsuarios.containsKey(nicknameEmpresa.toLowerCase()) )
 			throw new NicknameNoExisteException("La empresa con el nickname " + nicknameEmpresa + " no existe.");
-		if ( !(coleccionUsuarios.get(nicknameEmpresa) instanceof Empresa) )
+		if ( !(coleccionUsuarios.get(nicknameEmpresa.toLowerCase()) instanceof Empresa) )
 			throw new UsuarioNoEsEmpresaException("El usuario con el nickname " + nicknameEmpresa + " no es una empresa.");
-		return ( (Empresa) coleccionUsuarios.get(nicknameEmpresa) ).getOfertas();
+		return ( (Empresa) coleccionUsuarios.get(nicknameEmpresa.toLowerCase()) ).getOfertas();
 	}
 	
 	/**
@@ -138,7 +138,7 @@ public class ManejadorUsuarios {
 	 * Asocia la postulacion a la coleccion de postulaciones del postulante de nombre postulacion.getNicknamePostulante(). 
 	 */
 	public void postularAOferta(Postulacion postulacion) {
-		Postulante postulante = (Postulante) this.coleccionUsuarios.get(postulacion.getNicknamePostulante());
+		Postulante postulante = (Postulante) this.coleccionUsuarios.get(postulacion.getNicknamePostulante().toLowerCase());
 		postulante.asociarPostulacion(postulacion, postulacion.getNombreOfertaLaboral());
 	}
 	

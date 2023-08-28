@@ -15,6 +15,7 @@ import excepciones.UsuarioNoEsPostulanteException;
 
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
+import utils.DTEmpresa;
 import utils.DTOferta;
 import utils.DTPostulante;
 
@@ -84,13 +85,13 @@ public class ManejadorOfertaLaboral {
 		DTUsuario usuario = manejadorU.obtenerUsuario(nicknamePostulante);
 		
 		// checkeo si el usuario es un postulante
-		if (usuario instanceof DTPostulante)
+		if (!(usuario instanceof DTPostulante))
 			throw new UsuarioNoEsPostulanteException("El usuario con nickname " + nicknamePostulante + " no es un postulante.");
 		
 		// checkeo si el postulante ya habia postulado a la oferta laboral
 		boolean postulacionRepetida = oferta.getPostulaciones()
-				.stream().
-				anyMatch(postulacionDT -> postulacionDT.getNicknamePostulante()
+				.stream()
+				.anyMatch(postulacionDT -> postulacionDT.getNicknamePostulante()
 						.equals(nicknamePostulante));
 		if (postulacionRepetida)
 			throw new OfertaNoExisteException("Ya existe una postulacion a la oferta " + nombreOfertaLaboral + " asociada al postulante " + nicknamePostulante + ".");
@@ -102,6 +103,13 @@ public class ManejadorOfertaLaboral {
 	}
 	
 	
+	
+	/**
+	 * Devuelve la cantidad de ofertas laborales actualmente en el sistema.
+	 */
+	public int getCantidadOfertas() {
+		return this.coleccionOfertasLaborales.size();
+	}
 	
 	/**
 	 * Sustituye la coleccion de ofertas laborales por una vacia.

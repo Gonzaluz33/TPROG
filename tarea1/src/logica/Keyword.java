@@ -4,11 +4,11 @@ public class Keyword {
 	private String nombre;
 	
 	public Keyword() {
-		
+		this.setNombre(new String());
 	}
 	
 	public Keyword(String nombre) {
-		this.nombre = nombre;
+		this.setNombre(nombre);
 	}
 	
 	public String getNombre() {

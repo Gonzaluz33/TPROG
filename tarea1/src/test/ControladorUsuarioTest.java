@@ -105,7 +105,8 @@ class ControladorUsuarioTest {
 	}
 	
 	@Test
-	void testListarUsuarios_UnUsuarioEmpresa() {// le cargo un usuario al sistema
+	void testListarUsuarios_UnUsuarioEmpresa() {
+		// le cargo un usuario al sistema
 		String nicknameTest = "nicknameEmpresaUno";
 		String nombreTest = "nombrePersonaEmpresaUno";
 		String apellidoTest = "apellidoEmpresaUno";
@@ -215,6 +216,57 @@ class ControladorUsuarioTest {
 		assertEquals(primerPostulante.getCorreo(), emailTest);
 		assertEquals(primerPostulante.getFechaNacimiento(), fechaNacimientoTest);
 		assertEquals(primerPostulante.getNacionalidad(), nacionalidadTest);
+	}
+	
+	//tests obtenerOfertasDeEmpresa()
+	@Test
+	void testObtenerOfertasDeEmpresa_SinOfertas() {
+		// le cargo una empresa al sistema
+		String nicknameTest = "nicknameEmpresaUno";
+		String nombreTest = "nombrePersonaEmpresaUno";
+		String apellidoTest = "apellidoEmpresaUno";
+		String emailTest = "emailEmpresaUno";
+		String nombreEmpresaTest = "nombreEmpresaUno";
+		String descripcionTest = "descripcionEmpresaUno";
+		String linkWebTest = "linkWebEmpresaUno";
+		try {
+			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, nombreEmpresaTest, descripcionTest, linkWebTest);
+		} catch (UsuarioRepetidoException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		try {
+			assertEquals(controladorUsuario.obtenerOfertasDeEmpresa(nicknameTest).size(), 0);
+		} catch (NicknameNoExisteException | UsuarioNoEsEmpresaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	void testObtenerOfertasDeEmpresa_NoExisteEmpresa() {
+		String nicknameDeEmpresaQueNoExiste = "eu nao esisto";
+		assertThrows(NicknameNoExisteException.class, () -> controladorUsuario.obtenerOfertasDeEmpresa(nicknameDeEmpresaQueNoExiste));
+	}
+	
+	@Test
+	void testObtenerOfertasDeEmpresa_NoEsEmpresa() {
+		// le cargo un postulante al sistema
+		String nicknameTest = "nicknamePostulanteUno";
+		String nombreTest = "nombrePersonaPostulanteUno";
+		String apellidoTest = "apellidoPostulanteUno";
+		String emailTest = "emailPostulanteUno";
+		Date fechaNacimientoTest = new Date();
+		String nacionalidadTest = "nacionalidadPostulanteUno";
+		try {
+			controladorUsuario.altaPostulante(nicknameTest, nombreTest, apellidoTest, emailTest, fechaNacimientoTest, nacionalidadTest);
+		} catch (UsuarioRepetidoException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		assertThrows(UsuarioNoEsEmpresaException.class, () -> controladorUsuario.obtenerOfertasDeEmpresa(nicknameTest));
 	}
 	
 }

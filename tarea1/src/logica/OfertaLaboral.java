@@ -19,11 +19,12 @@ public class OfertaLaboral {
 	private String remuneracion;
 	private LocalDateTime fechaAlta;
 	
+	private Usuario empresa;
+	
 	private List<Postulacion> postulaciones = new ArrayList<Postulacion>();
 	private List<Publicacion> publicaciones = new ArrayList<Publicacion>();
 	private List<Keyword> keywords = new ArrayList<Keyword>();
 	
-	private Usuario empresa;
 	
 	// constructores
 	public OfertaLaboral() {
@@ -38,14 +39,14 @@ public class OfertaLaboral {
 	}
 	
 	public OfertaLaboral(String n, String desc, String c, String dep, String hora, LocalDateTime fecha, String remuneracion, Usuario emp) {
-		this.ciudad = c;
-		this.departamento = dep;
-		this.descripcion = desc;
-		this.fechaAlta = fecha;
-		this.horario = hora;
-		this.nombre = n;
-		this.remuneracion = remuneracion;
-		this.empresa = emp;
+		this.setCiudad(c);
+		this.setDepartamento(dep);
+		this.setDescripcion(desc);
+		this.setFechaAlta(fecha);
+		this.setHorario(hora);
+		this.setNombre(n);
+		this.setRemuneracion(remuneracion);
+		this.setEmpresa(emp);
 	}
 	
 	public void addPublicacion(Publicacion pub) {
@@ -127,6 +128,10 @@ public class OfertaLaboral {
 	public void setKeywords(ArrayList<Keyword> keys) {
 		this.keywords = keys;
 	}
+	public void setEmpresa (Usuario empresa) {
+		this.empresa = empresa;
+	}
+	
 	/**
 	 * Añade la postulacion a la coleccion de postulaciones asociadas a la oferta laboral.
 	 */
@@ -138,7 +143,7 @@ public class OfertaLaboral {
 	 * Devuelve los datos de la oferta como un datatype DTOferta.
 	 */
 	public DTOferta toDataType() {
-		return new DTOferta(this.nombre, this.descripcion, this.ciudad, this.departamento, this.horario, this.remuneracion, this.getPostulaciones());
+		return new DTOferta(this.getNombre(), this.getDescripcion(), this.getCiudad(), this.getDepartamento(), this.getHorario(), this.getRemuneracion(), this.getPostulaciones());
 	}
 	
 }

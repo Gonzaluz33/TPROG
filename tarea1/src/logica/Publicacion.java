@@ -8,6 +8,14 @@ public class Publicacion {
 	private LocalDate  fechaAlta;
 	private LocalDate  fechaVencimiento;
 	private OfertaLaboral oferta;
+
+	public Publicacion(){
+		this.setCosto(null);
+		this.setAlta(null);
+		this.setFin(null);
+		this.setId(null);
+		this.setOferta(null);
+	}
 	
 	public Publicacion(Integer id, Integer costo, LocalDate  alta, LocalDate  fin, OfertaLaboral oferta){
 		this.costoAsociado = costo;

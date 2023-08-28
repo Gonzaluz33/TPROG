@@ -23,11 +23,11 @@ public class Postulacion {
 	}
 	
 	public Postulacion(String nombreOfertaLaboral, String nicknamePostulante, String CVReducido, String motivacion,  LocalDateTime fechaPublic ) {
-		this.nombreOfertaLaboral = nombreOfertaLaboral;
-		this.nicknamePostulante = nicknamePostulante;
-		this.CVreducido = CVReducido;
-		this.motivacion = motivacion;
-		this.fechaPublic = fechaPublic;
+		this.setNombreOfertaLaboral(nombreOfertaLaboral);
+		this.setNicknamePostulante(nicknamePostulante);
+		this.setCVReducido(CVReducido);
+		this.setMotivacion(motivacion);
+		this.setFechaPublic(fechaPublic);
 	}
 	
     // Setters
@@ -76,7 +76,7 @@ public class Postulacion {
      * Retorna los datos de la postulacion como un DTPostulacion.
      */
     public DTPostulacion toDataType() {
-    	return new DTPostulacion(nicknamePostulante, nombreOfertaLaboral, fechaPublic, CVreducido, motivacion);
+    	return new DTPostulacion(getNicknamePostulante(), getNombreOfertaLaboral(), getFechaPublic(), getCVReducido(), getMotivacion());
     }
 
 }

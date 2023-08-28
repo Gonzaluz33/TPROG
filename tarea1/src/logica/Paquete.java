@@ -12,11 +12,11 @@ public class Paquete {
 	private Integer costoAsociado;
 	
 	public Paquete() {
-		this.nombre = new String();
-		this.descripcion = new String();
-		this.validez = 0;
-		this.descuento = 0;
-		this.costoAsociado = 0;
+		this.setNombre(new String());
+		this.setDescripcion(new String());
+		this.setValidez(0);
+		this.setDescuento(0);
+		this.setCostoAsociado(0);
 	}
 	
 	public Paquete(String nombre, String descripcion, Integer validez, Integer descuento, Integer costoAsociado) {
