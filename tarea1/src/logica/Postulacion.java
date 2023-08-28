@@ -76,8 +76,7 @@ public class Postulacion {
      * Retorna los datos de la postulacion como un DTPostulacion.
      */
     public DTPostulacion toDataType() {
-    	return null;
-    	// TODO
+    	return new DTPostulacion(nicknamePostulante, nombreOfertaLaboral, fechaPublic, CVreducido, motivacion);
     }
 
 }

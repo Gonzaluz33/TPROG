@@ -19,6 +19,8 @@ import java.awt.Scrollbar;
 
 public class informacionOfertaLaboral extends JInternalFrame {
 
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Launch the application.
 	 */

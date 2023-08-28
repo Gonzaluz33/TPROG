@@ -42,6 +42,7 @@ class ControladorUsuarioTest {
 		manejadorP.limpiarColeccionTipos();
 	}
 	
+	// tests consultarUsuario()
 	@Test
 	void testConsultarUsuario_OK() {
 		String nicknameTest = "nicknameEmpresaUno";
@@ -97,6 +98,7 @@ class ControladorUsuarioTest {
 		assertThrows(NicknameNoExisteException.class, () -> controladorUsuario.consultarUsuario(nicknameUsuarioQueNoExiste));
 	}
 	
+	// tests listarUsuarios()
 	@Test
 	void testListarUsuarios_SinUsuarios() {
 		assertEquals(controladorUsuario.listarUsuarios().size(), 0);
@@ -157,6 +159,7 @@ class ControladorUsuarioTest {
 		assertEquals(((DTPostulante) primerUsuario).getNacionalidad(), nacionalidadTest);
 	}
 	
+	// tests listarEmpresas()
 	@Test
 	void testListarEmpresas_SinUsuarios() {
 		assertEquals(controladorUsuario.listarEmpresas().size(), 0);
@@ -179,6 +182,39 @@ class ControladorUsuarioTest {
 		}
 		
 		assertEquals(controladorUsuario.listarEmpresas().size(), 0);
+	}
+	
+	// tests listarPostulantes()
+	@Test
+	void testListarPostulantes_SinUsuarios() {
+		assertEquals(controladorUsuario.listarPostulantes().size(), 0);
+	}
+	
+	@Test
+	void testListarPostulantes_UnPostulante() {
+		// le cargo un postulante al sistema
+		String nicknameTest = "nicknamePostulanteUno";
+		String nombreTest = "nombrePersonaPostulanteUno";
+		String apellidoTest = "apellidoPostulanteUno";
+		String emailTest = "emailPostulanteUno";
+		Date fechaNacimientoTest = new Date();
+		String nacionalidadTest = "nacionalidadPostulanteUno";
+		try {
+			controladorUsuario.altaPostulante(nicknameTest, nombreTest, apellidoTest, emailTest, fechaNacimientoTest, nacionalidadTest);
+		} catch (UsuarioRepetidoException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		List<DTPostulante> listaPostulantes = controladorUsuario.listarPostulantes();
+		DTPostulante primerPostulante = listaPostulantes.get(0);
+		assertEquals(listaPostulantes.size(), 1);
+		assertEquals(primerPostulante.getNickname(), nicknameTest);
+		assertEquals(primerPostulante.getNombre(), nombreTest);
+		assertEquals(primerPostulante.getApellido(), apellidoTest);
+		assertEquals(primerPostulante.getCorreo(), emailTest);
+		assertEquals(primerPostulante.getFechaNacimiento(), fechaNacimientoTest);
+		assertEquals(primerPostulante.getNacionalidad(), nacionalidadTest);
 	}
 	
 }

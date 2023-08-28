@@ -15,6 +15,9 @@ import javax.swing.JButton;
 import javax.swing.JTextPane;
 
 public class postularAPostulante extends JInternalFrame {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private JTextField nombreOferta;
 	private JTextField textField;
 	private JTextField textField_1;

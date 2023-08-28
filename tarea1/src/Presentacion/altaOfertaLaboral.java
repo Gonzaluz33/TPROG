@@ -1,13 +1,7 @@
 package Presentacion;
 
-import java.awt.EventQueue;
-
 import javax.swing.JInternalFrame;
-import java.awt.Panel;
-import java.awt.Label;
 import javax.swing.JLabel;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
@@ -20,8 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 import excepciones.KeywordExisteException;
+import excepciones.NicknameNoExisteException;
 import excepciones.NombreExisteException;
-import logica.ControladorUsuarios;
 import logica.IControladorOfertas;
 import logica.IControladorPublicaciones;
 import logica.IControladorUsuario;
@@ -100,7 +94,7 @@ public class altaOfertaLaboral extends JInternalFrame {
 		lblSeleccioneUnTipo.setBounds(25, 79, 878, 14);
 		getContentPane().add(lblSeleccioneUnTipo);
 		
-		boxTipoPublicacion = new JComboBox();
+		boxTipoPublicacion = new JComboBox<String>();
 		boxTipoPublicacion.setBounds(25, 102, 721, 22);
 		getContentPane().add(boxTipoPublicacion);
 		
@@ -190,6 +184,10 @@ public class altaOfertaLaboral extends JInternalFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				catch (NicknameNoExisteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 	}
@@ -224,7 +222,7 @@ public class altaOfertaLaboral extends JInternalFrame {
 
 	}
 	
-	public void crearOferta(ActionEvent e) throws NombreExisteException, KeywordExisteException {
+	public void crearOferta(ActionEvent e) throws NombreExisteException, KeywordExisteException, NicknameNoExisteException {
 		String nombre = this.nombreField.getText();
 		String desc = this.descripcionTextArea.getText();
 		String depa = this.departamentoField.getText();

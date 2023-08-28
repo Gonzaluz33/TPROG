@@ -1,31 +1,22 @@
 package Presentacion;
 
-import java.awt.EventQueue;
-
-import javax.swing.JInternalFrame;
-import java.awt.FlowLayout;
-import javax.swing.JPanel;
-import java.awt.Panel;
+import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import javax.swing.JToolBar;
-
-import excepciones.UsuarioRepetidoException;
-import logica.ControladorUsuarios;
-import logica.IControladorUsuario;
-
-import javax.swing.JTextField;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollBar;
-import javax.swing.JComboBox;
 import javax.swing.JSpinner;
-import java.awt.Button;
+import javax.swing.JTextField;
 
+import excepciones.UsuarioRepetidoException;
+import logica.IControladorUsuario;
+
+@SuppressWarnings("serial")
 public class altaPostulante extends JInternalFrame {
 	// Controlador de usuarios que se utilizará para las acciones del JFrame
     private IControladorUsuario controlUsr;

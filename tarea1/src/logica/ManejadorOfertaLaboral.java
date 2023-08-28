@@ -1,9 +1,8 @@
 package logica;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +21,7 @@ import utils.DTPostulante;
 
 public class ManejadorOfertaLaboral {
 
-	private Map<String, OfertaLaboral> coleccionOfertasLaborales = new HashMap<String, OfertaLaboral>();
+	private Map<String, OfertaLaboral> coleccionOfertasLaborales = new TreeMap<String, OfertaLaboral>();
 
 	private Map<String, Keyword> coleccionKeyword = new HashMap<String, Keyword>();
 
@@ -118,5 +117,4 @@ public class ManejadorOfertaLaboral {
 		this.coleccionKeyword = new HashMap<String, Keyword>();
 	}
 
->>>>>>> development
 }
