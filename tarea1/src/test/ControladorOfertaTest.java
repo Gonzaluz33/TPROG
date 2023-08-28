@@ -24,14 +24,11 @@ import logica.Fabrica;
 import logica.IControladorOfertas;
 import logica.IControladorPublicaciones;
 import logica.IControladorUsuario;
-import logica.Keyword;
 import logica.ManejadorOfertaLaboral;
 import logica.ManejadorPublicaciones;
 import logica.ManejadorUsuarios;
-import logica.TipoPublicacion;
 import utils.DTEmpresa;
 import utils.DTOferta;
-import utils.DTUsuario;
 
 public class ControladorOfertaTest {
 
@@ -71,19 +68,12 @@ public class ControladorOfertaTest {
 	void testAltaOferta_OK() throws NombreExisteException, KeywordExisteException, UsuarioRepetidoException, TipoPublicExisteException {
 		//empresa
 		String nicknameTest = "nickname";
-		String nombreTestEmp = "nombre";
 		String apellidoTest = "apellidoEmpresaUno";
 		String emailTest = "emailEmpresaUno";
 		String nombreEmpresaTest = "empresa";
 		String descripcionTest = "descripcionEmpresaUno";
 		String linkWebTest = "linkWebEmpresaUno";
 		
-		//oferta
-		String ciudadTest = "ciudad";
-		String depaTest = "depa";
-		String tipo = "tipo";
-		String remuTest = "10 peso";
-		String horaTest = "10-18";
 		String nombreTest = "testOferta";
 		String descTest = "desc";
 		List<String> keys = new ArrayList<String>();
@@ -91,7 +81,7 @@ public class ControladorOfertaTest {
 		//tipo
 		String nombreTipo = "tipo";
 		String descTipo = "descTipo";
-		String exposicion = "Baja";
+		int exposicion = 24;
 		int duracion = 1;
 		int costo = 1;
 		LocalDate fecha = LocalDate.now();
@@ -114,17 +104,12 @@ public class ControladorOfertaTest {
 	void testAltaOferta_keys() throws NombreExisteException, KeywordExisteException, UsuarioRepetidoException, TipoPublicExisteException, OfertaNoExisteException, NicknameNoExisteException {
 		//empresa
 		String nicknameTest = "nickname";
-		String nombreTestEmp = "nombre";
 		String apellidoTest = "apellidoEmpresaUno";
 		String emailTest = "emailEmpresaUno";
 		String nombreEmpresaTest = "empresa";
 		String descripcionTest = "descripcionEmpresaUno";
 		String linkWebTest = "linkWebEmpresaUno";
 		
-		//oferta
-		String ciudadTest = "ciudad";
-		String depaTest = "depa";
-		String tipo = "tipo";
 		String remuTest = "10 peso";
 		String horaTest = "10-18";
 		String nombreTest = "testOferta";
@@ -138,7 +123,7 @@ public class ControladorOfertaTest {
 		//tipo
 		String nombreTipo = "tipo";
 		String descTipo = "descTipo";
-		String exposicion = "Baja";
+		int exposicion = 24;
 		int duracion = 1;
 		int costo = 1;
 		LocalDate fecha = LocalDate.now();
@@ -174,19 +159,12 @@ public class ControladorOfertaTest {
 	void testAltaOferta_keysThrow() throws NombreExisteException, KeywordExisteException, UsuarioRepetidoException, TipoPublicExisteException {
 		//empresa
 		String nicknameTest = "nickname";
-		String nombreTestEmp = "nombre";
 		String apellidoTest = "apellidoEmpresaUno";
 		String emailTest = "emailEmpresaUno";
 		String nombreEmpresaTest = "empresa";
 		String descripcionTest = "descripcionEmpresaUno";
 		String linkWebTest = "linkWebEmpresaUno";
 		
-		//oferta
-		String ciudadTest = "ciudad";
-		String depaTest = "depa";
-		String tipo = "tipo";
-		String remuTest = "10 peso";
-		String horaTest = "10-18";
 		String nombreTest = "testOferta";
 		String descTest = "desc";
 		List<String> keys = new ArrayList<String>();
@@ -198,7 +176,7 @@ public class ControladorOfertaTest {
 		//tipo
 		String nombreTipo = "tipo";
 		String descTipo = "descTipo";
-		String exposicion = "Baja";
+		int exposicion = 24;
 		int duracion = 1;
 		int costo = 1;
 		LocalDate fecha = LocalDate.now();
@@ -224,19 +202,12 @@ public class ControladorOfertaTest {
 	void testAltaOferta_REP() throws NombreExisteException, KeywordExisteException, UsuarioRepetidoException, TipoPublicExisteException {
 		//empresa
 		String nicknameTest = "nickname";
-		String nombreTestEmp = "nombre";
 		String apellidoTest = "apellidoEmpresaUno";
 		String emailTest = "emailEmpresaUno";
 		String nombreEmpresaTest = "empresa";
 		String descripcionTest = "descripcionEmpresaUno";
 		String linkWebTest = "linkWebEmpresaUno";
 		
-		//oferta
-		String ciudadTest = "ciudad";
-		String depaTest = "depa";
-		String tipo = "tipo";
-		String remuTest = "10 peso";
-		String horaTest = "10-18";
 		String nombreTest = "testOferta";
 		String descTest = "desc";
 		List<String> keys = new ArrayList<String>();
@@ -244,7 +215,7 @@ public class ControladorOfertaTest {
 		//tipo
 		String nombreTipo = "tipo";
 		String descTipo = "descTipo";
-		String exposicion = "Baja";
+		int exposicion = 24;
 		int duracion = 1;
 		int costo = 1;
 		LocalDate fecha = LocalDate.now();
@@ -288,17 +259,12 @@ public class ControladorOfertaTest {
 	@Test
 	void testObtenerDatosOferta() throws KeywordExisteException, TipoPublicExisteException, NombreExisteException, UsuarioRepetidoException, OfertaNoExisteException {
 		String nicknameTest = "nickname";
-		String nombreTestEmp = "nombre";
 		String apellidoTest = "apellidoEmpresaUno";
 		String emailTest = "emailEmpresaUno";
 		String nombreEmpresaTest = "empresa";
 		String descripcionTest = "descripcionEmpresaUno";
 		String linkWebTest = "linkWebEmpresaUno";
 		
-		//oferta
-		String ciudadTest = "ciudad";
-		String depaTest = "depa";
-		String tipo = "tipo";
 		String remuTest = "10 peso";
 		String horaTest = "10-18";
 		String nombreTest = "testOferta";
@@ -312,7 +278,7 @@ public class ControladorOfertaTest {
 		//tipo
 		String nombreTipo = "tipo";
 		String descTipo = "descTipo";
-		String exposicion = "Baja";
+		int exposicion = 24;
 		int duracion = 1;
 		int costo = 1;
 		LocalDate fecha = LocalDate.now();
