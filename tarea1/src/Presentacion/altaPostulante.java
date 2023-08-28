@@ -205,6 +205,7 @@ public class altaPostulante extends JInternalFrame {
 		mes.setValue(Integer.valueOf(0));
 		dia.setValue(Integer.valueOf(0));;
 		nacionalidadField.setText("");
-	   }
+	}
+	
 }
 

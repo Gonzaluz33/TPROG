@@ -27,7 +27,7 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		Integer id = manPub.getLastPubId();
 		TipoPublicacion datosTipo = manPub.getTipo(tipo);
 		LocalDate inicio = datosTipo.getAlta();
-		LocalDate fin = LocalDate.of(inicio.getYear(),inicio.getMonthValue(),inicio.getDayOfMonth() + datosTipo.getDuracion());
+		LocalDate fin = LocalDate.of(inicio.getYear(),inicio.getMonthValue(),inicio.getDayOfMonth()).plusDays(datosTipo.getDuracion());
 		Publicacion pub = new Publicacion(id, datosTipo.getCosto(), inicio, fin, ofL);
 		manPub.addPublicacion(pub);
 		//find tipo, agregar asociacion si no existe, y pumquepam

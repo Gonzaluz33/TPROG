@@ -27,6 +27,7 @@ import javax.swing.JSpinner;
 import java.awt.Button;
 import java.awt.Color;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 
@@ -175,19 +176,7 @@ public class altaOfertaLaboral extends JInternalFrame {
 		
 		buttonAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					crearOferta(e);
-				} catch (NombreExisteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (KeywordExisteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				catch (NicknameNoExisteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				crearOferta(e);
 			}
 		});
 	}
@@ -222,7 +211,7 @@ public class altaOfertaLaboral extends JInternalFrame {
 
 	}
 	
-	public void crearOferta(ActionEvent e) throws NombreExisteException, KeywordExisteException, NicknameNoExisteException {
+	public void crearOferta(ActionEvent e) {
 		String nombre = this.nombreField.getText();
 		String desc = this.descripcionTextArea.getText();
 		String depa = this.departamentoField.getText();
@@ -233,6 +222,39 @@ public class altaOfertaLaboral extends JInternalFrame {
 		String rem = this.remuneracionSpiner.getValue().toString();
 		List<String> keys = this.keywordsList.getSelectedValuesList();
 		
-		this.ctrlOfertas.altaOferta(nombre, desc, rem, horario, keys, ciudad, depa, tipo, empresa);
+		if (nombre.isEmpty() || desc.isEmpty() || depa.isEmpty() || ciudad.isEmpty() || horario.isEmpty() || empresa.isEmpty() || tipo.isEmpty() || rem.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Alta de Oferta Laboral", JOptionPane.ERROR_MESSAGE);
+        } else {
+        	try {
+    			this.ctrlOfertas.altaOferta(nombre, desc, rem, horario, keys, ciudad, depa, tipo, empresa);
+                // Muestro éxito de la operación
+                JOptionPane.showMessageDialog(this, "La oferta se ha creado con éxito", "Alta de Oferta Laboral", JOptionPane.INFORMATION_MESSAGE);
+                // Limpio el internal frame antes de cerrar la ventana
+                limpiarFormulario();
+                setVisible(false);
+    		} catch (NombreExisteException e1) {
+                JOptionPane.showMessageDialog(this, e1.getMessage(), "Alta de Oferta Laboral", JOptionPane.ERROR_MESSAGE);
+    		} catch (KeywordExisteException e1) {
+                JOptionPane.showMessageDialog(this, e1.getMessage(), "Alta de Oferta Laboral", JOptionPane.ERROR_MESSAGE);
+    		} catch (NicknameNoExisteException e1) {
+                JOptionPane.showMessageDialog(this, e1.getMessage(), "Alta de Oferta Laboral", JOptionPane.ERROR_MESSAGE);
+    		}
+        }
 	}
+	
+	private void limpiarFormulario() {
+		horarioField.setText("");
+		boxEmpresa.removeAllItems();
+		boxTipoPublicacion.removeAllItems();
+		nombreField.setText("");
+		descripcionTextArea.setText("");
+		remuneracionSpiner.setValue(Integer.valueOf(0));
+		ciudadField.setText("");
+		departamentoField.setText("");
+		/*
+		 * falta limpiar lo que tiene adentro la JList "keywordsList"
+		keywordsList.limpiarLoQueTieneAdentro();
+		*/
+	}
+	
 }
