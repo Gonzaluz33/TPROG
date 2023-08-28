@@ -289,17 +289,8 @@ public class consultaOfertaLaboral extends JInternalFrame {
 	    protected void fireEditingStopped() {
 	        super.fireEditingStopped();
 	    }
-
-
 	    
 	}
 
-
-	
-	
-	
-	
-	
-	
 }
 

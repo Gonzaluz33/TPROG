@@ -10,6 +10,7 @@ import javax.swing.JSeparator;
 import java.awt.ScrollPane;
 import java.beans.PropertyVetoException;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -18,6 +19,7 @@ import javax.swing.table.JTableHeader;
 import excepciones.OfertaNoExisteException;
 import logica.IControladorOfertas;
 import utils.DTOferta;
+import utils.DTPostulacion;
 import utilsPresentacion.MultiLineCellRenderer;
 
 import java.awt.FlowLayout;
@@ -30,6 +32,7 @@ public class informacionOfertaLaboral extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private IControladorOfertas controlOL;
+	//datos ofertas
 	private String ofertaNombre;
 	private String nombre;
 	private String descripcion;
@@ -39,6 +42,13 @@ public class informacionOfertaLaboral extends JInternalFrame {
 	private String remuneracion;
 	private String fechaAlta;
 	private JTable tableDatosOferta = new JTable();
+	
+	//datos postulaciones
+	private String FechaPostulacion;
+	private String CV;
+	private String Motivacion;
+	private JTable tablePostulaciones = new JTable();
+	
 
 	/**
 	 * Create the frame.
@@ -114,15 +124,13 @@ public class informacionOfertaLaboral extends JInternalFrame {
 		scrollbar.setBounds(774, 182, 11, 378);
 		tablePanePostulaciones.add(scrollbar);
 		
-		JTable tablePostulaciones = new JTable();
-		
 		JTableHeader headerPostulaciones = tablePostulaciones.getTableHeader();
 		headersPostulacionesPane.add(headerPostulaciones);
 		headersPostulacionesPane.setLayout(new GridLayout(1, 0, 0, 0));
 		tablePostulaciones.setFillsViewportHeight(true);
 		tablePostulaciones.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null},
+			
 			},
 			new String[] {
 				"Fecha", "CV", "Motivaci\u00F3n"
@@ -135,10 +143,11 @@ public class informacionOfertaLaboral extends JInternalFrame {
 				return columnEditables[column];
 			}
 		});
-		tablePostulaciones.getColumnModel().getColumn(0).setResizable(false);
-		tablePostulaciones.getColumnModel().getColumn(1).setResizable(false);
-		tablePostulaciones.getColumnModel().getColumn(2).setResizable(false);
 		tablePostulaciones.setBounds(220, 342, 1, 1);
+		tablePostulaciones.getColumnModel().getColumn(0).setCellRenderer(new MultiLineCellRenderer());
+		tablePostulaciones.getColumnModel().getColumn(1).setCellRenderer(new MultiLineCellRenderer());
+		tablePostulaciones.getColumnModel().getColumn(2).setCellRenderer(new MultiLineCellRenderer());
+		tablePostulaciones.setRowHeight(150);
 		tablePanePostulaciones.add(tablePostulaciones);
 		
 		
@@ -149,12 +158,10 @@ public class informacionOfertaLaboral extends JInternalFrame {
 	    }
 	 	
 	 	public void mostrarDatosOferta() throws OfertaNoExisteException {
-	 		 
 			String oferta = this.ofertaNombre;
 			//Obtengo datos oferta 
 			DTOferta datosOferta = controlOL.obtenerDatosOferta(oferta);
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-			System.out.print(oferta);
 		    nombre = datosOferta.getNombre();
 		    descripcion = datosOferta.getDescripcion();
 		    ciudad = datosOferta.getCiudad();
@@ -163,12 +170,21 @@ public class informacionOfertaLaboral extends JInternalFrame {
 		    remuneracion = String.valueOf(datosOferta.getRemuneracion()); // suponiendo que Remuneracion es un número, lo convertimos a String
 		    fechaAlta = datosOferta.getFechaAlta().format(formatter);
 			
-		    DefaultTableModel tableModel = (DefaultTableModel) this.tableDatosOferta.getModel();
-		    tableModel.setRowCount(0); // Limpiar filas existentes
-		    tableModel.addRow(new Object[] {nombre, descripcion, ciudad, departamento,
-		    		horario,remuneracion,fechaAlta});
+		    DefaultTableModel tableModelDatos = (DefaultTableModel) this.tableDatosOferta.getModel();
+		    tableModelDatos.setRowCount(0); // Limpiar filas existentes
+		    tableModelDatos.addRow(new Object[] {nombre, descripcion, ciudad, departamento,
+		    horario,remuneracion,fechaAlta});
 		    
-		    
-		    
+		    DefaultTableModel tableModelPostulaciones =  (DefaultTableModel) this.tablePostulaciones.getModel();
+		    tableModelPostulaciones.setRowCount(0);
+		    if (datosOferta.getPostulaciones() != null) {
+		    	List<DTPostulacion> listadoPostulaciones = datosOferta.getPostulaciones();
+		    	for (DTPostulacion elemento : listadoPostulaciones) {
+		    	    FechaPostulacion = elemento.getFecha().format(formatter);;
+					CV = elemento.getCvReducido();
+					Motivacion = elemento.getMotivacion();
+					tableModelPostulaciones.addRow(new Object[] {FechaPostulacion, CV, Motivacion});
+		    	}	    	
+		    }
 		}
 }
