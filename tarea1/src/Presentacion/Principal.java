@@ -252,6 +252,62 @@ public class Principal {
 	            }
 		});	
 		menuCasosDeUso.add(mItemPostulacionOfertaLaboral);
+
+
+		JMenuItem mntmNewMenuItem = new JMenuItem("Cargar Datos");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		    	try {
+		    		String currentDirectory = System.getProperty("user.dir");
+		            String csvFilePostulantes = currentDirectory + File.separator + "Datos" + File.separator + "Postulantes.csv";
+					cargarDatosPostulantes(csvFilePostulantes);
+				} catch (UsuarioRepetidoException e1) {
+					e1.printStackTrace();
+				}
+		    }
+		});
+		menuCasosDeUso.add(mntmNewMenuItem);
 	}
+
+		private void cargarDatosPostulantes(String csvFile) throws UsuarioRepetidoException {	
+		    String line = "";
+		    String cvsSplitBy = ";";
+		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+		        while ((line = br.readLine()) != null) {
+		            String[] postulanteData = line.split(cvsSplitBy);
+		            String nickname = "";
+		            String nombre = "";
+		            String apellido = "";
+		            String correo = "";
+		            Date fecha = null;
+		            String nacionalidad = "";
+		            if(postulanteData.length > 0) {
+		            	 nickname = postulanteData[0];
+		            	 nombre = postulanteData[1];
+		            	 apellido = postulanteData[2];
+		            	 correo = postulanteData[3];
+		            	 fecha = parseDate(postulanteData[4].trim());
+		            	 nacionalidad = postulanteData[5];
+		            	 ICU.altaPostulante(nickname, nombre, apellido, correo, fecha, nacionalidad);
+		            }
+		            
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		   
+		}
+
+		private Date parseDate(String dateString) {
+		    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		    try {
+		        return formatter.parse(dateString);
+		    } catch (ParseException e) {
+		        e.printStackTrace();
+		        return null;
+		    }
+		}
+	}
+
 
 }
