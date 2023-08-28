@@ -23,7 +23,14 @@ import java.io.IOException;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import logica.Fabrica;
 import logica.IControladorOfertas;
@@ -276,7 +283,29 @@ public class Principal {
 					
 		            String csvFileEmpresas = currentDirectory + File.separator + "Datos" + File.separator + "Empresas.csv";
 					cargarDatosEmpresas(csvFileEmpresas);
+					
+					String csvFileTiposPublicacion = currentDirectory + File.separator + "Datos" + File.separator + "TiposPublicacion.csv";
+					cargarDatosTipoPublicacion(csvFileTiposPublicacion);
+					
+					String csvFileKeywords = currentDirectory + File.separator + "Datos" + File.separator + "Keywords.csv";
+					cargarDatosKeywords(csvFileKeywords);
+					
+					String csvFileOfertaLaboral = currentDirectory + File.separator + "Datos" + File.separator + "OfertasLaborales.csv";
+					cargarDatosOfertasLaborales(csvFileOfertaLaboral);
+					
 				} catch (UsuarioRepetidoException e1) {
+					e1.printStackTrace();
+				} catch (TipoPublicExisteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (KeywordExisteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (NombreExisteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (NicknameNoExisteException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 		    }
@@ -347,6 +376,102 @@ public class Principal {
 		            	 ICU.altaEmpresa(nickname, nombre, apellido, correo,nickname, descripcion, link);
 		            }
 		            
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		   
+		}
+		
+		private void cargarDatosTipoPublicacion(String csvFile) throws TipoPublicExisteException{	
+		    String line = "";
+		    String cvsSplitBy = ";";
+		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+		        while ((line = br.readLine()) != null) {
+		            String[] tiposPublicaionData = line.split(cvsSplitBy);
+		            String nombre = "";
+		            String desc = "";
+		            int exp = 0;
+		            Integer duracion = 0;
+		            Integer costo = 0;
+		           LocalDate alta = null;
+		            
+		            if(tiposPublicaionData.length > 0) {
+		            	 nombre = tiposPublicaionData[0];
+		            	 desc = tiposPublicaionData[1];
+		            	 exp = Integer.parseInt(tiposPublicaionData[2]) ;
+		            	 duracion = Integer.parseInt(tiposPublicaionData[3]) ;
+		            	 costo = Integer.parseInt(tiposPublicaionData[4]);
+		            	 alta = parseToLocalDate(tiposPublicaionData[5].trim());
+		            	 ICP.altaTipoPublicacionOL(nombre, desc, exp, duracion, costo, alta);
+		            }
+		            
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		   
+		}
+
+		private LocalDate parseToLocalDate(String dateString) {
+		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		    try {
+		        return LocalDate.parse(dateString, formatter);
+		    } catch (DateTimeParseException e) {
+		        e.printStackTrace();
+		        return null;
+		    }
+		}
+		
+		private void cargarDatosKeywords(String csvFile) throws KeywordExisteException{	
+		    String line = "";
+		    String cvsSplitBy = ";";
+		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+		        while ((line = br.readLine()) != null) {
+		            String[] tiposPublicaionData = line.split(cvsSplitBy);
+		            String nombre = "";         
+		            if(tiposPublicaionData.length > 0) {
+		            	 nombre = tiposPublicaionData[0];
+		            	 ICO.altaKeyword(nombre);
+		            }      
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		   
+		}
+		private void cargarDatosOfertasLaborales(String csvFile) throws NombreExisteException, KeywordExisteException, NicknameNoExisteException{	
+		    String line = "";
+		    String cvsSplitBy = ";";
+		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+		        while ((line = br.readLine()) != null) {
+		            String[] ofertasLaboralesData = line.split(cvsSplitBy);
+		            String nombre = "";    
+		            String desc = ""; 
+		            String rem = ""; 
+		            String horario = ""; 
+		            List<String> keys = new ArrayList<>();
+		            String ciudad = ""; 
+		            String depa = ""; 
+		            String tipo = "";
+		            String empresa = ""; 
+		            
+		            
+		            if(ofertasLaboralesData.length > 0) {
+		            	
+		            	 nombre = ofertasLaboralesData[0];
+		            	 desc = ofertasLaboralesData[1];
+		            	 rem = ofertasLaboralesData[5];
+		            	 horario = ofertasLaboralesData[4];
+		            	 ciudad = ofertasLaboralesData[3];
+		            	 depa = ofertasLaboralesData[2];
+		            	 tipo = ofertasLaboralesData[7];
+		            	 empresa = ofertasLaboralesData[6];
+		            	 if(ofertasLaboralesData.length > 9) {
+			            	 keys = Arrays.asList(ofertasLaboralesData[9].split("/"));
+		            	 }
+		            	 ICO.altaOferta(nombre, desc, rem, horario, keys, ciudad, depa, tipo, empresa);
+		            }      
 		        }
 		    } catch (IOException e) {
 		        e.printStackTrace();
