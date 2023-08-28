@@ -116,7 +116,7 @@ public class altaTipoPublicacionOL extends JInternalFrame {
 		btnCancelar.setBounds(332, 368, 89, 23);
 		getContentPane().add(btnCancelar);
 		
-		JSpinner spinner_2 = new JSpinner();
+		spinner_2 = new JSpinner();
 		spinner_2.setBounds(23, 190, 149, 20);
 		getContentPane().add(spinner_2);
 
