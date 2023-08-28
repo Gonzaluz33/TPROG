@@ -16,6 +16,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 
+import excepciones.UsuarioRepetidoException;
+
 //para carga de datos
 import java.io.BufferedReader;
 import java.io.FileReader;

@@ -142,7 +142,7 @@ public class consultaOfertaLaboral extends JInternalFrame {
 		tablaOfertaLaboral.setRowHeight(35);
 		tablaOfertaLaboral.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ver Información"},
+				
 			},
 			new String[] {
 				"Nombre", "Descripci\u00F3n", "Ciudad", "Departamento", "Horario", "Remuneraci\u00F3n", "Fecha de Alta", "Acciones"

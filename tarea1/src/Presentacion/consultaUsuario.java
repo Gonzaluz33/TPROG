@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import utilsPresentacion.MultiLineCellRenderer;
 
 public class consultaUsuario extends JInternalFrame {
 	/**
@@ -100,8 +101,6 @@ public class consultaUsuario extends JInternalFrame {
                         tableEmpresaModel.addRow(new Object[] {nombreEmp , desc, link});
                     } else {
                     	((DefaultTableModel) tablaEmpresa.getModel()).setRowCount(0);
-                    	
-                    	
                     	String fechaFormateada = new SimpleDateFormat("dd-MM-yyyy").format(((DTPostulante) selectedValue).getFechaNacimiento());
                     	fecha = fechaFormateada.toString();
                     	nacion = ((DTPostulante) selectedValue).getNacionalidad();
@@ -190,7 +189,7 @@ public class consultaUsuario extends JInternalFrame {
 		panelPostulante.add(tablaPostulante);
 		
 		Panel panelEmpresa = new Panel();
-		panelEmpresa.setBounds(20, 233, 585, 59);
+		panelEmpresa.setBounds(20, 233, 585, 272);
 		getContentPane().add(panelEmpresa);
 		
 		tablaEmpresa = new JTable();
@@ -214,8 +213,10 @@ public class consultaUsuario extends JInternalFrame {
 		tablaEmpresa.getColumnModel().getColumn(1).setResizable(false);
 		tablaEmpresa.getColumnModel().getColumn(1).setPreferredWidth(240);
 		tablaEmpresa.getColumnModel().getColumn(2).setResizable(false);
-		tablaEmpresa.getColumnModel().getColumn(2).setPreferredWidth(191);
-		tablaEmpresa.setDefaultRenderer(Object.class, new CentrarColumnas());
+		tablaEmpresa.getColumnModel().getColumn(2).setPreferredWidth(200);
+		tablaEmpresa.getColumnModel().getColumn(1).setCellRenderer(new MultiLineCellRenderer());
+		tablaEmpresa.getColumnModel().getColumn(2).setCellRenderer(new MultiLineCellRenderer());
+		tablaEmpresa.setRowHeight(250);
 		JTableHeader headerEmpresa = tablaEmpresa.getTableHeader();
 		panelEmpresa.add(headerEmpresa);
 		panelEmpresa.add(tablaEmpresa);
