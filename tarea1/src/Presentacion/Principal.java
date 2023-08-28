@@ -19,7 +19,9 @@ import javax.swing.SwingConstants;
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
 import excepciones.NombreExisteException;
+import excepciones.OfertaNoExisteException;
 import excepciones.TipoPublicExisteException;
+import excepciones.UsuarioNoEsPostulanteException;
 import excepciones.UsuarioRepetidoException;
 
 //para carga de datos
