@@ -3,7 +3,6 @@ package logica;
 
 import utils.DTEmpresa;
 import utils.DTOferta;
-import utils.DTPostulante;
 import excepciones.NombreExisteException;
 import excepciones.OfertaNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
@@ -71,18 +70,9 @@ public class ControladorOfertas implements IControladorOfertas{
 		return empresas;
 	}
 
-
-	@Override
-	public List<DTPostulante> obtenerPostulantes() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public Set<DTOferta> obtenerOfertasEmpresa(String nombreEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<DTOferta> obtenerOfertasVigentesDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
+		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+		return manejadorOL.obtenerOfertasVigentesDeEmpresa(nicknameEmpresa);
 	}
 
 }

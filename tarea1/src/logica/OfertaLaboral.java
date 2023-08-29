@@ -144,4 +144,13 @@ public class OfertaLaboral {
 		return new DTOferta(this.getNombre(), this.getDescripcion(), this.getCiudad(), this.getDepartamento(), this.getHorario(), this.getRemuneracion(), this.getFechaAlta() ,this.getPostulaciones());
 	}
 	
+	/**
+	 * Devuelve true si tiene al menos una publicacion vigente asociada a la oferta laboral.
+	 */
+	public boolean tienePublicacionVigente() {
+		return this.publicaciones
+				.stream()
+				.anyMatch(publicacion -> publicacion.esVigente());
+	}
+	
 }

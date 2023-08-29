@@ -65,4 +65,13 @@ public class Publicacion {
 		this.fechaVencimiento=fin;
 	}
 	
+	/**
+	 * Devuelve true si la oferta es vigente usando la fecha y hora actual del sistema.
+	 * 
+	 */
+	public boolean esVigente() {
+		LocalDate fechaActual = LocalDate.now();
+		return fechaActual.isBefore(fechaVencimiento);
+	}
+	
 }
