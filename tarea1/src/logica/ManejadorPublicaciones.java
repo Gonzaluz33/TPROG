@@ -13,6 +13,7 @@ public class ManejadorPublicaciones {
 
 	private Map<Integer, Publicacion> coleccionPublicaciones =  new HashMap<Integer, Publicacion>();
 	private Map<String, TipoPublicacion> coleccionTipos = new HashMap<String, TipoPublicacion>();
+	@SuppressWarnings("unused") // borrar esta linea despues de implementar los paquetes
 	private Map<String, Paquete> coleccionPaquetes = new HashMap<String, Paquete>();
 
 	
