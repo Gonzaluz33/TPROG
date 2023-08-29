@@ -410,18 +410,17 @@ public class consultaUsuario extends JInternalFrame {
 	        private int currentRow;
 	        @Override
 	        public void actionPerformed(ActionEvent e) {	
-	        	if (currentRow >= 0 && currentRow < tableOfertas.getRowCount()) {
-		            String nombreOferta = tableOfertas.getValueAt(currentRow, 0).toString();
-		            ((informacionOfertaLaboral) informacionOfertaLaboralInternalFrame).recibirNombreOferta(nombreOferta);
-		            try {
-						((informacionOfertaLaboral) informacionOfertaLaboralInternalFrame).mostrarDatosOferta();
-					} catch (OfertaNoExisteException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-		            informacionOfertaLaboralInternalFrame.setVisible(true);
-	        	}
+	            String nombreOferta = tableOfertas.getValueAt(currentRow, 0).toString();
+	            ((informacionOfertaLaboral) informacionOfertaLaboralInternalFrame).recibirNombreOferta(nombreOferta);
+	            try {
+					((informacionOfertaLaboral) informacionOfertaLaboralInternalFrame).mostrarDatosOferta();
+				} catch (OfertaNoExisteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	            informacionOfertaLaboralInternalFrame.setVisible(true);
 	        }
+
 	        public void setCurrentRow(int row) {
 	            this.currentRow = row;
 	        }
@@ -436,7 +435,6 @@ public class consultaUsuario extends JInternalFrame {
 	    }
 
 	    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-	    	if (row >= 0 && row < tableOfertas.getRowCount()) {
 	        if (isSelected) {
 	            button.setForeground(table.getSelectionForeground());
 	            button.setBackground(table.getSelectionBackground());
@@ -449,7 +447,6 @@ public class consultaUsuario extends JInternalFrame {
 	        isPushed = true;
 	        // Aquí establecemos la fila actual en MyActionListener
 	        myListener.setCurrentRow(row);
-	    	}
 
 	        return button;
 	    }
