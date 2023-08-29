@@ -1,7 +1,5 @@
 package test;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -17,62 +15,45 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.JMenuItem;
-
-import excepciones.KeywordExisteException;
-import excepciones.NicknameNoExisteException;
-import excepciones.NombreExisteException;
-import excepciones.OfertaNoExisteException;
-import excepciones.TipoPublicExisteException;
-import excepciones.UsuarioNoEsPostulanteException;
-import excepciones.UsuarioRepetidoException;
+import excepciones.*;
+import logica.Fabrica;
+import logica.IControladorOfertas;
+import logica.IControladorPublicaciones;
+import logica.IControladorUsuario;
 
 public class TestCargaDeDatos {
-/*
+	
+	Fabrica fabrica = Fabrica.getInstance();
+	IControladorUsuario ICU = fabrica.getIControladorUsuario();
+	IControladorPublicaciones ICP = fabrica.getIControladorPublicaciones();
+	IControladorOfertas ICO = fabrica.getIControladorOfertas();
+
+	public void cargarDatos() {
+		
 	    String currentDirectory = System.getProperty("user.dir");
-	    		
-	    String csvFilePostulantes = currentDirectory + File.separator + "Datos" + File.separator + "Postulantes.csv";
-		cargarDatosPostulantes(csvFilePostulantes);
+	    try {	
+	    	String csvFilePostulantes = currentDirectory + File.separator + "Datos" + File.separator + "Postulantes.csv";
+	    	cargarDatosPostulantes(csvFilePostulantes);
 		
-	    String csvFileEmpresas = currentDirectory + File.separator + "Datos" + File.separator + "Empresas.csv";
-		cargarDatosEmpresas(csvFileEmpresas);
+	    	String csvFileEmpresas = currentDirectory + File.separator + "Datos" + File.separator + "Empresas.csv";
+			cargarDatosEmpresas(csvFileEmpresas);
 		
-		String csvFileTiposPublicacion = currentDirectory + File.separator + "Datos" + File.separator + "TiposPublicacion.csv";
-		cargarDatosTipoPublicacion(csvFileTiposPublicacion);
+			String csvFileTiposPublicacion = currentDirectory + File.separator + "Datos" + File.separator + "TiposPublicacion.csv";
+			cargarDatosTipoPublicacion(csvFileTiposPublicacion);
 		
-		String csvFileKeywords = currentDirectory + File.separator + "Datos" + File.separator + "Keywords.csv";
-		cargarDatosKeywords(csvFileKeywords);
+			String csvFileKeywords = currentDirectory + File.separator + "Datos" + File.separator + "Keywords.csv";
+			cargarDatosKeywords(csvFileKeywords);
 		
-		String csvFileOfertaLaboral = currentDirectory + File.separator + "Datos" + File.separator + "OfertasLaborales.csv";
-		cargarDatosOfertasLaborales(csvFileOfertaLaboral);
+			String csvFileOfertaLaboral = currentDirectory + File.separator + "Datos" + File.separator + "OfertasLaborales.csv";
+			cargarDatosOfertasLaborales(csvFileOfertaLaboral);
 		
-		String csvFilePostulaciones = currentDirectory + File.separator + "Datos" + File.separator + "Postulaciones.csv";
-		cargarDatosPostulaciones(csvFilePostulaciones);
-				
-			} catch (UsuarioRepetidoException e1) {
-				e1.printStackTrace();
-			} catch (TipoPublicExisteException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (KeywordExisteException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (NombreExisteException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (NicknameNoExisteException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (UsuarioNoEsPostulanteException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (OfertaNoExisteException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-	    }
-	});
-}
+			String csvFilePostulaciones = currentDirectory + File.separator + "Datos" + File.separator + "Postulaciones.csv";
+			cargarDatosPostulaciones(csvFilePostulaciones);
+	    } catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+		
 
 	private void cargarDatosPostulantes(String csvFile) throws UsuarioRepetidoException {	
 	    String line = "";
@@ -268,5 +249,5 @@ public class TestCargaDeDatos {
 	    }
 	   
 	}
-	*/
+	
 }
