@@ -26,13 +26,15 @@ import logica.IControladorOfertas;
 import logica.IControladorUsuario;
 import utils.DTOferta;
 import utils.DTPostulante;
+import javax.swing.SwingConstants;
+import java.awt.TextArea;
 
 public class postularAPostulante extends JInternalFrame {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private JTextField nombreOferta;
-	private JTextField textField;
+	private JTextArea textAreaDescripcion;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
@@ -104,12 +106,6 @@ public class postularAPostulante extends JInternalFrame {
 		lblNewLabel_2.setBounds(31, 36, 84, 14);
 		getContentPane().add(lblNewLabel_2);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setBounds(125, 67, 255, 175);
-		getContentPane().add(textField);
-		textField.setColumns(10);
-		
 		JLabel lblNewLabel_3 = new JLabel("Descripción:");
 		lblNewLabel_3.setBounds(31, 70, 84, 14);
 		getContentPane().add(lblNewLabel_3);
@@ -118,6 +114,11 @@ public class postularAPostulante extends JInternalFrame {
 		lblNewLabel_4.setBounds(402, 39, 76, 14);
 		getContentPane().add(lblNewLabel_4);
 		
+		
+		textAreaDescripcion = new JTextArea();
+		textAreaDescripcion.setBounds(124, 70, 256, 184);
+		getContentPane().add(textAreaDescripcion);
+				
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
 		textField_1.setColumns(10);
@@ -201,6 +202,7 @@ public class postularAPostulante extends JInternalFrame {
 		JButton buttonCancelar = new JButton("Cancelar");
 		buttonCancelar.setBounds(btnNewButton.getBounds().x + btnNewButton.getBounds().width + 10, yBotones, 89, 23);  
 		getContentPane().add(buttonCancelar);
+		
 				
 		buttonCancelar.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
@@ -225,7 +227,8 @@ public class postularAPostulante extends JInternalFrame {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		   //Asignando valores del objeto DTOferta a los JTextField
 	    nombreOferta.setText(datosOferta.getNombre());
-	    textField.setText(datosOferta.getDescripcion());
+	    textAreaDescripcion.setText(datosOferta.getDescripcion());
+	    textAreaDescripcion.setLineWrap(true);
 	    textField_1.setText(datosOferta.getCiudad());
 	    textField_2.setText(datosOferta.getDepartamento());
 	    textField_3.setText(datosOferta.getHorario());

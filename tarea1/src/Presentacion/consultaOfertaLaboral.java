@@ -191,9 +191,9 @@ public class consultaOfertaLaboral extends JInternalFrame {
 		
 		buttonCancelar.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
-				 dispose();
 				 DefaultTableModel tableModel = (DefaultTableModel) tablaOfertaLaboral.getModel();
-	             tableModel.setRowCount(0); // Limpiar filas existentes
+				 tableModel.setRowCount(0); // Limpiar filas existentes
+				 dispose();
 	            }
 		});
 			
