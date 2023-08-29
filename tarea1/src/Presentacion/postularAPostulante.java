@@ -15,18 +15,21 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
-import javax.swing.JTextPane;
 
 import excepciones.NicknameNoExisteException;
 import excepciones.OfertaNoExisteException;
 import excepciones.UsuarioNoEsPostulanteException;
 import logica.ControladorOfertas;
+import logica.ControladorUsuarios;
 import logica.IControladorOfertas;
-import utils.DTEmpresa;
+import logica.IControladorUsuario;
 import utils.DTOferta;
 import utils.DTPostulante;
 
 public class postularAPostulante extends JInternalFrame {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private JTextField nombreOferta;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -39,7 +42,7 @@ public class postularAPostulante extends JInternalFrame {
     private JTextArea textAreaCV;
     private JTextArea textAreaMotivacion;
 	private IControladorOfertas controlOL;
-	private LocalDateTime fecha;
+	private IControladorUsuario controlU;
 
 	/**
 	 * Launch the application.
@@ -49,7 +52,8 @@ public class postularAPostulante extends JInternalFrame {
 			public void run() {
 				try {
 					IControladorOfertas controlOL = new ControladorOfertas();
-					postularAPostulante frame = new postularAPostulante(controlOL);
+					IControladorUsuario controlU = new ControladorUsuarios();
+					postularAPostulante frame = new postularAPostulante(controlOL, controlU);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -62,9 +66,10 @@ public class postularAPostulante extends JInternalFrame {
 	 * Create the frame.
 	 * @throws PropertyVetoException 
 	 */
-	public postularAPostulante(IControladorOfertas iol) throws PropertyVetoException {
+	public postularAPostulante(IControladorOfertas iol, IControladorUsuario ICU) throws PropertyVetoException {
 		
 		controlOL = iol;
+		controlU = ICU;
 		
 		setClosable(true);
 		setMaximum(true);
@@ -232,7 +237,7 @@ public class postularAPostulante extends JInternalFrame {
 		JComboBox<String> combobox = this.comboBox;
 		combobox.removeAllItems();
 		if(controlOL != null) {
-		List<DTPostulante> postulantes = controlOL.obtenerPostulantes();
+		List<DTPostulante> postulantes = controlU.listarPostulantes();
 		if (!postulantes.isEmpty()) {
 			for (DTPostulante postulante : postulantes) {
 		        comboBox.addItem(postulante.getNombre()); 

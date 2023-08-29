@@ -131,7 +131,7 @@ public class Principal {
 		altaTipoPublicacionOLInternalFrame.setBorder(null);
 		altaTipoPublicacionOLInternalFrame.setVisible(false);
 		
-		postulacionOfertaLaboralInternalFrame = new postulacionOfertaLaboral(ICO);
+		postulacionOfertaLaboralInternalFrame = new postulacionOfertaLaboral(ICO, ICU);
 		postulacionOfertaLaboralInternalFrame.setResizable(false);
 		postulacionOfertaLaboralInternalFrame.setBorder(null);
 		postulacionOfertaLaboralInternalFrame.setVisible(false);

@@ -126,11 +126,11 @@ public class ManejadorUsuarios {
 	 * Si no tiene ofertas asociadas devuelve una lista vacia.
 	 */
 	public Set<DTOferta> obtenerOfertasDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
-		if ( !coleccionUsuarios.containsKey(nicknameEmpresa.toLowerCase()) )
+		if (!coleccionUsuarios.containsKey(nicknameEmpresa.toLowerCase()))
 			throw new NicknameNoExisteException("La empresa con el nickname " + nicknameEmpresa + " no existe.");
-		if ( !(coleccionUsuarios.get(nicknameEmpresa.toLowerCase()) instanceof Empresa) )
+		if (!(coleccionUsuarios.get(nicknameEmpresa.toLowerCase()) instanceof Empresa))
 			throw new UsuarioNoEsEmpresaException("El usuario con el nickname " + nicknameEmpresa + " no es una empresa.");
-		return ( (Empresa) coleccionUsuarios.get(nicknameEmpresa.toLowerCase()) ).getOfertas();
+		return ((Empresa) coleccionUsuarios.get(nicknameEmpresa.toLowerCase())).getOfertas();
 	}
 	
 	/**

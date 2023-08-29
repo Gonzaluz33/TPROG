@@ -50,5 +50,6 @@ public interface IControladorUsuario {
 	 * Si no tiene ofertas asociadas devuelve una lista vacia.
 	 */
 	public Set<DTOferta> obtenerOfertasDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException;
+
     
 }

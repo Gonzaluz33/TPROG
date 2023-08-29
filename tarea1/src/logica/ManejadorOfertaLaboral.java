@@ -3,14 +3,18 @@ package logica;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import excepciones.NombreExisteException;
 import utils.DTUsuario;
 import java.time.LocalDateTime;
 
 import excepciones.OfertaNoExisteException;
+import excepciones.UsuarioNoEsEmpresaException;
 import excepciones.UsuarioNoEsPostulanteException;
 
 import excepciones.KeywordExisteException;
@@ -97,6 +101,27 @@ public class ManejadorOfertaLaboral {
 		oferta.asociarPostulacion(postulacion);
 		manejadorU.postularAOferta(postulacion);
 	}
+
+	/**
+	 * Devuelve un set de tipo DTOferta con todas las ofertas vigentes asociadas a la empresa con el nickname "nicknameEmpresa" ordenadas alfabeticamente por el nombre de las ofertas.
+	 * Si el nickname no esta asociado a un usuario en el sistema tira una NicknameNoExisteException.
+	 * Si existe el usuario con ese nickname pero no es una empresa tira una UsuarioNoEsEmpresaException.
+	 * Si no tiene ofertas vigentes asociadas devuelve una lista vacia.
+	 */
+	public Set<DTOferta> obtenerOfertasVigentesDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
+		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+		DTUsuario usuarioDT = manejadorU.obtenerUsuario(nicknameEmpresa);
+		if (!(usuarioDT instanceof DTEmpresa))
+			throw new UsuarioNoEsEmpresaException("El usuario con el nickname " + nicknameEmpresa + " no es una empresa.");
+		return coleccionOfertasLaborales
+				.values()
+				.stream()
+				.filter(oferta -> oferta.getEmpresa().getNickname().equals(nicknameEmpresa))
+				.filter(oferta -> oferta.tienePublicacionVigente())
+				.map(OfertaLaboral::toDataType)
+				.collect(Collectors.toCollection(TreeSet::new));
+	}
+	
 	
 	/**
 	 * Devuelve la cantidad de ofertas laborales actualmente en el sistema.

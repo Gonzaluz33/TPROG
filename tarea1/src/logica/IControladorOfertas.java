@@ -12,7 +12,6 @@ import excepciones.OfertaNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
 import excepciones.UsuarioNoEsPostulanteException;
 import utils.DTOferta;
-import utils.DTPostulante;
 
 
 public interface IControladorOfertas {
@@ -35,8 +34,13 @@ public interface IControladorOfertas {
 	 * Si no existe una oferta con el nombre "nombreOfertaLaboral" tira una OfertaNoExisteException.
 	 */
 	public void postularAOferta(String nombreOfertaLaboral, String nicknamePostulante, String cvReducido, String motivacion, LocalDateTime fechaPostulacion) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException;
-	List<DTPostulante> obtenerPostulantes();
-	Set<DTOferta> obtenerOfertasEmpresa(String nombreEmpresa)
-			throws NicknameNoExisteException, UsuarioNoEsEmpresaException;
+	
+    /**
+	 * Devuelve un set de tipo DTOferta con todas las ofertas vigentes asociadas a la empresa con el nickname "nicknameEmpresa" ordenadas alfabeticamente por el nombre de las ofertas.
+	 * Si el nickname no esta asociado a un usuario en el sistema tira una NicknameNoExisteException.
+	 * Si existe el usuario con ese nickname pero no es una empresa tira una UsuarioNoEsEmpresaException.
+	 * Si no tiene ofertas vigentes asociadas devuelve una lista vacia.
+	 */
+	public Set<DTOferta> obtenerOfertasVigentesDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException;
 
 }

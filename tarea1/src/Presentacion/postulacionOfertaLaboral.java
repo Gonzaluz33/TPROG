@@ -34,8 +34,10 @@ import excepciones.OfertaNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
 import logica.ControladorOfertas;
 import logica.ControladorPublicaciones;
+import logica.ControladorUsuarios;
 import logica.IControladorOfertas;
 import logica.IControladorPublicaciones;
+import logica.IControladorUsuario;
 import utils.DTEmpresa;
 import utils.DTOferta;
 import utils.DTUsuario;
@@ -53,8 +55,8 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 	private JTable tableOfertas;
 	private postularAPostulante postularPostulanteInternalFrame;
 	private IControladorOfertas controlOL;
+	private IControladorUsuario controlU;
 	private JComboBox<String> comboBoxEmpresa;
-	private JComboBox<String> conbobox;
 
 
 	
@@ -67,7 +69,8 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 			public void run() {
 				try {
 					IControladorOfertas controlOL = new ControladorOfertas();
-					postulacionOfertaLaboral frame = new postulacionOfertaLaboral(controlOL);
+					IControladorUsuario controlU = new ControladorUsuarios();
+					postulacionOfertaLaboral frame = new postulacionOfertaLaboral(controlOL, controlU);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -82,11 +85,12 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 	 */
 
 		
-	public postulacionOfertaLaboral(IControladorOfertas iol) throws PropertyVetoException {
+	public postulacionOfertaLaboral(IControladorOfertas iol, IControladorUsuario ICU) throws PropertyVetoException {
 		
 		controlOL = iol;
+		controlU = ICU;
 		
-		postularPostulanteInternalFrame = new postularAPostulante(controlOL);
+		postularPostulanteInternalFrame = new postularAPostulante(controlOL, controlU);
 		postularPostulanteInternalFrame.setResizable(false);
 		postularPostulanteInternalFrame.setBorder(null);
 		postularPostulanteInternalFrame.setVisible(false);
@@ -206,7 +210,7 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 	        return; 
 	    }
 	    // Primero obtengo las ofertas
-	    Set<DTOferta> setOfertasDTO = controlOL.obtenerOfertasEmpresa(empresaSeleccionada);
+	    Set<DTOferta> setOfertasDTO = controlU.obtenerOfertasDeEmpresa(empresaSeleccionada);
 	    System.out.println( "Cantidad ofertas" + setOfertasDTO.size());
 	    Object[][] datosTabla = new Object[setOfertasDTO.size()][8]; 
 	    int i = 0;
@@ -268,8 +272,10 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 	}
 
 	class ButtonEditor extends DefaultCellEditor {
-
-	    protected JButton button;
+		
+		private static final long serialVersionUID = 1L;
+		
+		protected JButton button;
 	    private String label;
 	    private boolean isPushed;
 	    private MyActionListener myListener;
