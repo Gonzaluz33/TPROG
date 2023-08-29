@@ -25,6 +25,11 @@ public class DTEmpresa extends DTUsuario {
 	}
 	
 	// getters
+	public String toString() {
+		return nombreEmpresa;
+	}
+	
+	
 	public String getNombreEmpresa() {
 		return nombreEmpresa;
 	}

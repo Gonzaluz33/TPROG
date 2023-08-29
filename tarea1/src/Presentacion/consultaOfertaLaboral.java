@@ -58,7 +58,7 @@ public class consultaOfertaLaboral extends JInternalFrame {
 	//Componentes Swing
 	private JTable tablaOfertaLaboral;
 	private informacionOfertaLaboral informacionOfertaLaboralInternalFrame;
-	private JComboBox<DTUsuario> listaEmpresasCombobox;
+	private JComboBox<DTEmpresa> listaEmpresasCombobox;
 	
 	//datos ofertas
 	private String nombreOferta;
@@ -98,7 +98,7 @@ public class consultaOfertaLaboral extends JInternalFrame {
 		lblNewLabel.setBounds(21, 22, 736, 14);
 		getContentPane().add(lblNewLabel);
 		
-		listaEmpresasCombobox = new JComboBox<DTUsuario>();
+		listaEmpresasCombobox = new JComboBox<DTEmpresa>();
 		listaEmpresasCombobox.setBounds(21, 38, 483, 22);
 		getContentPane().add(listaEmpresasCombobox);
 		listaEmpresasCombobox.addActionListener(new ActionListener() {
@@ -200,7 +200,7 @@ public class consultaOfertaLaboral extends JInternalFrame {
 		listaEmpresasCombobox.removeAllItems();
 		List<DTEmpresa> datos = new ArrayList<>();
 		datos = controlUsr.listarEmpresas();
-		for (DTUsuario u : datos) {
+		for (DTEmpresa u : datos) {
 			listaEmpresasCombobox.addItem(u);
 		}
 	}
