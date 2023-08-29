@@ -173,9 +173,6 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 		panelHeadersOfertas.add(headerOfertas);
 		panelHeadersOfertas.setLayout(new GridLayout(1, 0, 0, 0));
 		scrollPaneOfertas.add(tableOfertas);
-		
-		
-
 		Button buttonCancelar = new Button("Cancelar");
 		buttonCancelar.setBounds(472, 25, 70, 22);
 		getContentPane().add(buttonCancelar);
@@ -253,7 +250,6 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 	}
 	
 	class ButtonRenderer extends JButton implements TableCellRenderer {
-
 	    public ButtonRenderer() {
 	        setOpaque(true);
 	    }
