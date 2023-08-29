@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -247,16 +248,59 @@ public class postularAPostulante extends JInternalFrame {
 	}
 	
 	public void postularPostulanteElegido() throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException {
-		String oferta = this.ofertaNombre;
-		String postulanteSeleccionado = (String) comboBox.getSelectedItem();
-		String cv = textAreaCV.getText();
-	    String motivacion = textAreaMotivacion.getText();
-	    LocalDateTime fecha = LocalDateTime.now();
-	    
-	    controlOL.postularAOferta(oferta, postulanteSeleccionado, cv, motivacion, fecha);
 		
-	}
+		if(esValido()) {
+			try {
+			String oferta = this.ofertaNombre;
+			String postulanteSeleccionado = (String) comboBox.getSelectedItem();
+			String postulantefinal = null;
+
+			// Obtengo la lista de postulantes
+			List<DTPostulante> postulantes = controlU.listarPostulantes();
+
+			// Itero sobre la lista de postulantes para encontrar el postulante correspondiente
+			for(DTPostulante postulante : postulantes) {
+				if(postulante.getNombre().equals(postulanteSeleccionado)) {
+					postulantefinal = postulante.getNickname();
+					break;  // Una vez que encontramos el postulante, podemos salir del bucle.
+				}
+			}
+
+			if(postulantefinal == null) {
+				throw new NicknameNoExisteException("No se encontró el postulante con nombre " + postulanteSeleccionado);
+			}
+
+			String cv = textAreaCV.getText();
+			String motivacion = textAreaMotivacion.getText();
+			LocalDateTime fecha = LocalDateTime.now();
+			
+			controlOL.postularAOferta(oferta, postulantefinal, cv, motivacion, fecha);
+			JOptionPane.showMessageDialog(this, "El Tipo de Publicacion de Oferta Laboral se ha creado con éxito", "Registrar Tipo de Publicacion",
+                    JOptionPane.INFORMATION_MESSAGE);
+		 limpiarFormulario();
+		 setVisible(false);
+		}catch (OfertaNoExisteException e) {
+		        JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		    }
+		}
+		}
 	
 	
+	public Boolean esValido() {
+			String cv = textAreaCV.getText();
+			String motivacion = textAreaMotivacion.getText();
+			if (cv.isEmpty() || motivacion.isEmpty()) {
+	            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Postular Postulante a Oferta Laboral",
+	                    JOptionPane.ERROR_MESSAGE);
+	            return false;
+	        } else return true;
+		}
+	
+	private void limpiarFormulario() {
+		 textAreaCV.setText("");
+		 textAreaMotivacion.setText("");
+		   }
 }
+
+
 

@@ -13,6 +13,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 
@@ -21,6 +22,7 @@ import excepciones.NicknameNoExisteException;
 import excepciones.NombreExisteException;
 import excepciones.OfertaNoExisteException;
 import excepciones.TipoPublicExisteException;
+import excepciones.UsuarioNoEsEmpresaException;
 import excepciones.UsuarioNoEsPostulanteException;
 import excepciones.UsuarioRepetidoException;
 
@@ -280,6 +282,7 @@ public class Principal {
 	            }
 		});	
 		menuCasosDeUso.add(mItemPostulacionOfertaLaboral);
+
 
 
 		JMenuItem mntmNewMenuItem = new JMenuItem("Cargar Datos");
