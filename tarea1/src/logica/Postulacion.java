@@ -8,7 +8,6 @@ public class Postulacion {
 
 	private String nombreOfertaLaboral;
 	private String nicknamePostulante;
-	
 	private String CVreducido;
 	private String motivacion;
 	private LocalDateTime fechaPublic;

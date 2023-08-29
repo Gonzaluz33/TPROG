@@ -50,6 +50,7 @@ public class informacionOfertaLaboral extends JInternalFrame {
 	private String FechaPostulacion;
 	private String CV;
 	private String Motivacion;
+	private String Nickname;
 	private JTable tablePostulaciones = new JTable();
 	
 
@@ -133,24 +134,24 @@ public class informacionOfertaLaboral extends JInternalFrame {
 		tablePostulaciones.setFillsViewportHeight(true);
 		tablePostulaciones.setModel(new DefaultTableModel(
 			new Object[][] {
-			
 			},
 			new String[] {
-				"Fecha", "CV", "Motivaci\u00F3n"
+					"Nickname","Fecha", "CV", "Motivaci\u00F3n" 
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				false, false, false
+				false, false, false, true
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
 		});
 		tablePostulaciones.setBounds(220, 342, 1, 1);
+		tablePostulaciones.setRowHeight(150);
 		tablePostulaciones.getColumnModel().getColumn(0).setCellRenderer(new MultiLineCellRenderer());
 		tablePostulaciones.getColumnModel().getColumn(1).setCellRenderer(new MultiLineCellRenderer());
 		tablePostulaciones.getColumnModel().getColumn(2).setCellRenderer(new MultiLineCellRenderer());
-		tablePostulaciones.setRowHeight(150);
+		tablePostulaciones.getColumnModel().getColumn(3).setCellRenderer(new MultiLineCellRenderer());
 		tablePanePostulaciones.add(tablePostulaciones);
 		
 		
@@ -186,7 +187,8 @@ public class informacionOfertaLaboral extends JInternalFrame {
 		    	    FechaPostulacion = elemento.getFecha().format(formatter);;
 					CV = elemento.getCvReducido();
 					Motivacion = elemento.getMotivacion();
-					tableModelPostulaciones.addRow(new Object[] {FechaPostulacion, CV, Motivacion});
+					Nickname = elemento.getNicknamePostulante();
+					tableModelPostulaciones.addRow(new Object[] {Nickname,FechaPostulacion, CV, Motivacion, });
 		    	}	    	
 		    }
 		}
