@@ -21,7 +21,6 @@ public class DTEmpresa extends DTUsuario {
 		this.setDescripcion(descripcion);
 		this.setLinkWeb(linkWeb);
 		this.setOfertas(ofertas);
-		
 	}
 	
 	// getters

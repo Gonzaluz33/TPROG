@@ -18,9 +18,7 @@ public class OfertaLaboral {
 	private String horario;
 	private String remuneracion;
 	private LocalDateTime fechaAlta;
-	
 	private Usuario empresa;
-	
 	private List<Postulacion> postulaciones = new ArrayList<Postulacion>();
 	private List<Publicacion> publicaciones = new ArrayList<Publicacion>();
 	private List<Keyword> keywords = new ArrayList<Keyword>();
