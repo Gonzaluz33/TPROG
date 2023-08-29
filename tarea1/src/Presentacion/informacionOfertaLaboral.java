@@ -32,6 +32,9 @@ public class informacionOfertaLaboral extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private IControladorOfertas controlOL;
+
+	
+	
 	//datos ofertas
 	private String ofertaNombre;
 	private String nombre;

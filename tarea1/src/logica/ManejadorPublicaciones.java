@@ -33,7 +33,6 @@ public class ManejadorPublicaciones {
 			TipoPublicacion tipo = entry.getValue();
 			res.add(tipo.toDataType());
 		}
-		System.out.print(res);
 		return res;
 	}
 	

@@ -270,8 +270,7 @@ public class consultaOfertaLaboral extends JInternalFrame {
 	        }
 	        label = (value == null) ? "" : value.toString();
 	        button.setText(label);
-	        isPushed = true;
-	        
+	        isPushed = true;	        
 	        // Aquí establecemos la fila actual en MyActionListener
 	        myListener.setCurrentRow(row);
 

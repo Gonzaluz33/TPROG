@@ -112,7 +112,7 @@ public class Principal {
 		altaEmpresaInternalFrame.setVisible(false);
 		
 		
-		consultaUsuarioInternalFrame = new consultaUsuario(ICU);
+		consultaUsuarioInternalFrame = new consultaUsuario(ICU,ICO);
 		consultaUsuarioInternalFrame.setResizable(false);
 		consultaUsuarioInternalFrame.setBorder(null);
 		consultaUsuarioInternalFrame.setVisible(false);

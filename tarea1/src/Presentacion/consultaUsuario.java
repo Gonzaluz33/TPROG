@@ -10,11 +10,16 @@ import java.awt.Panel;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.JSeparator;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.DefaultCellEditor;
 
+import excepciones.OfertaNoExisteException;
 import logica.Empresa;
+import logica.IControladorOfertas;
 import logica.IControladorUsuario;
 import utilsPresentacion.CentrarColumnas;
 
@@ -27,14 +32,21 @@ import java.util.List;
 import java.util.Set;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+
 import utilsPresentacion.MultiLineCellRenderer;
 import java.awt.GridLayout;
 import java.awt.ScrollPane;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultCellEditor;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Scrollbar;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class consultaUsuario extends JInternalFrame {
 	/**
@@ -44,6 +56,7 @@ public class consultaUsuario extends JInternalFrame {
 
 	// Controlador de usuarios que se utilizará para las acciones del JFrame
     private IControladorUsuario controlUsr;
+    private IControladorOfertas controlOL;
     
     //Componentes Swing
 	private JTable tablaUsuario;
@@ -61,6 +74,7 @@ public class consultaUsuario extends JInternalFrame {
 	private String nombreEmp;
 	private JTable tablePostulaciones;
 	private JTable tableOfertas;
+	private informacionOfertaLaboral informacionOfertaLaboralInternalFrame;
 	
 	//datos postulaciones
 	private String nombreOferta;
@@ -75,10 +89,16 @@ public class consultaUsuario extends JInternalFrame {
 	 * Create the frame.
 	 * @throws PropertyVetoException 
 	 */
-	public consultaUsuario(IControladorUsuario icu) throws PropertyVetoException {
+	public consultaUsuario(IControladorUsuario icu, IControladorOfertas ico) throws PropertyVetoException {
 
 		//Inicializacion internal frame con controlador de usuarios.
 		controlUsr = icu;
+		controlOL = ico;
+		
+		informacionOfertaLaboralInternalFrame = new informacionOfertaLaboral(ico);
+		informacionOfertaLaboralInternalFrame.setBorder(null);
+		informacionOfertaLaboralInternalFrame.setVisible(false);
+		getContentPane().add(informacionOfertaLaboralInternalFrame);
 		
 		setResizable(false);
 		setMaximum(true);
@@ -87,7 +107,7 @@ public class consultaUsuario extends JInternalFrame {
 		setIconifiable(true);
 		setClosable(true);
 		setTitle("Consulta de Usuario");
-		setBounds(100, 100, 1441, 784);
+		setBounds(100, 100, 1401, 784);
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Seleccione un usuario:");
@@ -233,7 +253,7 @@ public class consultaUsuario extends JInternalFrame {
 		panelPostulante.add(tablaPostulante);
 		
 		Panel panelEmpresa = new Panel();
-		panelEmpresa.setBounds(519, 180, 879, 160);
+		panelEmpresa.setBounds(489, 180, 879, 160);
 		getContentPane().add(panelEmpresa);
 		panelEmpresa.setLayout(new GridLayout(0, 1, 0, 0));
 		
@@ -277,7 +297,7 @@ public class consultaUsuario extends JInternalFrame {
 		getContentPane().add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Datos Empresa:");
-		lblNewLabel_1_1_1.setBounds(519, 160, 520, 14);
+		lblNewLabel_1_1_1.setBounds(489, 160, 520, 14);
 		getContentPane().add(lblNewLabel_1_1_1);
 		
 		JLabel lblNewLabel_1_1_2 = new JLabel("Postulaciones:");
@@ -289,15 +309,15 @@ public class consultaUsuario extends JInternalFrame {
 		getContentPane().add(scrollPanePostulaciones);
 		
 		ScrollPane scrollPaneOfertas = new ScrollPane();
-		scrollPaneOfertas.setBounds(519, 402, 879, 290);
+		scrollPaneOfertas.setBounds(489, 403, 879, 290);
 		getContentPane().add(scrollPaneOfertas);
 		
 		JLabel lblNewLabel_2 = new JLabel("Ofertas Laborales:");
-		lblNewLabel_2.setBounds(519, 346, 563, 14);
+		lblNewLabel_2.setBounds(489, 346, 563, 14);
 		getContentPane().add(lblNewLabel_2);
 		
 		Panel panelHeaderOfertas = new Panel();
-		panelHeaderOfertas.setBounds(519, 366, 879, 30);
+		panelHeaderOfertas.setBounds(489, 366, 879, 30);
 		getContentPane().add(panelHeaderOfertas);
 		
 		Panel panelHeaderPostulaciones = new Panel();
@@ -326,29 +346,27 @@ public class consultaUsuario extends JInternalFrame {
 			new String[] {
 				"Nombre", "Descripci\u00F3n", "Horario", "Remuneraci\u00F3n", "Acciones"
 			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		));
+		scrollPaneOfertas.add(tableOfertas);
 		tableOfertas.setRowHeight(140);
 		tableOfertas.getColumnModel().getColumn(0).setCellRenderer(new MultiLineCellRenderer());
 		tableOfertas.getColumnModel().getColumn(1).setCellRenderer(new MultiLineCellRenderer());
 		tableOfertas.getColumnModel().getColumn(2).setCellRenderer(new MultiLineCellRenderer());
 		tableOfertas.getColumnModel().getColumn(3).setCellRenderer(new MultiLineCellRenderer());
+		tableOfertas.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
+		tableOfertas.getColumnModel().getColumn(4).setCellEditor(new ButtonEditor(new JCheckBox(), informacionOfertaLaboralInternalFrame));
 		JTableHeader headerOfertas = tableOfertas.getTableHeader();
 		panelHeaderOfertas.add(headerOfertas);
 		panelHeaderOfertas.setLayout(new GridLayout(1, 0, 0, 0));
 		panelHeaderPostulaciones.setLayout(new GridLayout(1, 0, 0, 0));
 		tableOfertas.setBounds(798, 481, 1, 1);
-		scrollPaneOfertas.add(tableOfertas);
-		
 		
 		buttonCancelar.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
+				 DefaultTableModel tableModelOfertas = (DefaultTableModel) tableOfertas.getModel();
+				 tableModelOfertas.setRowCount(0); // Limpiar filas existentes
+				 DefaultTableModel tableModelPostulaciones = (DefaultTableModel) tablePostulaciones.getModel();
+				 tableModelPostulaciones.setRowCount(0); // Limpiar filas existentes
 				 dispose();
 	            }
 		});
@@ -361,5 +379,94 @@ public class consultaUsuario extends JInternalFrame {
 		for (DTUsuario u : datos) {
 			listaUsuariosCombobox.addItem(u);
 		}
+	}
+	
+	class ButtonRenderer extends JButton implements TableCellRenderer {
+	    public ButtonRenderer() {
+	        setOpaque(true);
+	    }
+
+	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+	        if (isSelected) {
+	            setForeground(table.getSelectionForeground());
+	            setBackground(table.getSelectionBackground());
+	        } else {
+	            setForeground(table.getForeground());
+	            setBackground(UIManager.getColor("Button.background"));
+	        }
+	        setText((value == null) ? "" : value.toString());
+	        return this;
+	    }
+	}
+	
+	class ButtonEditor extends DefaultCellEditor {
+	    protected JButton button;
+	    private String label;
+	    private boolean isPushed;
+	    private MyActionListener myListener;
+	    
+	    // Nueva clase interna MyActionListener
+	    private class MyActionListener implements ActionListener {
+	        private int currentRow;
+	        @Override
+	        public void actionPerformed(ActionEvent e) {	
+	        	if (currentRow >= 0 && currentRow < tableOfertas.getRowCount()) {
+		            String nombreOferta = tableOfertas.getValueAt(currentRow, 0).toString();
+		            ((informacionOfertaLaboral) informacionOfertaLaboralInternalFrame).recibirNombreOferta(nombreOferta);
+		            try {
+						((informacionOfertaLaboral) informacionOfertaLaboralInternalFrame).mostrarDatosOferta();
+					} catch (OfertaNoExisteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		            informacionOfertaLaboralInternalFrame.setVisible(true);
+	        	}
+	        }
+	        public void setCurrentRow(int row) {
+	            this.currentRow = row;
+	        }
+	    }
+	    
+	    public ButtonEditor(JCheckBox checkBox, JInternalFrame postularPostulanteInternalFrame) {
+	        super(checkBox);
+	        button = new JButton();
+	        button.setOpaque(true);
+	        myListener = new MyActionListener(); // Inicializamos MyActionListener
+	        button.addActionListener(myListener); // Agregamos MyActionListener al botón
+	    }
+
+	    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+	    	if (row >= 0 && row < tableOfertas.getRowCount()) {
+	        if (isSelected) {
+	            button.setForeground(table.getSelectionForeground());
+	            button.setBackground(table.getSelectionBackground());
+	        } else {
+	            button.setForeground(table.getForeground());
+	            button.setBackground(table.getBackground());
+	        }
+	        label = (value == null) ? "" : value.toString();
+	        button.setText(label);
+	        isPushed = true;
+	        // Aquí establecemos la fila actual en MyActionListener
+	        myListener.setCurrentRow(row);
+	    	}
+
+	        return button;
+	    }
+
+	    public Object getCellEditorValue() {
+	        isPushed = false;
+	        return label;
+	    }
+
+	    public boolean stopCellEditing() {
+	        isPushed = false;
+	        return super.stopCellEditing();
+	    }
+
+	    protected void fireEditingStopped() {
+	        super.fireEditingStopped();
+	    }
+	    
 	}
 }

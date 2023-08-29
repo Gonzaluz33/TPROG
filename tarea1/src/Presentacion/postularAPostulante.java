@@ -222,8 +222,6 @@ public class postularAPostulante extends JInternalFrame {
 		//Obtengo datos oferta 
 		DTOferta datosOferta = controlOL.obtenerDatosOferta(oferta);
 		
-		System.out.println("Hay datos?" + datosOferta.getCiudad());
-		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		   //Asignando valores del objeto DTOferta a los JTextField
 	    nombreOferta.setText(datosOferta.getNombre());
@@ -278,7 +276,7 @@ public class postularAPostulante extends JInternalFrame {
 			LocalDateTime fecha = LocalDateTime.now();
 			
 			controlOL.postularAOferta(oferta, postulantefinal, cv, motivacion, fecha);
-			JOptionPane.showMessageDialog(this, "El Tipo de Publicacion de Oferta Laboral se ha creado con éxito", "Registrar Tipo de Publicacion",
+			JOptionPane.showMessageDialog(this, "Postulación realizada con éxito", "Postulación a Oferta Laboral",
                     JOptionPane.INFORMATION_MESSAGE);
 		 limpiarFormulario();
 		 setVisible(false);

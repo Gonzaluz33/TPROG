@@ -37,7 +37,6 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 			throws TipoPublicExisteException {
 		ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
 		TipoPublicacion tipoP = new TipoPublicacion( nombre, descripcion, duracion, costoPublic, fechaAlta, exposicion);
-		System.out.println(tipoP);
 		manejadorP.altaTipoPublicacionOL(tipoP);
 	}
 	
