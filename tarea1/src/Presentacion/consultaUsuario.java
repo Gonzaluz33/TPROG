@@ -52,7 +52,18 @@ public class consultaUsuario extends JInternalFrame {
     //Componentes Swing
 	private JTable tablaUsuario;
 	private JTable tablaPostulante;
+	private JLabel labelDatosEmpresa;
+	private Panel panelEmpresa;
 	private JTable tablaEmpresa;
+	private JLabel labelOfertas;
+	private Panel panelHeaderOfertas;
+	private ScrollPane scrollPaneOfertas;
+	
+	private JLabel labelDatosPostulante;
+	private Panel panelPostulante;
+	private JLabel labelPostulaciones;
+	private Panel panelHeaderPostulaciones;
+	private ScrollPane scrollPanePostulaciones;
 	private JComboBox<DTUsuario> listaUsuariosCombobox;
 	private String nickname;
 	private String nombre;
@@ -130,6 +141,24 @@ public class consultaUsuario extends JInternalFrame {
                     tableModel.addRow(new Object[] {nickname, nombre, apellido, correo});
                     
                     if(selectedValue instanceof DTEmpresa) {
+                    	/*labelDatosEmpresa.setVisible(true);
+                    	panelEmpresa.setVisible(true);
+                    	tablaEmpresa.setVisible(true);
+                    	labelOfertas.setVisible(true);
+                    	panelHeaderOfertas.setVisible(true);
+                    	tableOfertas.setVisible(true);
+                    	scrollPaneOfertas.setVisible(true); */      
+                    	renderizarComponentesEmpresa(true);
+                    	
+                    	/*labelDatosPostulante.setVisible(false);
+                    	panelPostulante.setVisible(false);
+                    	tablaPostulante.setVisible(false);
+                    	labelPostulaciones.setVisible(false);
+                    	panelHeaderPostulaciones.setVisible(false);
+                    	scrollPanePostulaciones.setVisible(false);
+                    	tablePostulaciones.setVisible(false);*/
+                    	renderizarComponentesPostulante(false);
+                    	
                     	desc = ((DTEmpresa) selectedValue).getDescripcion();
                     	link = ((DTEmpresa) selectedValue).getLinkWeb();
                     	nombreEmp = ((DTEmpresa) selectedValue).getNombreEmpresa();
@@ -150,7 +179,24 @@ public class consultaUsuario extends JInternalFrame {
                         
                         
                     } else {
-                    	((DefaultTableModel) tablaEmpresa.getModel()).setRowCount(0);
+                    	/*labelDatosEmpresa.setVisible(false);
+                    	panelEmpresa.setVisible(false);
+                    	tablaEmpresa.setVisible(false);
+                    	labelOfertas.setVisible(false);
+                    	panelHeaderOfertas.setVisible(false);
+                    	tableOfertas.setVisible(false);
+                    	scrollPaneOfertas.setVisible(false);*/
+                    	renderizarComponentesEmpresa(false);
+                    	
+                    	/*labelDatosPostulante.setVisible(true);
+                    	panelPostulante.setVisible(true);
+                    	tablaPostulante.setVisible(true);
+                    	labelPostulaciones.setVisible(true);
+                    	scrollPanePostulaciones.setVisible(true);
+                    	panelHeaderPostulaciones.setVisible(true);
+                    	tablePostulaciones.setVisible(true);*/
+                    	renderizarComponentesPostulante(true);
+                    	
                     	String fechaFormateada = new SimpleDateFormat("dd-MM-yyyy").format(((DTPostulante) selectedValue).getFechaNacimiento());
                     	fecha = fechaFormateada.toString();
                     	nacion = ((DTPostulante) selectedValue).getNacionalidad();
@@ -215,7 +261,7 @@ public class consultaUsuario extends JInternalFrame {
 		panelUsuario.add(headerUsuario);
 		panelUsuario.add(tablaUsuario);
 		
-		Panel panelPostulante = new Panel();
+		panelPostulante = new Panel();
 		panelPostulante.setBounds(22, 180, 370, 70);
 		getContentPane().add(panelPostulante);
 		
@@ -246,7 +292,7 @@ public class consultaUsuario extends JInternalFrame {
 		panelPostulante.add(headerPostulante);
 		panelPostulante.add(tablaPostulante);
 		
-		Panel panelEmpresa = new Panel();
+		panelEmpresa = new Panel();
 		panelEmpresa.setBounds(489, 180, 879, 160);
 		getContentPane().add(panelEmpresa);
 		panelEmpresa.setLayout(new GridLayout(0, 1, 0, 0));
@@ -282,39 +328,39 @@ public class consultaUsuario extends JInternalFrame {
 		buttonCancelar.setBounds(574, 36, 89, 23);
 		getContentPane().add(buttonCancelar);
 		
-		JLabel lblNewLabel_1 = new JLabel("Datos Usuario:");
-		lblNewLabel_1.setBounds(20, 76, 171, 14);
-		getContentPane().add(lblNewLabel_1);
+		JLabel labelDatosUsuario = new JLabel("Datos Usuario:");
+		labelDatosUsuario.setBounds(20, 76, 171, 14);
+		getContentPane().add(labelDatosUsuario);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Datos Postulante:");
-		lblNewLabel_1_1.setBounds(20, 160, 372, 14);
-		getContentPane().add(lblNewLabel_1_1);
+		labelDatosPostulante = new JLabel("Datos Postulante:");
+		labelDatosPostulante.setBounds(20, 160, 372, 14);
+		getContentPane().add(labelDatosPostulante);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("Datos Empresa:");
-		lblNewLabel_1_1_1.setBounds(489, 160, 520, 14);
-		getContentPane().add(lblNewLabel_1_1_1);
+		labelDatosEmpresa = new JLabel("Datos Empresa:");
+		labelDatosEmpresa.setBounds(489, 160, 520, 14);
+		getContentPane().add(labelDatosEmpresa);
 		
-		JLabel lblNewLabel_1_1_2 = new JLabel("Postulaciones:");
-		lblNewLabel_1_1_2.setBounds(20, 256, 440, 14);
-		getContentPane().add(lblNewLabel_1_1_2);
+		labelPostulaciones = new JLabel("Postulaciones:");
+		labelPostulaciones.setBounds(20, 256, 440, 14);
+		getContentPane().add(labelPostulaciones);
 		
-		ScrollPane scrollPanePostulaciones = new ScrollPane();
+		scrollPanePostulaciones = new ScrollPane();
 		scrollPanePostulaciones.setBounds(20, 303, 460, 245);
 		getContentPane().add(scrollPanePostulaciones);
 		
-		ScrollPane scrollPaneOfertas = new ScrollPane();
+		scrollPaneOfertas = new ScrollPane();
 		scrollPaneOfertas.setBounds(489, 403, 879, 290);
 		getContentPane().add(scrollPaneOfertas);
 		
-		JLabel lblNewLabel_2 = new JLabel("Ofertas Laborales:");
-		lblNewLabel_2.setBounds(489, 346, 563, 14);
-		getContentPane().add(lblNewLabel_2);
+		labelOfertas = new JLabel("Ofertas Laborales:");
+		labelOfertas.setBounds(489, 346, 563, 14);
+		getContentPane().add(labelOfertas);
 		
-		Panel panelHeaderOfertas = new Panel();
+		panelHeaderOfertas = new Panel();
 		panelHeaderOfertas.setBounds(489, 366, 879, 30);
 		getContentPane().add(panelHeaderOfertas);
 		
-		Panel panelHeaderPostulaciones = new Panel();
+		panelHeaderPostulaciones = new Panel();
 		panelHeaderPostulaciones.setBounds(20, 276, 460, 22);
 		getContentPane().add(panelHeaderPostulaciones);
 		
@@ -373,6 +419,26 @@ public class consultaUsuario extends JInternalFrame {
 		for (DTUsuario u : datos) {
 			listaUsuariosCombobox.addItem(u);
 		}
+	}
+	
+	public void renderizarComponentesEmpresa(boolean b) {
+		labelDatosEmpresa.setVisible(b);
+    	panelEmpresa.setVisible(b);
+    	tablaEmpresa.setVisible(b);
+    	labelOfertas.setVisible(b);
+    	panelHeaderOfertas.setVisible(b);
+    	tableOfertas.setVisible(b);
+    	scrollPaneOfertas.setVisible(b);       
+	}
+	
+	public void renderizarComponentesPostulante(boolean b) {
+		labelDatosPostulante.setVisible(b);
+    	panelPostulante.setVisible(b);
+    	tablaPostulante.setVisible(b);
+    	labelPostulaciones.setVisible(b);
+    	panelHeaderPostulaciones.setVisible(b);
+    	scrollPanePostulaciones.setVisible(b);
+    	tablePostulaciones.setVisible(b);
 	}
 	
 	class ButtonRenderer extends JButton implements TableCellRenderer {
