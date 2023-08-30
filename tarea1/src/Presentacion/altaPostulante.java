@@ -182,20 +182,29 @@ public class altaPostulante extends JInternalFrame {
 	}
 	
 	private boolean checkFormulario() {
-		String nick = this.nicknameField.getText();
-		String nombre = this.nombreField.getText();
-		String apellido = this.apellidoField.getText();
-		String email = this.correoField.getText();
-		String nacion = this.nacionalidadField.getText();
+	    String nick = this.nicknameField.getText();
+	    String nombre = this.nombreField.getText();
+	    String apellido = this.apellidoField.getText();
+	    String email = this.correoField.getText();
+	    String nacion = this.nacionalidadField.getText();
 
-        if (nick.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || nacion.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-       return esValidoFecha();
-    }
-	
+	    // Verificar si están vacíos
+	    if (nick.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || nacion.isEmpty()) {
+	        JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
+	                JOptionPane.ERROR_MESSAGE);
+	        return false;
+	    }
+
+	    // Verificar si exceden los 50 caracteres
+	    if(nick.length() > 50 || nombre.length() > 50 || apellido.length() > 50 || email.length() > 50 || nacion.length() > 50) {
+	        JOptionPane.showMessageDialog(this, "Los campos no pueden exceder los 50 caracteres", "Registrar Usuario",
+	                JOptionPane.ERROR_MESSAGE);
+	        return false;
+	    }
+
+	    return esValidoFecha();
+	}
+
 	private void limpiarFormulario() {
 		nicknameField.setText("");
 		nombreField.setText("");

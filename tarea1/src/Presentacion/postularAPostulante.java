@@ -166,6 +166,8 @@ public class postularAPostulante extends JInternalFrame {
 		textAreaCV = new JTextArea();
         textAreaCV.setBounds(10, 371, 328, 184);
         getContentPane().add(textAreaCV);
+        textAreaCV.setLineWrap(true);
+        textAreaCV.setWrapStyleWord(true);
                 
         JLabel lblNewLabel_8 = new JLabel("Ingrese CV reducido:");
         lblNewLabel_8.setBounds(10, 342, 328, 14);
@@ -174,6 +176,8 @@ public class postularAPostulante extends JInternalFrame {
         textAreaMotivacion = new JTextArea();
         textAreaMotivacion.setBounds(348, 371, 301, 99);
         getContentPane().add(textAreaMotivacion);
+        textAreaMotivacion.setLineWrap(true);
+        textAreaMotivacion.setWrapStyleWord(true);
                 
         JLabel lblNewLabel_9 = new JLabel("Ingrese Motivación:");
         lblNewLabel_9.setBounds(348, 342, 301, 14);
@@ -254,14 +258,12 @@ public class postularAPostulante extends JInternalFrame {
 			String postulanteSeleccionado = (String) comboBox.getSelectedItem();
 			String postulantefinal = null;
 
-			// Obtengo la lista de postulantes
 			List<DTPostulante> postulantes = controlU.listarPostulantes();
 
-			// Itero sobre la lista de postulantes para encontrar el postulante correspondiente
 			for(DTPostulante postulante : postulantes) {
 				if(postulante.getNombre().equals(postulanteSeleccionado)) {
 					postulantefinal = postulante.getNickname();
-					break;  // Una vez que encontramos el postulante, podemos salir del bucle.
+					break;  
 				}
 			}
 
@@ -286,14 +288,25 @@ public class postularAPostulante extends JInternalFrame {
 	
 	
 	public Boolean esValido() {
-			String cv = textAreaCV.getText();
-			String motivacion = textAreaMotivacion.getText();
-			if (cv.isEmpty() || motivacion.isEmpty()) {
-	            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Postular Postulante a Oferta Laboral",
-	                    JOptionPane.ERROR_MESSAGE);
-	            return false;
-	        } else return true;
-		}
+	    String cv = textAreaCV.getText();
+	    String motivacion = textAreaMotivacion.getText();
+
+	    // Verificar si están vacíos
+	    if (cv.isEmpty() || motivacion.isEmpty()) {
+	        JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Postular Postulante a Oferta Laboral",
+	                JOptionPane.ERROR_MESSAGE);
+	        return false;
+	    } 
+
+	    // Verificar si exceden los 400 caracteres
+	    if(cv.length() > 400 || motivacion.length() > 400) {
+	        JOptionPane.showMessageDialog(this, "El CV o la motivación no pueden exceder los 400 caracteres", "Postular Postulante a Oferta Laboral",
+	                JOptionPane.ERROR_MESSAGE);
+	        return false;
+	    }
+	    return true;
+	}
+
 	
 	private void limpiarFormulario() {
 		 textAreaCV.setText("");
