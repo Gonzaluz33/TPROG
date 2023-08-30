@@ -1,20 +1,14 @@
 package Presentacion;
 
-import java.awt.EventQueue;
-
 import javax.swing.JInternalFrame;
-import java.awt.FlowLayout;
 import javax.swing.JPanel;
-import java.awt.Panel;
 import java.beans.PropertyVetoException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.JToolBar;
 import javax.swing.UIManager;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
@@ -33,15 +27,10 @@ import javax.swing.table.TableCellRenderer;
 import excepciones.NicknameNoExisteException;
 import excepciones.OfertaNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
-import logica.ControladorOfertas;
-import logica.ControladorPublicaciones;
 import logica.IControladorOfertas;
-import logica.IControladorPublicaciones;
 import logica.IControladorUsuario;
 import utils.DTEmpresa;
 import utils.DTOferta;
-import utils.DTUsuario;
-
 import utilsPresentacion.CentrarColumnas;
 
 import java.awt.GridLayout;
@@ -73,6 +62,7 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 	 * @throws PropertyVetoException 
 	 */
 
+	@SuppressWarnings("serial")
 	public postulacionOfertaLaboral(IControladorOfertas iol, IControladorUsuario ICU) throws PropertyVetoException {
 		controlOL = iol;
 		controlU = ICU;
@@ -158,9 +148,11 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 				"Nombre", "Descripci\u00F3n", "Ciudad", "Departamento", "Horario", "Remuneraci\u00F3n", "Fecha Alta", "Acciones"
 			}
 		) {
+			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] {
 				String.class, String.class, Object.class, String.class, String.class, String.class, Object.class, String.class
 			};
+			@SuppressWarnings({ "unchecked", "rawtypes" })
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
@@ -219,7 +211,9 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 	
 	
 	class ButtonRenderer extends JButton implements TableCellRenderer {
-	    public ButtonRenderer() {
+		private static final long serialVersionUID = 1L;
+
+		public ButtonRenderer() {
 	        setOpaque(true);
 	    }
 
@@ -237,8 +231,10 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 	}
 
 	class ButtonEditor extends DefaultCellEditor {
-
-	    protected JButton button;
+		
+		private static final long serialVersionUID = 1L;
+		
+		protected JButton button;
 	    private String label;
 	    private boolean isPushed;
 	    private MyActionListener myListener;

@@ -1,25 +1,15 @@
 package Presentacion;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.EventQueue;
-
 import javax.swing.JInternalFrame;
-import java.awt.FlowLayout;
-import javax.swing.JPanel;
-import java.awt.Panel;
-import javax.swing.JToolBar;
 import javax.swing.UIManager;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JSeparator;
 import java.awt.ScrollPane;
-import java.awt.Scrollbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,24 +26,21 @@ import logica.IControladorOfertas;
 import logica.IControladorUsuario;
 import utils.DTEmpresa;
 import utils.DTOferta;
-import utils.DTPostulante;
-import utils.DTUsuario;
 import utilsPresentacion.CentrarColumnas;
 import utilsPresentacion.MultiLineCellRenderer;
 
-import java.awt.Point;
 import javax.swing.JScrollBar;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 public class consultaOfertaLaboral extends JInternalFrame {
+	
+	private static final long serialVersionUID = 1L;
 	
 	//Controlador
 	private IControladorUsuario controlUsr;
+	@SuppressWarnings("unused")
 	private IControladorOfertas controlOL;
 	//Componentes Swing
 	private JTable tablaOfertaLaboral;
@@ -73,6 +60,7 @@ public class consultaOfertaLaboral extends JInternalFrame {
 	 * Create the frame.
 	 * @throws PropertyVetoException 
 	 */
+	@SuppressWarnings("serial")
 	public consultaOfertaLaboral(IControladorUsuario icu, IControladorOfertas ico) throws PropertyVetoException {
 		//Inicializacion internal frame con controlador de usuarios.
 		controlUsr = icu;
@@ -157,9 +145,11 @@ public class consultaOfertaLaboral extends JInternalFrame {
 				"Nombre", "Descripci\u00F3n", "Ciudad", "Departamento", "Horario", "Remuneraci\u00F3n", "Fecha de Alta", "Acciones"
 			}
 		) {
+			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] {
 				String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class
 			};
+			@SuppressWarnings({ "unchecked", "rawtypes" })
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
@@ -208,7 +198,10 @@ public class consultaOfertaLaboral extends JInternalFrame {
 	}
 	
 	class ButtonRenderer extends JButton implements TableCellRenderer {
-	    public ButtonRenderer() {
+		
+		private static final long serialVersionUID = 1L;
+
+		public ButtonRenderer() {
 	        setOpaque(true);
 	    }
 
@@ -226,9 +219,13 @@ public class consultaOfertaLaboral extends JInternalFrame {
 	}
 	
 	class ButtonEditor extends DefaultCellEditor {
-	    protected JButton button;
+		
+		private static final long serialVersionUID = 1L;
+		
+		protected JButton button;
 	    private String label;
-	    private boolean isPushed;
+	    @SuppressWarnings("unused")
+		private boolean isPushed;
 	    private MyActionListener myListener;
 	    
 	    // Nueva clase interna MyActionListener

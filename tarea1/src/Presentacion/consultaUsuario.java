@@ -18,7 +18,6 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.DefaultCellEditor;
 
 import excepciones.OfertaNoExisteException;
-import logica.Empresa;
 import logica.IControladorOfertas;
 import logica.IControladorUsuario;
 import utilsPresentacion.CentrarColumnas;
@@ -38,15 +37,6 @@ import utilsPresentacion.MultiLineCellRenderer;
 import java.awt.GridLayout;
 import java.awt.ScrollPane;
 import java.awt.Component;
-import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultCellEditor;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Scrollbar;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class consultaUsuario extends JInternalFrame {
 	/**
@@ -56,7 +46,8 @@ public class consultaUsuario extends JInternalFrame {
 
 	// Controlador de usuarios que se utilizará para las acciones del JFrame
     private IControladorUsuario controlUsr;
-    private IControladorOfertas controlOL;
+    @SuppressWarnings("unused")
+	private IControladorOfertas controlOL;
     
     //Componentes Swing
 	private JTable tablaUsuario;
@@ -89,6 +80,7 @@ public class consultaUsuario extends JInternalFrame {
 	 * Create the frame.
 	 * @throws PropertyVetoException 
 	 */
+	@SuppressWarnings("serial")
 	public consultaUsuario(IControladorUsuario icu, IControladorOfertas ico) throws PropertyVetoException {
 
 		//Inicializacion internal frame con controlador de usuarios.
@@ -194,9 +186,11 @@ public class consultaUsuario extends JInternalFrame {
 				"Nickname", "Nombre", "Apellido", "Correo"
 			}
 		) {
+			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] {
 				String.class, String.class, String.class, String.class
 			};
+			@SuppressWarnings({ "unchecked", "rawtypes" })
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
@@ -382,7 +376,10 @@ public class consultaUsuario extends JInternalFrame {
 	}
 	
 	class ButtonRenderer extends JButton implements TableCellRenderer {
-	    public ButtonRenderer() {
+		
+		private static final long serialVersionUID = 1L;
+
+		public ButtonRenderer() {
 	        setOpaque(true);
 	    }
 
@@ -400,9 +397,13 @@ public class consultaUsuario extends JInternalFrame {
 	}
 	
 	class ButtonEditor extends DefaultCellEditor {
-	    protected JButton button;
+		
+		private static final long serialVersionUID = 1L;
+		
+		protected JButton button;
 	    private String label;
-	    private boolean isPushed;
+	    @SuppressWarnings("unused")
+		private boolean isPushed;
 	    private MyActionListener myListener;
 	    
 	    // Nueva clase interna MyActionListener

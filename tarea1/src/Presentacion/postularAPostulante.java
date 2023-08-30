@@ -26,8 +26,6 @@ import logica.IControladorOfertas;
 import logica.IControladorUsuario;
 import utils.DTOferta;
 import utils.DTPostulante;
-import javax.swing.SwingConstants;
-import java.awt.TextArea;
 
 public class postularAPostulante extends JInternalFrame {
 	

@@ -7,22 +7,15 @@ import java.beans.PropertyVetoException;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
-import javax.swing.SwingConstants;
-
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
 import excepciones.NombreExisteException;
 import excepciones.OfertaNoExisteException;
 import excepciones.TipoPublicExisteException;
-import excepciones.UsuarioNoEsEmpresaException;
 import excepciones.UsuarioNoEsPostulanteException;
 import excepciones.UsuarioRepetidoException;
 
@@ -39,12 +32,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
 import logica.Fabrica;
 import logica.IControladorOfertas;
 import logica.IControladorPublicaciones;
@@ -58,9 +47,6 @@ public class Principal {
 	private IControladorPublicaciones ICP;
 	
 	//Componentes Swing
-
-	private IControladorPublicaciones ipu;
-	private IControladorOfertas iol;
 	
 	private JFrame frame;
 	private altaPostulante altaPostulanteInternalFrame;

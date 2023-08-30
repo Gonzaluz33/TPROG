@@ -1,10 +1,7 @@
 package Presentacion;
 
-import java.awt.EventQueue;
-
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextPane;
 import java.awt.Panel;
 import javax.swing.JSeparator;
 import java.awt.ScrollPane;
@@ -22,8 +19,6 @@ import utils.DTOferta;
 import utils.DTPostulacion;
 import utilsPresentacion.MultiLineCellRenderer;
 
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Scrollbar;
 import javax.swing.JPanel;
@@ -58,6 +53,7 @@ public class informacionOfertaLaboral extends JInternalFrame {
 	 * Create the frame.
 	 * @throws PropertyVetoException 
 	 */
+	@SuppressWarnings("serial")
 	public informacionOfertaLaboral(IControladorOfertas ico) throws PropertyVetoException {
 		controlOL = ico;
 		setMaximizable(true);

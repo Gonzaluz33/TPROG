@@ -1,33 +1,26 @@
 package Presentacion;
 
 import java.awt.Button;
-import java.awt.EventQueue;
-
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import java.awt.FlowLayout;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
-import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.beans.PropertyVetoException;
 
-import javax.swing.JToolBar;
-
 import excepciones.UsuarioRepetidoException;
-import logica.ControladorUsuarios;
 import logica.IControladorUsuario;
 
 import javax.swing.JTextArea;
 
 public class altaEmpresa extends JInternalFrame {
 	
+	private static final long serialVersionUID = 1L;
+
 	// Controlador de usuarios que se utilizará para las acciones del JFrame
     private IControladorUsuario controlUsr;
 	
@@ -174,8 +167,9 @@ public class altaEmpresa extends JInternalFrame {
 		String email = this.correoField.getText();
 		String nomEmpresa = this.nombreEmpresaField.getText();
 		String desc = this.descripcionField.getText();
+		@SuppressWarnings("unused")
 		String link = this.linkWebField.getText();
-		if (nick.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || nomEmpresa.isEmpty()) {
+		if (nick.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || nomEmpresa.isEmpty() || desc.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
                     JOptionPane.ERROR_MESSAGE);
             return false;
