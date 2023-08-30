@@ -18,9 +18,7 @@ public class OfertaLaboral {
 	private String horario;
 	private String remuneracion;
 	private LocalDateTime fechaAlta;
-	
 	private Usuario empresa;
-	
 	private List<Postulacion> postulaciones = new ArrayList<Postulacion>();
 	private List<Publicacion> publicaciones = new ArrayList<Publicacion>();
 	private List<Keyword> keywords = new ArrayList<Keyword>();
@@ -143,7 +141,30 @@ public class OfertaLaboral {
 	 * Devuelve los datos de la oferta como un datatype DTOferta.
 	 */
 	public DTOferta toDataType() {
-		return new DTOferta(this.getNombre(), this.getDescripcion(), this.getCiudad(), this.getDepartamento(), this.getHorario(), this.getRemuneracion(), this.getFechaAlta() ,this.getPostulaciones());
+		// creo una lista con las keywords asociadas a la oferta en formato String
+		List<String> listaKeywordsString = new ArrayList<String>();
+		this.keywords.stream().forEach(keyword -> listaKeywordsString.add(keyword.getNombre()));
+		
+		return new DTOferta(
+				this.getNombre(),
+				this.getDescripcion(),
+				this.getCiudad(),
+				this.getDepartamento(),
+				this.getHorario(),
+				this.getRemuneracion(),
+				this.getFechaAlta(),
+				this.getPostulaciones(),
+				this.empresa.getNickname(),
+				listaKeywordsString);
+	}
+	
+	/**
+	 * Devuelve true si tiene al menos una publicacion vigente asociada a la oferta laboral.
+	 */
+	public boolean tienePublicacionVigente() {
+		return this.publicaciones
+				.stream()
+				.anyMatch(publicacion -> publicacion.esVigente());
 	}
 	
 }

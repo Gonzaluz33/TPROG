@@ -7,19 +7,16 @@ import java.beans.PropertyVetoException;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.SwingConstants;
-
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
 import excepciones.NombreExisteException;
+import excepciones.OfertaNoExisteException;
 import excepciones.TipoPublicExisteException;
+import excepciones.UsuarioNoEsPostulanteException;
 import excepciones.UsuarioRepetidoException;
 
 //para carga de datos
@@ -35,12 +32,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
 import logica.Fabrica;
 import logica.IControladorOfertas;
 import logica.IControladorPublicaciones;
@@ -54,9 +47,6 @@ public class Principal {
 	private IControladorPublicaciones ICP;
 	
 	//Componentes Swing
-
-	private IControladorPublicaciones ipu;
-	private IControladorOfertas iol;
 	
 	private JFrame frame;
 	private altaPostulante altaPostulanteInternalFrame;
@@ -108,7 +98,7 @@ public class Principal {
 		altaEmpresaInternalFrame.setVisible(false);
 		
 		
-		consultaUsuarioInternalFrame = new consultaUsuario(ICU);
+		consultaUsuarioInternalFrame = new consultaUsuario(ICU,ICO);
 		consultaUsuarioInternalFrame.setResizable(false);
 		consultaUsuarioInternalFrame.setBorder(null);
 		consultaUsuarioInternalFrame.setVisible(false);
@@ -118,7 +108,7 @@ public class Principal {
 		altaOfertaLaboralInternalFrame.setBorder(null);
 		altaOfertaLaboralInternalFrame.setVisible(false);
 		
-		consultaOfertaLaboralInternalFrame = new consultaOfertaLaboral(ICU);
+		consultaOfertaLaboralInternalFrame = new consultaOfertaLaboral(ICU, ICO);
 		consultaOfertaLaboralInternalFrame.setResizable(false);
 		consultaOfertaLaboralInternalFrame.setBorder(null);
 		consultaOfertaLaboralInternalFrame.setVisible(false);
@@ -129,7 +119,7 @@ public class Principal {
 		altaTipoPublicacionOLInternalFrame.setBorder(null);
 		altaTipoPublicacionOLInternalFrame.setVisible(false);
 		
-		postulacionOfertaLaboralInternalFrame = new postulacionOfertaLaboral(ICO);
+		postulacionOfertaLaboralInternalFrame = new postulacionOfertaLaboral(ICO, ICU);
 		postulacionOfertaLaboralInternalFrame.setResizable(false);
 		postulacionOfertaLaboralInternalFrame.setBorder(null);
 		postulacionOfertaLaboralInternalFrame.setVisible(false);
@@ -278,6 +268,7 @@ public class Principal {
 	            }
 		});	
 		menuCasosDeUso.add(mItemPostulacionOfertaLaboral);
+
 
 
 		JMenuItem mntmNewMenuItem = new JMenuItem("Cargar Datos");

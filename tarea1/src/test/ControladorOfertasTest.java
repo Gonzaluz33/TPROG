@@ -51,6 +51,7 @@ public class ControladorOfertasTest {
 	}
 	
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void testContructoresVacios() {
 		Paquete paqueteVacio = new Paquete();

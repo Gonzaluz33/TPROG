@@ -155,16 +155,37 @@ public class altaTipoPublicacionOL extends JInternalFrame {
 	 }
 	 
 	 public Boolean esValido() {
-		 String nombreTipo = this.nombreField.getText();
-		 String descripcionTipo = this.descripcionArea.getText();
-		 int exposicionTipo = (int) this.spinner_2.getValue();
-		 Integer duracionTipo = (int) this.spinner.getValue();
-		 Integer costoTipo = (int) this.spinner_1.getValue();
-			if (nombreTipo.isEmpty() || descripcionTipo.isEmpty() || exposicionTipo < 0 || duracionTipo <= 0 || costoTipo < 0) {
-	            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Tipo de Publicacion de Oferta Laboral",
-	                    JOptionPane.ERROR_MESSAGE);
-	            return false;
-	        } else return true;
+		    String nombreTipo = this.nombreField.getText();
+		    String descripcionTipo = this.descripcionArea.getText();
+		    int exposicionTipo = (int) this.spinner_2.getValue();
+		    Integer duracionTipo = (int) this.spinner.getValue();
+		    Integer costoTipo = (int) this.spinner_1.getValue();
+
+		    // Verificar si están vacíos
+		    if (nombreTipo.isEmpty() || descripcionTipo.isEmpty()) {
+		        JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", 
+		                "Registrar Tipo de Publicacion de Oferta Laboral",
+		                JOptionPane.ERROR_MESSAGE);
+		        return false;
+		    }
+
+		    // Verificar longitud de los campos
+		    if (nombreTipo.length() > 50 || descripcionTipo.length() > 400) {
+		        JOptionPane.showMessageDialog(this, "No debe exceder la longitud máxima permitida en los campos", 
+		                "Registrar Tipo de Publicacion de Oferta Laboral",
+		                JOptionPane.ERROR_MESSAGE);
+		        return false;
+		    }
+
+		    // Verificar los valores numéricos
+		    if (exposicionTipo < 0 || duracionTipo <= 0 || costoTipo < 0) {
+		        JOptionPane.showMessageDialog(this, "Los valores numéricos deben ser positivos y adecuados", 
+		                "Registrar Tipo de Publicacion de Oferta Laboral",
+		                JOptionPane.ERROR_MESSAGE);
+		        return false;
+		    }
+
+		    return true;
 		}
 	 
 	 private void limpiarFormulario() {

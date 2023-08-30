@@ -4,27 +4,46 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
-import javax.swing.JTextPane;
+
+import excepciones.NicknameNoExisteException;
+import excepciones.OfertaNoExisteException;
+import excepciones.UsuarioNoEsPostulanteException;
+import logica.ControladorOfertas;
+import logica.ControladorUsuarios;
+import logica.IControladorOfertas;
+import logica.IControladorUsuario;
+import utils.DTOferta;
+import utils.DTPostulante;
 
 public class postularAPostulante extends JInternalFrame {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private JTextField nombreOferta;
-	private JTextField textField;
+	private JTextArea textAreaDescripcion;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
+	private String ofertaNombre;
+	private JComboBox<String> comboBox;
+    private JTextArea textAreaCV;
+    private JTextArea textAreaMotivacion;
+	private IControladorOfertas controlOL;
+	private IControladorUsuario controlU;
 
 	/**
 	 * Launch the application.
@@ -33,7 +52,9 @@ public class postularAPostulante extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					postularAPostulante frame = new postularAPostulante();
+					IControladorOfertas controlOL = new ControladorOfertas();
+					IControladorUsuario controlU = new ControladorUsuarios();
+					postularAPostulante frame = new postularAPostulante(controlOL, controlU);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +67,11 @@ public class postularAPostulante extends JInternalFrame {
 	 * Create the frame.
 	 * @throws PropertyVetoException 
 	 */
-	public postularAPostulante() throws PropertyVetoException {
+	public postularAPostulante(IControladorOfertas iol, IControladorUsuario ICU) throws PropertyVetoException {
+		
+		controlOL = iol;
+		controlU = ICU;
+		
 		setClosable(true);
 		setMaximum(true);
 		setResizable(true);
@@ -57,7 +82,7 @@ public class postularAPostulante extends JInternalFrame {
 		lblNewLabel.setBounds(10, 288, 392, 14);
 		getContentPane().add(lblNewLabel);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox<String>();
 		comboBox.setBounds(10, 309, 338, 22);
 		getContentPane().add(comboBox);
 		
@@ -79,12 +104,6 @@ public class postularAPostulante extends JInternalFrame {
 		lblNewLabel_2.setBounds(31, 36, 84, 14);
 		getContentPane().add(lblNewLabel_2);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setBounds(125, 67, 255, 175);
-		getContentPane().add(textField);
-		textField.setColumns(10);
-		
 		JLabel lblNewLabel_3 = new JLabel("Descripción:");
 		lblNewLabel_3.setBounds(31, 70, 84, 14);
 		getContentPane().add(lblNewLabel_3);
@@ -93,6 +112,11 @@ public class postularAPostulante extends JInternalFrame {
 		lblNewLabel_4.setBounds(402, 39, 76, 14);
 		getContentPane().add(lblNewLabel_4);
 		
+		
+		textAreaDescripcion = new JTextArea();
+		textAreaDescripcion.setBounds(124, 70, 256, 184);
+		getContentPane().add(textAreaDescripcion);
+				
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
 		textField_1.setColumns(10);
@@ -139,35 +163,156 @@ public class postularAPostulante extends JInternalFrame {
 		lblNewLabel_7_1.setBounds(402, 169, 84, 14);
 		getContentPane().add(lblNewLabel_7_1);
 		
-		JTextArea textAreaCV = new JTextArea();
-		textAreaCV.setBounds(10, 371, 328, 184);
-		getContentPane().add(textAreaCV);
-		
-		JLabel lblNewLabel_8 = new JLabel("Ingrese CV reducido:");
-		lblNewLabel_8.setBounds(10, 342, 328, 14);
-		getContentPane().add(lblNewLabel_8);
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(348, 371, 301, 99);
-		getContentPane().add(textArea);
-		
-		JLabel lblNewLabel_9 = new JLabel("Ingrese Motivación:");
-		lblNewLabel_9.setBounds(348, 342, 301, 14);
-		getContentPane().add(lblNewLabel_9);
-		
+		textAreaCV = new JTextArea();
+        textAreaCV.setBounds(10, 371, 328, 184);
+        getContentPane().add(textAreaCV);
+        textAreaCV.setLineWrap(true);
+        textAreaCV.setWrapStyleWord(true);
+                
+        JLabel lblNewLabel_8 = new JLabel("Ingrese CV reducido:");
+        lblNewLabel_8.setBounds(10, 342, 328, 14);
+        getContentPane().add(lblNewLabel_8);
+                
+        textAreaMotivacion = new JTextArea();
+        textAreaMotivacion.setBounds(348, 371, 301, 99);
+        getContentPane().add(textAreaMotivacion);
+        textAreaMotivacion.setLineWrap(true);
+        textAreaMotivacion.setWrapStyleWord(true);
+                
+        JLabel lblNewLabel_9 = new JLabel("Ingrese Motivación:");
+        lblNewLabel_9.setBounds(348, 342, 301, 14);
+        getContentPane().add(lblNewLabel_9);
+
+		// Calcular la posición y de los botones basándose en la altura y posición y del textAreaMotivacion.
+		int yBotones = textAreaMotivacion.getBounds().y + textAreaMotivacion.getBounds().height + 20;  
+
 		JButton btnNewButton = new JButton("Aceptar");
-		btnNewButton.setBounds(310, 610, 97, 23);
+		btnNewButton.setBounds(348, yBotones, 97, 23);  
 		getContentPane().add(btnNewButton);
 		
+		btnNewButton.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		    	try {
+					postularPostulanteElegido();
+				} catch (NicknameNoExisteException | UsuarioNoEsPostulanteException | OfertaNoExisteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		    }
+		});
+				
 		JButton buttonCancelar = new JButton("Cancelar");
-		buttonCancelar.setBounds(611, 610, 89, 23);
+		buttonCancelar.setBounds(btnNewButton.getBounds().x + btnNewButton.getBounds().width + 10, yBotones, 89, 23);  
 		getContentPane().add(buttonCancelar);
 		
+				
 		buttonCancelar.addActionListener(new ActionListener() {
-			 public void actionPerformed(ActionEvent e) {
-				 dispose();
-	            }
+		    public void actionPerformed(ActionEvent e) {
+		        dispose();
+		    }
 		});
-
+		
+	
 	}
+	
+	 public void recibirNombreOferta(String nombre) {
+	        this.ofertaNombre = nombre;
+	    }
+	
+	public void mostrarDatosOferta() throws OfertaNoExisteException {
+		String oferta = this.ofertaNombre;
+		//Obtengo datos oferta 
+		DTOferta datosOferta = controlOL.obtenerDatosOferta(oferta);
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		   //Asignando valores del objeto DTOferta a los JTextField
+	    nombreOferta.setText(datosOferta.getNombre());
+	    textAreaDescripcion.setText(datosOferta.getDescripcion());
+	    textAreaDescripcion.setLineWrap(true);
+	    textField_1.setText(datosOferta.getCiudad());
+	    textField_2.setText(datosOferta.getDepartamento());
+	    textField_3.setText(datosOferta.getHorario());
+	    textField_4.setText(String.valueOf(datosOferta.getRemuneracion())); // suponiendo que Remuneracion es un número, lo convertimos a String
+	    textField_5.setText(datosOferta.getFechaAlta().format(formatter));
+		
+	}
+	
+	public void comboMostrarPostulatntes() {
+		JComboBox<String> combobox = this.comboBox;
+		combobox.removeAllItems();
+		if(controlOL != null) {
+		List<DTPostulante> postulantes = controlU.listarPostulantes();
+		if (!postulantes.isEmpty()) {
+			for (DTPostulante postulante : postulantes) {
+		        comboBox.addItem(postulante.getNombre()); 
+		    }
+		}
+		}
+	}
+	
+	public void postularPostulanteElegido() throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException {
+		
+		if(esValido()) {
+			try {
+			String oferta = this.ofertaNombre;
+			String postulanteSeleccionado = (String) comboBox.getSelectedItem();
+			String postulantefinal = null;
+
+			List<DTPostulante> postulantes = controlU.listarPostulantes();
+
+			for(DTPostulante postulante : postulantes) {
+				if(postulante.getNombre().equals(postulanteSeleccionado)) {
+					postulantefinal = postulante.getNickname();
+					break;  
+				}
+			}
+
+			if(postulantefinal == null) {
+				throw new NicknameNoExisteException("No se encontró el postulante con nombre " + postulanteSeleccionado);
+			}
+
+			String cv = textAreaCV.getText();
+			String motivacion = textAreaMotivacion.getText();
+			LocalDateTime fecha = LocalDateTime.now();
+			
+			controlOL.postularAOferta(oferta, postulantefinal, cv, motivacion, fecha);
+			JOptionPane.showMessageDialog(this, "Postulación realizada con éxito", "Postulación a Oferta Laboral",
+                    JOptionPane.INFORMATION_MESSAGE);
+		 limpiarFormulario();
+		 setVisible(false);
+		}catch (OfertaNoExisteException e) {
+		        JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		    }
+		}
+		}
+	
+	
+	public Boolean esValido() {
+	    String cv = textAreaCV.getText();
+	    String motivacion = textAreaMotivacion.getText();
+
+	    // Verificar si están vacíos
+	    if (cv.isEmpty() || motivacion.isEmpty()) {
+	        JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Postular Postulante a Oferta Laboral",
+	                JOptionPane.ERROR_MESSAGE);
+	        return false;
+	    } 
+
+	    // Verificar si exceden los 400 caracteres
+	    if(cv.length() > 400 || motivacion.length() > 400) {
+	        JOptionPane.showMessageDialog(this, "El CV o la motivación no pueden exceder los 400 caracteres", "Postular Postulante a Oferta Laboral",
+	                JOptionPane.ERROR_MESSAGE);
+	        return false;
+	    }
+	    return true;
+	}
+
+	
+	private void limpiarFormulario() {
+		 textAreaCV.setText("");
+		 textAreaMotivacion.setText("");
+		   }
 }
+
+
+

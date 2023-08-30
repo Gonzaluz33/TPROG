@@ -1,13 +1,17 @@
 package Presentacion;
 
-import java.awt.EventQueue;
-
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import java.beans.PropertyVetoException;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Set;
+
+import javax.swing.UIManager;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import java.awt.ScrollPane;
@@ -18,14 +22,20 @@ import java.awt.event.ActionListener;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 
-import logica.ControladorOfertas;
+import excepciones.NicknameNoExisteException;
+import excepciones.OfertaNoExisteException;
+import excepciones.UsuarioNoEsEmpresaException;
 import logica.IControladorOfertas;
+import logica.IControladorUsuario;
 import utils.DTEmpresa;
+import utils.DTOferta;
 import utilsPresentacion.CentrarColumnas;
 
 import java.awt.GridLayout;
 import java.awt.Button;
+import java.awt.Component;
 
 public class postulacionOfertaLaboral extends JInternalFrame {
 	
@@ -34,41 +44,34 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 	private JTable tableOfertas;
 	private postularAPostulante postularPostulanteInternalFrame;
 	private IControladorOfertas controlOL;
+	private IControladorUsuario controlU;
 	private JComboBox<String> comboBoxEmpresa;
-
-
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					IControladorOfertas controlOL = new ControladorOfertas();
-					postulacionOfertaLaboral frame = new postulacionOfertaLaboral(controlOL);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	//datos ofertas Vigentes
+		private String nombreOferta;
+		private String Descripcion;
+		private String Ciudad;
+		private String Departamento;
+		private String Horario;
+		private String Remuneracion;
+		private String fechaAlta;
+		
 
 	/**
 	 * Create the frame.
 	 * @throws PropertyVetoException 
 	 */
-	public postulacionOfertaLaboral(IControladorOfertas iol) throws PropertyVetoException {
-		
+
+	@SuppressWarnings("serial")
+	public postulacionOfertaLaboral(IControladorOfertas iol, IControladorUsuario ICU) throws PropertyVetoException {
 		controlOL = iol;
-		
-		postularPostulanteInternalFrame = new postularAPostulante();
+		controlU = ICU;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+		postularPostulanteInternalFrame = new postularAPostulante(controlOL, controlU);
 		postularPostulanteInternalFrame.setResizable(false);
 		postularPostulanteInternalFrame.setBorder(null);
 		postularPostulanteInternalFrame.setVisible(false);
 		getContentPane().add(postularPostulanteInternalFrame);
-		
 		setMaximum(true);
 		setMaximizable(true);
 		setResizable(true);
@@ -89,7 +92,36 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 		comboBoxEmpresa = new JComboBox<String>();
 		comboBoxEmpresa.setBounds(10, 25, 438, 22);
 		getContentPane().add(comboBoxEmpresa);
-		comboMostrarEmpresas();
+		comboBoxEmpresa.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DefaultTableModel tableModel = (DefaultTableModel) tableOfertas.getModel();
+				tableModel.setRowCount(0); // Limpiar filas existentes
+				String selectedValue =  (String) comboBoxEmpresa.getSelectedItem();
+				if (selectedValue != null) {
+					Set<DTOferta> listadoOfertasVigentes = null;
+					try {
+						listadoOfertasVigentes = controlOL.obtenerOfertasVigentesDeEmpresa(selectedValue);
+					} catch (NicknameNoExisteException | UsuarioNoEsEmpresaException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					if(!listadoOfertasVigentes.isEmpty()) {
+						for (DTOferta item : listadoOfertasVigentes) {
+							nombreOferta = item.getNombre();
+							Descripcion = item.getDescripcion();
+							Ciudad = item.getCiudad();
+							Departamento = item.getDepartamento();
+							Horario = item.getHorario();
+							Remuneracion = item.getRemuneracion();
+							fechaAlta = item.getFechaAlta().format(formatter);
+							tableModel.addRow(new Object[] {nombreOferta, Descripcion, Ciudad, Departamento,
+									Horario,Remuneracion,fechaAlta});							
+						} 
+					}
+				}			
+			}
+		});
 		
 		JLabel lblNewLabel_1 = new JLabel("Ofertas Laborales Vigentes:");
 		lblNewLabel_1.setBounds(10, 66, 600, 14);
@@ -111,15 +143,16 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 		tableOfertas.setRowHeight(35);
 		tableOfertas.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Ejemplo", "Postular"},
 			},
 			new String[] {
 				"Nombre", "Descripci\u00F3n", "Ciudad", "Departamento", "Horario", "Remuneraci\u00F3n", "Fecha Alta", "Acciones"
 			}
 		) {
+			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] {
 				String.class, String.class, Object.class, String.class, String.class, String.class, Object.class, String.class
 			};
+			@SuppressWarnings({ "unchecked", "rawtypes" })
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
@@ -144,7 +177,7 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 		tableOfertas.getColumnModel().getColumn(5).setPreferredWidth(118);
 		tableOfertas.getColumnModel().getColumn(6).setResizable(false);
 		tableOfertas.getColumnModel().getColumn(7).setResizable(false);
-		tableOfertas.getColumnModel().getColumn(7).setCellRenderer(new buttonRenderer());
+		tableOfertas.getColumnModel().getColumn(7).setCellRenderer(new ButtonRenderer());
 		tableOfertas.getColumnModel().getColumn(7).setCellEditor(new ButtonEditor(new JCheckBox(), postularPostulanteInternalFrame));
 		tableOfertas.setDefaultRenderer(Object.class, new CentrarColumnas());
 		tableOfertas.setBounds(325, 246, 1, 1);
@@ -152,8 +185,6 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 		panelHeadersOfertas.add(headerOfertas);
 		panelHeadersOfertas.setLayout(new GridLayout(1, 0, 0, 0));
 		scrollPaneOfertas.add(tableOfertas);
-		
-		
 		Button buttonCancelar = new Button("Cancelar");
 		buttonCancelar.setBounds(472, 25, 70, 22);
 		getContentPane().add(buttonCancelar);
@@ -177,4 +208,110 @@ public class postulacionOfertaLaboral extends JInternalFrame {
 		}
 		}
 	}
-}
+	
+	
+	class ButtonRenderer extends JButton implements TableCellRenderer {
+		private static final long serialVersionUID = 1L;
+
+		public ButtonRenderer() {
+	        setOpaque(true);
+	    }
+
+	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+	        if (isSelected) {
+	            setForeground(table.getSelectionForeground());
+	            setBackground(table.getSelectionBackground());
+	        } else {
+	            setForeground(table.getForeground());
+	            setBackground(UIManager.getColor("Button.background"));
+	        }
+	        setText((value == null) ? "" : value.toString());
+	        return this;
+	    }
+	}
+
+	class ButtonEditor extends DefaultCellEditor {
+		
+		private static final long serialVersionUID = 1L;
+		
+		protected JButton button;
+	    private String label;
+	    private boolean isPushed;
+	    private MyActionListener myListener;
+	    
+	    // Nueva clase interna MyActionListener
+	    private class MyActionListener implements ActionListener {
+	        private int currentRow;
+
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            String nombreOferta = tableOfertas.getValueAt(currentRow, 0).toString();
+	            ((postularAPostulante) postularPostulanteInternalFrame).recibirNombreOferta(nombreOferta);
+	            try {
+					((postularAPostulante) postularPostulanteInternalFrame).mostrarDatosOferta();
+				} catch (OfertaNoExisteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	            ((postularAPostulante) postularPostulanteInternalFrame).comboMostrarPostulatntes();
+	            
+	            postularPostulanteInternalFrame.setVisible(true);
+	            fireEditingStopped();
+	        }
+
+	        public void setCurrentRow(int row) {
+	            this.currentRow = row;
+	        }
+	    }
+
+	    public ButtonEditor(JCheckBox checkBox, JInternalFrame postularPostulanteInternalFrame) {
+	        super(checkBox);
+	        button = new JButton();
+	        button.setOpaque(true);
+	        
+	        myListener = new MyActionListener(); // Inicializamos MyActionListener
+	        button.addActionListener(myListener); // Agregamos MyActionListener al botón
+	    }
+
+	    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+	        if (isSelected) {
+	            button.setForeground(table.getSelectionForeground());
+	            button.setBackground(table.getSelectionBackground());
+	        } else {
+	            button.setForeground(table.getForeground());
+	            button.setBackground(table.getBackground());
+	        }
+	        label = (value == null) ? "" : value.toString();
+	        button.setText(label);
+	        isPushed = true;
+	        
+	        // Aquí establecemos la fila actual en MyActionListener
+	        myListener.setCurrentRow(row);
+
+	        return button;
+	    }
+
+	    public Object getCellEditorValue() {
+	        if (isPushed) {
+	            // Cuando el botón es presionado
+	        }
+	        isPushed = false;
+	        return label;
+	    }
+
+	    public boolean stopCellEditing() {
+	        isPushed = false;
+	        return super.stopCellEditing();
+	    }
+
+	    protected void fireEditingStopped() {
+	        super.fireEditingStopped();
+	    }
+	}
+
+	}
+		
+
+		
+
+	

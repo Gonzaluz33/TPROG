@@ -2,6 +2,7 @@ package utils;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.ArrayList;
 
 public class DTOferta {
 	
@@ -12,7 +13,10 @@ public class DTOferta {
 	private String horario;
 	private String remuneracion;
 	private LocalDateTime fechaAlta;
-	List<DTPostulacion> postulaciones;
+	private List<DTPostulacion> postulaciones;
+	private List<String> keywords;
+	
+	private String nicknameEmpresa;
 	
 	// constructores
     public DTOferta() {
@@ -23,12 +27,15 @@ public class DTOferta {
         this.setHorario(new String());
         this.setRemuneracion(new String());
         this.setFechaAlta(fechaAlta);
+        this.setPostulacion(new ArrayList<DTPostulacion>());
+        this.setNicknameEmpresa(new String());
+		this.setKeywords(new ArrayList<String>());
     }
 
     /**
      * Constructor SIN lista de postulaciones asociadas a la oferta laboral.
      */
-    public DTOferta(String nombre, String descripcion, String ciudad, String departamento, String horario, String remuneracion, LocalDateTime fechaAlta ) {
+    public DTOferta(String nombre, String descripcion, String ciudad, String departamento, String horario, String remuneracion, LocalDateTime fechaAlta, String nicknameEmpresa, List<String> keywords) {
         this.setNombre(nombre);
         this.setDescripcion(descripcion);
         this.setCiudad(ciudad);
@@ -37,12 +44,14 @@ public class DTOferta {
         this.setRemuneracion(remuneracion);
         this.setFechaAlta(fechaAlta);
         this.setPostulacion(null);
+        this.setNicknameEmpresa(nicknameEmpresa);
+		this.setKeywords(keywords);
     }
 
     /**
      * Constructor CON lista de postulaciones asociadas a la oferta laboral.
      */
-    public DTOferta(String nombre, String descripcion, String ciudad, String departamento, String horario, String remuneracion, LocalDateTime fechaAlta ,List<DTPostulacion> postulaciones) {
+    public DTOferta(String nombre, String descripcion, String ciudad, String departamento, String horario, String remuneracion, LocalDateTime fechaAlta, List<DTPostulacion> postulaciones, String nicknameEmpresa, List<String> keywords) {
         this.setNombre(nombre);
         this.setDescripcion(descripcion);
         this.setCiudad(ciudad);
@@ -51,6 +60,8 @@ public class DTOferta {
         this.setRemuneracion(remuneracion);
         this.setFechaAlta(fechaAlta);
 		this.setPostulacion(postulaciones);
+		this.setNicknameEmpresa(nicknameEmpresa);
+		this.setKeywords(keywords);
     }
 
     // getters
@@ -81,9 +92,17 @@ public class DTOferta {
 		return postulaciones;
 	}
 	
-	 public LocalDateTime getFechaAlta() {
-	        return fechaAlta;
-	  }
+	public LocalDateTime getFechaAlta() {
+		return fechaAlta;
+	}
+	
+	public String getNicknameEmpresa() {
+		return nicknameEmpresa;
+	}
+	
+	public List<String> getKeywords() {
+		return keywords;
+	}
 
     // setters
     public void setNombre(String nombre) {
@@ -117,6 +136,13 @@ public class DTOferta {
 	public void setFechaAlta(LocalDateTime fecha) {
         this.fechaAlta = fecha;
     }
-    
+	
+	public void setNicknameEmpresa(String nicknameEmpresa) {
+		this.nicknameEmpresa = nicknameEmpresa;
+	}
+	
+	public void setKeywords(List<String> keywords) {
+		this.keywords = keywords;
+	}
 
 }

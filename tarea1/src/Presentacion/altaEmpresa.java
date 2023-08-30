@@ -1,33 +1,26 @@
 package Presentacion;
 
 import java.awt.Button;
-import java.awt.EventQueue;
-
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
-import java.awt.FlowLayout;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.beans.PropertyVetoException;
 
-import javax.swing.JToolBar;
-
 import excepciones.UsuarioRepetidoException;
-import logica.ControladorUsuarios;
 import logica.IControladorUsuario;
 
 import javax.swing.JTextArea;
 
 public class altaEmpresa extends JInternalFrame {
 	
+	private static final long serialVersionUID = 1L;
+
 	// Controlador de usuarios que se utilizará para las acciones del JFrame
     private IControladorUsuario controlUsr;
 	
@@ -116,9 +109,14 @@ public class altaEmpresa extends JInternalFrame {
 		labelDescripcion.setBounds(43, 170, 126, 14);
 		getContentPane().add(labelDescripcion);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(213, 168, 163, 93);
+		getContentPane().add(scrollPane);
+				
 		descripcionField = new JTextArea();
-		descripcionField.setBounds(213, 168, 163, 93);
-		getContentPane().add(descripcionField);
+		descripcionField.setLineWrap(true);
+		descripcionField.setWrapStyleWord(true);
+		scrollPane.setViewportView(descripcionField);
 		
 		JLabel linkField = new JLabel("Link Web (Opcional):");
 		linkField.setBounds(43, 272, 146, 14);
@@ -168,18 +166,24 @@ public class altaEmpresa extends JInternalFrame {
 	}
 	
 	public Boolean esValido() {
-		String nick = this.nicknameField.getText();
-		String nombre = this.nombreField.getText();
-		String apellido = this.apellidoField.getText();
-		String email = this.correoField.getText();
-		String nomEmpresa = this.nombreEmpresaField.getText();
-		String desc = this.descripcionField.getText();
-		String link = this.linkWebField.getText();
-		if (nick.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || nomEmpresa.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        } else return true;
+	    String nick = this.nicknameField.getText();
+	    String nombre = this.nombreField.getText();
+	    String apellido = this.apellidoField.getText();
+	    String email = this.correoField.getText();
+	    String nomEmpresa = this.nombreEmpresaField.getText();
+	    String desc = this.descripcionField.getText();
+	    @SuppressWarnings("unused")
+	    String link = this.linkWebField.getText();
+
+	    if (nick.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || nomEmpresa.isEmpty() || desc.isEmpty()) {
+	        JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+	        return false;
+	    } else if (nick.length() > 50 || nombre.length() > 50 || apellido.length() > 50 || email.length() > 50 || nomEmpresa.length() > 50 || desc.length() > 400) {
+	        JOptionPane.showMessageDialog(this, "Uno o más campos exceden la longitud máxima permitida", "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+	        return false;
+	    } else {
+	        return true;
+	    }
 	}
 	
 	private void limpiarFormulario() {

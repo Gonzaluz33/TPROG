@@ -207,34 +207,36 @@ public class altaOfertaLaboral extends JInternalFrame {
 	}
 	
 	public void crearOferta(ActionEvent e) {
-		String nombre = this.nombreField.getText();
-		String desc = this.descripcionTextArea.getText();
-		String depa = this.departamentoField.getText();
-		String ciudad = this.ciudadField.getText();
-		String horario = this.horarioField.getText();
-		String empresa = (String) this.boxEmpresa.getSelectedItem();
-		String tipo = (String) this.boxTipoPublicacion.getSelectedItem();
-		String rem = this.remuneracionSpiner.getValue().toString();
-		List<String> keys = this.keywordsList.getSelectedValuesList();
-		
-		if (nombre.isEmpty() || desc.isEmpty() || depa.isEmpty() || ciudad.isEmpty() || horario.isEmpty() || empresa.isEmpty() || tipo.isEmpty() || rem.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Alta de Oferta Laboral", JOptionPane.ERROR_MESSAGE);
-        } else {
-        	try {
-    			this.ctrlOfertas.altaOferta(nombre, desc, rem, horario, keys, ciudad, depa, tipo, empresa);
-                // Muestro éxito de la operación
-                JOptionPane.showMessageDialog(this, "La oferta se ha creado con éxito", "Alta de Oferta Laboral", JOptionPane.INFORMATION_MESSAGE);
-                // Limpio el internal frame antes de cerrar la ventana
-                limpiarFormulario();
-                setVisible(false);
-    		} catch (NombreExisteException e1) {
-                JOptionPane.showMessageDialog(this, e1.getMessage(), "Alta de Oferta Laboral", JOptionPane.ERROR_MESSAGE);
-    		} catch (KeywordExisteException e1) {
-                JOptionPane.showMessageDialog(this, e1.getMessage(), "Alta de Oferta Laboral", JOptionPane.ERROR_MESSAGE);
-    		} catch (NicknameNoExisteException e1) {
-                JOptionPane.showMessageDialog(this, e1.getMessage(), "Alta de Oferta Laboral", JOptionPane.ERROR_MESSAGE);
-    		}
-        }
+	    String nombre = this.nombreField.getText();
+	    String desc = this.descripcionTextArea.getText();
+	    String depa = this.departamentoField.getText();
+	    String ciudad = this.ciudadField.getText();
+	    String horario = this.horarioField.getText();
+	    String empresa = (String) this.boxEmpresa.getSelectedItem();
+	    String tipo = (String) this.boxTipoPublicacion.getSelectedItem();
+	    String rem = this.remuneracionSpiner.getValue().toString();
+	    List<String> keys = this.keywordsList.getSelectedValuesList();
+
+	    if (nombre.isEmpty() || desc.isEmpty() || depa.isEmpty() || ciudad.isEmpty() || horario.isEmpty() || empresa.isEmpty() || tipo.isEmpty() || rem.isEmpty()) {
+	        JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Alta de Oferta Laboral", JOptionPane.ERROR_MESSAGE);
+	    } else if (nombre.length() > 50 || depa.length() > 50 || ciudad.length() > 50 || horario.length() > 50 || empresa.length() > 50 || tipo.length() > 50 || rem.length() > 50 || desc.length() > 400) {
+	        JOptionPane.showMessageDialog(this, "Uno o más campos exceden la longitud máxima permitida", "Alta de Oferta Laboral", JOptionPane.ERROR_MESSAGE);
+	    } else {
+	        try {
+	            this.ctrlOfertas.altaOferta(nombre, desc, rem, horario, keys, ciudad, depa, tipo, empresa);
+	            // Muestro éxito de la operación
+	            JOptionPane.showMessageDialog(this, "La oferta se ha creado con éxito", "Alta de Oferta Laboral", JOptionPane.INFORMATION_MESSAGE);
+	            // Limpio el internal frame antes de cerrar la ventana
+	            limpiarFormulario();
+	            setVisible(false);
+	        } catch (NombreExisteException e1) {
+	            JOptionPane.showMessageDialog(this, e1.getMessage(), "Alta de Oferta Laboral", JOptionPane.ERROR_MESSAGE);
+	        } catch (KeywordExisteException e1) {
+	            JOptionPane.showMessageDialog(this, e1.getMessage(), "Alta de Oferta Laboral", JOptionPane.ERROR_MESSAGE);
+	        } catch (NicknameNoExisteException e1) {
+	            JOptionPane.showMessageDialog(this, e1.getMessage(), "Alta de Oferta Laboral", JOptionPane.ERROR_MESSAGE);
+	        }
+	    }
 	}
 	
 	private void limpiarFormulario() {

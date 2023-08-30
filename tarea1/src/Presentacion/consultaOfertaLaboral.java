@@ -1,23 +1,15 @@
 package Presentacion;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
+import java.awt.Component;
 import javax.swing.JInternalFrame;
-import java.awt.FlowLayout;
-import javax.swing.JPanel;
-import java.awt.Panel;
-import javax.swing.JToolBar;
+import javax.swing.UIManager;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JSeparator;
 import java.awt.ScrollPane;
-import java.awt.Scrollbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,32 +19,33 @@ import javax.swing.JTable;
 import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 
+import excepciones.OfertaNoExisteException;
+import logica.IControladorOfertas;
 import logica.IControladorUsuario;
 import utils.DTEmpresa;
 import utils.DTOferta;
-import utils.DTPostulante;
-import utils.DTUsuario;
 import utilsPresentacion.CentrarColumnas;
 import utilsPresentacion.MultiLineCellRenderer;
 
-import java.awt.Point;
 import javax.swing.JScrollBar;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 public class consultaOfertaLaboral extends JInternalFrame {
+	
+	private static final long serialVersionUID = 1L;
 	
 	//Controlador
 	private IControladorUsuario controlUsr;
-	
+	@SuppressWarnings("unused")
+	private IControladorOfertas controlOL;
 	//Componentes Swing
 	private JTable tablaOfertaLaboral;
 	private informacionOfertaLaboral informacionOfertaLaboralInternalFrame;
-	private JComboBox<DTUsuario> listaEmpresasCombobox;
+	private JComboBox<DTEmpresa> listaEmpresasCombobox;
 	
 	//datos ofertas
 	private String nombreOferta;
@@ -67,12 +60,14 @@ public class consultaOfertaLaboral extends JInternalFrame {
 	 * Create the frame.
 	 * @throws PropertyVetoException 
 	 */
-	public consultaOfertaLaboral(IControladorUsuario icu) throws PropertyVetoException {
+	@SuppressWarnings("serial")
+	public consultaOfertaLaboral(IControladorUsuario icu, IControladorOfertas ico) throws PropertyVetoException {
 		//Inicializacion internal frame con controlador de usuarios.
 		controlUsr = icu;
+		controlOL = ico;
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
-		informacionOfertaLaboralInternalFrame = new informacionOfertaLaboral();
+		informacionOfertaLaboralInternalFrame = new informacionOfertaLaboral(ico);
 		informacionOfertaLaboralInternalFrame.setResizable(false);
 		informacionOfertaLaboralInternalFrame.setBorder(null);
 		informacionOfertaLaboralInternalFrame.setVisible(false);
@@ -91,7 +86,7 @@ public class consultaOfertaLaboral extends JInternalFrame {
 		lblNewLabel.setBounds(21, 22, 736, 14);
 		getContentPane().add(lblNewLabel);
 		
-		listaEmpresasCombobox = new JComboBox<DTUsuario>();
+		listaEmpresasCombobox = new JComboBox<DTEmpresa>();
 		listaEmpresasCombobox.setBounds(21, 38, 483, 22);
 		getContentPane().add(listaEmpresasCombobox);
 		listaEmpresasCombobox.addActionListener(new ActionListener() {
@@ -150,9 +145,11 @@ public class consultaOfertaLaboral extends JInternalFrame {
 				"Nombre", "Descripci\u00F3n", "Ciudad", "Departamento", "Horario", "Remuneraci\u00F3n", "Fecha de Alta", "Acciones"
 			}
 		) {
+			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] {
 				String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class
 			};
+			@SuppressWarnings({ "unchecked", "rawtypes" })
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
@@ -171,7 +168,7 @@ public class consultaOfertaLaboral extends JInternalFrame {
 		tablaOfertaLaboral.getColumnModel().getColumn(4).setCellRenderer(new MultiLineCellRenderer());
 		tablaOfertaLaboral.getColumnModel().getColumn(5).setCellRenderer(new MultiLineCellRenderer());
 		tablaOfertaLaboral.getColumnModel().getColumn(6).setCellRenderer(new MultiLineCellRenderer());
-		tablaOfertaLaboral.getColumnModel().getColumn(7).setCellRenderer(new buttonRenderer());
+		tablaOfertaLaboral.getColumnModel().getColumn(7).setCellRenderer(new ButtonRenderer());
 		tablaOfertaLaboral.getColumnModel().getColumn(7).setCellEditor(new ButtonEditor(new JCheckBox(), informacionOfertaLaboralInternalFrame));
 		JTableHeader headerOfertas = tablaOfertaLaboral.getTableHeader();
 		panelHeaders.add(headerOfertas);
@@ -184,20 +181,114 @@ public class consultaOfertaLaboral extends JInternalFrame {
 		
 		buttonCancelar.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
+				 DefaultTableModel tableModel = (DefaultTableModel) tablaOfertaLaboral.getModel();
+				 tableModel.setRowCount(0); // Limpiar filas existentes
 				 dispose();
 	            }
 		});
 			
 	}
-
 	public void llenar_comboListaEmpresa(){
 		listaEmpresasCombobox.removeAllItems();
 		List<DTEmpresa> datos = new ArrayList<>();
 		datos = controlUsr.listarEmpresas();
-		for (DTUsuario u : datos) {
+		for (DTEmpresa u : datos) {
 			listaEmpresasCombobox.addItem(u);
 		}
 	}
 	
+	class ButtonRenderer extends JButton implements TableCellRenderer {
+		
+		private static final long serialVersionUID = 1L;
+
+		public ButtonRenderer() {
+	        setOpaque(true);
+	    }
+
+	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+	        if (isSelected) {
+	            setForeground(table.getSelectionForeground());
+	            setBackground(table.getSelectionBackground());
+	        } else {
+	            setForeground(table.getForeground());
+	            setBackground(UIManager.getColor("Button.background"));
+	        }
+	        setText((value == null) ? "" : value.toString());
+	        return this;
+	    }
+	}
+	
+	class ButtonEditor extends DefaultCellEditor {
+		
+		private static final long serialVersionUID = 1L;
+		
+		protected JButton button;
+	    private String label;
+	    @SuppressWarnings("unused")
+		private boolean isPushed;
+	    private MyActionListener myListener;
+	    
+	    // Nueva clase interna MyActionListener
+	    private class MyActionListener implements ActionListener {
+	        private int currentRow;
+	        @Override
+	        public void actionPerformed(ActionEvent e) {	        	
+	            String nombreOferta = tablaOfertaLaboral.getValueAt(currentRow, 0).toString();
+	            ((informacionOfertaLaboral) informacionOfertaLaboralInternalFrame).recibirNombreOferta(nombreOferta);
+	            try {
+					((informacionOfertaLaboral) informacionOfertaLaboralInternalFrame).mostrarDatosOferta();
+				} catch (OfertaNoExisteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	            informacionOfertaLaboralInternalFrame.setVisible(true);
+	        }
+
+	        public void setCurrentRow(int row) {
+	            this.currentRow = row;
+	        }
+	    }
+	    
+	    public ButtonEditor(JCheckBox checkBox, JInternalFrame postularPostulanteInternalFrame) {
+	        super(checkBox);
+	        button = new JButton();
+	        button.setOpaque(true);
+	        myListener = new MyActionListener(); // Inicializamos MyActionListener
+	        button.addActionListener(myListener); // Agregamos MyActionListener al botón
+	    }
+
+	    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+	        if (isSelected) {
+	            button.setForeground(table.getSelectionForeground());
+	            button.setBackground(table.getSelectionBackground());
+	        } else {
+	            button.setForeground(table.getForeground());
+	            button.setBackground(table.getBackground());
+	        }
+	        label = (value == null) ? "" : value.toString();
+	        button.setText(label);
+	        isPushed = true;	        
+	        // Aquí establecemos la fila actual en MyActionListener
+	        myListener.setCurrentRow(row);
+
+	        return button;
+	    }
+
+	    public Object getCellEditorValue() {
+	        isPushed = false;
+	        return label;
+	    }
+
+	    public boolean stopCellEditing() {
+	        isPushed = false;
+	        return super.stopCellEditing();
+	    }
+
+	    protected void fireEditingStopped() {
+	        super.fireEditingStopped();
+	    }
+	    
+	}
+
 }
 
