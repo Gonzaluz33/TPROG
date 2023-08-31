@@ -330,7 +330,7 @@ public class TestCargaDeDatos {
 		}
 	}
 
-	private void cargarDatosPostulantes(String csvFile) throws UsuarioRepetidoException {	
+	private void cargarDatosPostulantes(String csvFile) throws UsuarioRepetidoException, CorreoRepetidoException {	
 	    String line = "";
 	    String cvsSplitBy = ";";
 	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
@@ -368,7 +368,7 @@ public class TestCargaDeDatos {
 	    }
 	}
 	
-	private void cargarDatosEmpresas(String csvFile) throws UsuarioRepetidoException {	
+	private void cargarDatosEmpresas(String csvFile) throws UsuarioRepetidoException, CorreoRepetidoException {	
 	    String line = "";
 	    String cvsSplitBy = ";";
 	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {

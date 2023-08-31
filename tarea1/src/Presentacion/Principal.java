@@ -11,6 +11,8 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
+import excepciones.CorreoRepetidoException;
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
 import excepciones.NombreExisteException;
@@ -316,13 +318,16 @@ public class Principal {
 				} catch (OfertaNoExisteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				} catch (CorreoRepetidoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 		    }
 		});
 		menuCasosDeUso.add(mntmNewMenuItem);
 	}
 
-		private void cargarDatosPostulantes(String csvFile) throws UsuarioRepetidoException {	
+		private void cargarDatosPostulantes(String csvFile) throws UsuarioRepetidoException, CorreoRepetidoException {	
 		    String line = "";
 		    String cvsSplitBy = ";";
 		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
@@ -361,7 +366,7 @@ public class Principal {
 		    }
 		}
 		
-		private void cargarDatosEmpresas(String csvFile) throws UsuarioRepetidoException {	
+		private void cargarDatosEmpresas(String csvFile) throws UsuarioRepetidoException, CorreoRepetidoException {	
 		    String line = "";
 		    String cvsSplitBy = ";";
 		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
