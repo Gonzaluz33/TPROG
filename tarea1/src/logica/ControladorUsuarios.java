@@ -67,10 +67,20 @@ public class ControladorUsuarios implements IControladorUsuario{
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
 		return manejadorU.obtenerOfertasDeEmpresa(nicknameEmpresa);
 	}
-	public void actualizarDatosUsuario(String nickname, String nuevoNombre,String nuevoApellido) {
+	public void actualizarDatosEmpresa(String nickFiltrado,String nuevoNombre,String nuevoApellido,String nombreEmpresa,String descripcionEmpresa, String linkWebEmpresa) {
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
 		try {
-			manejadorU.actualizarDatosUsuario(nickname, nuevoNombre,nuevoApellido);
+			manejadorU.actualizarDatosEmpresa(nickFiltrado,nuevoNombre,nuevoApellido,nombreEmpresa,descripcionEmpresa,linkWebEmpresa);
+		} catch (NicknameNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void actualizarDatosPostulante(String nickname, String nuevoNombre,String nuevoApellido,String fechaNacimiento, String nacionalidad) {
+		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+		try {
+			manejadorU.actualizarDatosPostulante(nickname,nuevoNombre,nuevoApellido,fechaNacimiento,nacionalidad);
 		} catch (NicknameNoExisteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

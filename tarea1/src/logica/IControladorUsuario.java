@@ -51,5 +51,7 @@ public interface IControladorUsuario {
 	 */
 	public Set<DTOferta> obtenerOfertasDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException;
 	
-	public void actualizarDatosUsuario(String nickname, String nuevoNombre,String nuevoApellido);
+	public void actualizarDatosEmpresa(String nickFiltrado,String nuevoNombre,String nuevoApellido,String nombreEmpresa,String descripcionEmpresa, String linkWebEmpresa);
+	
+	public void actualizarDatosPostulante(String nickname, String nuevoNombre,String nuevoApellido,String fechaNacimiento, String nacionalidad);
 }

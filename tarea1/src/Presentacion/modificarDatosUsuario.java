@@ -6,11 +6,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
 import java.beans.PropertyVetoException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import logica.IControladorUsuario;
 import utils.DTEmpresa;
 import utils.DTPostulante;
 import utils.DTUsuario;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class modificarDatosUsuario extends JInternalFrame {
     /**
@@ -37,11 +42,9 @@ public class modificarDatosUsuario extends JInternalFrame {
 		setIconifiable(true);
 		setClosable(true);
 		setBounds(100, 100, 1074, 633);
-		
-        // Establecer la nueva ubicación
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getContentPane().removeAll();
-        // Crear componentes de la UI
+      
         JComboBox<String> listaUsuarios = new JComboBox<>();
         listaUsuarios.setBounds(37, 43, 299, 33);
         JTextField campoNombre = new JTextField();
@@ -64,7 +67,7 @@ public class modificarDatosUsuario extends JInternalFrame {
          
          JTextArea textDescripcion = new JTextArea();
          textDescripcion.setBounds(317, 190, 320, 96);
-         textDescripcion.setLineWrap(true);  // Ajustar al final de la línea
+         textDescripcion.setLineWrap(true);
          textDescripcion.setWrapStyleWord(true);
         
         
@@ -83,9 +86,6 @@ public class modificarDatosUsuario extends JInternalFrame {
          textFieldFechaNacimiento.setBounds(319, 141, 210, 19);
          textFieldFechaNacimiento.setColumns(10);
          
-         JTextField campoFechaNacimiento = new JTextField();
-     	campoFechaNacimiento.setBounds(66, 141, 202, 19);
-     	
      	
      	JLabel lblNacionalidad = new JLabel("Nacionalidad:");
         lblNacionalidad.setBounds(319, 170, 190, 13);
@@ -97,20 +97,18 @@ public class modificarDatosUsuario extends JInternalFrame {
         // Poblar JComboBox con usuarios
         List<DTUsuario> usuarios = controladorUser.listarUsuarios();
         for (DTUsuario user : usuarios) {
-            listaUsuarios.addItem(user.getNickname()+"("+user.getNombre()+")");
+            listaUsuarios.addItem(user.getNickname()+"("+user.getNombre()+" "+user.getApellido()+")");
         }
         listaUsuarios.revalidate();
         listaUsuarios.repaint();
         
         // Manejar selección de usuario
         listaUsuarios.addActionListener(new ActionListener() {
-        	
             @Override
             public void actionPerformed(ActionEvent e) {
             	getContentPane().remove(lblNombreEmpresa);
              	getContentPane().remove(textFieldNombreEmpresa);
              	getContentPane().remove(lblDescripcion);
-
              	getContentPane().remove(textDescripcion);
              	getContentPane().remove(lblLinkWeb);
              	getContentPane().remove(textFieldLinkWeb);
@@ -118,104 +116,127 @@ public class modificarDatosUsuario extends JInternalFrame {
              	getContentPane().remove(textFieldFechaNacimiento);
              	getContentPane().remove(lblNacionalidad);
              	getContentPane().remove(textFieldNacionalidad);
-             	getContentPane().revalidate(); // Para que se tengan en cuenta los cambios
+             	getContentPane().revalidate();
              	getContentPane().repaint(); 
-             	          	
+         
                 String nicknameSeleccionado = (String) listaUsuarios.getSelectedItem();
                 DTUsuario usuario = null;
-               
+   
 				try {
 					String textoNick = nicknameSeleccionado;
 			        int posicion = textoNick.indexOf("(");
 			        String resultado = nicknameSeleccionado; 
-			        if (posicion != -1) { // Verifica si el carácter "(" se encuentra en el string
-			            resultado = textoNick.substring(0, posicion).trim(); // trim() elimina espacios en blanco al principio y al final
+			        if (posicion != -1) { 
+			            resultado = textoNick.substring(0, posicion).trim(); 
 			            
 			        } 
 			        usuario = controladorUser.consultarUsuario(resultado);
 			        campoNombre.setText(usuario.getNombre());
 	                campoApellido.setText(usuario.getApellido());
-	                
-	                
-	                
+
 	                
 			        if(usuario instanceof DTEmpresa) {
 			        	DTEmpresa empresa = (DTEmpresa) usuario;
 
 			            getContentPane().add(lblNombreEmpresa);
-
-			            getContentPane().add(textFieldNombreEmpresa);
-			            
+			            getContentPane().add(textFieldNombreEmpresa); 
 			            textFieldNombreEmpresa.setText(empresa.getNombreEmpresa());
-			           
-			            
 			            getContentPane().add(lblDescripcion);
-			            
-			            
 			            getContentPane().add(textDescripcion);
-			          
-			   
 			            textDescripcion.setText(empresa.getDescripcion());
-			           
-			         
-			            
-			            
-			            
 			            getContentPane().add(lblLinkWeb);
-			            
-			            
 			            getContentPane().add(textFieldLinkWeb);
-			           
-			            textFieldLinkWeb.setText(empresa.getLinkWeb());
-          
-			       
-			            
+			            textFieldLinkWeb.setText(empresa.getLinkWeb());  
 			        }else {
 			        	DTPostulante postulante = (DTPostulante) usuario;
-
 			            getContentPane().add(lblFechaNacimiento);
-			            textFieldFechaNacimiento.setText(postulante.getFechaNacimiento().toString());
+			            
+			            Date fecha = postulante.getFechaNacimiento();
+			            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+			            String fechaFormateada = formato.format(fecha);
+			            textFieldFechaNacimiento.setText(fechaFormateada);
 			            getContentPane().add(textFieldFechaNacimiento);
-			              
-			            
 			            getContentPane().add(lblNacionalidad);
-			            
 			            textFieldNacionalidad.setText(postulante.getNacionalidad());
 			            getContentPane().add(textFieldNacionalidad);
-        
-			        	
 			        }
-			        
-			        
+ 
 					campoNombre.setText(usuario.getNombre());
 	                campoApellido.setText(usuario.getApellido());
 				} catch (NicknameNoExisteException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
             }
         });
 
-        // Manejar actualización de usuario
         botonActualizar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	
                 String nicknameSeleccionado = (String) listaUsuarios.getSelectedItem();
                 String textoNick = nicknameSeleccionado;
 		        int posicion = textoNick.indexOf("(");
-		        String resultado = nicknameSeleccionado;
-		        if (posicion != -1) { // Verifica si el carácter "(" se encuentra en el string
-		            resultado = textoNick.substring(0, posicion).trim(); // trim() elimina espacios en blanco al principio y al final
-		           
+		        String nickFiltrado = nicknameSeleccionado;
+		        if (posicion != -1) { 
+		        	nickFiltrado = textoNick.substring(0, posicion).trim();    
 		        } 
+		        DTUsuario usuario = null;
+                try {
+					usuario = controladorUser.consultarUsuario(nickFiltrado);
+				} catch (NicknameNoExisteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
                 String nuevoNombre = campoNombre.getText();
                 String nuevoApellido = campoApellido.getText();
                 
-                controladorUser.actualizarDatosUsuario(resultado,nuevoNombre,nuevoApellido);
-                
-               JOptionPane.showMessageDialog(null, "Usuario actualizado con éxito");
+                if(usuario instanceof DTEmpresa) {
+	                	String nombreEmpresa = textFieldNombreEmpresa.getText();
+	                	String descripcionEmpresa = textDescripcion.getText();
+	                	String linkWebEmpresa = textFieldLinkWeb.getText();
+	                	if(((nuevoNombre.isEmpty()) || ( nuevoApellido.isEmpty()) || ( nombreEmpresa.isEmpty()) ||( descripcionEmpresa.isEmpty()) || ( linkWebEmpresa.isEmpty()))) {
+	                		JOptionPane.showMessageDialog(null, "Datos ingresados Invalidos!");
+	                	}else {
+	                		controladorUser.actualizarDatosEmpresa(nickFiltrado,nuevoNombre,nuevoApellido,nombreEmpresa,descripcionEmpresa,linkWebEmpresa);
+	                		JOptionPane.showMessageDialog(null, "Usuario actualizado con éxito");	
+	                	}
+                	}else {
+	                	String fechaNacimiento = textFieldFechaNacimiento.getText();
+	                	
+	                	
+	                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+	                    formato.setLenient(false);  // Hacer que el formato sea estricto
+
+	                    try {
+	                        formato.parse(fechaNacimiento);
+	                        Date fecha = formato.parse(fechaNacimiento);
+	                        Calendar calendario = Calendar.getInstance();
+	                        calendario.setTime(fecha);
+	                        int anio = calendario.get(Calendar.YEAR);
+	                        if (anio >= 1500 && anio <= 4000) {
+	                            
+	                            String nacionalidad = textFieldNacionalidad.getText();
+			                	if(((nuevoNombre.isEmpty()) ||( nuevoApellido.isEmpty()) || ( fechaNacimiento.isEmpty()) ||( nacionalidad.isEmpty()))) {
+			                		JOptionPane.showMessageDialog(null, "Datos ingresados Invalidos!");
+			                	}else {
+			                		controladorUser.actualizarDatosPostulante(nickFiltrado,nuevoNombre,nuevoApellido,fechaNacimiento,nacionalidad);
+			                		JOptionPane.showMessageDialog(null, "Usuario actualizado con éxito");
+			                		
+			                	}	
+	                        } else {
+	                        	JOptionPane.showMessageDialog(null, "La fecha es válida pero el año está fuera del rango permitido.");
+	                           
+	                        }
+
+	                    } catch (ParseException e1) {
+	                    	JOptionPane.showMessageDialog(null, "Fecha Invalida!");
+	                    }
+	                	
+	                	
+	                	
+                	}
+               
             }
+            
         });
         getContentPane().setLayout(null);
         getContentPane().add(listaUsuarios);
@@ -228,29 +249,19 @@ public class modificarDatosUsuario extends JInternalFrame {
         getContentPane().add(label_1);
         getContentPane().add(campoApellido);
         getContentPane().add(botonActualizar);
-        
         JLabel lblNewLabel = new JLabel("Seleccione el Usuario a modificar:");
         lblNewLabel.setBounds(37, 20, 252, 13);
         getContentPane().add(lblNewLabel);
-        
         JSeparator separator = new JSeparator();
         separator.setBounds(37, 96, 600, 2);
         getContentPane().add(separator);
-        
         JButton buttonCancelar = new JButton("Cancelar");
         buttonCancelar.setBounds(158, 248, 97, 33);
         getContentPane().add(buttonCancelar);
-        
-
-        
-        
         JSeparator separator_1 = new JSeparator();
         separator_1.setBounds(37, 461, 614, 2);
         getContentPane().add(separator_1);
-        
-        
-        
-        
+
         buttonCancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

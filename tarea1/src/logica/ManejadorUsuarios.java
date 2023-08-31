@@ -1,8 +1,9 @@
 package logica;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
-
 import excepciones.*;
 import utils.DTUsuario;
 import utils.DTEmpresa;
@@ -142,12 +143,44 @@ public class ManejadorUsuarios {
 		postulante.asociarPostulacion(postulacion, postulacion.getNombreOfertaLaboral());
 	}
 	
-	public void actualizarDatosUsuario(String nickname, String nuevoNombre,String nuevoApellido) throws NicknameNoExisteException {
+	public void actualizarDatosEmpresa(String nickFiltrado,String nuevoNombre,String nuevoApellido,String nombreEmpresa,String descripcionEmpresa, String linkWebEmpresa) throws NicknameNoExisteException {
+		String nicknameLowerCase = nickFiltrado.toLowerCase();
+		if (coleccionUsuarios.containsKey(nicknameLowerCase) ) {
+			Usuario user = coleccionUsuarios.get(nicknameLowerCase);
+			Empresa empresa = (Empresa) user;
+			empresa.setNombre(nuevoNombre);
+			empresa.setApellido(nuevoApellido);
+			empresa.setNombreEmpresa(nombreEmpresa);
+			empresa.setDescripcion(descripcionEmpresa);
+			empresa.setLinkWeb(linkWebEmpresa);
+			
+		} else {
+			throw new NicknameNoExisteException("El usuario con el nickname " + nickFiltrado + " no existe.");
+		}
+	}
+	public void actualizarDatosPostulante(String nickname, String nuevoNombre,String nuevoApellido,String fechaNacimiento, String nacionalidad) throws NicknameNoExisteException {
 		String nicknameLowerCase = nickname.toLowerCase();
 		if (coleccionUsuarios.containsKey(nicknameLowerCase) ) {
 			Usuario user = coleccionUsuarios.get(nicknameLowerCase);
-			user.setNombre(nuevoNombre);
-			user.setApellido(nuevoApellido);
+			Postulante postulante = (Postulante) user;
+			postulante.setNombre(nuevoNombre);
+			postulante.setApellido(nuevoApellido);
+
+			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+			Date fecha = null;
+
+			try {
+			    fecha = formato.parse(fechaNacimiento);
+			} catch (ParseException e) {
+			    e.printStackTrace();
+			}
+
+			if (fecha != null) {
+				postulante.setFechaNacimiento(fecha);
+			}
+			
+			
+			postulante.setNacionalidad(nacionalidad);
 		} else {
 			throw new NicknameNoExisteException("El usuario con el nickname " + nickname + " no existe.");
 		}
