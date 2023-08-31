@@ -56,6 +56,7 @@ public class Principal {
 	private consultaOfertaLaboral consultaOfertaLaboralInternalFrame;
 	private altaTipoPublicacionOL altaTipoPublicacionOLInternalFrame;
 	private postulacionOfertaLaboral postulacionOfertaLaboralInternalFrame;
+	private modificarDatosUsuario modificarDatosUsuarioInternalFrame;
 	private JInternalFrame currentInternalFrame = null;
 	
 	
@@ -132,6 +133,8 @@ public class Principal {
 		frame.getContentPane().add(consultaOfertaLaboralInternalFrame);
 		frame.getContentPane().add(altaTipoPublicacionOLInternalFrame);
 		frame.getContentPane().add(postulacionOfertaLaboralInternalFrame);
+		
+		
 		
 	}
 
@@ -221,6 +224,27 @@ public class Principal {
 				 currentInternalFrame = altaOfertaLaboralInternalFrame;
 	            }
 		});	
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Modificar Datos de Usuario");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        if (currentInternalFrame != null) {
+		            currentInternalFrame.setVisible(false);
+		        }
+		        try {
+					modificarDatosUsuarioInternalFrame = new modificarDatosUsuario(ICU);
+				} catch (PropertyVetoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			    modificarDatosUsuarioInternalFrame.setResizable(false);
+			    modificarDatosUsuarioInternalFrame.setBorder(null);
+			    frame.getContentPane().add(modificarDatosUsuarioInternalFrame);
+		        modificarDatosUsuarioInternalFrame.setVisible(true);
+		        currentInternalFrame = modificarDatosUsuarioInternalFrame;
+		    }
+		});
+		menuCasosDeUso.add(mntmNewMenuItem_1);
 		menuCasosDeUso.add(mItemOfertaLaboral);
 		
 		JMenuItem mItemConsultaOfertaLaboral = new JMenuItem("Consulta de Oferta Laboral");
@@ -516,6 +540,4 @@ public class Principal {
 		    }
 		   
 		}
-
-
 }

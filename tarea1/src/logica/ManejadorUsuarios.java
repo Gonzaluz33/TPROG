@@ -142,7 +142,16 @@ public class ManejadorUsuarios {
 		postulante.asociarPostulacion(postulacion, postulacion.getNombreOfertaLaboral());
 	}
 	
-	
+	public void actualizarDatosUsuario(String nickname, String nuevoNombre,String nuevoApellido) throws NicknameNoExisteException {
+		String nicknameLowerCase = nickname.toLowerCase();
+		if (coleccionUsuarios.containsKey(nicknameLowerCase) ) {
+			Usuario user = coleccionUsuarios.get(nicknameLowerCase);
+			user.setNombre(nuevoNombre);
+			user.setApellido(nuevoApellido);
+		} else {
+			throw new NicknameNoExisteException("El usuario con el nickname " + nickname + " no existe.");
+		}
+	}
 	
 	/**
 	 * Sustituye la coleccion de usuarios por una vacia.
