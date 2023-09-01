@@ -54,11 +54,11 @@ public class Postulante extends Usuario{
 	}
 	
 	// setters
-	private void setFechaNacimiento(Date fechaNacimiento) {
+	void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	
-	private void setNacionalidad(String nacionalidad) {
+	void setNacionalidad(String nacionalidad) {
 		this.nacionalidad = nacionalidad;
 	}
 	

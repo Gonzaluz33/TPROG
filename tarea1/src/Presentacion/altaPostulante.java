@@ -4,14 +4,21 @@ import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.JComboBox;
 
 import excepciones.CorreoRepetidoException;
 import excepciones.UsuarioRepetidoException;
@@ -22,11 +29,11 @@ public class altaPostulante extends JInternalFrame {
 	// Controlador de usuarios que se utilizará para las acciones del JFrame
     private IControladorUsuario controlUsr;
     //Componentes Graficos
+    private JComboBox<String> nacionalidadDropdown;
 	private JTextField nicknameField;
 	private JTextField nombreField;
 	private JTextField apellidoField;
 	private JTextField correoField;
-	private JTextField nacionalidadField;
 	private JSpinner dia;
 	private JSpinner mes;
 	private JSpinner ano;
@@ -103,10 +110,17 @@ public class altaPostulante extends JInternalFrame {
 		ano.setBounds(262, 137, 59, 20);
 		getContentPane().add(ano);
 		
-		nacionalidadField = new JTextField();
-		nacionalidadField.setBounds(145, 162, 176, 20);
-		getContentPane().add(nacionalidadField);
-		nacionalidadField.setColumns(10);
+		String currentDirectory = System.getProperty("user.dir");
+		
+        String csvNacionalidades = currentDirectory + File.separator + "Datos" + File.separator + "Nacionalidades.csv";
+		
+		String[] nacionalidades = cargarNacionalidadesDesdeCSV(csvNacionalidades);
+		
+		nacionalidadDropdown = new JComboBox<>(nacionalidades);
+		nacionalidadDropdown.setBounds(145, 162, 176, 20);
+		getContentPane().add(nacionalidadDropdown);
+		
+		
 		
 		Button buttonAceptar = new Button("Aceptar");
 		buttonAceptar.setBounds(27, 214, 70, 22);
@@ -129,6 +143,19 @@ public class altaPostulante extends JInternalFrame {
 		});
 
 	}
+	
+	private String[] cargarNacionalidadesDesdeCSV(String rutaArchivo) {
+	    List<String> nacionalidades = new ArrayList<>();
+	    try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
+	        String linea;
+	        while ((linea = br.readLine()) != null) {
+	            nacionalidades.add(linea);
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    return nacionalidades.toArray(new String[0]);
+	}
 
 
 	public void registrarPostulante(ActionEvent e) {
@@ -142,7 +169,7 @@ public class altaPostulante extends JInternalFrame {
 		String stringifiedDay = this.dia.getValue() + "";
 		Integer day = Integer.parseInt(stringifiedDay);
 		Date date = new GregorianCalendar(year, month-1, day).getTime();
-		String nacion = this.nacionalidadField.getText();
+		String nacion = (String) nacionalidadDropdown.getSelectedItem();
 		
 		if(checkFormulario()) {
 			  try {
@@ -187,7 +214,7 @@ public class altaPostulante extends JInternalFrame {
 	    String nombre = this.nombreField.getText();
 	    String apellido = this.apellidoField.getText();
 	    String email = this.correoField.getText();
-	    String nacion = this.nacionalidadField.getText();
+	    String nacion = this.nacionalidadDropdown.getSelectedItem().toString();
 
 	    // Verificar si están vacíos
 	    if (nick.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || nacion.isEmpty()) {
@@ -214,7 +241,6 @@ public class altaPostulante extends JInternalFrame {
 		ano.setValue(Integer.valueOf(0));
 		mes.setValue(Integer.valueOf(0));
 		dia.setValue(Integer.valueOf(0));;
-		nacionalidadField.setText("");
 	}
 	
 }
