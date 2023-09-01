@@ -6,9 +6,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
 import java.beans.PropertyVetoException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.OptionalInt;
+import java.util.stream.IntStream;
+
 import logica.IControladorUsuario;
 import utils.DTEmpresa;
 import utils.DTPostulante;
@@ -18,15 +26,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class modificarDatosUsuario extends JInternalFrame {
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private IControladorUsuario controladorUser;
 	private JTextField textFieldNombreEmpresa;
 	private JTextField textFieldLinkWeb;
 	private JTextField textFieldFechaNacimiento;
-	private JTextField textFieldNacionalidad;
+	private JComboBox<String> nacionalidadDropdown;
 	
     public modificarDatosUsuario(IControladorUsuario iCU) throws PropertyVetoException {
         controladorUser = iCU;
@@ -90,10 +96,15 @@ public class modificarDatosUsuario extends JInternalFrame {
      	JLabel lblNacionalidad = new JLabel("Nacionalidad:");
         lblNacionalidad.setBounds(319, 170, 190, 13);
         
-        textFieldNacionalidad = new JTextField();
-        textFieldNacionalidad.setBounds(319, 193, 210, 19);
-        textFieldNacionalidad.setColumns(10);
-         
+        String currentDirectory = System.getProperty("user.dir");
+		
+        String csvNacionalidades = currentDirectory + File.separator + "Datos" + File.separator + "Nacionalidades.csv";
+		
+		String[] nacionalidades = cargarNacionalidadesDesdeCSV(csvNacionalidades);
+		
+		nacionalidadDropdown = new JComboBox<>(nacionalidades);
+		nacionalidadDropdown.setBounds(319, 194, 176, 20);    
+    
         // Poblar JComboBox con usuarios
         List<DTUsuario> usuarios = controladorUser.listarUsuarios();
         for (DTUsuario user : usuarios) {
@@ -115,7 +126,7 @@ public class modificarDatosUsuario extends JInternalFrame {
              	getContentPane().remove(lblFechaNacimiento);
              	getContentPane().remove(textFieldFechaNacimiento);
              	getContentPane().remove(lblNacionalidad);
-             	getContentPane().remove(textFieldNacionalidad);
+             	getContentPane().remove(nacionalidadDropdown);
              	getContentPane().revalidate();
              	getContentPane().repaint(); 
          
@@ -149,17 +160,21 @@ public class modificarDatosUsuario extends JInternalFrame {
 			            textFieldLinkWeb.setText(empresa.getLinkWeb());  
 			        }else {
 			        	DTPostulante postulante = (DTPostulante) usuario;
-			            getContentPane().add(lblFechaNacimiento);
-			            
+			            getContentPane().add(lblFechaNacimiento);			            
 			            Date fecha = postulante.getFechaNacimiento();
 			            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 			            String fechaFormateada = formato.format(fecha);
 			            textFieldFechaNacimiento.setText(fechaFormateada);
 			            getContentPane().add(textFieldFechaNacimiento);
 			            getContentPane().add(lblNacionalidad);
-			            textFieldNacionalidad.setText(postulante.getNacionalidad());
-			            getContentPane().add(textFieldNacionalidad);
+			            getContentPane().add(nacionalidadDropdown);
+			            for (int i = 0; i < nacionalidades.length; i++) {
+			                if (nacionalidades[i].equals(postulante.getNacionalidad())) {
+				                nacionalidadDropdown.setSelectedIndex(i);
+			                    break;
+			                }
 			        }
+			       }
  
 					campoNombre.setText(usuario.getNombre());
 	                campoApellido.setText(usuario.getApellido());
@@ -214,7 +229,7 @@ public class modificarDatosUsuario extends JInternalFrame {
 	                        int anio = calendario.get(Calendar.YEAR);
 	                        if (anio >= 1500 && anio <= 4000) {
 	                            
-	                            String nacionalidad = textFieldNacionalidad.getText();
+	                            String nacionalidad = (String) nacionalidadDropdown.getSelectedItem();
 			                	if(((nuevoNombre.isEmpty()) ||( nuevoApellido.isEmpty()) || ( fechaNacimiento.isEmpty()) ||( nacionalidad.isEmpty()))) {
 			                		JOptionPane.showMessageDialog(null, "Datos ingresados Invalidos!");
 			                	}else {
@@ -270,4 +285,16 @@ public class modificarDatosUsuario extends JInternalFrame {
         });
      
     }
+    private String[] cargarNacionalidadesDesdeCSV(String rutaArchivo) {
+	    List<String> nacionalidades = new ArrayList<>();
+	    try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
+	        String linea;
+	        while ((linea = br.readLine()) != null) {
+	            nacionalidades.add(linea);
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    return nacionalidades.toArray(new String[0]);
+	}
 }

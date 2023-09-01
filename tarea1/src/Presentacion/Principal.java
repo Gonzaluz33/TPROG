@@ -217,26 +217,8 @@ public class Principal {
 		menuUsuarios.add(mItemConsultaUsuario);
 		
 		JMenuItem mItemModificarDatosUsuario = new JMenuItem("Modificar datos de Usuario");
-		menuUsuarios.add(mItemModificarDatosUsuario);
 		
-		
-		JMenuItem mItemOfertaLaboral = new JMenuItem("Alta de Oferta Laboral");
-		mItemOfertaLaboral.addActionListener(new ActionListener() {
-			 public void actionPerformed(ActionEvent e) {
-				 altaOfertaLaboralInternalFrame.cargarUsuarios();
-				 altaOfertaLaboralInternalFrame.cargarTipos();
-				 altaOfertaLaboralInternalFrame.cargarKeywords();
-				 if (currentInternalFrame != null) {
-			            currentInternalFrame.setVisible(false);
-			        }
-				 altaOfertaLaboralInternalFrame.setVisible(true);
-				 currentInternalFrame = altaOfertaLaboralInternalFrame;
-				 currentInternalFrame = altaOfertaLaboralInternalFrame;
-	            }
-		});	
-		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Modificar Datos de Usuario");
-		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+		mItemModificarDatosUsuario.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        if (currentInternalFrame != null) {
 		            currentInternalFrame.setVisible(false);
@@ -254,8 +236,24 @@ public class Principal {
 		        currentInternalFrame = modificarDatosUsuarioInternalFrame;
 		    }
 		});
-		menuCasosDeUso.add(mntmNewMenuItem_1);
-		menuCasosDeUso.add(mItemOfertaLaboral);
+		menuUsuarios.add(mItemModificarDatosUsuario);
+
+		JMenuItem mItemOfertaLaboral = new JMenuItem("Alta de Oferta Laboral");
+		mItemOfertaLaboral.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 altaOfertaLaboralInternalFrame.cargarUsuarios();
+				 altaOfertaLaboralInternalFrame.cargarTipos();
+				 altaOfertaLaboralInternalFrame.cargarKeywords();
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+			        }
+				 altaOfertaLaboralInternalFrame.setVisible(true);
+				 currentInternalFrame = altaOfertaLaboralInternalFrame;
+				 currentInternalFrame = altaOfertaLaboralInternalFrame;
+	            }
+		});	
+		
+		
 		
 		JMenuItem mItemConsultaOfertaLaboral = new JMenuItem("Consulta de Oferta Laboral");
 		mItemConsultaOfertaLaboral.addActionListener(new ActionListener() {
