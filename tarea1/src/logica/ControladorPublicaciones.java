@@ -5,6 +5,7 @@ import java.util.List;
 
 import utils.DTTipoPublicacion;
 import excepciones.TipoPublicExisteException;
+import excepciones.PaqueteExisteException;
 
 public class ControladorPublicaciones implements IControladorPublicaciones {
 
@@ -39,5 +40,12 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		TipoPublicacion tipoP = new TipoPublicacion( nombre, descripcion, duracion, costoPublic, fechaAlta, exposicion);
 		manejadorP.altaTipoPublicacionOL(tipoP);
 	}
+	
+	public void altaPaqueteTipoPublicacion(String nombre, String descripcion, int validez, int descuento ) throws PaqueteExisteException {
+		ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
+		LocalDate fechaAlta = LocalDate.now();
+		Paquete paquete = new Paquete(nombre, descripcion, validez, descuento, 0, fechaAlta);
+		manejadorP.addPaqueteTipoPublicacion(paquete);
+	};
 	
 }

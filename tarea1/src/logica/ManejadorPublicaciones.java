@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import excepciones.PaqueteExisteException;
 import excepciones.TipoPublicExisteException;
 import utils.DTTipoPublicacion;
 
@@ -55,8 +56,21 @@ public class ManejadorPublicaciones {
 		if(coleccionTipos.get(p.getNombre()) != null) {
 			throw new TipoPublicExisteException("El Tipo Publicacion de Oferta Laboral con nombre" + p.getNombre() + " ya existe");
 		}
-		coleccionTipos.put(p.getNombre(), p);
+		else {
+			coleccionTipos.put(p.getNombre(), p);			
+		}
 	}
+	
+	public void addPaqueteTipoPublicacion(Paquete p) throws PaqueteExisteException {
+		if(coleccionPaquetes.get(p.getNombre()) != null) {
+			throw new PaqueteExisteException("Ya existe un paquete con el nombre ingresado.");
+		}
+		else {
+			coleccionPaquetes.put(p.getNombre(), p);	
+		}
+	};
+	
+	
 	
 	/**
 	 * Sustituye la coleccion de publicaciones por una vacia.
