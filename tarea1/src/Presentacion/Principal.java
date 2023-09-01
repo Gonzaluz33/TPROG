@@ -151,46 +151,50 @@ public class Principal {
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 		
-		JMenu menuCasosDeUso = new JMenu("Casos de Uso");
-		menuBar.add(menuCasosDeUso);
+		JMenu menuPrincipal = new JMenu("Menú Principal");
+		menuBar.add(menuPrincipal);
 		
-		JMenu menuAltaUsuario = new JMenu("Alta de Usuario");
-		menuCasosDeUso.add(menuAltaUsuario);
-			JMenuItem mItemAltaPostulante = new JMenuItem("Alta de Postulante");
-			mItemAltaPostulante.addActionListener(new ActionListener() {
-				 public void actionPerformed(ActionEvent e) {
-					 if (currentInternalFrame != null) {
-				            currentInternalFrame.setVisible(false);
-				        }
+		JMenu menuUsuarios = new JMenu("Usuarios");
+		menuBar.add(menuUsuarios);
+		
+		JMenu menuOfertasLaborales = new JMenu("Ofertas Laborales");
+		menuBar.add(menuOfertasLaborales);
+		
+		JMenuItem mItemAltaPostulante = new JMenuItem("Alta de Postulante");
+		mItemAltaPostulante.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+			        }
 
-					 if (currentInternalFrame != null) {
-				            currentInternalFrame.setVisible(false);
-				        }
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+			        }
 
-		                altaPostulanteInternalFrame.setVisible(true);
-		                currentInternalFrame = altaPostulanteInternalFrame;
-		                currentInternalFrame = altaPostulanteInternalFrame;
-		            }
-			});
+	                altaPostulanteInternalFrame.setVisible(true);
+	                currentInternalFrame = altaPostulanteInternalFrame;
+	                currentInternalFrame = altaPostulanteInternalFrame;
+	            }
+		});
 
+		
+		JMenuItem mItemAltaEmpresa = new JMenuItem("Alta de Empresa");
+		mItemAltaEmpresa.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+			        }
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+			        }
+	                altaEmpresaInternalFrame.setVisible(true);
+	                currentInternalFrame = altaEmpresaInternalFrame;
+	                currentInternalFrame = altaEmpresaInternalFrame;
+	            }
+		});
 			
-			JMenuItem mItemAltaEmpresa = new JMenuItem("Alta de Empresa");
-			mItemAltaEmpresa.addActionListener(new ActionListener() {
-				 public void actionPerformed(ActionEvent e) {
-					 if (currentInternalFrame != null) {
-				            currentInternalFrame.setVisible(false);
-				        }
-					 if (currentInternalFrame != null) {
-				            currentInternalFrame.setVisible(false);
-				        }
-		                altaEmpresaInternalFrame.setVisible(true);
-		                currentInternalFrame = altaEmpresaInternalFrame;
-		                currentInternalFrame = altaEmpresaInternalFrame;
-		            }
-			});
-			
-		menuAltaUsuario.add(mItemAltaPostulante);
-		menuAltaUsuario.add(mItemAltaEmpresa);
+		menuUsuarios.add(mItemAltaPostulante);
+		menuUsuarios.add(mItemAltaEmpresa);
 		
 		
 		JMenuItem mItemConsultaUsuario = new JMenuItem("Consulta de Usuario");
@@ -207,7 +211,11 @@ public class Principal {
 	                currentInternalFrame = consultaUsuarioInternalFrame;
 	            }
 		});
-		menuCasosDeUso.add(mItemConsultaUsuario);
+		menuUsuarios.add(mItemConsultaUsuario);
+		
+		JMenuItem mItemModificarDatosUsuario = new JMenuItem("Modificar datos de Usuario");
+		menuUsuarios.add(mItemModificarDatosUsuario);
+		
 		
 		JMenuItem mItemOfertaLaboral = new JMenuItem("Alta de Oferta Laboral");
 		mItemOfertaLaboral.addActionListener(new ActionListener() {
@@ -223,7 +231,7 @@ public class Principal {
 				 currentInternalFrame = altaOfertaLaboralInternalFrame;
 	            }
 		});	
-		menuCasosDeUso.add(mItemOfertaLaboral);
+		menuOfertasLaborales.add(mItemOfertaLaboral);
 		
 		JMenuItem mItemConsultaOfertaLaboral = new JMenuItem("Consulta de Oferta Laboral");
 		mItemConsultaOfertaLaboral.addActionListener(new ActionListener() {
@@ -239,7 +247,21 @@ public class Principal {
 				 currentInternalFrame = consultaOfertaLaboralInternalFrame;
 	            }
 		});	
-		menuCasosDeUso.add(mItemConsultaOfertaLaboral);
+		menuOfertasLaborales.add(mItemConsultaOfertaLaboral);
+		
+		JMenuItem mItemPostulacionOfertaLaboral = new JMenuItem("Postulación a Oferta Laboral");
+		mItemPostulacionOfertaLaboral.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+				 }
+				 postulacionOfertaLaboralInternalFrame.comboMostrarEmpresas();
+				 postulacionOfertaLaboralInternalFrame.setVisible(true);
+				 currentInternalFrame = postulacionOfertaLaboralInternalFrame;
+				 currentInternalFrame = postulacionOfertaLaboralInternalFrame;
+	            }
+		});	
+		menuOfertasLaborales.add(mItemPostulacionOfertaLaboral);
 		
 		JMenuItem mItemAltaTipoPublicacion = new JMenuItem("Alta de Tipo de Publicación de Oferta Laboral");
 		mItemAltaTipoPublicacion.addActionListener(new ActionListener() {
@@ -255,23 +277,16 @@ public class Principal {
 				 currentInternalFrame = altaTipoPublicacionOLInternalFrame;
 	            }
 		});	
-		menuCasosDeUso.add(mItemAltaTipoPublicacion);
+		menuOfertasLaborales.add(mItemAltaTipoPublicacion);
 		
-		JMenuItem mItemPostulacionOfertaLaboral = new JMenuItem("Postulación a Oferta Laboral");
-		mItemPostulacionOfertaLaboral.addActionListener(new ActionListener() {
-			 public void actionPerformed(ActionEvent e) {
-				 if (currentInternalFrame != null) {
-			            currentInternalFrame.setVisible(false);
-				 }
-				 postulacionOfertaLaboralInternalFrame.comboMostrarEmpresas();
-				 postulacionOfertaLaboralInternalFrame.setVisible(true);
-				 currentInternalFrame = postulacionOfertaLaboralInternalFrame;
-				 currentInternalFrame = postulacionOfertaLaboralInternalFrame;
-	            }
-		});	
-		menuCasosDeUso.add(mItemPostulacionOfertaLaboral);
-
-
+		JMenuItem mItemCrearPaquetes = new JMenuItem("Crear Paquete de Tipos de Publicación");
+		menuOfertasLaborales.add(mItemCrearPaquetes);
+		
+		JMenuItem mItemAgregarTipoAPaquete = new JMenuItem("Agregar Tipo de Publicación a Paquete");
+		menuOfertasLaborales.add(mItemAgregarTipoAPaquete);
+		
+		JMenuItem mItemConsultaPaquete = new JMenuItem("Consulta de Paquete de Tipos de Publicación");
+		menuOfertasLaborales.add(mItemConsultaPaquete);
 
 		JMenuItem mntmNewMenuItem = new JMenuItem("Cargar Datos");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
@@ -324,7 +339,17 @@ public class Principal {
 				}
 		    }
 		});
-		menuCasosDeUso.add(mntmNewMenuItem);
+		menuPrincipal.add(mntmNewMenuItem);
+		
+		JMenuItem mItemSalir= new JMenuItem("Salir");
+		mItemSalir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+		menuPrincipal.add(mItemSalir);
+		
 	}
 
 		private void cargarDatosPostulantes(String csvFile) throws UsuarioRepetidoException, CorreoRepetidoException {	
@@ -521,6 +546,4 @@ public class Principal {
 		    }
 		   
 		}
-
-
 }
