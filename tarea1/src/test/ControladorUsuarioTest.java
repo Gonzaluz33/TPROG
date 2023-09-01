@@ -65,7 +65,7 @@ class ControladorUsuarioTest {
 			assertEquals(((DTEmpresa) usuarioConsultado).getNombreEmpresa(), nombreEmpresaTest);
 			assertEquals(((DTEmpresa) usuarioConsultado).getDescripcion(), descripcionTest);
 			assertEquals(((DTEmpresa) usuarioConsultado).getLinkWeb(), linkWebTest);
-		} catch (NicknameNoExisteException | UsuarioRepetidoException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -89,7 +89,7 @@ class ControladorUsuarioTest {
 		String linkWebTest = "linkWebEmpresaUno";
 		try {
 			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, nombreEmpresaTest, descripcionTest, linkWebTest);
-		} catch (UsuarioRepetidoException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -116,7 +116,7 @@ class ControladorUsuarioTest {
 		String linkWebTest = "linkWebEmpresaUno";
 		try {
 			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, nombreEmpresaTest, descripcionTest, linkWebTest);
-		} catch (UsuarioRepetidoException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -144,7 +144,7 @@ class ControladorUsuarioTest {
 		String nacionalidadTest = "nacionalidadPostulanteUno";
 		try {
 			controladorUsuario.altaPostulante(nicknameTest, nombreTest, apellidoTest, emailTest, fechaNacimientoTest, nacionalidadTest);
-		} catch (UsuarioRepetidoException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -177,7 +177,7 @@ class ControladorUsuarioTest {
 		String nacionalidadTest = "nacionalidadPostulanteUno";
 		try {
 			controladorUsuario.altaPostulante(nicknameTest, nombreTest, apellidoTest, emailTest, fechaNacimientoTest, nacionalidadTest);
-		} catch (UsuarioRepetidoException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -202,7 +202,7 @@ class ControladorUsuarioTest {
 		String nacionalidadTest = "nacionalidadPostulanteUno";
 		try {
 			controladorUsuario.altaPostulante(nicknameTest, nombreTest, apellidoTest, emailTest, fechaNacimientoTest, nacionalidadTest);
-		} catch (UsuarioRepetidoException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -231,7 +231,7 @@ class ControladorUsuarioTest {
 		String linkWebTest = "linkWebEmpresaUno";
 		try {
 			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, nombreEmpresaTest, descripcionTest, linkWebTest);
-		} catch (UsuarioRepetidoException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -261,7 +261,7 @@ class ControladorUsuarioTest {
 		String nacionalidadTest = "nacionalidadPostulanteUno";
 		try {
 			controladorUsuario.altaPostulante(nicknameTest, nombreTest, apellidoTest, emailTest, fechaNacimientoTest, nacionalidadTest);
-		} catch (UsuarioRepetidoException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}

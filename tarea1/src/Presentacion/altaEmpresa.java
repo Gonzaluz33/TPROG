@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 
 import java.beans.PropertyVetoException;
 
+import excepciones.CorreoRepetidoException;
 import excepciones.UsuarioRepetidoException;
 import logica.IControladorUsuario;
 
@@ -158,7 +159,7 @@ public class altaEmpresa extends JInternalFrame {
                 limpiarFormulario();
                 setVisible(false);
 			}
-			catch(UsuarioRepetidoException err){
+			catch(UsuarioRepetidoException | CorreoRepetidoException err){
 				// Muestro error de registro
                 JOptionPane.showMessageDialog(this, err.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
 			}

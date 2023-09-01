@@ -20,6 +20,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
+import excepciones.CorreoRepetidoException;
 import excepciones.UsuarioRepetidoException;
 import logica.IControladorUsuario;
 
@@ -183,7 +184,7 @@ public class altaPostulante extends JInternalFrame {
 		            setVisible(false);
 		            
 
-	            } catch (UsuarioRepetidoException err) {
+	            } catch (UsuarioRepetidoException | CorreoRepetidoException err) {
 	                // Muestro error de registro
 	                JOptionPane.showMessageDialog(this, err.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
 	            }

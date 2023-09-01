@@ -12,8 +12,10 @@ import utils.DTPostulante;
 
 public class ManejadorUsuarios {
 
-	private Map<String, Usuario> coleccionUsuarios = new HashMap<String,Usuario>();
 	private static ManejadorUsuarios instancia;
+	
+	private Map<String, Usuario> coleccionUsuarios = new HashMap<String,Usuario>();
+	private Map<String, String> coleccionCorreosUsuarios = new HashMap<String, String>();
 	
 	public static ManejadorUsuarios getInstance() {
         if (instancia == null) {
@@ -24,27 +26,28 @@ public class ManejadorUsuarios {
 	
 	/**
 	 * Crea la empresa y la agrega a coleccionUsuarios.
-	 * @throws UsuarioRepetidoException 
 	 */
-	void altaEmpresa(Empresa e) throws UsuarioRepetidoException {
+	void altaEmpresa(Empresa e) throws UsuarioRepetidoException, CorreoRepetidoException {
 		if (coleccionUsuarios.containsKey(e.getNickname().toLowerCase())){
 			throw new UsuarioRepetidoException("Ya existe un usuario con el nickname ingresado.");
 		}
-		else {
-			coleccionUsuarios.put(e.getNickname().toLowerCase(), e);
-		}
+		if (coleccionCorreosUsuarios.containsKey(e.getCorreo()))
+			throw new CorreoRepetidoException("Ya existe un usuario con el correo " + e.getCorreo() + ".");
+		coleccionUsuarios.put(e.getNickname().toLowerCase(), e);
+		coleccionCorreosUsuarios.put(e.getCorreo(), e.getNickname());
 	}
 	
 	/**
 	 * Crea el postulante y lo agrega a coleccionUsuarios.
 	 */
-	void altaPostulante(Postulante p) throws UsuarioRepetidoException {
+	void altaPostulante(Postulante p) throws UsuarioRepetidoException, CorreoRepetidoException {
 		if (coleccionUsuarios.containsKey(p.getNickname().toLowerCase())){
 			throw new UsuarioRepetidoException("Ya existe un usuario con el nickname ingresado.");
 		}
-		else {
-			coleccionUsuarios.put(p.getNickname().toLowerCase(), p);
-		}
+		if (coleccionCorreosUsuarios.containsKey(p.getCorreo()))
+			throw new CorreoRepetidoException("Ya existe un usuario con el correo " + p.getCorreo() + ".");
+		coleccionUsuarios.put(p.getNickname().toLowerCase(), p);
+		coleccionCorreosUsuarios.put(p.getCorreo(), p.getNickname());
 	}
 
 	/**
@@ -53,21 +56,15 @@ public class ManejadorUsuarios {
 	 * Si el nickname es NULL tira una unchecked exception.
 	 */
 	public DTUsuario obtenerUsuario(String nicknameUsuario) throws NicknameNoExisteException {
-		String nicknameLowerCase = nicknameUsuario.toLowerCase();
-		if (coleccionUsuarios.containsKey(nicknameLowerCase) ) {
-			return coleccionUsuarios.get(nicknameLowerCase).toDataType();
-		} else {
+		if (!coleccionUsuarios.containsKey(nicknameUsuario.toLowerCase()))
 			throw new NicknameNoExisteException("El usuario con el nickname " + nicknameUsuario + " no existe.");
-		}
+		return coleccionUsuarios.get(nicknameUsuario.toLowerCase()).toDataType();
 	}
 	
 	public Usuario getUsuario(String nickname) throws NicknameNoExisteException {
-		String nicknameLowerCase = nickname.toLowerCase();
-		if (coleccionUsuarios.containsKey(nicknameLowerCase) ) {
-			return coleccionUsuarios.get(nicknameLowerCase);
-		} else {
+		if (!coleccionUsuarios.containsKey(nickname.toLowerCase()))
 			throw new NicknameNoExisteException("El usuario con el nickname " + nickname + " no existe.");
-		}
+		return coleccionUsuarios.get(nickname.toLowerCase());
 	}
 	
 	/**

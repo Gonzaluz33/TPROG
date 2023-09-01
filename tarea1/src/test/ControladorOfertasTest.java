@@ -150,7 +150,7 @@ public class ControladorOfertasTest {
 		String linkWebEmpresa1 = "linkWebEmpresaUno";
 		try {
 			controladorUsuarios.altaEmpresa(nicknameEmpresa1, nombreEmpresa1, apellidoEmpresa1, emailEmpresa1, nombreEmpresaEmpresa1, descripcionEmpresa1, linkWebEmpresa1);
-		} catch (UsuarioRepetidoException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -165,7 +165,7 @@ public class ControladorOfertasTest {
 		String nacionalidadPostulante1 = "nacionalidadPostulanteUno";
 		try {
 			controladorUsuarios.altaPostulante(nicknamePostulante1, nombrePostulante1, apellidoPostulante1, emailPostulante1, fechaNacimientoPostulante1, nacionalidadPostulante1);
-		} catch (UsuarioRepetidoException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -181,7 +181,7 @@ public class ControladorOfertasTest {
 		LocalDate fechaTipoPublicacion1 = LocalDate.now();
 		try {
 			controladorPublicaciones.altaTipoPublicacionOL(nombreTipoPublicacion1, descripcionTipoPublicacion1, exposicionTipoPublicacion1, duracionTipoPublicacion1, costoTipoPublicacion1, fechaTipoPublicacion1);
-		} catch (TipoPublicExisteException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -199,7 +199,7 @@ public class ControladorOfertasTest {
 		String nicknameEmpresaOferta1 = nicknameEmpresa1;
 		try {
 			controladorOfertas.altaOferta(nombreOferta1, descripcionOferta1, remuneracionOferta1, horarioOferta1, keywordsOferta1, ciudadOferta1, departamentoOferta1, tipoPostulacionOferta1, nicknameEmpresaOferta1);
-		} catch (NombreExisteException | KeywordExisteException | NicknameNoExisteException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -213,7 +213,7 @@ public class ControladorOfertasTest {
 		LocalDateTime fechaPostulacion1 = LocalDateTime.now();
 		try {
 			controladorOfertas.postularAOferta(nombreOfertaPostulacion1, nicknamePostulantePostulacion1, cvReducidoPostulacion1, motivacionPostulacion1, fechaPostulacion1);
-		} catch (NicknameNoExisteException | UsuarioNoEsPostulanteException | OfertaNoExisteException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -222,7 +222,7 @@ public class ControladorOfertasTest {
 		List<DTPostulacion> postulacionesDePostulante = null;
 		try {
 			postulacionesDePostulante = ((DTPostulante) controladorUsuarios.consultarUsuario(nicknamePostulante1)).getPostulaciones();
-		} catch (NicknameNoExisteException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -237,7 +237,7 @@ public class ControladorOfertasTest {
 		List<DTPostulacion> postulacionesAOferta = null;
 		try {
 			postulacionesAOferta = controladorOfertas.obtenerDatosOferta(nombreOferta1).getPostulaciones();
-		} catch (OfertaNoExisteException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}

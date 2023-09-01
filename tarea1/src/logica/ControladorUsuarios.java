@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import excepciones.CorreoRepetidoException;
 import excepciones.NicknameNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
 import excepciones.UsuarioRepetidoException;
@@ -24,7 +25,7 @@ public class ControladorUsuarios implements IControladorUsuario{
     }
 
 	public void altaPostulante(String nickname, String nombre, String apellido, String email, Date fechaNacimiento,
-			String nacionalidad) throws UsuarioRepetidoException {
+			String nacionalidad) throws UsuarioRepetidoException, CorreoRepetidoException {
         ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
         Postulante p = new Postulante(nickname, nombre, apellido, email, fechaNacimiento, nacionalidad);
         manejadorU.altaPostulante(p);
@@ -32,7 +33,7 @@ public class ControladorUsuarios implements IControladorUsuario{
 	
 	@Override
 	public void altaEmpresa(String nickname, String nombre, String apellido, String email, String nomEmpresa ,String desc,
-			String linkWeb) throws UsuarioRepetidoException {
+			String linkWeb) throws UsuarioRepetidoException, CorreoRepetidoException {
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
 		Empresa e = new Empresa(nickname, nombre, apellido, email, nomEmpresa ,desc, linkWeb);
         manejadorU.altaEmpresa(e);
