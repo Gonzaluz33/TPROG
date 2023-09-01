@@ -59,6 +59,7 @@ public class Principal {
 	private altaTipoPublicacionOL altaTipoPublicacionOLInternalFrame;
 	private postulacionOfertaLaboral postulacionOfertaLaboralInternalFrame;
 	private modificarDatosUsuario modificarDatosUsuarioInternalFrame;
+	private crearPaqueteTipo crearPaqueteTipoInternalFrame;
 	private JInternalFrame currentInternalFrame = null;
 	
 	
@@ -127,6 +128,14 @@ public class Principal {
 		postulacionOfertaLaboralInternalFrame.setBorder(null);
 		postulacionOfertaLaboralInternalFrame.setVisible(false);
 		
+		crearPaqueteTipoInternalFrame = new crearPaqueteTipo(ICP);
+		crearPaqueteTipoInternalFrame.setResizable(false);
+		crearPaqueteTipoInternalFrame.setBorder(null);
+		crearPaqueteTipoInternalFrame.setVisible(false);
+		
+		
+		
+		
 		
 		frame.getContentPane().add(altaPostulanteInternalFrame);
 		frame.getContentPane().add(altaEmpresaInternalFrame);
@@ -135,6 +144,8 @@ public class Principal {
 		frame.getContentPane().add(consultaOfertaLaboralInternalFrame);
 		frame.getContentPane().add(altaTipoPublicacionOLInternalFrame);
 		frame.getContentPane().add(postulacionOfertaLaboralInternalFrame);
+		frame.getContentPane().add(crearPaqueteTipoInternalFrame);
+		
 		
 		
 		
@@ -170,12 +181,7 @@ public class Principal {
 			            currentInternalFrame.setVisible(false);
 			        }
 
-				 if (currentInternalFrame != null) {
-			            currentInternalFrame.setVisible(false);
-			        }
-
 	                altaPostulanteInternalFrame.setVisible(true);
-	                currentInternalFrame = altaPostulanteInternalFrame;
 	                currentInternalFrame = altaPostulanteInternalFrame;
 	            }
 		});
@@ -187,11 +193,7 @@ public class Principal {
 				 if (currentInternalFrame != null) {
 			            currentInternalFrame.setVisible(false);
 			        }
-				 if (currentInternalFrame != null) {
-			            currentInternalFrame.setVisible(false);
-			        }
 	                altaEmpresaInternalFrame.setVisible(true);
-	                currentInternalFrame = altaEmpresaInternalFrame;
 	                currentInternalFrame = altaEmpresaInternalFrame;
 	            }
 		});
@@ -203,9 +205,6 @@ public class Principal {
 		JMenuItem mItemConsultaUsuario = new JMenuItem("Consulta de Usuario");
 		mItemConsultaUsuario.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
-				 if (currentInternalFrame != null) {
-			            currentInternalFrame.setVisible(false);
-			        }
 				 if (currentInternalFrame != null) {
 			            currentInternalFrame.setVisible(false);
 			        }
@@ -249,7 +248,6 @@ public class Principal {
 			        }
 				 altaOfertaLaboralInternalFrame.setVisible(true);
 				 currentInternalFrame = altaOfertaLaboralInternalFrame;
-				 currentInternalFrame = altaOfertaLaboralInternalFrame;
 	            }
 		});	
 		
@@ -258,9 +256,6 @@ public class Principal {
 		JMenuItem mItemConsultaOfertaLaboral = new JMenuItem("Consulta de Oferta Laboral");
 		mItemConsultaOfertaLaboral.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
-				 if (currentInternalFrame != null) {
-			            currentInternalFrame.setVisible(false);
-				 }
 				 if (currentInternalFrame != null) {
 			            currentInternalFrame.setVisible(false);
 				 }
@@ -280,7 +275,6 @@ public class Principal {
 				 postulacionOfertaLaboralInternalFrame.comboMostrarEmpresas();
 				 postulacionOfertaLaboralInternalFrame.setVisible(true);
 				 currentInternalFrame = postulacionOfertaLaboralInternalFrame;
-				 currentInternalFrame = postulacionOfertaLaboralInternalFrame;
 	            }
 		});	
 		menuOfertasLaborales.add(mItemPostulacionOfertaLaboral);
@@ -291,11 +285,7 @@ public class Principal {
 				 if (currentInternalFrame != null) {
 			            currentInternalFrame.setVisible(false);
 				 }
-				 if (currentInternalFrame != null) {
-			            currentInternalFrame.setVisible(false);
-				 }
 				 altaTipoPublicacionOLInternalFrame.setVisible(true);
-				 currentInternalFrame = altaTipoPublicacionOLInternalFrame;
 				 currentInternalFrame = altaTipoPublicacionOLInternalFrame;
 	            }
 		});	
@@ -303,6 +293,17 @@ public class Principal {
 		
 		JMenuItem mItemCrearPaquetes = new JMenuItem("Crear Paquete de Tipos de Publicación");
 		menuOfertasLaborales.add(mItemCrearPaquetes);
+		mItemCrearPaquetes.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+				 }
+				 crearPaqueteTipoInternalFrame.setVisible(true);
+				 currentInternalFrame = altaTipoPublicacionOLInternalFrame;
+	            }
+		});	
+		
+		
 		
 		JMenuItem mItemAgregarTipoAPaquete = new JMenuItem("Agregar Tipo de Publicación a Paquete");
 		menuOfertasLaborales.add(mItemAgregarTipoAPaquete);

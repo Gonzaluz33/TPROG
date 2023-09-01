@@ -1,18 +1,22 @@
 package utils;
 
+import java.time.LocalDate;
+
 public class DTPaquete {
 	private String nombre;
 	private String descripcion;
 	private Integer validez;
 	private Integer descuento;
 	private Integer costoAsociado;
+	private LocalDate fechaAlta;
 	
-	public DTPaquete(String nombre, String descripcion, Integer validez, Integer descuento, Integer costoAsociado ) {
+	public DTPaquete(String nombre, String descripcion, Integer validez, Integer descuento, Integer costoAsociado, LocalDate fechaAlta) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.validez = validez;
 		this.descuento = descuento;
 		this.costoAsociado = costoAsociado;
+		this.fechaAlta = fechaAlta;
 	}
 	
     // Getters
@@ -35,6 +39,10 @@ public class DTPaquete {
     public Integer getCostoAsociado() {
         return costoAsociado;
     }
+    
+    public LocalDate getFechaAlta() {
+    	return fechaAlta;
+    }
 
     // Setters
     public void setNombre(String nombre) {
@@ -55,6 +63,9 @@ public class DTPaquete {
 
     public void setCostoAsociado(Integer costoAsociado) {
         this.costoAsociado = costoAsociado;
+    }
+    public void setFechaAlta(LocalDate d) {
+    	this.fechaAlta = d;
     }
 
 }

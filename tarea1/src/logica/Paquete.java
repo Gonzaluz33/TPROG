@@ -1,5 +1,6 @@
 package logica;
 
+import java.time.LocalDate;
 import utils.DTPaquete;
 
 
@@ -9,6 +10,7 @@ public class Paquete {
 	private String descripcion;
 	private Integer validez;
 	private Integer descuento;
+	private LocalDate fechaAlta;
 	private Integer costoAsociado;
 	
 	public Paquete() {
@@ -19,12 +21,13 @@ public class Paquete {
 		this.setCostoAsociado(0);
 	}
 	
-	public Paquete(String nombre, String descripcion, Integer validez, Integer descuento, Integer costoAsociado) {
+	public Paquete(String nombre, String descripcion, Integer validez, Integer descuento, Integer costoAsociado, LocalDate fechaAlta) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.validez = validez;
 		this.descuento = descuento;
 		this.costoAsociado = costoAsociado;
+		this.fechaAlta = fechaAlta;
 	}
 	
     // Getters
@@ -47,6 +50,9 @@ public class Paquete {
     public Integer getCostoAsociado() {
         return costoAsociado;
     }
+    public LocalDate getFechaAlta() {
+    	return fechaAlta;
+    }
 
     // Setters
     public void setNombre(String nombre) {
@@ -68,12 +74,16 @@ public class Paquete {
     public void setCostoAsociado(Integer costoAsociado) {
         this.costoAsociado = costoAsociado;
     }
+    
+    public void setFechaAlta(LocalDate d) {
+    	this.fechaAlta = d;
+    }
 
     /**
      * Retorna los datos del usuario como un DataType DTPaquete.
      */
     DTPaquete toDataType() {
-    	return new DTPaquete(getNombre(), getDescripcion(), getValidez(),getDescuento(), getCostoAsociado());
+    	return new DTPaquete(getNombre(), getDescripcion(), getValidez(),getDescuento(), getCostoAsociado(), getFechaAlta());
     }
 
 }
