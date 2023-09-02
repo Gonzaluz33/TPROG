@@ -23,10 +23,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class consultaPaquete extends JInternalFrame {
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private IControladorPublicaciones controlPub;
 	private JComboBox<DTPaquete> listaPaquetes;
@@ -57,7 +53,7 @@ public class consultaPaquete extends JInternalFrame {
 		listaPaquetes.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 				 DefaultTableModel tablePaquetesModel = (DefaultTableModel) tablePaquetes.getModel();
-				tablePaquetesModel.setRowCount(0); 
+				 tablePaquetesModel.setRowCount(0); 
 				 DTPaquete p = (DTPaquete) listaPaquetes.getSelectedItem();
 				 if(p!=null) {
 					 nombreField.setText(p.getNombre());
@@ -67,6 +63,11 @@ public class consultaPaquete extends JInternalFrame {
 					 fechaAltaField.setText(fechaFormateada);
 					 
 					 List<DTTupla_Cantidad_TipoPublicacion> datosTabla = p.getListaDeTuplas();
+					 for(DTTupla_Cantidad_TipoPublicacion d : datosTabla) {
+						 String nombre = d.getTipoPublicacion();
+						 String cantidad = d.getCantidad().toString();
+						 tablePaquetesModel.addRow(new Object[] {nombre, cantidad});
+					 }				 
 				 }
 			}
 		});
@@ -155,7 +156,6 @@ public class consultaPaquete extends JInternalFrame {
 		tablePaquetes = new JTable();
 		tablePaquetes.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null},
 			},
 			new String[] {
 				"Tipo de Publicaci\u00F3n ", "Cantidad de Publicaciones", "Detalle"

@@ -52,12 +52,11 @@ public class DTPaquete {
     }
     
     public List<DTTupla_Cantidad_TipoPublicacion> getListaDeTuplas(){
-    	/*hacer algo parecido 
-    	 * return postulaciones.values()
-				.stream()
-				.map(Postulacion::toDataType)
-				.collect(Collectors.toList());*/
-    	return null;
+
+    	return listaDeTuplas
+		.stream()
+		.map(Tupla_Cantidad_TipoPublicacion::toDataType)
+		.collect(Collectors.toList());
     	
     }
 

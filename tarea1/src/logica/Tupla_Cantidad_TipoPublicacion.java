@@ -26,8 +26,8 @@ public class Tupla_Cantidad_TipoPublicacion{
 		this.cantidad = this.cantidad + cant;
 	}
 	
-	DTTupla_Cantidad_TipoPublicacion toDataType() {
-    	return new DTTupla_Cantidad_TipoPublicacion();
+	public DTTupla_Cantidad_TipoPublicacion toDataType() {
+    	return new DTTupla_Cantidad_TipoPublicacion(getCantidad(),getTipoPublicacion().getNombre());
     }
 
 }
