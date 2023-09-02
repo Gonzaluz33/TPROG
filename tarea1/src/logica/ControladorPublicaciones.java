@@ -43,7 +43,7 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		manejadorP.altaTipoPublicacionOL(tipoP);
 	}
 	
-	public void altaPaqueteTipoPublicacion(String nombre, String descripcion, int validez, int descuento ,String fecha) throws PaqueteExisteException {
+	public void altaPaqueteTipoPublicacion(String nombre, String descripcion, int validez, int descuento) throws PaqueteExisteException {
 		ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fechaParseada = LocalDate.parse(fecha, formatter);
@@ -60,5 +60,4 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
 		return manejadorP.obtenerListaPaquetes();
 	}
-	
 }

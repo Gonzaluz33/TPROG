@@ -129,9 +129,8 @@ public class crearPaqueteTipo extends JInternalFrame {
                  int anio = calendario.get(Calendar.YEAR);
                  if (anio >= 1500 && anio <= 4000) {
                      
-                	 try {
-                		 
-        				 controlPub.altaPaqueteTipoPublicacion(nombreTipo, descripcionTipo, validez, duracion,fechaNacimiento);
+                	 try {                		 
+        				 controlPub.altaPaqueteTipoPublicacion(nombreTipo, descripcionTipo, validez, duracion);
         				 //Muestro mensake de exito
         				 JOptionPane.showMessageDialog(this, "El paquete se ha creado con éxito", "Crear Paquete de Tipo de Publicacion",
         	                        JOptionPane.INFORMATION_MESSAGE);
