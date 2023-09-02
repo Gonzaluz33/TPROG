@@ -1,6 +1,11 @@
 package utils;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import logica.Postulacion;
+import logica.Tupla_Cantidad_TipoPublicacion;
 
 public class DTPaquete {
 	private String nombre;
@@ -9,14 +14,16 @@ public class DTPaquete {
 	private Integer descuento;
 	private Integer costoAsociado;
 	private LocalDate fechaAlta;
+	private List<Tupla_Cantidad_TipoPublicacion> listaDeTuplas;
 	
-	public DTPaquete(String nombre, String descripcion, Integer validez, Integer descuento, Integer costoAsociado, LocalDate fechaAlta) {
+	public DTPaquete(String nombre, String descripcion, Integer validez, Integer descuento, Integer costoAsociado, LocalDate fechaAlta, List<Tupla_Cantidad_TipoPublicacion> lista) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.validez = validez;
 		this.descuento = descuento;
 		this.costoAsociado = costoAsociado;
 		this.fechaAlta = fechaAlta;
+		this.listaDeTuplas = lista;
 	}
 	
     // Getters
@@ -43,6 +50,16 @@ public class DTPaquete {
     public LocalDate getFechaAlta() {
     	return fechaAlta;
     }
+    
+    public List<DTTupla_Cantidad_TipoPublicacion> getListaDeTuplas(){
+    	/*hacer algo parecido 
+    	 * return postulaciones.values()
+				.stream()
+				.map(Postulacion::toDataType)
+				.collect(Collectors.toList());*/
+    	return null;
+    	
+    }
 
     // Setters
     public void setNombre(String nombre) {
@@ -66,6 +83,10 @@ public class DTPaquete {
     }
     public void setFechaAlta(LocalDate d) {
     	this.fechaAlta = d;
+    }
+    
+    public void setListaDeTuplas(List<Tupla_Cantidad_TipoPublicacion> l) {
+    	this.listaDeTuplas = l;	
     }
 
 }

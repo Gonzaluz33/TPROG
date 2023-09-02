@@ -23,6 +23,7 @@ public class Paquete {
 		this.setValidez(0);
 		this.setDescuento(0);
 		this.setCostoAsociado(0);
+		this.setListaDeTuplas(null);
 	}
 	
 	public Paquete(String nombre, String descripcion, Integer validez, Integer descuento, Integer costoAsociado, LocalDate fechaAlta) {
@@ -57,6 +58,9 @@ public class Paquete {
     public LocalDate getFechaAlta() {
     	return fechaAlta;
     }
+    public List<Tupla_Cantidad_TipoPublicacion> getListaDeTuplas(){
+    	return listaDeTuplas;
+    }
 
     // Setters
     public void setNombre(String nombre) {
@@ -83,6 +87,11 @@ public class Paquete {
     	this.fechaAlta = d;
     }
     
+    public void setListaDeTuplas(List<Tupla_Cantidad_TipoPublicacion> l) {
+    	this.listaDeTuplas = l;
+    	
+    }
+    
     public void agregarTipoPublicacion(Integer cant, TipoPublicacion tipoPublicacion) {
    	 boolean encontrado = false;
    	    for (Tupla_Cantidad_TipoPublicacion tupla : listaDeTuplas) {
@@ -102,7 +111,7 @@ public class Paquete {
      * Retorna los datos del usuario como un DataType DTPaquete.
      */
     DTPaquete toDataType() {
-    	return new DTPaquete(getNombre(), getDescripcion(), getValidez(),getDescuento(), getCostoAsociado(), getFechaAlta());
+    	return new DTPaquete(getNombre(), getDescripcion(), getValidez(),getDescuento(), getCostoAsociado(), getFechaAlta(), getListaDeTuplas());
     }
 
 }
