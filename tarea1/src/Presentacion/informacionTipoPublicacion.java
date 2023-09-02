@@ -5,7 +5,7 @@ package Presentacion;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
+
 
 import logica.IControladorPublicaciones;
 import utils.DTTipoPublicacion;

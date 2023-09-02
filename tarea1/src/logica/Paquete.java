@@ -2,10 +2,8 @@ package logica;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import utils.DTPaquete;
-import utils.DTTupla_Cantidad_TipoPublicacion;
+
 
 
 

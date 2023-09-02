@@ -3,8 +3,6 @@ package utils;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import logica.Postulacion;
 import logica.Tupla_Cantidad_TipoPublicacion;
 
 public class DTPaquete {

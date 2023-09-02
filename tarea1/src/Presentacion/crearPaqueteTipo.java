@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import excepciones.PaqueteExisteException;
-import excepciones.TipoPublicExisteException;
+
 import logica.IControladorPublicaciones;
 
 import javax.swing.JSpinner;
@@ -22,6 +22,11 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 
 public class crearPaqueteTipo extends JInternalFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private IControladorPublicaciones controlPub;
 	
 	private JTextField nombreField;
@@ -164,10 +169,15 @@ public class crearPaqueteTipo extends JInternalFrame {
 		String nombre = this.nombreField.getText();
 		String descripcion = this.descripcionField.getText();
 		int validez = (int) this.validezSpinner.getValue();
-		int duracion = (int) this.descuentoSpinner.getValue();
+		int descuento = (int) this.descuentoSpinner.getValue();
 		if(nombre.isEmpty() || descripcion.isEmpty()) {
 			  JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
 		      return false;
+		}
+		else if (descuento <0 || descuento >100) {
+			JOptionPane.showMessageDialog(this, "El descuento debe ser un valor mayor o igual 0 y menor o igual a 100", "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+			 return false;
+
 		}
 		else if(validez <=0) {
 			 JOptionPane.showMessageDialog(this, "La validez debe ser mayor que 0", "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
