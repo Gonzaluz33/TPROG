@@ -1,6 +1,9 @@
 package logica;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import utils.DTPaquete;
 
 
@@ -12,6 +15,7 @@ public class Paquete {
 	private Integer descuento;
 	private LocalDate fechaAlta;
 	private Integer costoAsociado;
+	private List<Tupla_Cantidad_TipoPublicacion> listaDeTuplas = new ArrayList<>();
 	
 	public Paquete() {
 		this.setNombre(new String());
@@ -78,6 +82,21 @@ public class Paquete {
     public void setFechaAlta(LocalDate d) {
     	this.fechaAlta = d;
     }
+    
+    public void agregarTipoPublicacion(Integer cant, TipoPublicacion tipoPublicacion) {
+   	 boolean encontrado = false;
+   	    for (Tupla_Cantidad_TipoPublicacion tupla : listaDeTuplas) {
+   	        if (tupla.getTipoPublicacion().getNombre().equals(tipoPublicacion.getNombre())) {
+   	            tupla.agregarCantidad(cant);
+   	            encontrado = true;
+   	            break;
+   	        }
+   	    }
+   	    if (!encontrado) {
+   	        Tupla_Cantidad_TipoPublicacion nuevaTupla = new Tupla_Cantidad_TipoPublicacion(cant, tipoPublicacion);
+   	        listaDeTuplas.add(nuevaTupla);
+   	    }
+   }
 
     /**
      * Retorna los datos del usuario como un DataType DTPaquete.

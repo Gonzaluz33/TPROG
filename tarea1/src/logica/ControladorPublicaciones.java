@@ -49,6 +49,11 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		manejadorP.addPaqueteTipoPublicacion(paquete);
 	};
 	
+	
+	public  void agregarTipoPublicacion(String nombrePaquete ,Integer cant, String nombreTipoPublicacion) {
+		
+	}
+
 	public List<DTPaquete> listarPaquetes() {
 		ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
 		return manejadorP.obtenerListaPaquetes();
