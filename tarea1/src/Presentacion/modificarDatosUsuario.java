@@ -4,7 +4,6 @@ import javax.swing.*;
 import excepciones.NicknameNoExisteException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusListener;
 import java.beans.PropertyVetoException;
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,8 +13,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.OptionalInt;
-import java.util.stream.IntStream;
 
 import logica.IControladorUsuario;
 import utils.DTEmpresa;
@@ -23,7 +20,6 @@ import utils.DTPostulante;
 import utils.DTUsuario;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class modificarDatosUsuario extends JInternalFrame {
 

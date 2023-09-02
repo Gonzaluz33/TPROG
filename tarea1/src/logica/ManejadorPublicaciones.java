@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import excepciones.PaqueteExisteException;
 import excepciones.TipoPublicExisteException;
+import utils.DTPaquete;
 import utils.DTTipoPublicacion;
 
 
@@ -14,7 +16,6 @@ public class ManejadorPublicaciones {
 
 	private Map<Integer, Publicacion> coleccionPublicaciones =  new HashMap<Integer, Publicacion>();
 	private Map<String, TipoPublicacion> coleccionTipos = new HashMap<String, TipoPublicacion>();
-	@SuppressWarnings("unused") // borrar esta linea despues de implementar los paquetes
 	private Map<String, Paquete> coleccionPaquetes = new HashMap<String, Paquete>();
 
 	
@@ -35,6 +36,23 @@ public class ManejadorPublicaciones {
 			res.add(tipo.toDataType());
 		}
 		return res;
+	}
+	
+	public TipoPublicacion obtenerTipoPublicacion(String nombre) {
+		return coleccionTipos.get(nombre);
+	}
+	
+	public List<DTPaquete> obtenerListaPaquetes(){
+		List<DTPaquete> listaPaquetes = this.coleccionPaquetes
+				.values()
+				.stream()
+				.map(Paquete::toDataType)
+				.collect(Collectors.toList());
+		return listaPaquetes;
+	}
+	
+	public Paquete obtenerPaquete(String nombrePaquete) {
+		return coleccionPaquetes.get(nombrePaquete);
 	}
 	
 	public Integer getLastPubId() {
@@ -69,8 +87,6 @@ public class ManejadorPublicaciones {
 			coleccionPaquetes.put(p.getNombre(), p);	
 		}
 	};
-	
-	
 	
 	/**
 	 * Sustituye la coleccion de publicaciones por una vacia.

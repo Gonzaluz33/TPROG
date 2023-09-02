@@ -1,7 +1,9 @@
 package logica;
-
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import utils.DTPaquete;
+
 
 
 
@@ -11,7 +13,8 @@ public class Paquete {
 	private Integer validez;
 	private Integer descuento;
 	private LocalDate fechaAlta;
-	private Integer costoAsociado;
+	private double costoAsociado;
+	private List<Tupla_Cantidad_TipoPublicacion> listaDeTuplas = new ArrayList<>();
 	
 	public Paquete() {
 		this.setNombre(new String());
@@ -19,9 +22,10 @@ public class Paquete {
 		this.setValidez(0);
 		this.setDescuento(0);
 		this.setCostoAsociado(0);
+		this.setListaDeTuplas(null);
 	}
 	
-	public Paquete(String nombre, String descripcion, Integer validez, Integer descuento, Integer costoAsociado, LocalDate fechaAlta) {
+	public Paquete(String nombre, String descripcion, Integer validez, Integer descuento, double costoAsociado, LocalDate fechaAlta) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.validez = validez;
@@ -47,11 +51,23 @@ public class Paquete {
         return descuento;
     }
 
-    public Integer getCostoAsociado() {
-        return costoAsociado;
+    public double getCostoAsociado() {
+    	for(Tupla_Cantidad_TipoPublicacion item : listaDeTuplas) {
+    		this.costoAsociado = this.costoAsociado + item.getCantidad() * item.getTipoPublicacion().getCosto();
+    	}
+    	if(getDescuento()> 0) {
+    		double aDescontar = this.costoAsociado*getDescuento()/100.0;
+    		return this.costoAsociado-aDescontar;
+    	}
+    	else {
+    		return this.costoAsociado;    		
+    	}
     }
     public LocalDate getFechaAlta() {
     	return fechaAlta;
+    }
+    public List<Tupla_Cantidad_TipoPublicacion> getListaDeTuplas(){
+    	return listaDeTuplas;
     }
 
     // Setters
@@ -71,19 +87,39 @@ public class Paquete {
         this.descuento = descuento;
     }
 
-    public void setCostoAsociado(Integer costoAsociado) {
+    public void setCostoAsociado(double costoAsociado) {
         this.costoAsociado = costoAsociado;
     }
     
     public void setFechaAlta(LocalDate d) {
     	this.fechaAlta = d;
     }
+    
+    public void setListaDeTuplas(List<Tupla_Cantidad_TipoPublicacion> l) {
+    	this.listaDeTuplas = l;
+    	
+    }
+    
+    public void agregarTipoPublicacion(Integer cant, TipoPublicacion tipoPublicacion) {
+    	 boolean encontrado = false;
+    	    for (Tupla_Cantidad_TipoPublicacion tupla : listaDeTuplas) {
+    	        if (tupla.getTipoPublicacion().getNombre().equals(tipoPublicacion.getNombre())) {
+    	            tupla.agregarCantidad(cant);
+    	            encontrado = true;
+    	            break;
+    	        }
+    	    }
+    	    if (!encontrado) {
+    	        Tupla_Cantidad_TipoPublicacion nuevaTupla = new Tupla_Cantidad_TipoPublicacion(cant, tipoPublicacion);
+    	        listaDeTuplas.add(nuevaTupla);
+    	    }
+    }
 
     /**
      * Retorna los datos del usuario como un DataType DTPaquete.
      */
     DTPaquete toDataType() {
-    	return new DTPaquete(getNombre(), getDescripcion(), getValidez(),getDescuento(), getCostoAsociado(), getFechaAlta());
+    	return new DTPaquete(getNombre(), getDescripcion(), getValidez(),getDescuento(), getCostoAsociado(), getFechaAlta(), getListaDeTuplas());
     }
 
 }

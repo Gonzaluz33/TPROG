@@ -1,9 +1,12 @@
 package Presentacion;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -11,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import excepciones.PaqueteExisteException;
-import excepciones.TipoPublicExisteException;
+
 import logica.IControladorPublicaciones;
 
 import javax.swing.JSpinner;
@@ -19,12 +22,18 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 
 public class crearPaqueteTipo extends JInternalFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private IControladorPublicaciones controlPub;
 	
 	private JTextField nombreField;
 	private JTextArea descripcionField;
 	private JSpinner validezSpinner;
 	private JSpinner descuentoSpinner;
+	private JTextField textFieldFecha;
 	
 	/**
 	 * Create the frame.
@@ -71,8 +80,19 @@ public class crearPaqueteTipo extends JInternalFrame {
 		descuentoSpinner.setBounds(157, 267, 90, 20);
 		getContentPane().add(descuentoSpinner);
 		
+		JLabel lblNewLabel_3 = new JLabel("Fecha de Alta (opcional):");
+		lblNewLabel_3.setBounds(23, 306, 172, 13);
+		getContentPane().add(lblNewLabel_3);
+		
+		textFieldFecha = new JTextField();
+		textFieldFecha.setBounds(23, 329, 136, 19);
+		getContentPane().add(textFieldFecha);
+		textFieldFecha.setColumns(10);
+		
+		
+		
 		JButton btnAceptar = new JButton("Aceptar");
-		btnAceptar.setBounds(24, 359, 89, 23);
+		btnAceptar.setBounds(23, 371, 89, 23);
 		getContentPane().add(btnAceptar);
 		btnAceptar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -83,8 +103,10 @@ public class crearPaqueteTipo extends JInternalFrame {
 		
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(352, 359, 89, 23);
+		btnCancelar.setBounds(352, 371, 89, 23);
 		getContentPane().add(btnCancelar);
+		
+		
 
 		btnCancelar.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
@@ -98,24 +120,72 @@ public class crearPaqueteTipo extends JInternalFrame {
 			 String nombreTipo = this.nombreField.getText();
 			 String descripcionTipo = this.descripcionField.getText();
 			 int validez = (int) this.validezSpinner.getValue();
-			 int duracion = (int) this.descuentoSpinner.getValue();
-			 try {
-				 controlPub.altaPaqueteTipoPublicacion(nombreTipo, descripcionTipo, validez, duracion);
+			 int descuento = (int) this.descuentoSpinner.getValue();
+			 
+			 String fechaAlta = textFieldFecha.getText();
+             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+             formato.setLenient(false);  // Hacer que el formato sea estricto
+
+             if(!fechaAlta.isEmpty()) {
+            	 try {
+                     formato.parse(fechaAlta);
+                     Date fecha = formato.parse(fechaAlta);
+                     Calendar calendario = Calendar.getInstance();
+                     calendario.setTime(fecha);
+                     int anio = calendario.get(Calendar.YEAR);
+                     if (anio >= 1500 && anio <= 4000) {
+                    	 confirmarCrearPaquete( nombreTipo,descripcionTipo, validez, descuento,fechaAlta);
+                     } else {
+                     	JOptionPane.showMessageDialog(null, "La fecha es válida pero el año está fuera del rango permitido."); 
+                     }
+                 } catch (ParseException e1) {
+                 	JOptionPane.showMessageDialog(null, "Fecha Invalida!");
+                 }
+             }
+             else {
+            	 confirmarCrearPaquete( nombreTipo,descripcionTipo, validez, descuento,fechaAlta);
+            	 
+             }
+		}
+	 }
+	
+	private void confirmarCrearPaquete(String nombreTipo, String descripcionTipo, int validez, int descuento, String fechaAlta) {
+	   	 try {                		 
+				 controlPub.altaPaqueteTipoPublicacion(nombreTipo, descripcionTipo, validez, descuento,fechaAlta);
 				 //Muestro mensake de exito
 				 JOptionPane.showMessageDialog(this, "El paquete se ha creado con éxito", "Crear Paquete de Tipo de Publicacion",
-	                        JOptionPane.INFORMATION_MESSAGE);
+	                       JOptionPane.INFORMATION_MESSAGE);
 				 limpiarFormulario();
 				 setVisible(false);
 			 }
-				 catch(PaqueteExisteException err){
-						// Muestro error de registro
-		                JOptionPane.showMessageDialog(this, err.getMessage(), "Crear Paquete de Tipo de Publicacion", JOptionPane.ERROR_MESSAGE);
-					}
-			 }
-	 }
+		 catch(PaqueteExisteException err){
+				// Muestro error de registro
+               JOptionPane.showMessageDialog(this, err.getMessage(), "Crear Paquete de Tipo de Publicacion", JOptionPane.ERROR_MESSAGE);
+			}
+	}
+	
 	
 	private Boolean esValido() {
-		return true;
+		String nombre = this.nombreField.getText();
+		String descripcion = this.descripcionField.getText();
+		int validez = (int) this.validezSpinner.getValue();
+		int descuento = (int) this.descuentoSpinner.getValue();
+		if(nombre.isEmpty() || descripcion.isEmpty()) {
+			  JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+		      return false;
+		}
+		else if (descuento <0 || descuento >100) {
+			JOptionPane.showMessageDialog(this, "El descuento debe ser un valor mayor o igual 0 y menor o igual a 100", "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+			 return false;
+
+		}
+		else if(validez <=0) {
+			 JOptionPane.showMessageDialog(this, "La validez debe ser mayor que 0", "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+			 return false;
+		}
+		else {
+			return true;
+		}
 	}
 	
 	private void limpiarFormulario() {
