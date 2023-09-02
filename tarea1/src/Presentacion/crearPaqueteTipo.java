@@ -3,7 +3,11 @@ package Presentacion;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -25,6 +29,7 @@ public class crearPaqueteTipo extends JInternalFrame {
 	private JTextArea descripcionField;
 	private JSpinner validezSpinner;
 	private JSpinner descuentoSpinner;
+	private JTextField textFieldFecha;
 	
 	/**
 	 * Create the frame.
@@ -71,8 +76,19 @@ public class crearPaqueteTipo extends JInternalFrame {
 		descuentoSpinner.setBounds(157, 267, 90, 20);
 		getContentPane().add(descuentoSpinner);
 		
+		JLabel lblNewLabel_3 = new JLabel("Fecha (dd/mm/aaaa):");
+		lblNewLabel_3.setBounds(23, 306, 172, 13);
+		getContentPane().add(lblNewLabel_3);
+		
+		textFieldFecha = new JTextField();
+		textFieldFecha.setBounds(23, 329, 136, 19);
+		getContentPane().add(textFieldFecha);
+		textFieldFecha.setColumns(10);
+		
+		
+		
 		JButton btnAceptar = new JButton("Aceptar");
-		btnAceptar.setBounds(24, 359, 89, 23);
+		btnAceptar.setBounds(23, 371, 89, 23);
 		getContentPane().add(btnAceptar);
 		btnAceptar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -83,8 +99,10 @@ public class crearPaqueteTipo extends JInternalFrame {
 		
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(352, 359, 89, 23);
+		btnCancelar.setBounds(352, 371, 89, 23);
 		getContentPane().add(btnCancelar);
+		
+		
 
 		btnCancelar.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
@@ -99,18 +117,42 @@ public class crearPaqueteTipo extends JInternalFrame {
 			 String descripcionTipo = this.descripcionField.getText();
 			 int validez = (int) this.validezSpinner.getValue();
 			 int duracion = (int) this.descuentoSpinner.getValue();
-			 try {
-				 controlPub.altaPaqueteTipoPublicacion(nombreTipo, descripcionTipo, validez, duracion);
-				 //Muestro mensake de exito
-				 JOptionPane.showMessageDialog(this, "El paquete se ha creado con éxito", "Crear Paquete de Tipo de Publicacion",
-	                        JOptionPane.INFORMATION_MESSAGE);
-				 limpiarFormulario();
-				 setVisible(false);
-			 }
-				 catch(PaqueteExisteException err){
-						// Muestro error de registro
-		                JOptionPane.showMessageDialog(this, err.getMessage(), "Crear Paquete de Tipo de Publicacion", JOptionPane.ERROR_MESSAGE);
-					}
+			 
+			 String fechaNacimiento = textFieldFecha.getText();
+             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+             formato.setLenient(false);  // Hacer que el formato sea estricto
+
+             try {
+                 formato.parse(fechaNacimiento);
+                 Date fecha = formato.parse(fechaNacimiento);
+                 Calendar calendario = Calendar.getInstance();
+                 calendario.setTime(fecha);
+                 int anio = calendario.get(Calendar.YEAR);
+                 if (anio >= 1500 && anio <= 4000) {
+                     
+                	 try {
+                		 
+        				 controlPub.altaPaqueteTipoPublicacion(nombreTipo, descripcionTipo, validez, duracion,fechaNacimiento);
+        				 //Muestro mensake de exito
+        				 JOptionPane.showMessageDialog(this, "El paquete se ha creado con éxito", "Crear Paquete de Tipo de Publicacion",
+        	                        JOptionPane.INFORMATION_MESSAGE);
+        				 limpiarFormulario();
+        				 setVisible(false);
+        			 }
+        				 catch(PaqueteExisteException err){
+        						// Muestro error de registro
+        		                JOptionPane.showMessageDialog(this, err.getMessage(), "Crear Paquete de Tipo de Publicacion", JOptionPane.ERROR_MESSAGE);
+        					}
+                 } else {
+                 	JOptionPane.showMessageDialog(null, "La fecha es válida pero el año está fuera del rango permitido."); 
+                 }
+             } catch (ParseException e1) {
+             	JOptionPane.showMessageDialog(null, "Fecha Invalida!");
+             }
+			 
+			 
+			 
+			 
 			 }
 	 }
 	
