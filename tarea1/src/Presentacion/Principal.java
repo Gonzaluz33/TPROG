@@ -134,7 +134,7 @@ public class Principal {
 		crearPaqueteTipoInternalFrame.setBorder(null);
 		crearPaqueteTipoInternalFrame.setVisible(false);
 		
-		consultaPaqueteInternalFrame = new consultaPaquete();
+		consultaPaqueteInternalFrame = new consultaPaquete(ICP);
 		consultaPaqueteInternalFrame.setResizable(false);
 		consultaPaqueteInternalFrame.setBorder(null);
 		consultaPaqueteInternalFrame.setVisible(false);
