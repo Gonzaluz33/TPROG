@@ -115,44 +115,50 @@ public class crearPaqueteTipo extends JInternalFrame {
 			 String nombreTipo = this.nombreField.getText();
 			 String descripcionTipo = this.descripcionField.getText();
 			 int validez = (int) this.validezSpinner.getValue();
-			 int duracion = (int) this.descuentoSpinner.getValue();
+			 int descuento = (int) this.descuentoSpinner.getValue();
 			 
-			 String fechaNacimiento = textFieldFecha.getText();
+			 String fechaAlta = textFieldFecha.getText();
              SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
              formato.setLenient(false);  // Hacer que el formato sea estricto
 
-             try {
-                 formato.parse(fechaNacimiento);
-                 Date fecha = formato.parse(fechaNacimiento);
-                 Calendar calendario = Calendar.getInstance();
-                 calendario.setTime(fecha);
-                 int anio = calendario.get(Calendar.YEAR);
-                 if (anio >= 1500 && anio <= 4000) {
-                     
-                	 try {                		 
-        				 controlPub.altaPaqueteTipoPublicacion(nombreTipo, descripcionTipo, validez, duracion);
-        				 //Muestro mensake de exito
-        				 JOptionPane.showMessageDialog(this, "El paquete se ha creado con éxito", "Crear Paquete de Tipo de Publicacion",
-        	                        JOptionPane.INFORMATION_MESSAGE);
-        				 limpiarFormulario();
-        				 setVisible(false);
-        			 }
-        				 catch(PaqueteExisteException err){
-        						// Muestro error de registro
-        		                JOptionPane.showMessageDialog(this, err.getMessage(), "Crear Paquete de Tipo de Publicacion", JOptionPane.ERROR_MESSAGE);
-        					}
-                 } else {
-                 	JOptionPane.showMessageDialog(null, "La fecha es válida pero el año está fuera del rango permitido."); 
+             if(!fechaAlta.isEmpty()) {
+            	 try {
+                     formato.parse(fechaAlta);
+                     Date fecha = formato.parse(fechaAlta);
+                     Calendar calendario = Calendar.getInstance();
+                     calendario.setTime(fecha);
+                     int anio = calendario.get(Calendar.YEAR);
+                     if (anio >= 1500 && anio <= 4000) {
+                    	 confirmarCrearPaquete( nombreTipo,descripcionTipo, validez, descuento,fechaAlta);
+                     } else {
+                     	JOptionPane.showMessageDialog(null, "La fecha es válida pero el año está fuera del rango permitido."); 
+                     }
+                 } catch (ParseException e1) {
+                 	JOptionPane.showMessageDialog(null, "Fecha Invalida!");
                  }
-             } catch (ParseException e1) {
-             	JOptionPane.showMessageDialog(null, "Fecha Invalida!");
              }
-			 
-			 
-			 
-			 
-			 }
+             else {
+            	 confirmarCrearPaquete( nombreTipo,descripcionTipo, validez, descuento,fechaAlta);
+            	 
+             }
+		}
 	 }
+	
+	private void confirmarCrearPaquete(String nombreTipo, String descripcionTipo, int validez, int descuento, String fechaAlta) {
+	   	 try {                		 
+				 controlPub.altaPaqueteTipoPublicacion(nombreTipo, descripcionTipo, validez, descuento,fechaAlta);
+				 //Muestro mensake de exito
+				 JOptionPane.showMessageDialog(this, "El paquete se ha creado con éxito", "Crear Paquete de Tipo de Publicacion",
+	                       JOptionPane.INFORMATION_MESSAGE);
+				 limpiarFormulario();
+				 setVisible(false);
+			 }
+		 catch(PaqueteExisteException err){
+				// Muestro error de registro
+               JOptionPane.showMessageDialog(this, err.getMessage(), "Crear Paquete de Tipo de Publicacion", JOptionPane.ERROR_MESSAGE);
+			}
+	}
+	
 	
 	private Boolean esValido() {
 		String nombre = this.nombreField.getText();

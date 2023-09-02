@@ -43,12 +43,22 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		manejadorP.altaTipoPublicacionOL(tipoP);
 	}
 	
-	public void altaPaqueteTipoPublicacion(String nombre, String descripcion, int validez, int descuento) throws PaqueteExisteException {
+	public void altaPaqueteTipoPublicacion(String nombre, String descripcion, int validez, int descuento ,String fecha) throws PaqueteExisteException {
 		ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fechaParseada = LocalDate.parse(fecha, formatter);
-		Paquete paquete = new Paquete(nombre, descripcion, validez, descuento, 0, fechaParseada);
-		manejadorP.addPaqueteTipoPublicacion(paquete);
+		if(!fecha.isEmpty()) {
+		       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		        LocalDate fechaParseada = LocalDate.parse(fecha, formatter);
+				Paquete paquete = new Paquete(nombre, descripcion, validez, descuento, 0, fechaParseada);
+				manejadorP.addPaqueteTipoPublicacion(paquete);
+		}
+		else {
+			LocalDate fechaAlta = LocalDate.now();
+			Paquete paquete = new Paquete(nombre, descripcion, validez, descuento, 0, fechaAlta);
+			manejadorP.addPaqueteTipoPublicacion(paquete);
+		}
+ 
+
+
 	};
 	
 	
