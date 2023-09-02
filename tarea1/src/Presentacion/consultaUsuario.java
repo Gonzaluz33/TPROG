@@ -141,22 +141,8 @@ public class consultaUsuario extends JInternalFrame {
                     tableModel.addRow(new Object[] {nickname, nombre, apellido, correo});
                     
                     if(selectedValue instanceof DTEmpresa) {
-                    	/*labelDatosEmpresa.setVisible(true);
-                    	panelEmpresa.setVisible(true);
-                    	tablaEmpresa.setVisible(true);
-                    	labelOfertas.setVisible(true);
-                    	panelHeaderOfertas.setVisible(true);
-                    	tableOfertas.setVisible(true);
-                    	scrollPaneOfertas.setVisible(true); */      
+  
                     	renderizarComponentesEmpresa(true);
-                    	
-                    	/*labelDatosPostulante.setVisible(false);
-                    	panelPostulante.setVisible(false);
-                    	tablaPostulante.setVisible(false);
-                    	labelPostulaciones.setVisible(false);
-                    	panelHeaderPostulaciones.setVisible(false);
-                    	scrollPanePostulaciones.setVisible(false);
-                    	tablePostulaciones.setVisible(false);*/
                     	renderizarComponentesPostulante(false);
                     	
                     	desc = ((DTEmpresa) selectedValue).getDescripcion();
@@ -179,22 +165,7 @@ public class consultaUsuario extends JInternalFrame {
                         
                         
                     } else {
-                    	/*labelDatosEmpresa.setVisible(false);
-                    	panelEmpresa.setVisible(false);
-                    	tablaEmpresa.setVisible(false);
-                    	labelOfertas.setVisible(false);
-                    	panelHeaderOfertas.setVisible(false);
-                    	tableOfertas.setVisible(false);
-                    	scrollPaneOfertas.setVisible(false);*/
                     	renderizarComponentesEmpresa(false);
-                    	
-                    	/*labelDatosPostulante.setVisible(true);
-                    	panelPostulante.setVisible(true);
-                    	tablaPostulante.setVisible(true);
-                    	labelPostulaciones.setVisible(true);
-                    	scrollPanePostulaciones.setVisible(true);
-                    	panelHeaderPostulaciones.setVisible(true);
-                    	tablePostulaciones.setVisible(true);*/
                     	renderizarComponentesPostulante(true);
                     	
                     	String fechaFormateada = new SimpleDateFormat("dd-MM-yyyy").format(((DTPostulante) selectedValue).getFechaNacimiento());

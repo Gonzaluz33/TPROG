@@ -60,6 +60,7 @@ public class Principal {
 	private postulacionOfertaLaboral postulacionOfertaLaboralInternalFrame;
 	private modificarDatosUsuario modificarDatosUsuarioInternalFrame;
 	private crearPaqueteTipo crearPaqueteTipoInternalFrame;
+	private consultaPaquete consultaPaqueteInternalFrame;
 	private JInternalFrame currentInternalFrame = null;
 	
 	
@@ -133,10 +134,11 @@ public class Principal {
 		crearPaqueteTipoInternalFrame.setBorder(null);
 		crearPaqueteTipoInternalFrame.setVisible(false);
 		
-		
-		
-		
-		
+		consultaPaqueteInternalFrame = new consultaPaquete(ICP);
+		consultaPaqueteInternalFrame.setResizable(false);
+		consultaPaqueteInternalFrame.setBorder(null);
+		consultaPaqueteInternalFrame.setVisible(false);
+
 		frame.getContentPane().add(altaPostulanteInternalFrame);
 		frame.getContentPane().add(altaEmpresaInternalFrame);
 		frame.getContentPane().add(consultaUsuarioInternalFrame);
@@ -145,10 +147,7 @@ public class Principal {
 		frame.getContentPane().add(altaTipoPublicacionOLInternalFrame);
 		frame.getContentPane().add(postulacionOfertaLaboralInternalFrame);
 		frame.getContentPane().add(crearPaqueteTipoInternalFrame);
-		
-		
-		
-		
+		frame.getContentPane().add(consultaPaqueteInternalFrame);
 	}
 
 	/**
@@ -159,9 +158,7 @@ public class Principal {
 		frame.setBounds(100, 100, 1081, 687);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
-		
-		
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 		
@@ -299,7 +296,7 @@ public class Principal {
 			            currentInternalFrame.setVisible(false);
 				 }
 				 crearPaqueteTipoInternalFrame.setVisible(true);
-				 currentInternalFrame = altaTipoPublicacionOLInternalFrame;
+				 currentInternalFrame = crearPaqueteTipoInternalFrame;
 	            }
 		});	
 		
@@ -310,6 +307,16 @@ public class Principal {
 		
 		JMenuItem mItemConsultaPaquete = new JMenuItem("Consulta de Paquete de Tipos de Publicación");
 		menuOfertasLaborales.add(mItemConsultaPaquete);
+		mItemConsultaPaquete.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+				 }
+				 consultaPaqueteInternalFrame.llenar_listaPaquetes();
+				 consultaPaqueteInternalFrame.setVisible(true);
+				 currentInternalFrame = consultaPaqueteInternalFrame;
+	            }
+		});	
 
 		JMenuItem mntmNewMenuItem = new JMenuItem("Cargar Datos");
 		mntmNewMenuItem.addActionListener(new ActionListener() {

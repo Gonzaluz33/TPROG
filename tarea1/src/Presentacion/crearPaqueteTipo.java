@@ -1,6 +1,5 @@
 package Presentacion;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -157,7 +156,21 @@ public class crearPaqueteTipo extends JInternalFrame {
 	 }
 	
 	private Boolean esValido() {
-		return true;
+		String nombre = this.nombreField.getText();
+		String descripcion = this.descripcionField.getText();
+		int validez = (int) this.validezSpinner.getValue();
+		int duracion = (int) this.descuentoSpinner.getValue();
+		if(nombre.isEmpty() || descripcion.isEmpty()) {
+			  JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+		      return false;
+		}
+		else if(validez <=0) {
+			 JOptionPane.showMessageDialog(this, "La validez debe ser mayor que 0", "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+			 return false;
+		}
+		else {
+			return true;
+		}
 	}
 	
 	private void limpiarFormulario() {
