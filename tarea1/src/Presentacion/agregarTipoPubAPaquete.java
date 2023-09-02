@@ -81,6 +81,7 @@ public class agregarTipoPubAPaquete extends JInternalFrame {
 		controlPub.agregarTipoPublicacion(nombre,cantidad ,nombreTipoPub);
 		 JOptionPane.showMessageDialog(this, "El paquete se ha creado con éxito", "Crear Paquete de Tipo de Publicacion",
                   JOptionPane.INFORMATION_MESSAGE);
+		 limpiarFormulario();
 		 setVisible(false);
 		}
 	}
@@ -111,7 +112,10 @@ public class agregarTipoPubAPaquete extends JInternalFrame {
 		}else{
 			return true;
 		}
-
+	}
+	
+	private void limpiarFormulario() {
+		this.cantidadField.setValue(0);
 	}
 	
 	

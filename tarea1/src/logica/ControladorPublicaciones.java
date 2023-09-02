@@ -25,6 +25,11 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		return manP.obtenerTipos();
 	}
 	
+	public DTTipoPublicacion obtenerDatosTipoPublicacion(String nombre) {
+		ManejadorPublicaciones manP = ManejadorPublicaciones.getInstance();
+		return manP.obtenerTipoPublicacion(nombre).toDataType();
+	}
+	
 	public Publicacion addPublicacion(OfertaLaboral ofL, String tipo) {
 		ManejadorPublicaciones manPub = ManejadorPublicaciones.getInstance();
 		Integer id = manPub.getLastPubId();

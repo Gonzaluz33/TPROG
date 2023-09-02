@@ -12,11 +12,11 @@ public class DTPaquete {
 	private String descripcion;
 	private Integer validez;
 	private Integer descuento;
-	private Integer costoAsociado;
+	private double costoAsociado;
 	private LocalDate fechaAlta;
 	private List<Tupla_Cantidad_TipoPublicacion> listaDeTuplas;
 	
-	public DTPaquete(String nombre, String descripcion, Integer validez, Integer descuento, Integer costoAsociado, LocalDate fechaAlta, List<Tupla_Cantidad_TipoPublicacion> lista) {
+	public DTPaquete(String nombre, String descripcion, Integer validez, Integer descuento, double costoAsociado, LocalDate fechaAlta, List<Tupla_Cantidad_TipoPublicacion> lista) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.validez = validez;
@@ -47,7 +47,7 @@ public class DTPaquete {
         return descuento;
     }
 
-    public Integer getCostoAsociado() {
+    public double getCostoAsociado() {
         return costoAsociado;
     }
     

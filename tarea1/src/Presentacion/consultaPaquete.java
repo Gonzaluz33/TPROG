@@ -1,5 +1,6 @@
 package Presentacion;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -16,16 +17,25 @@ import utils.DTTupla_Cantidad_TipoPublicacion;
 
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+
+
 
 public class consultaPaquete extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 	private IControladorPublicaciones controlPub;
+	
+	private informacionTipoPublicacion informacionTipoPublicacionInternalFrame;
+	
 	private JComboBox<DTPaquete> listaPaquetes;
 	private JPanel panelPaquete;
 	private JTextField nombreField;
@@ -37,7 +47,15 @@ public class consultaPaquete extends JInternalFrame {
 	private JTable tablePaquetes;
 
 	public consultaPaquete(IControladorPublicaciones icp) {
+		setMaximizable(true);
 		controlPub = icp;
+		
+		informacionTipoPublicacionInternalFrame = new informacionTipoPublicacion(icp);
+		informacionTipoPublicacionInternalFrame.setResizable(false);
+		informacionTipoPublicacionInternalFrame.setBorder(null);
+		informacionTipoPublicacionInternalFrame.setVisible(false);
+		getContentPane().add(informacionTipoPublicacionInternalFrame);
+		
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
 		setClosable(true);
@@ -59,10 +77,13 @@ public class consultaPaquete extends JInternalFrame {
 				 tablePaquetesModel.setRowCount(0); 
 				 DTPaquete p = (DTPaquete) listaPaquetes.getSelectedItem();
 				 if(p!=null) {
+					 renderizarComponentesPaquete(true);
 					 nombreField.setText(p.getNombre());
 					 descripcionField.setText(p.getDescripcion());
 					 validezField.setText(p.getValidez().toString());
 					 descuentoField.setText(p.getDescuento().toString());
+					 String costoAsoc = String.valueOf(p.getCostoAsociado());
+					 costoAsociadoField.setText(costoAsoc);
 					 fechaAltaField.setText(p.getFechaAlta().format(formatter));
 					 
 					 List<DTTupla_Cantidad_TipoPublicacion> datosTabla = p.getListaDeTuplas();
@@ -86,6 +107,7 @@ public class consultaPaquete extends JInternalFrame {
 		
 		panelPaquete = new JPanel();
 		panelPaquete.setBounds(10, 71, 994, 596);
+		panelPaquete.setVisible(false);
 		getContentPane().add(panelPaquete);
 		panelPaquete.setLayout(null);
 		
@@ -174,6 +196,8 @@ public class consultaPaquete extends JInternalFrame {
 		tablePaquetes.getColumnModel().getColumn(0).setPreferredWidth(239);
 		tablePaquetes.getColumnModel().getColumn(1).setPreferredWidth(161);
 		tablePaquetes.getColumnModel().getColumn(2).setPreferredWidth(207);
+		tablePaquetes.getColumnModel().getColumn(2).setCellRenderer(new ButtonRenderer());
+		tablePaquetes.getColumnModel().getColumn(2).setCellEditor(new ButtonEditor(new JCheckBox(), informacionTipoPublicacionInternalFrame));
 		scrollPane.setViewportView(tablePaquetes);
 		
 		JLabel lblNewLabel_3 = new JLabel("Especificación Paquete:");
@@ -194,4 +218,90 @@ public class consultaPaquete extends JInternalFrame {
 		panelPaquete.setVisible(b);
 	}
 	
+class ButtonRenderer extends JButton implements TableCellRenderer {
+		
+		private static final long serialVersionUID = 1L;
+
+		public ButtonRenderer() {
+	        setOpaque(true);
+	    }
+
+	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+	        if (isSelected) {
+	            setForeground(table.getSelectionForeground());
+	            setBackground(table.getSelectionBackground());
+	        } else {
+	            setForeground(table.getForeground());
+	            setBackground(UIManager.getColor("Button.background"));
+	        }
+	        setText((value == null) ? "" : value.toString());
+	        return this;
+	    }
+	}
+	
+	class ButtonEditor extends DefaultCellEditor {
+		
+		private static final long serialVersionUID = 1L;
+		
+		protected JButton button;
+	    private String label;
+	    @SuppressWarnings("unused")
+		private boolean isPushed;
+	    private MyActionListener myListener;
+	    
+	    // Nueva clase interna MyActionListener
+	    private class MyActionListener implements ActionListener {
+	        private int currentRow;
+	        @Override
+	        public void actionPerformed(ActionEvent e) {	
+	           String nombreTipo = tablePaquetes.getValueAt(currentRow, 0).toString();
+	           ((informacionTipoPublicacion) informacionTipoPublicacionInternalFrame).recibirNombreTipo(nombreTipo);
+	           ((informacionTipoPublicacion) informacionTipoPublicacionInternalFrame).mostrarDatosTipo();
+				informacionTipoPublicacionInternalFrame.setVisible(true);
+	        }
+	        public void setCurrentRow(int row) {
+	            this.currentRow = row;
+	        }
+	    }
+	    
+	    public ButtonEditor(JCheckBox checkBox, JInternalFrame postularPostulanteInternalFrame) {
+	        super(checkBox);
+	        button = new JButton();
+	        button.setOpaque(true);
+	        myListener = new MyActionListener(); // Inicializamos MyActionListener
+	        button.addActionListener(myListener); // Agregamos MyActionListener al botón
+	    }
+
+	    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+	        if (isSelected) {
+	            button.setForeground(table.getSelectionForeground());
+	            button.setBackground(table.getSelectionBackground());
+	        } else {
+	            button.setForeground(table.getForeground());
+	            button.setBackground(table.getBackground());
+	        }
+	        label = (value == null) ? "" : value.toString();
+	        button.setText(label);
+	        isPushed = true;
+	        // Aquí establecemos la fila actual en MyActionListener
+	        myListener.setCurrentRow(row);
+
+	        return button;
+	    }
+
+	    public Object getCellEditorValue() {
+	        isPushed = false;
+	        return label;
+	    }
+
+	    public boolean stopCellEditing() {
+	        isPushed = false;
+	        return super.stopCellEditing();
+	    }
+
+	    protected void fireEditingStopped() {
+	        super.fireEditingStopped();
+	    }
+	
+	}	
 }

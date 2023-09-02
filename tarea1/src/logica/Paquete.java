@@ -15,7 +15,7 @@ public class Paquete {
 	private Integer validez;
 	private Integer descuento;
 	private LocalDate fechaAlta;
-	private Integer costoAsociado;
+	private double costoAsociado;
 	private List<Tupla_Cantidad_TipoPublicacion> listaDeTuplas = new ArrayList<>();
 	
 	public Paquete() {
@@ -27,7 +27,7 @@ public class Paquete {
 		this.setListaDeTuplas(null);
 	}
 	
-	public Paquete(String nombre, String descripcion, Integer validez, Integer descuento, Integer costoAsociado, LocalDate fechaAlta) {
+	public Paquete(String nombre, String descripcion, Integer validez, Integer descuento, double costoAsociado, LocalDate fechaAlta) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.validez = validez;
@@ -53,8 +53,17 @@ public class Paquete {
         return descuento;
     }
 
-    public Integer getCostoAsociado() {
-        return costoAsociado;
+    public double getCostoAsociado() {
+    	for(Tupla_Cantidad_TipoPublicacion item : listaDeTuplas) {
+    		this.costoAsociado = this.costoAsociado + item.getCantidad() * item.getTipoPublicacion().getCosto();
+    	}
+    	if(getDescuento()> 0) {
+    		double aDescontar = this.costoAsociado*getDescuento()/100.0;
+    		return this.costoAsociado-aDescontar;
+    	}
+    	else {
+    		return this.costoAsociado;    		
+    	}
     }
     public LocalDate getFechaAlta() {
     	return fechaAlta;
@@ -80,7 +89,7 @@ public class Paquete {
         this.descuento = descuento;
     }
 
-    public void setCostoAsociado(Integer costoAsociado) {
+    public void setCostoAsociado(double costoAsociado) {
         this.costoAsociado = costoAsociado;
     }
     

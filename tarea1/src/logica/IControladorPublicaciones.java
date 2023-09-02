@@ -16,4 +16,5 @@ public interface IControladorPublicaciones {
 	 public abstract void altaPaqueteTipoPublicacion(String nombre, String descripcion, int validez, int descuento, String fecha) throws PaqueteExisteException;
 	 public List<DTPaquete> listarPaquetes();
 	 public abstract void agregarTipoPublicacion(String nombrePaquete ,Integer cant, String nombreTipoPublicacion);
+	 public DTTipoPublicacion obtenerDatosTipoPublicacion(String nombre);
 }
