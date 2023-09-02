@@ -75,7 +75,7 @@ public class crearPaqueteTipo extends JInternalFrame {
 		descuentoSpinner.setBounds(157, 267, 90, 20);
 		getContentPane().add(descuentoSpinner);
 		
-		JLabel lblNewLabel_3 = new JLabel("Fecha (dd/mm/aaaa):");
+		JLabel lblNewLabel_3 = new JLabel("Fecha de Alta (opcional):");
 		lblNewLabel_3.setBounds(23, 306, 172, 13);
 		getContentPane().add(lblNewLabel_3);
 		

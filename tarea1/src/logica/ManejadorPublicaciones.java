@@ -38,6 +38,10 @@ public class ManejadorPublicaciones {
 		return res;
 	}
 	
+	public TipoPublicacion obtenerTipoPublicacion(String nombre) {
+		return coleccionTipos.get(nombre);
+	}
+	
 	public List<DTPaquete> obtenerListaPaquetes(){
 		List<DTPaquete> listaPaquetes = this.coleccionPaquetes
 				.values()
@@ -45,6 +49,10 @@ public class ManejadorPublicaciones {
 				.map(Paquete::toDataType)
 				.collect(Collectors.toList());
 		return listaPaquetes;
+	}
+	
+	public Paquete obtenerPaquete(String nombrePaquete) {
+		return coleccionPaquetes.get(nombrePaquete);
 	}
 	
 	public Integer getLastPubId() {
@@ -79,8 +87,6 @@ public class ManejadorPublicaciones {
 			coleccionPaquetes.put(p.getNombre(), p);	
 		}
 	};
-	
-	
 	
 	/**
 	 * Sustituye la coleccion de publicaciones por una vacia.

@@ -61,6 +61,7 @@ public class Principal {
 	private modificarDatosUsuario modificarDatosUsuarioInternalFrame;
 	private crearPaqueteTipo crearPaqueteTipoInternalFrame;
 	private consultaPaquete consultaPaqueteInternalFrame;
+	private agregarTipoPubAPaquete agregarTipoAPaqueteInternalFrame;
 	private JInternalFrame currentInternalFrame = null;
 	
 	
@@ -138,6 +139,14 @@ public class Principal {
 		consultaPaqueteInternalFrame.setResizable(false);
 		consultaPaqueteInternalFrame.setBorder(null);
 		consultaPaqueteInternalFrame.setVisible(false);
+		
+		agregarTipoAPaqueteInternalFrame = new agregarTipoPubAPaquete(ICP);
+		agregarTipoAPaqueteInternalFrame.setResizable(false);
+		agregarTipoAPaqueteInternalFrame.setBorder(null);
+		agregarTipoAPaqueteInternalFrame.setVisible(false);
+		
+		
+		
 
 		frame.getContentPane().add(altaPostulanteInternalFrame);
 		frame.getContentPane().add(altaEmpresaInternalFrame);
@@ -148,6 +157,7 @@ public class Principal {
 		frame.getContentPane().add(postulacionOfertaLaboralInternalFrame);
 		frame.getContentPane().add(crearPaqueteTipoInternalFrame);
 		frame.getContentPane().add(consultaPaqueteInternalFrame);
+		frame.getContentPane().add(agregarTipoAPaqueteInternalFrame);
 	}
 
 	/**
@@ -304,6 +314,18 @@ public class Principal {
 		
 		JMenuItem mItemAgregarTipoAPaquete = new JMenuItem("Agregar Tipo de Publicación a Paquete");
 		menuOfertasLaborales.add(mItemAgregarTipoAPaquete);
+		mItemAgregarTipoAPaquete.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+				 }
+				 agregarTipoAPaqueteInternalFrame.llenar_listaTipos();
+				 agregarTipoAPaqueteInternalFrame.llenar_listaPaquetes();
+				 agregarTipoAPaqueteInternalFrame.setVisible(true);
+				 currentInternalFrame = agregarTipoAPaqueteInternalFrame;
+	            }
+		});
+		
 		
 		JMenuItem mItemConsultaPaquete = new JMenuItem("Consulta de Paquete de Tipos de Publicación");
 		menuOfertasLaborales.add(mItemConsultaPaquete);
