@@ -27,6 +27,10 @@ public class DTPaquete {
 	}
 	
     // Getters
+	public String toString() {
+		return nombre;
+	}
+	
     public String getNombre() {
         return nombre;
     }

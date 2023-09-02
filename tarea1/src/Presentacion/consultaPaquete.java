@@ -3,6 +3,7 @@ package Presentacion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class consultaPaquete extends JInternalFrame {
 	private JComboBox<DTPaquete> listaPaquetes;
 	private JPanel panelPaquete;
 	private JTextField nombreField;
+	private JTextArea descripcionField;
 	private JTextField validezField;
 	private JTextField descuentoField;
 	private JTextField fechaAltaField;
@@ -37,6 +39,7 @@ public class consultaPaquete extends JInternalFrame {
 	public consultaPaquete(IControladorPublicaciones icp) {
 		controlPub = icp;
 		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
 		setClosable(true);
 		setResizable(true);
 		setTitle("Consulta de Paquete de Tipos de publicación de Ofertas Laborales");
@@ -57,10 +60,10 @@ public class consultaPaquete extends JInternalFrame {
 				 DTPaquete p = (DTPaquete) listaPaquetes.getSelectedItem();
 				 if(p!=null) {
 					 nombreField.setText(p.getNombre());
+					 descripcionField.setText(p.getDescripcion());
 					 validezField.setText(p.getValidez().toString());
 					 descuentoField.setText(p.getDescuento().toString());
-					 String fechaFormateada = new SimpleDateFormat("dd-MM-yyyy").format(((DTPaquete) p).getFechaAlta());
-					 fechaAltaField.setText(fechaFormateada);
+					 fechaAltaField.setText(p.getFechaAlta().format(formatter));
 					 
 					 List<DTTupla_Cantidad_TipoPublicacion> datosTabla = p.getListaDeTuplas();
 					 for(DTTupla_Cantidad_TipoPublicacion d : datosTabla) {
@@ -120,7 +123,7 @@ public class consultaPaquete extends JInternalFrame {
 		lblNewLabel_2.setBounds(10, 58, 404, 14);
 		panelPaquete.add(lblNewLabel_2);
 		
-		JTextArea descripcionField = new JTextArea();
+		descripcionField = new JTextArea();
 		descripcionField.setLineWrap(true);
 		descripcionField.setWrapStyleWord(true);
 		descripcionField.setEnabled(true);

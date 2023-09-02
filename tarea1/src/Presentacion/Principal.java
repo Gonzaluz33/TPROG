@@ -312,6 +312,7 @@ public class Principal {
 				 if (currentInternalFrame != null) {
 			            currentInternalFrame.setVisible(false);
 				 }
+				 consultaPaqueteInternalFrame.llenar_listaPaquetes();
 				 consultaPaqueteInternalFrame.setVisible(true);
 				 currentInternalFrame = consultaPaqueteInternalFrame;
 	            }
