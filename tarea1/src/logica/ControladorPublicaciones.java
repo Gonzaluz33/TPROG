@@ -3,6 +3,7 @@ package logica;
 import java.time.LocalDate;
 import java.util.List;
 
+import utils.DTPaquete;
 import utils.DTTipoPublicacion;
 import excepciones.TipoPublicExisteException;
 import excepciones.PaqueteExisteException;
@@ -47,5 +48,10 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		Paquete paquete = new Paquete(nombre, descripcion, validez, descuento, 0, fechaAlta);
 		manejadorP.addPaqueteTipoPublicacion(paquete);
 	};
+	
+	public List<DTPaquete> listarPaquetes() {
+		ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
+		return manejadorP.obtenerListaPaquetes();
+	}
 	
 }

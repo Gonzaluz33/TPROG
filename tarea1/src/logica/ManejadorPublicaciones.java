@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import excepciones.PaqueteExisteException;
 import excepciones.TipoPublicExisteException;
+import utils.DTPaquete;
 import utils.DTTipoPublicacion;
 
 
@@ -35,6 +37,15 @@ public class ManejadorPublicaciones {
 			res.add(tipo.toDataType());
 		}
 		return res;
+	}
+	
+	public List<DTPaquete> obtenerListaPaquetes(){
+		List<DTPaquete> listaPaquetes = this.coleccionPaquetes
+				.values()
+				.stream()
+				.map(Paquete::toDataType)
+				.collect(Collectors.toList());
+		return listaPaquetes;
 	}
 	
 	public Integer getLastPubId() {
