@@ -17,6 +17,7 @@ import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
 import excepciones.NombreExisteException;
 import excepciones.OfertaNoExisteException;
+import excepciones.PaqueteExisteException;
 import excepciones.TipoPublicExisteException;
 import excepciones.UsuarioNoEsPostulanteException;
 import excepciones.UsuarioRepetidoException;
@@ -365,6 +366,12 @@ public class Principal {
 					String csvFilePostulaciones = currentDirectory + File.separator + "Datos" + File.separator + "Postulaciones.csv";
 					cargarDatosPostulaciones(csvFilePostulaciones);
 					
+					String csvFilePaquetes = currentDirectory + File.separator + "Datos" + File.separator + "Paquetes.csv";
+					cargarDatosPaquetes(csvFilePaquetes);
+					String csvFileTiposPublicacionPaquetes = currentDirectory + File.separator + "Datos" + File.separator + "TiposPublicacionPaquetes.csv";
+					cargarDatosTiposPublicacionPaquetes(csvFileTiposPublicacionPaquetes);
+					
+					
 				} catch (UsuarioRepetidoException e1) {
 					e1.printStackTrace();
 				} catch (TipoPublicExisteException e1) {
@@ -386,6 +393,9 @@ public class Principal {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (CorreoRepetidoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (PaqueteExisteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
@@ -503,6 +513,31 @@ public class Principal {
 		    }
 		   
 		}
+		
+		private void cargarDatosTiposPublicacionPaquetes(String csvFile){	
+		    String line = "";
+		    String cvsSplitBy = ";";
+		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+		        while ((line = br.readLine()) != null) {
+		            String[] tiposPublicaionPaquetesData = line.split(cvsSplitBy);
+		            String nombrePaquete = "";
+		            Integer cantidad = 0;
+		            String nombreTipoPublicacion = "";
+		            if(tiposPublicaionPaquetesData.length > 0) {
+		            	nombrePaquete = tiposPublicaionPaquetesData[0];
+		            	cantidad = Integer.parseInt(tiposPublicaionPaquetesData[2]);
+		            	nombreTipoPublicacion = tiposPublicaionPaquetesData[1];
+		            	 ICP.agregarTipoPublicacion(nombrePaquete,cantidad,nombreTipoPublicacion);
+		            }
+		            
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		   
+		}
+		
+		
 
 		private LocalDate parseToLocalDate(String dateString) {
 		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -591,6 +626,31 @@ public class Principal {
 		            	fechaPostulacion = LocalDate.parse(fechaStr, formatter);
 		            	LocalDateTime fechaConTiempo = fechaPostulacion.atTime(00, 00, 0, 0);
 		            	ICO.postularAOferta(nombreOL, nicknamePost, cv, motivacion, fechaConTiempo);
+		            }      
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		   
+		}
+		private void cargarDatosPaquetes(String csvFile) throws KeywordExisteException, PaqueteExisteException{	
+		    String line = "";
+		    String cvsSplitBy = ";";
+		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+		        while ((line = br.readLine()) != null) {
+		            String[] paquetesData = line.split(cvsSplitBy);
+		            String nombreTipo = "";
+		            String descripcionTipo = "";
+		            int validez = 0;
+		            int descuento = 0;
+		            String fechaAlta = "00/00/0000";
+		            if(paquetesData.length > 0) {
+		            	nombreTipo = paquetesData[0];
+		            	descripcionTipo = paquetesData[1];
+		            	validez = Integer.parseInt(paquetesData[2]);
+		            	descuento = Integer.parseInt(paquetesData[3]);
+		            	fechaAlta = paquetesData[4];
+		            	ICP.altaPaqueteTipoPublicacion(nombreTipo, descripcionTipo, validez, descuento,fechaAlta);
 		            }      
 		        }
 		    } catch (IOException e) {
