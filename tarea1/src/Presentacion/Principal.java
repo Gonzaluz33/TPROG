@@ -514,41 +514,6 @@ public class Principal {
 		   
 		}
 		
-		private void cargarDatosTiposPublicacionPaquetes(String csvFile){	
-		    String line = "";
-		    String cvsSplitBy = ";";
-		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-		        while ((line = br.readLine()) != null) {
-		            String[] tiposPublicaionPaquetesData = line.split(cvsSplitBy);
-		            String nombrePaquete = "";
-		            Integer cantidad = 0;
-		            String nombreTipoPublicacion = "";
-		            if(tiposPublicaionPaquetesData.length > 0) {
-		            	nombrePaquete = tiposPublicaionPaquetesData[0];
-		            	cantidad = Integer.parseInt(tiposPublicaionPaquetesData[2]);
-		            	nombreTipoPublicacion = tiposPublicaionPaquetesData[1];
-		            	 ICP.agregarTipoPublicacion(nombrePaquete,cantidad,nombreTipoPublicacion);
-		            }
-		            
-		        }
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-		   
-		}
-		
-		
-
-		private LocalDate parseToLocalDate(String dateString) {
-		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		    try {
-		        return LocalDate.parse(dateString, formatter);
-		    } catch (DateTimeParseException e) {
-		        e.printStackTrace();
-		        return null;
-		    }
-		}
-		
 		private void cargarDatosKeywords(String csvFile) throws KeywordExisteException{	
 		    String line = "";
 		    String cvsSplitBy = ";";
@@ -566,6 +531,7 @@ public class Principal {
 		    }
 		   
 		}
+		
 		private void cargarDatosOfertasLaborales(String csvFile) throws NombreExisteException, KeywordExisteException, NicknameNoExisteException{	
 		    String line = "";
 		    String cvsSplitBy = ";";
@@ -604,6 +570,7 @@ public class Principal {
 		    }
 		   
 		}
+		
 		private void cargarDatosPostulaciones(String csvFile) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException{	
 		    String line = "";
 		    String cvsSplitBy = ";";
@@ -633,6 +600,7 @@ public class Principal {
 		    }
 		   
 		}
+		
 		private void cargarDatosPaquetes(String csvFile) throws KeywordExisteException, PaqueteExisteException{	
 		    String line = "";
 		    String cvsSplitBy = ";";
@@ -658,4 +626,44 @@ public class Principal {
 		    }
 		   
 		}
+		
+		private void cargarDatosTiposPublicacionPaquetes(String csvFile){	
+		    String line = "";
+		    String cvsSplitBy = ";";
+		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+		        while ((line = br.readLine()) != null) {
+		            String[] tiposPublicaionPaquetesData = line.split(cvsSplitBy);
+		            String nombrePaquete = "";
+		            Integer cantidad = 0;
+		            String nombreTipoPublicacion = "";
+		            if(tiposPublicaionPaquetesData.length > 0) {
+		            	nombrePaquete = tiposPublicaionPaquetesData[0];
+		            	cantidad = Integer.parseInt(tiposPublicaionPaquetesData[2]);
+		            	nombreTipoPublicacion = tiposPublicaionPaquetesData[1];
+		            	 ICP.agregarTipoPublicacion(nombrePaquete,cantidad,nombreTipoPublicacion);
+		            }
+		            
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		   
+		}
+		
+		
+
+		private LocalDate parseToLocalDate(String dateString) {
+		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		    try {
+		        return LocalDate.parse(dateString, formatter);
+		    } catch (DateTimeParseException e) {
+		        e.printStackTrace();
+		        return null;
+		    }
+		}
+		
+		
+		
+		
+		
 }
