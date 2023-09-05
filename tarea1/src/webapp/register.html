@@ -4,70 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/login.css">
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery-3.7.1.min.js"></script>
-    <script src="js/"></script>
+    
     <title>Trabajo.uy</title>
 </head>
 <body>
     <main>
-        <div class="container pb-modalreglog-container">
-            <div class="row">
-                <div class="col-xs-12 col-md-4 offset-md-4">
-                    <legend class="pb-modalreglog-legend">Modal registration form</legend>
-                    <div class="input-group pb-modalreglog-input-group">
-                        <button class="btn btn-primary pb-modalreglog-submit" data-bs-toggle="modal" data-bs-target="#myModal">Login</button>
-                        <button class="btn btn-primary pb-modalreglog-submit" data-bs-toggle="modal" data-bs-target="#myModal2">Register</button>
+        <div class="container mt-5">
+            <h3>Registrarse como:</h3>
+            <select id="registerAs" class="form-control mb-4">
+                <option value="postulante">Postulante</option>
+                <option value="empresa">Empresa</option>
+            </select>
+    
+            <!-- Formulario para Postulantes -->
+            <div id="postulanteForm">
+                <h3>Formulario de Postulantes</h3>
+            <form action="script-de-procesamiento.php" method="post">
+                    <div class="form-group">
+                        <label for="nickname">Nickname:</label>
+                        <input type="text" id="nickname" name="nickname" required>
                     </div>
-                    
-                    <!-- Modal para Register -->
-                    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-sm" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="myModalLabel">Registration form</h4>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    
-                                </div>
-                                <div class="modal-body">
-                                    <form class="pb-modalreglog-form-reg">
-                                        <div class="form-group">
-                                            <label for="email">Email address</label>
-                                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="password">Password</label>
-                                            <input type="password" class="form-control" id="inputPws" placeholder="Password">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="confirmpassword">Confirm password</label>
-                                            <input type="password" class="form-control" id="inputConfirmPws" placeholder="Confirm Password">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="country">Country</label>
-                                            <input type="text" class="form-control" id="countries" placeholder="Country">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="age">Age</label>
-                                            <input type="text" class="form-control" id="age">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" id="ch" name="chs">
-                                            <label for="ch">I agree with <a href="#">terms and conditions.</a></label>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Sign up</button>
-                                </div>
-                            </div>
-                        </div>
+
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" required>
                     </div>
-                </div>
+
+                    <div class="form-group">
+                        <label for="apellido">Apellido:</label>
+                        <input type="text" id="apellido" name="apellido" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+                        <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nacionalidad">Nacionalidad:</label>
+                        <select id="nacionalidad" name="nacionalidad">
+                            <option value="Uruguayo">Uruguayo</option>
+                            <option value="Argentino">Argentino</option>
+                            <option value="Brasileño">Brasileño</option>
+                            <!-- Añade más opciones según lo necesites -->
+                        </select>
+                    </div>
+
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+    
+            <!-- Formulario para Empresas -->
+            <div id="empresaForm" style="display: none;">
+                <h4>Registro de Empresas</h4>
+                <form action="script-de-procesamiento.php" method="post">
+                    <!-- Nickname -->
+                    <div class="form-group">
+                        <label for="nickname">Nickname:</label>
+                        <input type="text" id="nickname" name="nickname" required>
+                    </div>
+            
+                    <!-- Nombre -->
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+            
+                    <!-- Apellido -->
+                    <div class="form-group">
+                        <label for="apellido">Apellido:</label>
+                        <input type="text" id="apellido" name="apellido" required>
+                    </div>
+            
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+            
+                    <!-- Nombre de la Empresa -->
+                    <div class="form-group">
+                        <label for="nomEmpresa">Nombre de la Empresa:</label>
+                        <input type="text" id="nomEmpresa" name="nomEmpresa" required>
+                    </div>
+            
+                    <!-- Descripción de la Empresa -->
+                    <div class="form-group">
+                        <label for="desc">Descripción:</label>
+                        <textarea id="desc" name="desc" rows="4" cols="42" required></textarea>
+                    </div>
+            
+                    <!-- Sitio Web de la Empresa -->
+                    <div class="form-group">
+                        <label for="linkWeb">Sitio Web:</label>
+                        <input type="url" id="linkWeb" name="linkWeb">
+                    </div>
+            
+                    <!-- Botón de Envío -->
+                    <button type="submit">Enviar</button>
+                </form>
             </div>
         </div>
     </main>
+    <script src="js/register.js"></script>
     <script src="js/index.js"></script>
 </body>
 </html>

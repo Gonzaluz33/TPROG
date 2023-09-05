@@ -1,7 +1,7 @@
 const keywords = ["Tiempo Completo", "Medio Tiempo", "Remoto", "Freelance", "Temporal", "Permanente", "Computación", "Administración", "Logística", "Contabilidad"];
 const mainContentData = [
     { image: 'src/img/example_1.png', text: 'Tu primer contenido aquí.' },
-    { image: 'src/img/example_2.png', text: 'Tu segundo contenido aquí.' },
+    { image: 'src/img/example_2.png', text: 'Tu segundo contenido aquí.' }
     // ... más datos
 ];
 
@@ -45,7 +45,6 @@ mainContentData.forEach(data => {
             </div>
         </div>
     `;
-
     $('#mainContent').append(contentDiv);
 });
 }

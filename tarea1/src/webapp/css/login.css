@@ -1,36 +1,50 @@
-
-.pb-modalreglog-container
-{
-    margin-top: 100px;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
 }
 
-.pb-modalreglog-legend
-{
-    text-align: center;
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.pb-modalreglog-input-group
-{
-    margin: auto;
+h3, h4 {
+    margin-bottom: 20px;
 }
 
-.pb-modalreglog-submit
-{
-    margin-left: 5px;
+.form-group {
+    margin-bottom: 15px;
 }
 
-.pb-modalreglog-form-reg
-{
-    text-align: center;
+label {
+    font-weight: bold;
 }
 
-.pb-modalreglog-footer p
-{
-    text-align: center;
-    margin-top: 20px;
+input[type="email"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-#pb-modalreglog-progressbar
-{
-    border-radius: 2px;
+button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
 }
