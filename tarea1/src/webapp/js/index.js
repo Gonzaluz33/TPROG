@@ -1,7 +1,7 @@
 const keywords = ["Tiempo Completo", "Medio Tiempo", "Remoto", "Freelance", "Temporal", "Permanente", "Computación", "Administración", "Logística", "Contabilidad"];
 const mainContentData = [
-    { image: 'src/img/example_1.png', text: 'Tu primer contenido aquí.' },
-    { image: 'src/img/example_2.png', text: 'Tu segundo contenido aquí.' }
+    { image: 'src/img/example_1.png', text: 'Contenido de ejemplo' },
+    { image: 'src/img/example_2.png', text: 'Contenido de ejemplo' }
     // ... más datos
 ];
 
@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function cargarKeywords(keywords){
     const headerDiv = document.createElement("div");
-    headerDiv.className = "border border-dark mb-3 bg-dark-subtle";
+    headerDiv.className = "border border-dark mb-3 bg-dark-subtle text-center";
     headerDiv.innerHTML = '<h4>Keywords</h4>';
     $("#keywordList").append(headerDiv);
     const ulElement = document.createElement("ul");
@@ -48,4 +48,7 @@ mainContentData.forEach(data => {
     $('#mainContent').append(contentDiv);
 });
 }
+
+
+
 

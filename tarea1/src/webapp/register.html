@@ -4,115 +4,122 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/login.css">
+   <!-- <link rel="stylesheet" href="css/login.css"> -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery-3.7.1.min.js"></script>
-    
     <title>Trabajo.uy</title>
 </head>
 <body>
     <main>
-        <div class="container mt-5">
-            <h3>Registrarse como:</h3>
-            <select id="registerAs" class="form-control mb-4">
-                <option value="postulante">Postulante</option>
-                <option value="empresa">Empresa</option>
-            </select>
     
-            <!-- Formulario para Postulantes -->
-            <div id="postulanteForm">
-                <h3>Formulario de Postulantes</h3>
-            <form action="script-de-procesamiento.php" method="post">
-                    <div class="form-group">
-                        <label for="nickname">Nickname:</label>
-                        <input type="text" id="nickname" name="nickname" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" id="nombre" name="nombre" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="apellido">Apellido:</label>
-                        <input type="text" id="apellido" name="apellido" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-                        <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="nacionalidad">Nacionalidad:</label>
-                        <select id="nacionalidad" name="nacionalidad">
-                            <option value="Uruguayo">Uruguayo</option>
-                            <option value="Argentino">Argentino</option>
-                            <option value="Brasileño">Brasileño</option>
-                            <!-- Añade más opciones según lo necesites -->
+    <section class="h-auto w-auto bg-light">
+        <div class="container  h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-8 col-md-10">
+              <div class="card card-registration my-1">
+                <div class="row g-0">
+                  <div class="col-xl-6 d-none d-xl-block bg-light">
+                    <img id="imageRegister" src="src/img/register_postulante.webp"
+                      alt="Sample photo" class="object-fit-cover w-100 h-100 d-xs-none"
+                      style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
+                  </div>
+                  <div class="col-xl-6">
+                    <div class="card-body p-md-5 text-black">
+                        <h3>Registrarse como:</h3>
+                        <select id="registerAs" class="form-control mb-4">
+                            <option value="postulante">Postulante</option>
+                            <option value="empresa">Empresa</option>
                         </select>
-                    </div>
 
-                    <button type="submit">Enviar</button>
-                </form>
+                      <form id="postulanteForm" action="script-de-procesamiento.php" method="post">
+                          <div class="form-group mb-2">
+                              <label for="nickname">Nickname:</label>
+                              <input type="text" id="nickname" name="nickname" class="form-control" required>
+                          </div>
+                          <div class="form-group mb-2">
+                              <label for="nombre">Nombre:</label>
+                              <input type="text" id="nombre" name="nombre" class="form-control" required>
+                          </div>
+                          <div class="form-group mb-2">
+                              <label for="apellido">Apellido:</label>
+                              <input type="text" id="apellido" name="apellido" class="form-control" required>
+                          </div>
+                          <div class="form-group mb-2">
+                              <label for="email">Email:</label>
+                              <input type="email" id="email" name="email" class="form-control" required>
+                          </div>
+                          <div class="form-group mb-2">
+                              <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+                              <input type="date" id="fechaNacimiento" name="fechaNacimiento" class="form-control" required>
+                          </div>
+                          <div class="form-group mb-4">
+                              <label for="nacionalidad">Nacionalidad:</label>
+                              <select id="nacionalidad" name="nacionalidad" class="form-control">
+                                  <option value="Uruguayo">Uruguayo</option>
+                                  <option value="Argentino">Argentino</option>
+                                  <option value="Brasileño">Brasileño</option>
+                              </select>
+                          </div>
+                          <button type="button" class="btn btn-dark btn-lg" onclick="window.location.href='index.html';">Cancelar</button>
+                          <button type="submit" class="btn btn-warning btn-lg">Enviar</button>
+                      </form>
+
+                      <form id="empresaForm" action="script-de-procesamiento.php" method="post"  style="display: none;">
+                    
+                        <div class="form-group mb-2">
+                            <label for="nickname">Nickname:</label>
+                            <input class="form-control" type="text" id="nickname" name="nickname" required>
+                        </div>
+                
+                        
+                        <div class="form-group mb-2">
+                            <label for="nombre">Nombre:</label>
+                            <input class="form-control" type="text" id="nombre" name="nombre" required>
+                        </div>
+                
+                        
+                        <div class="form-group mb-2">
+                            <label for="apellido">Apellido:</label>
+                            <input class="form-control" type="text" id="apellido" name="apellido" required>
+                        </div>
+                
+                       
+                        <div class="form-group mb-2">
+                            <label for="email">Email:</label>
+                            <input class="form-control" type="email" id="email" name="email" required>
+                        </div>
+                
+                        
+                        <div class="form-group mb-2">
+                            <label for="nomEmpresa">Nombre de la Empresa:</label>
+                            <input class="form-control" type="text" id="nomEmpresa" name="nomEmpresa" required>
+                        </div>
+                
+                        
+                        <div class="form-group mb-2">
+                            <label for="desc">Descripción:</label>
+                            <textarea class="form-control" id="desc" name="desc" rows="4" cols="42" required></textarea>
+                        </div>
+                
+                       
+                        <div class="form-group mb-2">
+                            <label for="linkWeb">Sitio Web:</label>
+                            <input class="form-control" type="url" id="linkWeb" name="linkWeb">
+                        </div>
+                
+                        <button type="button" class="btn btn-dark btn-lg" onclick="window.location.href='index.html';">Cancelar</button>
+                        <button type="submit" class="btn btn-warning btn-lg">Enviar</button>
+                    </form>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-    
-            <!-- Formulario para Empresas -->
-            <div id="empresaForm" style="display: none;">
-                <h4>Registro de Empresas</h4>
-                <form action="script-de-procesamiento.php" method="post">
-                    <!-- Nickname -->
-                    <div class="form-group">
-                        <label for="nickname">Nickname:</label>
-                        <input type="text" id="nickname" name="nickname" required>
-                    </div>
-            
-                    <!-- Nombre -->
-                    <div class="form-group">
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" id="nombre" name="nombre" required>
-                    </div>
-            
-                    <!-- Apellido -->
-                    <div class="form-group">
-                        <label for="apellido">Apellido:</label>
-                        <input type="text" id="apellido" name="apellido" required>
-                    </div>
-            
-                    <!-- Email -->
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-            
-                    <!-- Nombre de la Empresa -->
-                    <div class="form-group">
-                        <label for="nomEmpresa">Nombre de la Empresa:</label>
-                        <input type="text" id="nomEmpresa" name="nomEmpresa" required>
-                    </div>
-            
-                    <!-- Descripción de la Empresa -->
-                    <div class="form-group">
-                        <label for="desc">Descripción:</label>
-                        <textarea id="desc" name="desc" rows="4" cols="42" required></textarea>
-                    </div>
-            
-                    <!-- Sitio Web de la Empresa -->
-                    <div class="form-group">
-                        <label for="linkWeb">Sitio Web:</label>
-                        <input type="url" id="linkWeb" name="linkWeb">
-                    </div>
-            
-                    <!-- Botón de Envío -->
-                    <button type="submit">Enviar</button>
-                </form>
-            </div>
+          </div>
         </div>
+      </section>
     </main>
     <script src="js/register.js"></script>
     <script src="js/index.js"></script>
