@@ -21,8 +21,9 @@ window.addEventListener('DOMContentLoaded', () => {
     cargarContenidoPrincipal();
 });
 
+
 function cargarKeywords(keywords){
-    const headerDiv = document.createElement("div");
+    /*const headerDiv = document.createElement("div");
     headerDiv.className = "border border-dark mb-3 bg-dark-subtle text-center";
     headerDiv.innerHTML = '<h4>Keywords</h4>';
     $("#keywordList").append(headerDiv);
@@ -41,7 +42,7 @@ function cargarKeywords(keywords){
         ulElement.appendChild(liElement);
         $("#keywordList").append(ulElement);
         liElement.classList.add("p-2");
-    });
+    });*/
 }
 
 function cargarContenidoPrincipal() {
