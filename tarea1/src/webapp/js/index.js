@@ -1,8 +1,11 @@
 const keywords = ["Tiempo Completo", "Medio Tiempo", "Remoto", "Freelance", "Temporal", "Permanente", "Computación", "Administración", "Logística", "Contabilidad"];
 const mainContentData = [
     {
-        image: 'src/img/example_1.png', nombreOferta: 'Desarrollador Frontend', descripcion: ' Unete a nuestro equipo de desarrollo frontend y crea experiencias de usuario excepcionales.',
-        departamento: 'Montevideo', ciudad: 'Montevideo',
+        image: 'src/img/example_1.png', 
+        nombreOferta: 'Desarrollador Frontend', 
+        descripcion: ' Unete a nuestro equipo de desarrollo frontend y crea experiencias de usuario excepcionales.',
+        departamento: 'Montevideo', 
+        ciudad: 'Montevideo',
         keywords: ["Tiempo Completo", "Medio Tiempo" ,"Remoto", "Freelance", "Temporal", "Permanente"]
     },
     { 
@@ -70,7 +73,7 @@ mainContentData.forEach(data => {
                             ${keywords}
                         </div>
                         <div class="d-flex justify-content-end">
-                            <a href="#" class="text-dark">Ver más</a>
+                            <a href="ofertaLaboral.html" class="text-dark">Ver más</a>
                         </div>
                     </div>
                   </div>
