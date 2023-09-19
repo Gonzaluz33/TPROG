@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import excepciones.CorreoRepetidoException;
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
 import excepciones.NombreExisteException;
@@ -93,7 +94,7 @@ public class ControladorOfertaTest {
 			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, nombreEmpresaTest, descTest, linkWebTest);
 			controladorOfertas.altaOferta(nombreEmpresaTest, descripcionTest, nombreTest, apellidoTest, keys, emailTest, descripcionTest, nombreTipo, nicknameTest);			
 			
-		} catch (NicknameNoExisteException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -137,7 +138,7 @@ public class ControladorOfertaTest {
 			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, nombreEmpresaTest, descTest, linkWebTest);
 			controladorOfertas.altaOferta(nombreEmpresaTest, descripcionTest, remuTest, horaTest, keys, emailTest, descripcionTest, nombreTipo, nicknameTest);			
 			
-		} catch (NicknameNoExisteException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -189,7 +190,7 @@ public class ControladorOfertaTest {
 
 			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, nombreEmpresaTest, descTest, linkWebTest);
 			
-		} catch (KeywordExisteException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -228,7 +229,7 @@ public class ControladorOfertaTest {
 			controladorOfertas.altaOferta(nombreEmpresaTest, descripcionTest, nombreTest, apellidoTest, keys, emailTest, descripcionTest, nombreTipo, nicknameTest);
 			
 			
-		} catch (NicknameNoExisteException | NombreExisteException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -237,7 +238,7 @@ public class ControladorOfertaTest {
 	}
 	
 	@Test
-	void testObtenerEmpresas_ok() throws UsuarioRepetidoException {
+	void testObtenerEmpresas_ok() throws UsuarioRepetidoException, CorreoRepetidoException {
 		String nicknameTest = "nickname";
 		String nombreTestEmp = "nombre";
 		String apellidoTest = "apellidoEmpresaUno";
@@ -292,7 +293,7 @@ public class ControladorOfertaTest {
 			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, nombreEmpresaTest, descTest, linkWebTest);
 			controladorOfertas.altaOferta(nombreEmpresaTest, descripcionTest, remuTest, horaTest, keys, emailTest, descripcionTest, nombreTipo, nicknameTest);			
 			
-		} catch (NicknameNoExisteException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}

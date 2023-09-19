@@ -11,10 +11,13 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
+import excepciones.CorreoRepetidoException;
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
 import excepciones.NombreExisteException;
 import excepciones.OfertaNoExisteException;
+import excepciones.PaqueteExisteException;
 import excepciones.TipoPublicExisteException;
 import excepciones.UsuarioNoEsPostulanteException;
 import excepciones.UsuarioRepetidoException;
@@ -56,6 +59,10 @@ public class Principal {
 	private consultaOfertaLaboral consultaOfertaLaboralInternalFrame;
 	private altaTipoPublicacionOL altaTipoPublicacionOLInternalFrame;
 	private postulacionOfertaLaboral postulacionOfertaLaboralInternalFrame;
+	private modificarDatosUsuario modificarDatosUsuarioInternalFrame;
+	private crearPaqueteTipo crearPaqueteTipoInternalFrame;
+	private consultaPaquete consultaPaqueteInternalFrame;
+	private agregarTipoPubAPaquete agregarTipoAPaqueteInternalFrame;
 	private JInternalFrame currentInternalFrame = null;
 	
 	
@@ -124,7 +131,24 @@ public class Principal {
 		postulacionOfertaLaboralInternalFrame.setBorder(null);
 		postulacionOfertaLaboralInternalFrame.setVisible(false);
 		
+		crearPaqueteTipoInternalFrame = new crearPaqueteTipo(ICP);
+		crearPaqueteTipoInternalFrame.setResizable(false);
+		crearPaqueteTipoInternalFrame.setBorder(null);
+		crearPaqueteTipoInternalFrame.setVisible(false);
 		
+		consultaPaqueteInternalFrame = new consultaPaquete(ICP);
+		consultaPaqueteInternalFrame.setResizable(false);
+		consultaPaqueteInternalFrame.setBorder(null);
+		consultaPaqueteInternalFrame.setVisible(false);
+		
+		agregarTipoAPaqueteInternalFrame = new agregarTipoPubAPaquete(ICP);
+		agregarTipoAPaqueteInternalFrame.setResizable(false);
+		agregarTipoAPaqueteInternalFrame.setBorder(null);
+		agregarTipoAPaqueteInternalFrame.setVisible(false);
+		
+		
+		
+
 		frame.getContentPane().add(altaPostulanteInternalFrame);
 		frame.getContentPane().add(altaEmpresaInternalFrame);
 		frame.getContentPane().add(consultaUsuarioInternalFrame);
@@ -132,7 +156,9 @@ public class Principal {
 		frame.getContentPane().add(consultaOfertaLaboralInternalFrame);
 		frame.getContentPane().add(altaTipoPublicacionOLInternalFrame);
 		frame.getContentPane().add(postulacionOfertaLaboralInternalFrame);
-		
+		frame.getContentPane().add(crearPaqueteTipoInternalFrame);
+		frame.getContentPane().add(consultaPaqueteInternalFrame);
+		frame.getContentPane().add(agregarTipoAPaqueteInternalFrame);
 	}
 
 	/**
@@ -143,52 +169,45 @@ public class Principal {
 		frame.setBounds(100, 100, 1081, 687);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
-		
-		
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 		
-		JMenu menuCasosDeUso = new JMenu("Casos de Uso");
-		menuBar.add(menuCasosDeUso);
+		JMenu menuPrincipal = new JMenu("Menú Principal");
+		menuBar.add(menuPrincipal);
 		
-		JMenu menuAltaUsuario = new JMenu("Alta de Usuario");
-		menuCasosDeUso.add(menuAltaUsuario);
-			JMenuItem mItemAltaPostulante = new JMenuItem("Alta de Postulante");
-			mItemAltaPostulante.addActionListener(new ActionListener() {
-				 public void actionPerformed(ActionEvent e) {
-					 if (currentInternalFrame != null) {
-				            currentInternalFrame.setVisible(false);
-				        }
+		JMenu menuUsuarios = new JMenu("Usuarios");
+		menuBar.add(menuUsuarios);
+		
+		JMenu menuOfertasLaborales = new JMenu("Ofertas Laborales");
+		menuBar.add(menuOfertasLaborales);
+		
+		JMenuItem mItemAltaPostulante = new JMenuItem("Alta de Postulante");
+		mItemAltaPostulante.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+			        }
 
-					 if (currentInternalFrame != null) {
-				            currentInternalFrame.setVisible(false);
-				        }
+	                altaPostulanteInternalFrame.setVisible(true);
+	                currentInternalFrame = altaPostulanteInternalFrame;
+	            }
+		});
 
-		                altaPostulanteInternalFrame.setVisible(true);
-		                currentInternalFrame = altaPostulanteInternalFrame;
-		                currentInternalFrame = altaPostulanteInternalFrame;
-		            }
-			});
-
+		
+		JMenuItem mItemAltaEmpresa = new JMenuItem("Alta de Empresa");
+		mItemAltaEmpresa.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+			        }
+	                altaEmpresaInternalFrame.setVisible(true);
+	                currentInternalFrame = altaEmpresaInternalFrame;
+	            }
+		});
 			
-			JMenuItem mItemAltaEmpresa = new JMenuItem("Alta de Empresa");
-			mItemAltaEmpresa.addActionListener(new ActionListener() {
-				 public void actionPerformed(ActionEvent e) {
-					 if (currentInternalFrame != null) {
-				            currentInternalFrame.setVisible(false);
-				        }
-					 if (currentInternalFrame != null) {
-				            currentInternalFrame.setVisible(false);
-				        }
-		                altaEmpresaInternalFrame.setVisible(true);
-		                currentInternalFrame = altaEmpresaInternalFrame;
-		                currentInternalFrame = altaEmpresaInternalFrame;
-		            }
-			});
-			
-		menuAltaUsuario.add(mItemAltaPostulante);
-		menuAltaUsuario.add(mItemAltaEmpresa);
+		menuUsuarios.add(mItemAltaPostulante);
+		menuUsuarios.add(mItemAltaEmpresa);
 		
 		
 		JMenuItem mItemConsultaUsuario = new JMenuItem("Consulta de Usuario");
@@ -197,16 +216,35 @@ public class Principal {
 				 if (currentInternalFrame != null) {
 			            currentInternalFrame.setVisible(false);
 			        }
-				 if (currentInternalFrame != null) {
-			            currentInternalFrame.setVisible(false);
-			        }
 				 	consultaUsuarioInternalFrame.llenar_comboListaUsuario();
 	                consultaUsuarioInternalFrame.setVisible(true);
 	                currentInternalFrame = consultaUsuarioInternalFrame;
 	            }
 		});
-		menuCasosDeUso.add(mItemConsultaUsuario);
+		menuUsuarios.add(mItemConsultaUsuario);
 		
+		JMenuItem mItemModificarDatosUsuario = new JMenuItem("Modificar datos de Usuario");
+		
+		mItemModificarDatosUsuario.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        if (currentInternalFrame != null) {
+		            currentInternalFrame.setVisible(false);
+		        }
+		        try {
+					modificarDatosUsuarioInternalFrame = new modificarDatosUsuario(ICU);
+				} catch (PropertyVetoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			    modificarDatosUsuarioInternalFrame.setResizable(false);
+			    modificarDatosUsuarioInternalFrame.setBorder(null);
+			    frame.getContentPane().add(modificarDatosUsuarioInternalFrame);
+		        modificarDatosUsuarioInternalFrame.setVisible(true);
+		        currentInternalFrame = modificarDatosUsuarioInternalFrame;
+		    }
+		});
+		menuUsuarios.add(mItemModificarDatosUsuario);
+
 		JMenuItem mItemOfertaLaboral = new JMenuItem("Alta de Oferta Laboral");
 		mItemOfertaLaboral.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
@@ -218,17 +256,14 @@ public class Principal {
 			        }
 				 altaOfertaLaboralInternalFrame.setVisible(true);
 				 currentInternalFrame = altaOfertaLaboralInternalFrame;
-				 currentInternalFrame = altaOfertaLaboralInternalFrame;
 	            }
 		});	
-		menuCasosDeUso.add(mItemOfertaLaboral);
+		
+		
 		
 		JMenuItem mItemConsultaOfertaLaboral = new JMenuItem("Consulta de Oferta Laboral");
 		mItemConsultaOfertaLaboral.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
-				 if (currentInternalFrame != null) {
-			            currentInternalFrame.setVisible(false);
-				 }
 				 if (currentInternalFrame != null) {
 			            currentInternalFrame.setVisible(false);
 				 }
@@ -237,23 +272,7 @@ public class Principal {
 				 currentInternalFrame = consultaOfertaLaboralInternalFrame;
 	            }
 		});	
-		menuCasosDeUso.add(mItemConsultaOfertaLaboral);
-		
-		JMenuItem mItemAltaTipoPublicacion = new JMenuItem("Alta de Tipo de Publicación de Oferta Laboral");
-		mItemAltaTipoPublicacion.addActionListener(new ActionListener() {
-			 public void actionPerformed(ActionEvent e) {
-				 if (currentInternalFrame != null) {
-			            currentInternalFrame.setVisible(false);
-				 }
-				 if (currentInternalFrame != null) {
-			            currentInternalFrame.setVisible(false);
-				 }
-				 altaTipoPublicacionOLInternalFrame.setVisible(true);
-				 currentInternalFrame = altaTipoPublicacionOLInternalFrame;
-				 currentInternalFrame = altaTipoPublicacionOLInternalFrame;
-	            }
-		});	
-		menuCasosDeUso.add(mItemAltaTipoPublicacion);
+		menuOfertasLaborales.add(mItemConsultaOfertaLaboral);
 		
 		JMenuItem mItemPostulacionOfertaLaboral = new JMenuItem("Postulación a Oferta Laboral");
 		mItemPostulacionOfertaLaboral.addActionListener(new ActionListener() {
@@ -264,12 +283,63 @@ public class Principal {
 				 postulacionOfertaLaboralInternalFrame.comboMostrarEmpresas();
 				 postulacionOfertaLaboralInternalFrame.setVisible(true);
 				 currentInternalFrame = postulacionOfertaLaboralInternalFrame;
-				 currentInternalFrame = postulacionOfertaLaboralInternalFrame;
 	            }
 		});	
-		menuCasosDeUso.add(mItemPostulacionOfertaLaboral);
-
-
+		menuOfertasLaborales.add(mItemPostulacionOfertaLaboral);
+		
+		JMenuItem mItemAltaTipoPublicacion = new JMenuItem("Alta de Tipo de Publicación de Oferta Laboral");
+		mItemAltaTipoPublicacion.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+				 }
+				 altaTipoPublicacionOLInternalFrame.setVisible(true);
+				 currentInternalFrame = altaTipoPublicacionOLInternalFrame;
+	            }
+		});	
+		menuOfertasLaborales.add(mItemAltaTipoPublicacion);
+		
+		JMenuItem mItemCrearPaquetes = new JMenuItem("Crear Paquete de Tipos de Publicación");
+		menuOfertasLaborales.add(mItemCrearPaquetes);
+		mItemCrearPaquetes.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+				 }
+				 crearPaqueteTipoInternalFrame.setVisible(true);
+				 currentInternalFrame = crearPaqueteTipoInternalFrame;
+	            }
+		});	
+		
+		
+		
+		JMenuItem mItemAgregarTipoAPaquete = new JMenuItem("Agregar Tipo de Publicación a Paquete");
+		menuOfertasLaborales.add(mItemAgregarTipoAPaquete);
+		mItemAgregarTipoAPaquete.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+				 }
+				 agregarTipoAPaqueteInternalFrame.llenar_listaTipos();
+				 agregarTipoAPaqueteInternalFrame.llenar_listaPaquetes();
+				 agregarTipoAPaqueteInternalFrame.setVisible(true);
+				 currentInternalFrame = agregarTipoAPaqueteInternalFrame;
+	            }
+		});
+		
+		
+		JMenuItem mItemConsultaPaquete = new JMenuItem("Consulta de Paquete de Tipos de Publicación");
+		menuOfertasLaborales.add(mItemConsultaPaquete);
+		mItemConsultaPaquete.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+				 }
+				 consultaPaqueteInternalFrame.llenar_listaPaquetes();
+				 consultaPaqueteInternalFrame.setVisible(true);
+				 currentInternalFrame = consultaPaqueteInternalFrame;
+	            }
+		});	
 
 		JMenuItem mntmNewMenuItem = new JMenuItem("Cargar Datos");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
@@ -296,6 +366,12 @@ public class Principal {
 					String csvFilePostulaciones = currentDirectory + File.separator + "Datos" + File.separator + "Postulaciones.csv";
 					cargarDatosPostulaciones(csvFilePostulaciones);
 					
+					String csvFilePaquetes = currentDirectory + File.separator + "Datos" + File.separator + "Paquetes.csv";
+					cargarDatosPaquetes(csvFilePaquetes);
+					String csvFileTiposPublicacionPaquetes = currentDirectory + File.separator + "Datos" + File.separator + "TiposPublicacionPaquetes.csv";
+					cargarDatosTiposPublicacionPaquetes(csvFileTiposPublicacionPaquetes);
+					
+					
 				} catch (UsuarioRepetidoException e1) {
 					e1.printStackTrace();
 				} catch (TipoPublicExisteException e1) {
@@ -316,13 +392,29 @@ public class Principal {
 				} catch (OfertaNoExisteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				} catch (CorreoRepetidoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (PaqueteExisteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 		    }
 		});
-		menuCasosDeUso.add(mntmNewMenuItem);
+		menuPrincipal.add(mntmNewMenuItem);
+		
+		JMenuItem mItemSalir= new JMenuItem("Salir");
+		mItemSalir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+		menuPrincipal.add(mItemSalir);
+		
 	}
 
-		private void cargarDatosPostulantes(String csvFile) throws UsuarioRepetidoException {	
+		private void cargarDatosPostulantes(String csvFile) throws UsuarioRepetidoException, CorreoRepetidoException {	
 		    String line = "";
 		    String cvsSplitBy = ";";
 		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
@@ -361,7 +453,7 @@ public class Principal {
 		    }
 		}
 		
-		private void cargarDatosEmpresas(String csvFile) throws UsuarioRepetidoException {	
+		private void cargarDatosEmpresas(String csvFile) throws UsuarioRepetidoException, CorreoRepetidoException {	
 		    String line = "";
 		    String cvsSplitBy = ";";
 		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
@@ -421,16 +513,6 @@ public class Principal {
 		    }
 		   
 		}
-
-		private LocalDate parseToLocalDate(String dateString) {
-		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		    try {
-		        return LocalDate.parse(dateString, formatter);
-		    } catch (DateTimeParseException e) {
-		        e.printStackTrace();
-		        return null;
-		    }
-		}
 		
 		private void cargarDatosKeywords(String csvFile) throws KeywordExisteException{	
 		    String line = "";
@@ -449,6 +531,7 @@ public class Principal {
 		    }
 		   
 		}
+		
 		private void cargarDatosOfertasLaborales(String csvFile) throws NombreExisteException, KeywordExisteException, NicknameNoExisteException{	
 		    String line = "";
 		    String cvsSplitBy = ";";
@@ -487,6 +570,7 @@ public class Principal {
 		    }
 		   
 		}
+		
 		private void cargarDatosPostulaciones(String csvFile) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException{	
 		    String line = "";
 		    String cvsSplitBy = ";";
@@ -516,6 +600,70 @@ public class Principal {
 		    }
 		   
 		}
+		
+		private void cargarDatosPaquetes(String csvFile) throws KeywordExisteException, PaqueteExisteException{	
+		    String line = "";
+		    String cvsSplitBy = ";";
+		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+		        while ((line = br.readLine()) != null) {
+		            String[] paquetesData = line.split(cvsSplitBy);
+		            String nombreTipo = "";
+		            String descripcionTipo = "";
+		            int validez = 0;
+		            int descuento = 0;
+		            String fechaAlta = "00/00/0000";
+		            if(paquetesData.length > 0) {
+		            	nombreTipo = paquetesData[0];
+		            	descripcionTipo = paquetesData[1];
+		            	validez = Integer.parseInt(paquetesData[2]);
+		            	descuento = Integer.parseInt(paquetesData[3]);
+		            	fechaAlta = paquetesData[4];
+		            	ICP.altaPaqueteTipoPublicacion(nombreTipo, descripcionTipo, validez, descuento,fechaAlta);
+		            }      
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		   
+		}
+		
+		private void cargarDatosTiposPublicacionPaquetes(String csvFile){	
+		    String line = "";
+		    String cvsSplitBy = ";";
+		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+		        while ((line = br.readLine()) != null) {
+		            String[] tiposPublicaionPaquetesData = line.split(cvsSplitBy);
+		            String nombrePaquete = "";
+		            Integer cantidad = 0;
+		            String nombreTipoPublicacion = "";
+		            if(tiposPublicaionPaquetesData.length > 0) {
+		            	nombrePaquete = tiposPublicaionPaquetesData[0];
+		            	cantidad = Integer.parseInt(tiposPublicaionPaquetesData[2]);
+		            	nombreTipoPublicacion = tiposPublicaionPaquetesData[1];
+		            	 ICP.agregarTipoPublicacion(nombrePaquete,cantidad,nombreTipoPublicacion);
+		            }
+		            
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		   
+		}
+		
+		
 
-
+		private LocalDate parseToLocalDate(String dateString) {
+		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		    try {
+		        return LocalDate.parse(dateString, formatter);
+		    } catch (DateTimeParseException e) {
+		        e.printStackTrace();
+		        return null;
+		    }
+		}
+		
+		
+		
+		
+		
 }

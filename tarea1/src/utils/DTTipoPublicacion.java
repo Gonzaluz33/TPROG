@@ -31,6 +31,10 @@ public class DTTipoPublicacion {
 	}
 	
 	
+	public String toString() {
+		return nombre;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}

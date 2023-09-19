@@ -1,10 +1,13 @@
 package logica;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import utils.DTPaquete;
 import utils.DTTipoPublicacion;
 import excepciones.TipoPublicExisteException;
+import excepciones.PaqueteExisteException;
 
 public class ControladorPublicaciones implements IControladorPublicaciones {
 
@@ -20,6 +23,11 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 	public List<DTTipoPublicacion> obtenerTipos() {
 		ManejadorPublicaciones manP = ManejadorPublicaciones.getInstance();
 		return manP.obtenerTipos();
+	}
+	
+	public DTTipoPublicacion obtenerDatosTipoPublicacion(String nombre) {
+		ManejadorPublicaciones manP = ManejadorPublicaciones.getInstance();
+		return manP.obtenerTipoPublicacion(nombre).toDataType();
 	}
 	
 	public Publicacion addPublicacion(OfertaLaboral ofL, String tipo) {
@@ -40,4 +48,31 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		manejadorP.altaTipoPublicacionOL(tipoP);
 	}
 	
+	public void altaPaqueteTipoPublicacion(String nombre, String descripcion, int validez, int descuento ,String fecha) throws PaqueteExisteException {
+		ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
+		if(!fecha.isEmpty()) {
+		       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		        LocalDate fechaParseada = LocalDate.parse(fecha, formatter);
+				Paquete paquete = new Paquete(nombre, descripcion, validez, descuento, 0, fechaParseada);
+				manejadorP.addPaqueteTipoPublicacion(paquete);
+		}
+		else {
+			LocalDate fechaAlta = LocalDate.now();
+			Paquete paquete = new Paquete(nombre, descripcion, validez, descuento, 0, fechaAlta);
+			manejadorP.addPaqueteTipoPublicacion(paquete);
+		}
+
+	};
+	
+	public  void agregarTipoPublicacion(String nombrePaquete ,Integer cant, String nombreTipoPublicacion) {
+		ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
+		Paquete p = manejadorP.obtenerPaquete(nombrePaquete);
+		TipoPublicacion t = manejadorP.obtenerTipoPublicacion(nombreTipoPublicacion);
+		p.agregarTipoPublicacion(cant, t);
+	}
+
+	public List<DTPaquete> listarPaquetes() {
+		ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
+		return manejadorP.obtenerListaPaquetes();
+	}
 }

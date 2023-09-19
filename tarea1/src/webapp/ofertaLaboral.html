@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Trabajo.uy</title>
+</head>
+<body>
+    <header>
+      <nav class="navbar bg-body-tertiary border-bottom border-black mb-4">
+          <div class="container d-flex py-1 " >
+            <div style="width: 20%;">
+                <a class="navbar-brand" href="index.html"><img class="w-50"  src="src/img/trabajo_logo.png" alt=""></a>
+            </div>
+            <div  style="width: 50%;">
+                <form class="d-flex " role="search" >
+                    <input class="form-control square-corners  me-2 " type="search" placeholder="Ofertas laborales, Empresas" aria-label="Search">
+                    <button class="btn btn-outline-light bg-dark square-corners" type="submit"><i class="fas fa-search"></i> Buscar</button>
+                  </form>
+            </div>
+
+            <div class="d-flex w-auto  justify-content-center align-items-center">
+                <div class="d-inline-flex w-50 ">
+                    <a class="navbar-brand" href="#"><img class="w-50"  src="src/img/companyLogo.png" alt=""></a>
+                </div>
+
+                <div class="d-flex justify-content-center align-content-center">
+                   <a class="text-decoration-none text-black fw-bold " href="miPerfil.html">EcoTech</a>
+                </div>
+               
+            </div>
+          </div>
+      </nav>
+    </header>
+<main>
+
+    <!-- El contenido principal del sitio web -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 col-sm-12">
+                <div class=" container-fluid p-3 mx-auto border border-dark text-center mb-2">
+                    <div class="d-flex border border-dark bg-dark-subtle text-start">
+                        <div class="w-50 p-2">
+                            <h4>Mi Perfil</h4>
+                        </div>
+                        <div class="w-50 p-2">
+                            <h4 class="text-end">></h4>
+                        </div>
+                        
+                    </div>
+                    <div class="container-fluid text-start border border-dark p-2">
+                       <p class="fw-bold">Alta Oferta Laboral</p>
+                    </div>
+                   
+                </div>
+               <div class=" container-fluid p-3 mx-auto border border-dark text-center" id="keywordList">
+                <h4>Filtrar Publicaciones:</h4>
+                <h5>Keywords</h5>
+                <br>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                      Tiempo Completo
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                      Medio Tiempo
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                      Remoto
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                      Freelance
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                      Temporal
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                      Permanente
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                      Computación
+
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                      Administración
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                      Logística
+                    </label>
+                  </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                      <label class="form-check-label" for="flexCheckChecked">
+                        Contabilidad
+                      </label>
+                    </div> 
+                </div>
+                <div class="container-fluid p-3 mt-2 mx-auto border border-dark text-center">
+                    <a class="fw-bold text-decoration-none text-black" href="">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 p-5 ">
+                <div class="row d-flex text-center align-items-center justify-content-center">
+                        <div class="w-50 ">
+                            <img class="w-75"  src="src/img/example_1.png" alt="">
+                        </div>
+                        <div class="w-50   text-center align-items-center justify-content-center">
+                            <h3 class="fw-bold">Desarrollador Frontend</h3>
+                        </div>
+                </div>
+                <div class="row d-flex  mt-3">
+                    <p><span class="fw-bold">Desarrollador Frontend</span> Unete a nuestro equipo de desarrollo frontend y crea experiencias de usuario excepcionales.</p>
+                </div>
+                <div class="row d-flex ">
+                    <p class="m-0"><span class="fw-bold">Remuneración:</span> 90000 pesos uruguayos </p>
+                    <p class="m-0"><span class="fw-bold">Horario:</span> 09:00-18:00 </p>
+                    <p class="m-0"><span class="fw-bold">Departamento:</span> Montevideo </p>
+                    <p class="m-0"><span class="fw-bold">Ciudad:</span> Montevideo </p>
+                </div>
+                <div class="row d-flex  mt-3">
+                    <p class="m-0"><span class="fw-bold">Fecha de alta:</span> 14/08/23</p>
+                    <p class="m-0"><span class="fw-bold">Costo:</span> 3.200</p>
+                    
+                </div>
+                
+                <div class="row d-flex  mt-3">
+                    <p class="m-0"><span class="fw-bold"> Keywords:</span>  Tiempo completo, Mediotiempo, Remoto, Freelance, Temporal, Permanente</p>
+                    
+                </div>
+            </div>   
+           
+
+            <div class=" col-md-3 col-sm-12 p-2">
+                <div class="container-fluid text text-center" id="postulaciones">
+                    <h4 class="m-3">POSTULACIONES</h4>
+                    <div class="d-flex w-auto my-3  justify-content-center align-items-center" id="postulante">
+                        <div class="d-inline-flex w-50 ">
+                            <a class="navbar-brand" href="#"><img class="w-50"  src="src/img/postulante_1.png" alt=""></a>
+                        </div>
+        
+                        <div class="d-flex justify-content-center align-content-center">
+                           <a class="text-decoration-none text-black fw-bold " href="miPerfil.html">Igarcia</a>
+                        </div>
+                    </div>
+                    <div class="d-flex my-3 w-auto  justify-content-center align-items-center" id="postulante">
+                        <div class="d-inline-flex w-50 ">
+                            <a class="navbar-brand" href="#"><img class="w-50"  src="src/img/postulante_2.png" alt=""></a>
+                        </div>
+        
+                        <div class="d-flex justify-content-center align-content-center">
+                           <a class="text-decoration-none text-black fw-bold " href="miPerfil.html">maro</a>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="container-fluid text-center" id="paquete">
+                    <h4 class="m-3 mt-5">PAQUETE</h4>
+                    <div class="d-flex mt-5" id="paquete">
+                        <div class="d-flex w-50 ">
+                            <a class="navbar-brand" href="#"><img class="w-50"  src="src/img/paqueteBasico.png" alt=""></a>
+                        </div>
+                        <div class="d-flex w-25  justify-content-center align-items-center">
+                           <a class="text-decoration-none text-black fw-bold " href="">BÁSICO</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+      </div>
+
+</main>
+<footer>
+
+<!-- El pie de página -->
+
+</footer>
+    <script src="js/index.js"></script>
+</body>
+</html>

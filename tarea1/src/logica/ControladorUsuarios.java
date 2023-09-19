@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import excepciones.CorreoRepetidoException;
 import excepciones.NicknameNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
 import excepciones.UsuarioRepetidoException;
@@ -24,7 +25,7 @@ public class ControladorUsuarios implements IControladorUsuario{
     }
 
 	public void altaPostulante(String nickname, String nombre, String apellido, String email, Date fechaNacimiento,
-			String nacionalidad) throws UsuarioRepetidoException {
+			String nacionalidad) throws UsuarioRepetidoException, CorreoRepetidoException {
         ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
         Postulante p = new Postulante(nickname, nombre, apellido, email, fechaNacimiento, nacionalidad);
         manejadorU.altaPostulante(p);
@@ -32,7 +33,7 @@ public class ControladorUsuarios implements IControladorUsuario{
 	
 	@Override
 	public void altaEmpresa(String nickname, String nombre, String apellido, String email, String nomEmpresa ,String desc,
-			String linkWeb) throws UsuarioRepetidoException {
+			String linkWeb) throws UsuarioRepetidoException, CorreoRepetidoException {
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
 		Empresa e = new Empresa(nickname, nombre, apellido, email, nomEmpresa ,desc, linkWeb);
         manejadorU.altaEmpresa(e);
@@ -66,6 +67,25 @@ public class ControladorUsuarios implements IControladorUsuario{
 	public Set<DTOferta> obtenerOfertasDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
 		return manejadorU.obtenerOfertasDeEmpresa(nicknameEmpresa);
+	}
+	public void actualizarDatosEmpresa(String nickFiltrado,String nuevoNombre,String nuevoApellido,String nombreEmpresa,String descripcionEmpresa, String linkWebEmpresa) {
+		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+		try {
+			manejadorU.actualizarDatosEmpresa(nickFiltrado,nuevoNombre,nuevoApellido,nombreEmpresa,descripcionEmpresa,linkWebEmpresa);
+		} catch (NicknameNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void actualizarDatosPostulante(String nickname, String nuevoNombre,String nuevoApellido,String fechaNacimiento, String nacionalidad) {
+		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+		try {
+			manejadorU.actualizarDatosPostulante(nickname,nuevoNombre,nuevoApellido,fechaNacimiento,nacionalidad);
+		} catch (NicknameNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

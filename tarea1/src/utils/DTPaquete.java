@@ -1,21 +1,34 @@
 package utils;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+import logica.Tupla_Cantidad_TipoPublicacion;
+
 public class DTPaquete {
 	private String nombre;
 	private String descripcion;
 	private Integer validez;
 	private Integer descuento;
-	private Integer costoAsociado;
+	private double costoAsociado;
+	private LocalDate fechaAlta;
+	private List<Tupla_Cantidad_TipoPublicacion> listaDeTuplas;
 	
-	public DTPaquete(String nombre, String descripcion, Integer validez, Integer descuento, Integer costoAsociado ) {
+	public DTPaquete(String nombre, String descripcion, Integer validez, Integer descuento, double costoAsociado, LocalDate fechaAlta, List<Tupla_Cantidad_TipoPublicacion> lista) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.validez = validez;
 		this.descuento = descuento;
 		this.costoAsociado = costoAsociado;
+		this.fechaAlta = fechaAlta;
+		this.listaDeTuplas = lista;
 	}
 	
     // Getters
+	public String toString() {
+		return nombre;
+	}
+	
     public String getNombre() {
         return nombre;
     }
@@ -32,8 +45,21 @@ public class DTPaquete {
         return descuento;
     }
 
-    public Integer getCostoAsociado() {
+    public double getCostoAsociado() {
         return costoAsociado;
+    }
+    
+    public LocalDate getFechaAlta() {
+    	return fechaAlta;
+    }
+    
+    public List<DTTupla_Cantidad_TipoPublicacion> getListaDeTuplas(){
+
+    	return listaDeTuplas
+		.stream()
+		.map(Tupla_Cantidad_TipoPublicacion::toDataType)
+		.collect(Collectors.toList());
+    	
     }
 
     // Setters
@@ -55,6 +81,13 @@ public class DTPaquete {
 
     public void setCostoAsociado(Integer costoAsociado) {
         this.costoAsociado = costoAsociado;
+    }
+    public void setFechaAlta(LocalDate d) {
+    	this.fechaAlta = d;
+    }
+    
+    public void setListaDeTuplas(List<Tupla_Cantidad_TipoPublicacion> l) {
+    	this.listaDeTuplas = l;	
     }
 
 }
