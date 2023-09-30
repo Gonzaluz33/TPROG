@@ -2,21 +2,20 @@ package controllers;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import jakarta.servlet.RequestDispatcher;
+import java.security.Key;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import excepciones.CorreoRepetidoException;
 import excepciones.NicknameNoExisteException;
 import excepciones.UsuarioNoEncontrado;
+import excepciones.UsuarioRepetidoException;
+import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import model.IControladorUsuario;
 import utils.DTUsuario;
 import model.Fabrica;
@@ -27,7 +26,7 @@ import model.Fabrica;
 @WebServlet("/iniciar-sesion")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String SECRET_KEY = "clave_secreta"; // Clave secreta para firmar JWT
+	private static final String secret_Key = "6a2b5c8e1f4a7d0987654321abcdef09"; // Clave secreta para firmar JWT
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -46,21 +45,22 @@ public class Login extends HttpServlet {
 	 * @throws ServletException if a servlet-specific error occurs
 	 * @throws IOException      if an I/O error occurs
 	 * @throws NicknameNoExisteException 
+	 * @throws CorreoRepetidoException 
+	 * @throws UsuarioRepetidoException 
 	 */
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException, NicknameNoExisteException, UsuarioNoEncontrado {
+			throws ServletException, IOException, NicknameNoExisteException, UsuarioNoEncontrado, UsuarioRepetidoException, CorreoRepetidoException {
 		 Fabrica factory = Fabrica.getInstance();
 		 IControladorUsuario icontuser = factory.getIControladorUsuario();
 		 String login = request.getParameter("login");
 	     String password = request.getParameter("password");
-		if (icontuser.validarUsuario(login,password)) { //agregar checkeo con encriptacion
-		} else {
-			DTUsuario usr = icontuser.consultarUsuario(login);
-		    String jwt = generateJWT(usr.getId(),usr.getNombre(),usr.getApellido(),usr.getCorreo());
-		    response.addCookie(new Cookie("jwt", jwt));
+	
+		if (icontuser.validarUsuario(login,password)) {
+	        DTUsuario usuario = icontuser.consultarUsuario(login);
+		    String jwt = generateJWT(usuario.getCorreo(),secret_Key);
+		    response.addCookie(new Cookie("jwt", jwt)); 
 		}
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/visitante");
-        dispatcher.forward(request, response);
+		request.getRequestDispatcher("/visitante").forward(request, response);
 	}
 
 	/**
@@ -69,21 +69,19 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {
-			processRequest(request, response);
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NicknameNoExisteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UsuarioNoEncontrado e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try {
+				processRequest(request, response);
+			} catch (ServletException | IOException | NicknameNoExisteException | UsuarioNoEncontrado e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (UsuarioRepetidoException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (CorreoRepetidoException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
 	}
 
 	/**
@@ -92,35 +90,35 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {
-			processRequest(request, response);
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NicknameNoExisteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UsuarioNoEncontrado e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try {
+				processRequest(request, response);
+			} catch (ServletException | IOException | NicknameNoExisteException | UsuarioNoEncontrado e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (UsuarioRepetidoException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (CorreoRepetidoException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
+		
+	
+	private String generateJWT(String email, String secret_Key) {
+	    long expirationTimeMillis = System.currentTimeMillis() + 3600000; // Tiempo de expiración (1 hora)
+	    Key key = Keys.hmacShaKeyFor(secret_Key.getBytes());
+
+	    String jwt = Jwts.builder()
+	            .setSubject(email)
+	            .claim("email", email)
+	            .setExpiration(new Date(expirationTimeMillis))
+	            .signWith(key, SignatureAlgorithm.HS256)
+	            .compact();
+
+	    return jwt;
 	}
 	
-	private String generateJWT(int userId, String nombre, String apellido, String email) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("sub", userId); // Sujeto del JWT, generalmente el ID del usuario
-        claims.put("nombre", nombre); // Agregar nombre al JWT
-        claims.put("apellido", apellido); // Agregar apellido al JWT
-        claims.put("email", email); // Agregar correo electrónico al JWT
-        claims.put("exp", new Date(System.currentTimeMillis() + 3600000)); // Tiempo de expiración (1 hora)
-
-        return Jwts.builder()
-                .setClaims(claims)
-                .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()), SignatureAlgorithm.HS256)
-                .compact();
-    }
+	
 
 }

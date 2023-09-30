@@ -5,15 +5,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Fabrica;
-import model.IControladorUsuario;
-import utils.DTEmpresa;
-import utils.DTPostulante;
-import utils.DTUsuario;
 import jakarta.servlet.http.Cookie;
-
 import java.io.IOException;
-
+import java.security.Key;
+import java.util.Date;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -25,6 +20,7 @@ import io.jsonwebtoken.security.Keys;
 @WebServlet ("/visitante")
 public class Visitante extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String secret_Key = "6a2b5c8e1f4a7d0987654321abcdef09"; // Clave secreta para firmar JWT
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -53,33 +49,34 @@ public class Visitante extends HttpServlet {
          
          if (jwt != null) {
              try {
+            	 Key secretKey = Keys.hmacShaKeyFor(secret_Key.getBytes());
                  Jws<Claims> claimsJws = Jwts.parserBuilder()
-                     .setSigningKey(Keys.hmacShaKeyFor("clave_secreta".getBytes()))
-                     .build()
-                     .parseClaimsJws(jwt); //validacion del token
+                         .setSigningKey(secretKey)
+                         .build()
+                         .parseClaimsJws(jwt);
 
                  Claims claims = claimsJws.getBody();
-                 int userId = Integer.parseInt(claims.getSubject());
-                 String nombre = (String) claims.get("nombre");
-                 String apellido = (String) claims.get("apellido");
-                 String email = (String) claims.get("email");
-                 Fabrica factory = Fabrica.getInstance();
-        		 IControladorUsuario icontuser = factory.getIControladorUsuario();
-        		 DTUsuario user = icontuser.consultarUsuario(email);
-        		 DTEmpresa emp = (DTEmpresa) user;
-        		 DTPostulante post = (DTPostulante) user;
-        		 if(emp != null) {
-        			 req.getRequestDispatcher("/WEB-INF/visitante/dashboardEmpresa.jsp").forward(req, resp);
-        		 }
-        		 if(post != null) {
-        			 req.getRequestDispatcher("/WEB-INF/visitante/dashboardPostulante.jsp").forward(req, resp);
-        		 }
-        		 
-          
+                 Date expirationDate = claims.getExpiration();
+                 if (expirationDate.before(new Date())) {
+                     // El token ha expirado, maneja este caso según tus necesidades
+                	 
+                	 req.setAttribute("sessionExpired", true);
+                     req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
+                     return;
+                     
+                 }
+
+                 // Verificar otros datos en el token, como el sujeto
+                 String username = (String) claims.get("sub");
+                 req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
+
+                 // Realizar comprobaciones adicionales si es necesario
+
                  // Aquí puedes realizar las comprobaciones necesarias con la información del JWT
                  // Por ejemplo, verificar la autenticidad, autorización, etc.
-                 
-                 // Luego, puedes redirigir o responder de acuerdo a la validación del JWT.
+
+                 // Luego, puedes redirigir o responder de acuerdo a la validación del JWT
+                 // ...
              } catch (Exception e) {
                  // El JWT no es válido o ha expirado, maneja este caso según tus necesidades
                  req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
@@ -88,6 +85,7 @@ public class Visitante extends HttpServlet {
              // El JWT no se encontró en las cookies, maneja este caso según tus necesidades
              req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
          }
+         
     	
     		
 	}

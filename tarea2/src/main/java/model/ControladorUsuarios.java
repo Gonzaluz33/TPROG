@@ -47,6 +47,16 @@ public class ControladorUsuarios implements IControladorUsuario{
 		return manejadorU.getUsuario(nickname);
 	}
 	
+	public Boolean validarUsuario(String correo, String contraseña) throws NicknameNoExisteException {
+		try {
+	        ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+	        Usuario u = manejadorU.getUsuarioXCorreo(correo);
+	        return BCrypt.checkpw(contraseña, u.getContraseña());
+	    } catch (NicknameNoExisteException e) {
+	        return false;
+	    } 
+	}
+	
 	public List<DTUsuario> listarUsuarios() {
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
 		return manejadorU.obtenerListaUsuarios();

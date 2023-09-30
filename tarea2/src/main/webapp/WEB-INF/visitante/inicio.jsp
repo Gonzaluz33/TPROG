@@ -5,10 +5,46 @@
 	<head>
     <jsp:include page="/WEB-INF/template/head.jsp" />
 	<title>Trabajo.uy</title>
+	
+	  <!-- Tu código JavaScript para mostrar la alerta -->
+    <script>
+        <% if (request.getAttribute("sessionExpired") != null) { %>
+            alert("La sesión ha expirado. Por favor, inicie sesión nuevamente.");
+        <% } %>
+    </script>
+	
 	</head>
 	<body>
 		<jsp:include page="/WEB-INF/template/headerVisitante.jsp" />
 		<!-- Modal Login-->
+		<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        <form action="iniciar-sesion" method="post">
+			          <div class="form-group mb-2">
+			            <label class="mb-3" for="login">Email</label>
+			            <input type="text" class="form-control" id="login" name="login" placeholder="Ingrese su email">
+			          </div>
+			          <div class="form-group mb-2">
+			            <label class="mb-3" for="password">Contraseña</label>
+			            <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña">
+			          </div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary btn-dark" data-bs-dismiss="modal">Cerrar</button>
+			        <!-- Cambia el tipo de botón a 'submit' para enviar el formulario al servlet -->
+			        <button type="submit" class="btn btn-warning">Iniciar sesión</button>
+			      </div>
+		      </form>
+		    </div>
+		  </div>
+		</div>
+		<!-- Modal Login
 		<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
@@ -34,7 +70,7 @@
 		      </div>
 		    </div>
 		  </div>
-		</div>
+		</div>-->
 		<!--  <nav class="navbar navbar-expand-lg bg-body-tertiary bg-navbar">
 	    <div class="container-fluid justify-content-center">
 	      <div class="collapse navbar-collapse justify-content-center">
