@@ -145,11 +145,12 @@ public class ControladorOfertasTest {
 		String nombreEmpresa1 = "nombrePersonaEmpresaUno";
 		String apellidoEmpresa1 = "apellidoEmpresaUno";
 		String emailEmpresa1 = "emailEmpresaUno";
+		String contraseñaEmpresa1 = "contraseñaEmpresa1";
 		String nombreEmpresaEmpresa1 = "nombreEmpresaUno";
 		String descripcionEmpresa1 = "descripcionEmpresaUno";
 		String linkWebEmpresa1 = "linkWebEmpresaUno";
 		try {
-			controladorUsuarios.altaEmpresa(nicknameEmpresa1, nombreEmpresa1, apellidoEmpresa1, emailEmpresa1, nombreEmpresaEmpresa1, descripcionEmpresa1, linkWebEmpresa1);
+			controladorUsuarios.altaEmpresa(nicknameEmpresa1, nombreEmpresa1, apellidoEmpresa1, emailEmpresa1, contraseñaEmpresa1,nombreEmpresaEmpresa1, descripcionEmpresa1, linkWebEmpresa1);
 		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
@@ -161,10 +162,11 @@ public class ControladorOfertasTest {
 		String nombrePostulante1 = "nombrePersonaPostulanteUno";
 		String apellidoPostulante1 = "apellidoPostulanteUno";
 		String emailPostulante1 = "emailPostulanteUno";
+		String contraseñaPostulante1 = "contraseñaPostulante1";
 		Date fechaNacimientoPostulante1 = new Date();
 		String nacionalidadPostulante1 = "nacionalidadPostulanteUno";
 		try {
-			controladorUsuarios.altaPostulante(nicknamePostulante1, nombrePostulante1, apellidoPostulante1, emailPostulante1, fechaNacimientoPostulante1, nacionalidadPostulante1);
+			controladorUsuarios.altaPostulante(nicknamePostulante1, nombrePostulante1, apellidoPostulante1, emailPostulante1,contraseñaPostulante1 ,fechaNacimientoPostulante1, nacionalidadPostulante1);
 		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();

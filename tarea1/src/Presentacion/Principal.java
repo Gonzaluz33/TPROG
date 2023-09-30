@@ -433,7 +433,7 @@ public class Principal {
 		            	 correo = postulanteData[3];
 		            	 fecha = parseDate(postulanteData[4].trim());
 		            	 nacionalidad = postulanteData[5];
-		            	 ICU.altaPostulante(nickname, nombre, apellido, correo, fecha, nacionalidad);
+		            	 ICU.altaPostulante(nickname, nombre, apellido, correo, " " ,fecha, nacionalidad);
 		            }
 		            
 		        }
@@ -472,9 +472,8 @@ public class Principal {
 		            	 apellido = empresaData[2];
 		            	 correo = empresaData[3];
 		            	 descripcion = empresaData[4];
-				         link = empresaData[5];
-		 
-		            	 ICU.altaEmpresa(nickname, nombre, apellido, correo,nickname, descripcion, link);
+				         link = empresaData[5]; 
+		            	 ICU.altaEmpresa(nickname, nombre, apellido, correo, " ",nickname, descripcion, link);
 		            }
 		            
 		        }

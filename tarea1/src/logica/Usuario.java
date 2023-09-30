@@ -14,6 +14,7 @@ public class Usuario {
 	private String nombre;
     private String apellido;
     private String correo; //unico
+    private String contraseña;
 
     // constructores
     public Usuario() {
@@ -21,13 +22,15 @@ public class Usuario {
         setNombre(new String());;
         setApellido(new String());;
         setCorreo(new String());;
+        setContraseña(new String());
     }
     
-    public Usuario(String nickname, String nombre, String apellido, String correo) {
+    public Usuario(String nickname, String nombre, String apellido, String correo, String contraseña) {
         this.setNickname(nickname);
         this.setNombre(nombre);
         this.setApellido(apellido);
         this.setCorreo(correo);
+        this.setContraseña(contraseña);
     }
 
     // getters
@@ -46,6 +49,10 @@ public class Usuario {
     public String getCorreo() {
         return correo;
     }
+    
+    public String getContraseña() {
+        return contraseña;
+    }
 
     // setters
     public void setNickname(String nickname) {
@@ -62,6 +69,10 @@ public class Usuario {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+    
+    public void setContraseña(String contraseña) {
+    	this.contraseña = contraseña;
     }
     
     /**
