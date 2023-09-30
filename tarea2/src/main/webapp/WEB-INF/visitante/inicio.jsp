@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<jsp:include page="/WEB-INF/template/head.jsp" />
+    <jsp:include page="/WEB-INF/template/head.jsp" />
 	<title>Trabajo.uy</title>
 	</head>
 	<body>
@@ -35,7 +35,7 @@
 		    </div>
 		  </div>
 		</div>
-		<nav class="navbar navbar-expand-lg bg-body-tertiary bg-navbar">
+		<!--  <nav class="navbar navbar-expand-lg bg-body-tertiary bg-navbar">
 	    <div class="container-fluid justify-content-center">
 	      <div class="collapse navbar-collapse justify-content-center">
 	        <ul class="navbar-nav">
@@ -63,10 +63,11 @@
 	        </ul>
 	      </div>
 	    </div>
-	  </nav>	
+	  </nav>
+	  -->	
 		<main>	
 			<!-- El contenido principal del sitio web -->
-			   <div class="container-fluid">
+			   <div class="container-fluid mt-3">
 			        <div class="row">
 			            <div class="col-md-2  mt-2 col-sm-12">
 			               <div class=" container-fluid p-3 mx-auto border border-dark text-center" id="keywordList">
@@ -142,10 +143,8 @@
 			        </div>
 			      </div>
 		</main>
-		
-	    <script src="js/login.js"></script>
-	    <script src="js/index.js"></script>
-	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-	      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+	    <script src="media/js/login.js"></script>
+	    <script src="media/js/index.js"></script>
+	   
 	</body>
 </html>

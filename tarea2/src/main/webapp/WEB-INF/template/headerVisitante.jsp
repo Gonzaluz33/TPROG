@@ -4,7 +4,7 @@
       <nav class="navbar bg-body-tertiary border-bottom border-black">
           <div class="container d-flex py-1 " >
             <div style="width: 20%;">
-                <a class="navbar-brand" href="#"><img class="w-50"  src="src/img/trabajo_logo.png" alt=""></a>
+                <a class="navbar-brand" href="#"><img class="w-50"  src="media/img/trabajo_logo.png" alt=""></a>
             </div>
             <div  style="width: 50%;">
                 <form class="d-flex " role="search" >
@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="d-flex px-2">
-                   <a class="text-decoration-none text-black fw-bold" href="register.html">Registrarse</a>
+                   <a class="text-decoration-none text-black fw-bold" href="registro.jsp">Registrarse</a>
                 </div>
             </div>               
           </div>
