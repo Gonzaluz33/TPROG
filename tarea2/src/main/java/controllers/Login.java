@@ -12,17 +12,12 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import excepciones.NicknameNoExisteException;
 import excepciones.UsuarioNoEncontrado;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import model.EstadoSesion;
 import model.IControladorUsuario;
-import model.Usuario;
-import utils.DTEmpresa;
-import utils.DTPostulante;
 import utils.DTUsuario;
 import model.Fabrica;
 
@@ -58,27 +53,14 @@ public class Login extends HttpServlet {
 		 IControladorUsuario icontuser = factory.getIControladorUsuario();
 		 String login = request.getParameter("login");
 	     String password = request.getParameter("password");
-	     EstadoSesion nuevoEstado = null;
-		 DTUsuario usr = icontuser.consultarUsuario(login);
-		if (!usr.getPassword().equals(password)) {
-		    nuevoEstado = EstadoSesion.LOGIN_INCORRECTO;
+		if (icontuser.validarUsuario(login,password)) { //agregar checkeo con encriptacion
 		} else {
-			DTEmpresa emp = (DTEmpresa) usr;
-			DTPostulante post = (DTPostulante) usr;
-			if(emp != null) {
-				nuevoEstado = EstadoSesion.LOGIN_EMPRESA;
-			}
-			if(post != null) {
-				  nuevoEstado = EstadoSesion.LOGIN_POSTULANTE;
-			}
-         
-		    String jwt = generateJWT(usr.getId());
+			DTUsuario usr = icontuser.consultarUsuario(login);
+		    String jwt = generateJWT(usr.getId(),usr.getNombre(),usr.getApellido(),usr.getCorreo());
 		    response.addCookie(new Cookie("jwt", jwt));
 		}
-
-	        request.setAttribute("estado_sesion", nuevoEstado);
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("/visitante");
-	        dispatcher.forward(request, response);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/visitante");
+        dispatcher.forward(request, response);
 	}
 
 	/**
@@ -127,10 +109,12 @@ public class Login extends HttpServlet {
 		}
 	}
 	
-	private String generateJWT(int userId) {
-        // Crear un JWT con la información del usuario
+	private String generateJWT(int userId, String nombre, String apellido, String email) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("sub", userId); // Sujeto del JWT, generalmente el ID del usuario
+        claims.put("nombre", nombre); // Agregar nombre al JWT
+        claims.put("apellido", apellido); // Agregar apellido al JWT
+        claims.put("email", email); // Agregar correo electrónico al JWT
         claims.put("exp", new Date(System.currentTimeMillis() + 3600000)); // Tiempo de expiración (1 hora)
 
         return Jwts.builder()

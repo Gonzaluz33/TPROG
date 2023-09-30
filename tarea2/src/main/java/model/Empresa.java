@@ -27,8 +27,8 @@ public class Empresa extends Usuario {
 		this.ofertasLaborales = new TreeSet<>(Comparator.comparing(DTOferta::getNombre));
 	}
 	
-	public Empresa(String nickname, String nombre, String apellido, String correo, String nombreEmpresa, String descripcion, String linkWeb) {
-		super(nickname, nombre, apellido, correo);
+	public Empresa(String nickname, String nombre, String apellido, String correo, String contraseña ,String nombreEmpresa, String descripcion, String linkWeb) {
+		super(nickname, nombre, apellido, correo, contraseña);
 		this.setNombreEmpresa(nombreEmpresa);
 		this.setDescripcion(descripcion);
 		this.setLinkWeb(linkWeb);
@@ -80,7 +80,9 @@ public class Empresa extends Usuario {
 	 */
 	@Override
 	public DTUsuario toDataType() {
-		return new DTEmpresa(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getNombreEmpresa(), this.getDescripcion(), this.getLinkWeb(), this.getOfertas());
+		return new DTEmpresa(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getContraseña() ,this.getNombreEmpresa(), this.getDescripcion(), this.getLinkWeb(), this.getOfertas());
 	}
 
 }
+
+

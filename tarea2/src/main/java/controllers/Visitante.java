@@ -5,10 +5,19 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import model.Fabrica;
+import model.IControladorUsuario;
+import utils.DTEmpresa;
+import utils.DTPostulante;
+import utils.DTUsuario;
+import jakarta.servlet.http.Cookie;
 
 import java.io.IOException;
-import model.EstadoSesion;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 
 /**
  * Servlet implementation class Visitante
@@ -24,63 +33,77 @@ public class Visitante extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-    
-    public static void initSession(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		
-		if (session.getAttribute("paginas_navegadas") == null) {
-			session.setAttribute("paginas_navegadas", 0);
-		}
-		if (session.getAttribute("estado_sesion") == null) {
-			session.setAttribute("estado_sesion", EstadoSesion.NO_LOGIN);
-		}
-	}
-	
-	
-	public static EstadoSesion getEstado(HttpServletRequest request)
-	{
-		return (EstadoSesion) request.getSession().getAttribute("estado_sesion");
-	}
-    
-    
-    
+      
     private void processRequest(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		initSession(req);
-		
-		switch(getEstado(req)){
-			case NO_LOGIN:
-				req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
-				break;
-			case LOGIN_INCORRECTO: 
-				req.getRequestDispatcher("/WEB-INF/visitante/inicioErroneo.jsp").
-						forward(req, resp);
-				break;
-			case LOGIN_EMPRESA:
-				req.getRequestDispatcher("/WEB-INF/visitante/dashboardEmpresa.jsp").forward(req, resp);
-				break;
-			case LOGIN_POSTULANTE:
-				req.getRequestDispatcher("/WEB-INF/visitante/dashboardPostulante.jsp").forward(req, resp);
-				break;
-		default:
-			break;
-		}
+    	 Cookie[] cookies = req.getCookies();
+         String jwtCookieName = "jwt";
+         String jwt = null;
+         if (cookies != null) {
+             for (Cookie cookie : cookies) {
+                 if (jwtCookieName.equals(cookie.getName())) {
+                     jwt = cookie.getValue();
+                     break;
+                 }
+             }
+         }else {
+             req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
+             return;
+         }
+         
+         if (jwt != null) {
+             try {
+                 Jws<Claims> claimsJws = Jwts.parserBuilder()
+                     .setSigningKey(Keys.hmacShaKeyFor("clave_secreta".getBytes()))
+                     .build()
+                     .parseClaimsJws(jwt); //validacion del token
+
+                 Claims claims = claimsJws.getBody();
+                 int userId = Integer.parseInt(claims.getSubject());
+                 String nombre = (String) claims.get("nombre");
+                 String apellido = (String) claims.get("apellido");
+                 String email = (String) claims.get("email");
+                 Fabrica factory = Fabrica.getInstance();
+        		 IControladorUsuario icontuser = factory.getIControladorUsuario();
+        		 DTUsuario user = icontuser.consultarUsuario(email);
+        		 DTEmpresa emp = (DTEmpresa) user;
+        		 DTPostulante post = (DTPostulante) user;
+        		 if(emp != null) {
+        			 req.getRequestDispatcher("/WEB-INF/visitante/dashboardEmpresa.jsp").forward(req, resp);
+        		 }
+        		 if(post != null) {
+        			 req.getRequestDispatcher("/WEB-INF/visitante/dashboardPostulante.jsp").forward(req, resp);
+        		 }
+        		 
+          
+                 // Aquí puedes realizar las comprobaciones necesarias con la información del JWT
+                 // Por ejemplo, verificar la autenticidad, autorización, etc.
+                 
+                 // Luego, puedes redirigir o responder de acuerdo a la validación del JWT.
+             } catch (Exception e) {
+                 // El JWT no es válido o ha expirado, maneja este caso según tus necesidades
+                 req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
+             }
+         } else {
+             // El JWT no se encontró en las cookies, maneja este caso según tus necesidades
+             req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
+         }
+    	
+    		
 	}
     
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		processRequest(request, response);
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		processRequest(request, response);
 	}
 

@@ -9,12 +9,12 @@ import utils.DTUsuario;
  *
  */
 public class Usuario {
-	private int id;
+
 	private String nickname; //unico
 	private String nombre;
     private String apellido;
     private String correo; //unico
-    private String password;
+    private String contraseña;
 
     // constructores
     public Usuario() {
@@ -22,27 +22,15 @@ public class Usuario {
         setNombre(new String());;
         setApellido(new String());;
         setCorreo(new String());;
+        setContraseña(new String());
     }
     
-    public Usuario(String nickname, String nombre, String apellido, String correo) {
+    public Usuario(String nickname, String nombre, String apellido, String correo, String contraseña) {
         this.setNickname(nickname);
         this.setNombre(nombre);
         this.setApellido(apellido);
         this.setCorreo(correo);
-    }
-    
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    public void setPassword(String pass) {
-        this.password = pass;
-    }
-    public String getPassword() {
-        return password;
+        this.setContraseña(contraseña);
     }
 
     // getters
@@ -60,6 +48,10 @@ public class Usuario {
 
     public String getCorreo() {
         return correo;
+    }
+    
+    public String getContraseña() {
+        return contraseña;
     }
 
     // setters
@@ -79,6 +71,10 @@ public class Usuario {
         this.correo = correo;
     }
     
+    public void setContraseña(String contraseña) {
+    	this.contraseña = contraseña;
+    }
+    
     /**
      * Retorna los datos del usuario como un DataType DTUsuario.
      */
@@ -89,3 +85,4 @@ public class Usuario {
     }
 
 }
+
