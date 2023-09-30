@@ -13,6 +13,7 @@ import excepciones.NicknameNoExisteException;
 
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.time.LocalDateTime;
 
 
@@ -86,7 +87,7 @@ public class ControladorOfertas implements IControladorOfertas{
 		return manejadorOL.obtenerOfertasVigentesDeEmpresa(nicknameEmpresa);
 	}
 	
-	public Set<DTOferta> obtenerOfertasIngresadasDeEmpresa(String nicknameEmpresa)throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
+	public TreeSet<DTOferta> obtenerOfertasIngresadasDeEmpresa(String nicknameEmpresa)throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
 		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
 		return manejadorOL.obtenerOfertasIngresadasDeEmpresa(nicknameEmpresa);
 	}

@@ -3,6 +3,7 @@ package logica;
 import utils.DTEmpresa;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.time.LocalDateTime;
 
 import excepciones.KeywordExisteException;
@@ -47,5 +48,5 @@ public interface IControladorOfertas {
 	public Set<DTOferta> obtenerOfertasVigentesDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException;
 
 	
-	public Set<DTOferta> obtenerOfertasIngresadasDeEmpresa(String nicknameEmpresa)throws NicknameNoExisteException, UsuarioNoEsEmpresaException;
+	public TreeSet<DTOferta> obtenerOfertasIngresadasDeEmpresa(String nicknameEmpresa)throws NicknameNoExisteException, UsuarioNoEsEmpresaException;
 }

@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.BorderLayout;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
@@ -25,6 +27,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.awt.event.ActionEvent;
 
 public class AceptarRechazarOfertaLaboral extends JInternalFrame {
@@ -63,7 +66,7 @@ public class AceptarRechazarOfertaLaboral extends JInternalFrame {
 			@Override
             public void actionPerformed(ActionEvent e) {  
 				try {
-					llenar_comboListaOfertas();
+					llenar_comboListaOfertas();					
 				} catch (NicknameNoExisteException | UsuarioNoEsEmpresaException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -95,16 +98,7 @@ public class AceptarRechazarOfertaLaboral extends JInternalFrame {
 		getContentPane().add(buttonAceptar);
 		buttonAceptar.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {		
-				DTOferta selectedOferta = (DTOferta) listaOfertasCombobox.getSelectedItem();
-				try {
-					OfertaLaboral o = controlOL.getOfertaLaboral(selectedOferta.getNombre());
-					EnumEstadoOferta estado = (EnumEstadoOferta) listaEstadosCombobox.getSelectedItem();
-					o.setEstado(estado);
-				} catch (OfertaNoExisteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
+				confirmarEstado();
 	         }
 		});
 		
@@ -118,14 +112,15 @@ public class AceptarRechazarOfertaLaboral extends JInternalFrame {
 		getContentPane().add(buttonCancelar);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void llenar_comboListaOfertas() throws NicknameNoExisteException, UsuarioNoEsEmpresaException{
 		listaOfertasCombobox.removeAllItems();
-		List<DTOferta> datos = new ArrayList<>();
 		DTEmpresa selectedValue = (DTEmpresa) listaEmpresasCombobox.getSelectedItem();
-		datos = (List<DTOferta>) controlOL.obtenerOfertasIngresadasDeEmpresa(selectedValue.getNickname());
-		for (DTOferta o : datos) {
-			listaOfertasCombobox.addItem(o);
+		if (selectedValue != null){
+			TreeSet<DTOferta> ofertas = (TreeSet<DTOferta>) controlOL.obtenerOfertasIngresadasDeEmpresa(selectedValue.getNickname());
+			List<DTOferta> datos = new ArrayList<>(ofertas);
+			for (DTOferta o : datos) {
+				listaOfertasCombobox.addItem(o);
+			}
 		}
 	}
 			
@@ -135,6 +130,32 @@ public class AceptarRechazarOfertaLaboral extends JInternalFrame {
 		datos = controlUsr.listarEmpresas();
 		for (DTEmpresa u : datos) {
 			listaEmpresasCombobox.addItem(u);
+		}
+	}
+
+	public void confirmarEstado() {
+		DTEmpresa selectedEmpresa = (DTEmpresa) listaEmpresasCombobox.getSelectedItem();
+		DTOferta selectedOferta = (DTOferta) listaOfertasCombobox.getSelectedItem();
+		if (selectedOferta != null) {
+			try {
+				OfertaLaboral o = controlOL.getOfertaLaboral(selectedOferta.getNombre());
+				EnumEstadoOferta estado = (EnumEstadoOferta) listaEstadosCombobox.getSelectedItem();
+				o.setEstado(estado);
+				JOptionPane.showMessageDialog(this, "Estado aplicado con éxito!", "Aceptar/Rechazar Oferta Laboral",
+			                JOptionPane.INFORMATION_MESSAGE);
+				
+			} catch (OfertaNoExisteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		else if (selectedOferta == null && selectedEmpresa == null) {
+			JOptionPane.showMessageDialog(this, "No pueden haber campos vacíos", "Aceptar/Rechazar Oferta Laboral",
+	                JOptionPane.INFORMATION_MESSAGE);
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Debe seleccionar una Laboral", "Aceptar/Rechazar Oferta Laboral",
+	                JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 }

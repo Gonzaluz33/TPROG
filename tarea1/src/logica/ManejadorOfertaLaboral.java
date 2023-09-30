@@ -130,7 +130,7 @@ public class ManejadorOfertaLaboral {
 	            .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(DTOferta::getNombre))));
 	}
 	
-	public Set<DTOferta> obtenerOfertasIngresadasDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
+	public TreeSet<DTOferta> obtenerOfertasIngresadasDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
 	    ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
 	    DTUsuario usuarioDT = manejadorU.obtenerUsuario(nicknameEmpresa);
 	    if (!(usuarioDT instanceof DTEmpresa))

@@ -69,6 +69,11 @@ public class DTOferta {
     }
 
     // getters
+
+ 	public String toString() {
+ 		return nombre;
+ 	}
+ 	
     public String getNombre() {
         return nombre;
     }
@@ -156,5 +161,6 @@ public class DTOferta {
 	public void setEstado (EnumEstadoOferta estado) {
 		this.estado = estado;
 	}
+	
 
 }
