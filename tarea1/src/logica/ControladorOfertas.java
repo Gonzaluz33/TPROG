@@ -3,6 +3,7 @@ package logica;
 
 import utils.DTEmpresa;
 import utils.DTOferta;
+import utils.EnumEstadoOferta;
 import excepciones.NombreExisteException;
 import excepciones.OfertaNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
@@ -32,6 +33,11 @@ public class ControladorOfertas implements IControladorOfertas{
 		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
 		return manejadorOL.obtenerOfertaLaboral(nombreOferta);
 	}
+	
+	public OfertaLaboral getOfertaLaboral(String nombreOferta) throws OfertaNoExisteException {
+		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+		return manejadorOL.getOfertaLaboral(nombreOferta);
+	}
 
 	public void altaKeyword(String nombre) throws KeywordExisteException {
 		Keyword key = new Keyword(nombre);
@@ -45,7 +51,7 @@ public class ControladorOfertas implements IControladorOfertas{
 		ControladorUsuarios contU = ControladorUsuarios.getInstance();
 		Empresa usuarioEmpresa = (Empresa) contU.obtenerUsuario(empresa);
 		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
-		OfertaLaboral ofL = new OfertaLaboral(nombre, desc, ciudad, depa, horario, fecha, remuner, usuarioEmpresa);
+		OfertaLaboral ofL = new OfertaLaboral(nombre, desc, ciudad, depa, horario, EnumEstadoOferta.INGRESADA ,fecha, remuner, usuarioEmpresa);
 		mOL.addOferta(ofL, keywords);
 		// despues de crear la oferta, creo la publicacion con el tipo
 		ControladorPublicaciones contPub = ControladorPublicaciones.getInstance();
@@ -63,7 +69,12 @@ public class ControladorOfertas implements IControladorOfertas{
 		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
 		manejadorOL.postularAOferta(nombreOfertaLaboral, nicknamePostulante, cvReducido, motivacion, fechaPostulacion);
 	}
-
+	
+	public void actualizarEstadoOfertaLaboral(String nombreOfertaLaboral, EnumEstadoOferta estado) throws OfertaNoExisteException {
+		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+		OfertaLaboral o = manejadorOL.getOfertaLaboral(nombreOfertaLaboral);
+		o.setEstado(estado);
+	}
 	public List<DTEmpresa> obtenerEmpresas(){
 		IControladorUsuario controlU = ControladorUsuarios.getInstance();
 		List<DTEmpresa> empresas = controlU.listarEmpresas();
@@ -74,5 +85,11 @@ public class ControladorOfertas implements IControladorOfertas{
 		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
 		return manejadorOL.obtenerOfertasVigentesDeEmpresa(nicknameEmpresa);
 	}
+	
+	public Set<DTOferta> obtenerOfertasIngresadasDeEmpresa(String nicknameEmpresa)throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
+		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+		return manejadorOL.obtenerOfertasIngresadasDeEmpresa(nicknameEmpresa);
+	}
+	
 
 }

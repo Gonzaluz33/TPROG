@@ -40,6 +40,8 @@ public interface IControladorUsuario {
 	 * Si no existe un usuario con el nickname brindado tira una NicknameNoExisteException.
 	 */
 	public DTUsuario consultarUsuario(String nicknameUsuario) throws NicknameNoExisteException;
+	
+	public Boolean validarUsuario(String correo, String contraseña) throws NicknameNoExisteException;
 
     public abstract void altaPostulante(String nickname, String nombre, String apellido, String email,String contraseña ,Date fechaNacimiento, String nacionalidad) throws UsuarioRepetidoException, CorreoRepetidoException;
     public abstract void altaEmpresa(String nickname, String nombre, String apellido, String email, String contraseña,String nomEmpresa ,String desc, String linkWeb)throws UsuarioRepetidoException, CorreoRepetidoException;

@@ -63,6 +63,7 @@ public class Principal {
 	private crearPaqueteTipo crearPaqueteTipoInternalFrame;
 	private consultaPaquete consultaPaqueteInternalFrame;
 	private agregarTipoPubAPaquete agregarTipoAPaqueteInternalFrame;
+	private AceptarRechazarOfertaLaboral aceptarRechazarInternalFrame;
 	private JInternalFrame currentInternalFrame = null;
 	
 	
@@ -146,7 +147,10 @@ public class Principal {
 		agregarTipoAPaqueteInternalFrame.setBorder(null);
 		agregarTipoAPaqueteInternalFrame.setVisible(false);
 		
-		
+		aceptarRechazarInternalFrame = new AceptarRechazarOfertaLaboral(ICU,ICO);
+		aceptarRechazarInternalFrame.setResizable(false);
+		aceptarRechazarInternalFrame.setBorder(null);
+		aceptarRechazarInternalFrame.setVisible(false);
 		
 
 		frame.getContentPane().add(altaPostulanteInternalFrame);
@@ -159,6 +163,7 @@ public class Principal {
 		frame.getContentPane().add(crearPaqueteTipoInternalFrame);
 		frame.getContentPane().add(consultaPaqueteInternalFrame);
 		frame.getContentPane().add(agregarTipoAPaqueteInternalFrame);
+		frame.getContentPane().add(aceptarRechazarInternalFrame);
 	}
 
 	/**
@@ -330,6 +335,7 @@ public class Principal {
 		
 		JMenuItem mItemConsultaPaquete = new JMenuItem("Consulta de Paquete de Tipos de Publicación");
 		menuOfertasLaborales.add(mItemConsultaPaquete);
+		
 		mItemConsultaPaquete.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
 				 if (currentInternalFrame != null) {
@@ -340,6 +346,20 @@ public class Principal {
 				 currentInternalFrame = consultaPaqueteInternalFrame;
 	            }
 		});	
+		
+		JMenuItem mItemAceptar = new JMenuItem("Aceptar/Rechazar Oferta Laboral");
+		menuOfertasLaborales.add(mItemAceptar);
+		mItemAceptar.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+				 if (currentInternalFrame != null) {
+			            currentInternalFrame.setVisible(false);
+				 }
+				 aceptarRechazarInternalFrame.llenar_comboListaEmpresa();
+				 aceptarRechazarInternalFrame.setVisible(true);
+				 currentInternalFrame = aceptarRechazarInternalFrame;
+	            }
+		});	
+		
 
 		JMenuItem mntmNewMenuItem = new JMenuItem("Cargar Datos");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
@@ -660,9 +680,4 @@ public class Principal {
 		        return null;
 		    }
 		}
-		
-		
-		
-		
-		
 }

@@ -12,6 +12,8 @@ import java.util.Set;
 
 import excepciones.NombreExisteException;
 import utils.DTUsuario;
+import utils.EnumEstadoOferta;
+
 import java.time.LocalDateTime;
 
 import excepciones.OfertaNoExisteException;
@@ -59,6 +61,11 @@ public class ManejadorOfertaLaboral {
 				.toDataType();
 	}
 
+	public OfertaLaboral getOfertaLaboral(String nombreOferta) throws OfertaNoExisteException {
+		return coleccionOfertasLaborales
+				.get(nombreOferta);
+	}
+	
 	public void addKeyword(Keyword key) throws KeywordExisteException {
 		if(coleccionKeyword.containsKey(key.getNombre())) {
 			throw new KeywordExisteException("La Keyword con nombre" + key.getNombre() + " ya existe");
@@ -122,6 +129,20 @@ public class ManejadorOfertaLaboral {
 	            .map(OfertaLaboral::toDataType)
 	            .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(DTOferta::getNombre))));
 	}
+	
+	public Set<DTOferta> obtenerOfertasIngresadasDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
+	    ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+	    DTUsuario usuarioDT = manejadorU.obtenerUsuario(nicknameEmpresa);
+	    if (!(usuarioDT instanceof DTEmpresa))
+	        throw new UsuarioNoEsEmpresaException("El usuario con el nickname " + nicknameEmpresa + " no es una empresa.");
+	    return coleccionOfertasLaborales
+	            .values()
+	            .stream()
+	            .filter(oferta -> oferta.getEmpresa().getNickname().equals(nicknameEmpresa))
+	            .filter(oferta -> oferta.getEstado().equals(EnumEstadoOferta.INGRESADA))
+	            .map(OfertaLaboral::toDataType)
+	            .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(DTOferta::getNombre))));
+	}		
 	
 	
 	/**
