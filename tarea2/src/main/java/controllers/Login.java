@@ -47,20 +47,36 @@ public class Login extends HttpServlet {
 	 * @throws NicknameNoExisteException 
 	 * @throws CorreoRepetidoException 
 	 * @throws UsuarioRepetidoException 
+	 * 
 	 */
+	
+	private String generateJWT(String email, String secret_Key) {
+	    long expirationTimeMillis = System.currentTimeMillis() + 10000; // Tiempo de expiración (1 hora)
+	    Key key = Keys.hmacShaKeyFor(secret_Key.getBytes());
+
+	    String jwt = Jwts.builder()
+	            .setSubject(email)
+	            .claim("email", email)
+	            .setExpiration(new Date(expirationTimeMillis))
+	            .signWith(key, SignatureAlgorithm.HS256)
+	            .compact();
+
+	    return jwt;
+	}
+	
+	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, NicknameNoExisteException, UsuarioNoEncontrado, UsuarioRepetidoException, CorreoRepetidoException {
 		 Fabrica factory = Fabrica.getInstance();
 		 IControladorUsuario icontuser = factory.getIControladorUsuario();
 		 String login = request.getParameter("login");
 	     String password = request.getParameter("password");
-	
 		if (icontuser.validarUsuario(login,password)) {
-	        DTUsuario usuario = icontuser.consultarUsuario(login);
-		    String jwt = generateJWT(usuario.getCorreo(),secret_Key);
-		    response.addCookie(new Cookie("jwt", jwt)); 
+		    String jwt = generateJWT(login,secret_Key);
+		    response.addCookie(new Cookie("jwt", jwt));
 		}
-		request.getRequestDispatcher("/visitante").forward(request, response);
+		response.sendRedirect("visitante");
+		//request.getRequestDispatcher("/visitante").forward(request, response);
 	}
 
 	/**
@@ -103,22 +119,6 @@ public class Login extends HttpServlet {
 				e.printStackTrace();
 			}
 	}
-		
-	
-	private String generateJWT(String email, String secret_Key) {
-	    long expirationTimeMillis = System.currentTimeMillis() + 3600000; // Tiempo de expiración (1 hora)
-	    Key key = Keys.hmacShaKeyFor(secret_Key.getBytes());
-
-	    String jwt = Jwts.builder()
-	            .setSubject(email)
-	            .claim("email", email)
-	            .setExpiration(new Date(expirationTimeMillis))
-	            .signWith(key, SignatureAlgorithm.HS256)
-	            .compact();
-
-	    return jwt;
-	}
-	
 	
 
 }

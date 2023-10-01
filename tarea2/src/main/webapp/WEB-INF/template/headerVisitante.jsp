@@ -10,16 +10,14 @@
                 <form class="d-flex " role="search" >
                     <input class="form-control square-corners  me-2 " type="search" placeholder="Búsqueda de ofertas laborales" aria-label="Search">
                     <button class="btn btn-outline-light bg-dark square-corners" type="submit"><i class="fas fa-search"></i> Buscar</button>
-                  </form>
+                 </form>
             </div>
-
             <div class="d-flex me-5">
                 <div class="d-flex border-end px-2">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="text-decoration-none text-black fw-bold " >Ingresar</a>
                 </div>
-
                 <div class="d-flex px-2">
-                   <a class="text-decoration-none text-black fw-bold" href="registro.jsp">Registrarse</a>
+                   <a class="text-decoration-none text-black fw-bold" href="registro">Registrarse</a>
                 </div>
             </div>               
           </div>

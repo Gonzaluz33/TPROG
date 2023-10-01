@@ -1,10 +1,13 @@
 package model;
 
 import org.mindrot.jbcrypt.BCrypt;
-import java.util.Date;
+
+import java.time.LocalDate;
+
 import java.util.List;
 import java.util.Set;
 
+import excepciones.CorreoNoEncontradoException;
 import excepciones.CorreoRepetidoException;
 import excepciones.NicknameNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
@@ -25,7 +28,7 @@ public class ControladorUsuarios implements IControladorUsuario{
         return instancia;
     }
 
-	public void altaPostulante(String nickname, String nombre, String apellido, String email,String contraseña ,Date fechaNacimiento,
+	public void altaPostulante(String nickname, String nombre, String apellido, String email,String contraseña ,LocalDate fechaNacimiento,
 			String nacionalidad) throws UsuarioRepetidoException, CorreoRepetidoException {
         ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
         String contraseñaHasheada = BCrypt.hashpw(contraseña, BCrypt.gensalt());
@@ -45,6 +48,21 @@ public class ControladorUsuarios implements IControladorUsuario{
 	public Usuario obtenerUsuario(String nickname) throws NicknameNoExisteException {
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
 		return manejadorU.getUsuario(nickname);
+	}
+	public Boolean usuarioExiste(String correo) {
+		try {
+	        ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+	        Usuario u = manejadorU.getUsuarioXCorreo(correo);
+	        return true;
+	    } catch (NicknameNoExisteException e) {
+	        return false;
+	    } 
+	};
+	
+	public DTUsuario consultarUsuarioPorCorreo(String correo) throws CorreoNoEncontradoException, NicknameNoExisteException{
+			ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+			DTUsuario u = manejadorU.obtenerUsuarioPorCorreo(correo);
+			return u;
 	}
 	
 	public Boolean validarUsuario(String correo, String contraseña) throws NicknameNoExisteException {

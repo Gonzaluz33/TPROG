@@ -2,6 +2,7 @@ package utils;
 
 import java.util.Date;
 import java.util.List;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +17,7 @@ public class DTPostulante extends DTUsuario {
 	private List<DTPostulacion> postulaciones;
 	
 	// constructores
-	public DTPostulante() {
+	public DTPostulante(String string, String string2, String string3, String string4, String string5, LocalDate localDate, String string6, List<DTPostulacion> list) {
 		super();
 		this.setFechaNacimiento(new Date());
         this.setNacionalidad(new String());

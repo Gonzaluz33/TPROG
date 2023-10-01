@@ -1,7 +1,9 @@
 package model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 import excepciones.*;
@@ -59,6 +61,16 @@ public class ManejadorUsuarios {
 		if (!coleccionUsuarios.containsKey(nicknameUsuario.toLowerCase()))
 			throw new NicknameNoExisteException("El usuario con el nickname " + nicknameUsuario + " no existe.");
 		return coleccionUsuarios.get(nicknameUsuario.toLowerCase()).toDataType();
+	}
+	
+	public DTUsuario obtenerUsuarioPorCorreo(String correo) throws CorreoNoEncontradoException, NicknameNoExisteException{
+		if (!coleccionCorreosUsuarios.containsKey(correo)){
+			throw new CorreoNoEncontradoException("Usuario Invalido");
+		}else {
+			Usuario user = getUsuarioXCorreo(correo);
+			return user.toDataType();
+		}
+		
 	}
 	
 	public Usuario getUsuario(String nickname) throws NicknameNoExisteException {
@@ -163,6 +175,8 @@ public class ManejadorUsuarios {
 			throw new NicknameNoExisteException("El usuario con el nickname " + nickFiltrado + " no existe.");
 		}
 	}
+	
+	
 	public void actualizarDatosPostulante(String nickname, String nuevoNombre,String nuevoApellido,String fechaNacimiento, String nacionalidad) throws NicknameNoExisteException {
 		String nicknameLowerCase = nickname.toLowerCase();
 		if (coleccionUsuarios.containsKey(nicknameLowerCase) ) {
@@ -170,20 +184,18 @@ public class ManejadorUsuarios {
 			Postulante postulante = (Postulante) user;
 			postulante.setNombre(nuevoNombre);
 			postulante.setApellido(nuevoApellido);
-
-			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-			Date fecha = null;
-
+			LocalDate fecha = null;
 			try {
-			    fecha = formato.parse(fechaNacimiento);
-			} catch (ParseException e) {
+			    fecha = LocalDate.parse(fechaNacimiento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+			    postulante.setFechaNacimiento(fecha);
+			} catch (DateTimeParseException e) {
 			    e.printStackTrace();
+			    // Aquí puedes manejar la excepción si la cadena de fecha no es válida
 			}
 
 			if (fecha != null) {
 				postulante.setFechaNacimiento(fecha);
 			}
-			
 			
 			postulante.setNacionalidad(nacionalidad);
 		} else {
