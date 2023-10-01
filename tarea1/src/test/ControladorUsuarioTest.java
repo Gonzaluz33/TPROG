@@ -51,10 +51,11 @@ class ControladorUsuarioTest {
 		String emailTest = "emailEmpresaUno";
 		String nombreEmpresaTest = "nombreEmpresaUno";
 		String descripcionTest = "descripcionEmpresaUno";
+		String contraseñaEmpresa1 = "contraseñaEmpresa1";
 		String linkWebTest = "linkWebEmpresaUno";
 		
 		try {
-			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, nombreEmpresaTest, descripcionTest, linkWebTest);
+			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest,contraseñaEmpresa1,nombreEmpresaTest, descripcionTest, linkWebTest);
 			
 			DTUsuario usuarioConsultado = controladorUsuario.consultarUsuario(nicknameTest);
 			
@@ -86,9 +87,10 @@ class ControladorUsuarioTest {
 		String emailTest = "emailEmpresaUno";
 		String nombreEmpresaTest = "nombreEmpresaUno";
 		String descripcionTest = "descripcionEmpresaUno";
+		String contraseñaEmpresa1 = "contraseñaEmpresa1";
 		String linkWebTest = "linkWebEmpresaUno";
 		try {
-			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, nombreEmpresaTest, descripcionTest, linkWebTest);
+			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest,contraseñaEmpresa1 ,nombreEmpresaTest, descripcionTest, linkWebTest);
 		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
@@ -113,9 +115,10 @@ class ControladorUsuarioTest {
 		String emailTest = "emailEmpresaUno";
 		String nombreEmpresaTest = "nombreEmpresaUno";
 		String descripcionTest = "descripcionEmpresaUno";
+		String contraseñaEmpresa1 = "contraseñaEmpresa1";
 		String linkWebTest = "linkWebEmpresaUno";
 		try {
-			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, nombreEmpresaTest, descripcionTest, linkWebTest);
+			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest,contraseñaEmpresa1 ,nombreEmpresaTest, descripcionTest, linkWebTest);
 		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
@@ -140,10 +143,11 @@ class ControladorUsuarioTest {
 		String nombreTest = "nombrePersonaPostulanteUno";
 		String apellidoTest = "apellidoPostulanteUno";
 		String emailTest = "emailPostulanteUno";
+		String contraseñaPostulante1 = "contraseñaPostulante1";
 		Date fechaNacimientoTest = new Date();
 		String nacionalidadTest = "nacionalidadPostulanteUno";
 		try {
-			controladorUsuario.altaPostulante(nicknameTest, nombreTest, apellidoTest, emailTest, fechaNacimientoTest, nacionalidadTest);
+			controladorUsuario.altaPostulante(nicknameTest, nombreTest, apellidoTest, emailTest,contraseñaPostulante1 ,fechaNacimientoTest, nacionalidadTest);
 		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
@@ -173,10 +177,11 @@ class ControladorUsuarioTest {
 		String nombreTest = "nombrePersonaPostulanteUno";
 		String apellidoTest = "apellidoPostulanteUno";
 		String emailTest = "emailPostulanteUno";
+		String contraseñaPostulante1 = "contraseñaPostulante1";
 		Date fechaNacimientoTest = new Date();
 		String nacionalidadTest = "nacionalidadPostulanteUno";
 		try {
-			controladorUsuario.altaPostulante(nicknameTest, nombreTest, apellidoTest, emailTest, fechaNacimientoTest, nacionalidadTest);
+			controladorUsuario.altaPostulante(nicknameTest, nombreTest, apellidoTest, emailTest, contraseñaPostulante1 ,fechaNacimientoTest, nacionalidadTest);
 		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
@@ -198,10 +203,11 @@ class ControladorUsuarioTest {
 		String nombreTest = "nombrePersonaPostulanteUno";
 		String apellidoTest = "apellidoPostulanteUno";
 		String emailTest = "emailPostulanteUno";
+		String contraseñaPostulante1 = "contraseñaPostulante1";
 		Date fechaNacimientoTest = new Date();
 		String nacionalidadTest = "nacionalidadPostulanteUno";
 		try {
-			controladorUsuario.altaPostulante(nicknameTest, nombreTest, apellidoTest, emailTest, fechaNacimientoTest, nacionalidadTest);
+			controladorUsuario.altaPostulante(nicknameTest, nombreTest, apellidoTest, emailTest,contraseñaPostulante1 ,fechaNacimientoTest, nacionalidadTest);
 		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
@@ -226,11 +232,12 @@ class ControladorUsuarioTest {
 		String nombreTest = "nombrePersonaEmpresaUno";
 		String apellidoTest = "apellidoEmpresaUno";
 		String emailTest = "emailEmpresaUno";
+		String contraseñaPostulante1 = "contraseñaPostulante1";
 		String nombreEmpresaTest = "nombreEmpresaUno";
 		String descripcionTest = "descripcionEmpresaUno";
 		String linkWebTest = "linkWebEmpresaUno";
 		try {
-			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, nombreEmpresaTest, descripcionTest, linkWebTest);
+			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest,contraseñaPostulante1 ,nombreEmpresaTest, descripcionTest, linkWebTest);
 		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
@@ -257,10 +264,11 @@ class ControladorUsuarioTest {
 		String nombreTest = "nombrePersonaPostulanteUno";
 		String apellidoTest = "apellidoPostulanteUno";
 		String emailTest = "emailPostulanteUno";
+		String contraseñaPostulante1 = "contraseñaPostulante1";
 		Date fechaNacimientoTest = new Date();
 		String nacionalidadTest = "nacionalidadPostulanteUno";
 		try {
-			controladorUsuario.altaPostulante(nicknameTest, nombreTest, apellidoTest, emailTest, fechaNacimientoTest, nacionalidadTest);
+			controladorUsuario.altaPostulante(nicknameTest, nombreTest, apellidoTest, emailTest, contraseñaPostulante1,fechaNacimientoTest, nacionalidadTest);
 		} catch (Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();

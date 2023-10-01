@@ -73,6 +73,7 @@ public class ControladorOfertaTest {
 		String emailTest = "emailEmpresaUno";
 		String nombreEmpresaTest = "empresa";
 		String descripcionTest = "descripcionEmpresaUno";
+		String contraseñaEmpresa1 = "contraseñaEmpresa1";
 		String linkWebTest = "linkWebEmpresaUno";
 		
 		String nombreTest = "testOferta";
@@ -91,7 +92,7 @@ public class ControladorOfertaTest {
 		try {
 			controladorPublicaciones.altaTipoPublicacionOL(nombreTipo, descTipo, exposicion, duracion, costo, fecha);
 
-			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, nombreEmpresaTest, descTest, linkWebTest);
+			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, contraseñaEmpresa1 ,nombreEmpresaTest, descTest, linkWebTest);
 			controladorOfertas.altaOferta(nombreEmpresaTest, descripcionTest, nombreTest, apellidoTest, keys, emailTest, descripcionTest, nombreTipo, nicknameTest);			
 			
 		} catch (Exception e) {
@@ -109,6 +110,7 @@ public class ControladorOfertaTest {
 		String emailTest = "emailEmpresaUno";
 		String nombreEmpresaTest = "empresa";
 		String descripcionTest = "descripcionEmpresaUno";
+		String contraseñaEmpresa1 = "contraseñaEmpresa1";
 		String linkWebTest = "linkWebEmpresaUno";
 		
 		String remuTest = "10 peso";
@@ -135,7 +137,7 @@ public class ControladorOfertaTest {
 			controladorOfertas.altaKeyword("word");
 			controladorPublicaciones.altaTipoPublicacionOL(nombreTipo, descTipo, exposicion, duracion, costo, fecha);
 
-			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, nombreEmpresaTest, descTest, linkWebTest);
+			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest,contraseñaEmpresa1,nombreEmpresaTest, descTest, linkWebTest);
 			controladorOfertas.altaOferta(nombreEmpresaTest, descripcionTest, remuTest, horaTest, keys, emailTest, descripcionTest, nombreTipo, nicknameTest);			
 			
 		} catch (Exception e) {
@@ -164,6 +166,7 @@ public class ControladorOfertaTest {
 		String emailTest = "emailEmpresaUno";
 		String nombreEmpresaTest = "empresa";
 		String descripcionTest = "descripcionEmpresaUno";
+		String contraseñaEmpresa1 = "contraseñaEmpresa1";
 		String linkWebTest = "linkWebEmpresaUno";
 		
 		String nombreTest = "testOferta";
@@ -188,7 +191,7 @@ public class ControladorOfertaTest {
 			controladorOfertas.altaKeyword("word");
 			controladorPublicaciones.altaTipoPublicacionOL(nombreTipo, descTipo, exposicion, duracion, costo, fecha);
 
-			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, nombreEmpresaTest, descTest, linkWebTest);
+			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest,contraseñaEmpresa1 ,nombreEmpresaTest, descTest, linkWebTest);
 			
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -207,6 +210,7 @@ public class ControladorOfertaTest {
 		String emailTest = "emailEmpresaUno";
 		String nombreEmpresaTest = "empresa";
 		String descripcionTest = "descripcionEmpresaUno";
+		String contraseñaEmpresa1 = "contraseñaEmpresa1";
 		String linkWebTest = "linkWebEmpresaUno";
 		
 		String nombreTest = "testOferta";
@@ -225,7 +229,7 @@ public class ControladorOfertaTest {
 		try {
 			controladorPublicaciones.altaTipoPublicacionOL(nombreTipo, descTipo, exposicion, duracion, costo, fecha);
 
-			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, nombreEmpresaTest, descTest, linkWebTest);
+			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, contraseñaEmpresa1,emailTest, nombreEmpresaTest, descTest, linkWebTest);
 			controladorOfertas.altaOferta(nombreEmpresaTest, descripcionTest, nombreTest, apellidoTest, keys, emailTest, descripcionTest, nombreTipo, nicknameTest);
 			
 			
@@ -245,9 +249,10 @@ public class ControladorOfertaTest {
 		String emailTest = "emailEmpresaUno";
 		String nombreEmpresaTest = "empresa";
 		String descripcionTest = "descripcionEmpresaUno";
+		String contraseñaEmpresa1 = "contraseñaEmpresa1";
 		String linkWebTest = "linkWebEmpresaUno";
 		
-		controladorUsuario.altaEmpresa(nicknameTest, nombreTestEmp, apellidoTest, emailTest, nombreEmpresaTest, descripcionTest, linkWebTest);
+		controladorUsuario.altaEmpresa(nicknameTest, nombreTestEmp, apellidoTest,contraseñaEmpresa1 ,emailTest, nombreEmpresaTest, descripcionTest, linkWebTest);
 		
 		 List<DTEmpresa> emps = controladorOfertas.obtenerEmpresas();
 		 
@@ -264,6 +269,7 @@ public class ControladorOfertaTest {
 		String emailTest = "emailEmpresaUno";
 		String nombreEmpresaTest = "empresa";
 		String descripcionTest = "descripcionEmpresaUno";
+		String contraseñaEmpresa1 = "contraseñaEmpresa1";
 		String linkWebTest = "linkWebEmpresaUno";
 		
 		String remuTest = "10 peso";
@@ -290,7 +296,7 @@ public class ControladorOfertaTest {
 			controladorOfertas.altaKeyword("word");
 			controladorPublicaciones.altaTipoPublicacionOL(nombreTipo, descTipo, exposicion, duracion, costo, fecha);
 
-			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, nombreEmpresaTest, descTest, linkWebTest);
+			controladorUsuario.altaEmpresa(nicknameTest, nombreTest, apellidoTest, emailTest, contraseñaEmpresa1, nombreEmpresaTest, descTest, linkWebTest);
 			controladorOfertas.altaOferta(nombreEmpresaTest, descripcionTest, remuTest, horaTest, keys, emailTest, descripcionTest, nombreTipo, nicknameTest);			
 			
 		} catch (Exception e) {

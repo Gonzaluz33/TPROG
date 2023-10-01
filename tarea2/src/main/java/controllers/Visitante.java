@@ -68,20 +68,16 @@ public class Visitante extends HttpServlet {
         	    IControladorUsuario iconuser = factory.getIControladorUsuario();
         	    
         	    if(iconuser.usuarioExiste(correo)) {
-        	    	req.getRequestDispatcher("verifica bien si esxiste el usuario con ese correo").forward(req, resp);
         	        DTUsuario usuario = iconuser.consultarUsuarioPorCorreo(correo);
-        	        DTEmpresa emp = (DTEmpresa) usuario;
-        	        DTPostulante post = (DTPostulante) usuario;
-            	        
-
-        	        if(emp != null) {
-        	            // Agrega información del usuario y lo redirige al dashboard de empresa
+        	      
+        	        if (usuario instanceof DTEmpresa) {
+        	           
         	            req.getRequestDispatcher("/WEB-INF/empresa/dashboardEmpresa.jsp").forward(req, resp);
-        	        }
-        	        if(post != null) {
-        	        	
+        	        } else if (usuario instanceof DTPostulante) {
+        	      
         	            req.getRequestDispatcher("/WEB-INF/visitante/dashboardPostulante.jsp").forward(req, resp);
         	        }
+        	      
         	    } else {
         	    	// Eliminar la cookie JWT
              	    Cookie jwtCookie = new Cookie("jwt", "");

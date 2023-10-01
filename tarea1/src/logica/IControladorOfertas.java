@@ -3,6 +3,7 @@ package logica;
 import utils.DTEmpresa;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.time.LocalDateTime;
 
 import excepciones.KeywordExisteException;
@@ -25,6 +26,9 @@ public interface IControladorOfertas {
 	 * Si no existe una oferta con ese nombre en el sistema tira una OfertaNoExisteException.
 	 */
 	public DTOferta obtenerDatosOferta(String nombreOferta) throws OfertaNoExisteException;
+	
+	public OfertaLaboral getOfertaLaboral(String nombreOferta) throws OfertaNoExisteException;
+	
 	public List<DTEmpresa> obtenerEmpresas();
 
 	/**
@@ -43,4 +47,6 @@ public interface IControladorOfertas {
 	 */
 	public Set<DTOferta> obtenerOfertasVigentesDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException;
 
+	
+	public TreeSet<DTOferta> obtenerOfertasIngresadasDeEmpresa(String nicknameEmpresa)throws NicknameNoExisteException, UsuarioNoEsEmpresaException;
 }

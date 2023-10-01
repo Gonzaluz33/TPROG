@@ -67,6 +67,14 @@ public class ManejadorUsuarios {
 		return coleccionUsuarios.get(nickname.toLowerCase());
 	}
 	
+	public Usuario getUsuarioXCorreo(String correo) throws NicknameNoExisteException {
+		if (!coleccionCorreosUsuarios.containsKey(correo)){
+			throw new NicknameNoExisteException("Usuario Invalido");
+		}else {
+			String nickname = coleccionCorreosUsuarios.get(correo);
+			return coleccionUsuarios.get(nickname.toLowerCase());
+		}
+	}
 	/**
 	 * Devuelve una lista de DTUsuario con la informacion de todos los usuarios registrados en el sistema ordenados segun su nombre.
 	 * Si no hay usuarios registrados devuelve una lista vacia.
