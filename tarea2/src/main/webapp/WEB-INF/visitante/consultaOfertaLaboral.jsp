@@ -24,36 +24,7 @@
             </nav>
         </header>
         <main>
-            <nav class="navbar navbar-expand-lg bg-body-tertiary bg-navbar">
-                <div class="container-fluid justify-content-center">
-                    <div class="collapse navbar-collapse justify-content-center">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link active text-white" aria-current="page" href="../index.html">Inicio</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active text-white" aria-current="page" href="../visitante/ConsultaDeUsuario.html">Consulta de Usuario</a>
-                            </li>
-                           <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    Paquetes y Tipos de Publicación
-                                </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="ConsultaPaquete.html">Consultar Paquetes</a></li>
-                                <li><a class="dropdown-item" href="ConsultaTipos.html">Consultar Tipos de Publicación</a></li>
-                            </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="../postulante/dashboardPostulante.html">Dashboard Postulante</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="../empresa/dashboardEmpresa.html">Dashboard Empresa</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            <jsp:include page="/WEB-INF/template/NavBarVisitante.jsp" />
             <div class="p-3 mt-5 d-flex">
                 <div class="row d-flex text-center align-items-center justify-content-center">
                     <div>
@@ -89,7 +60,7 @@
                 </div>
             </div>
 
-        
+          </main>
     </body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
