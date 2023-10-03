@@ -11,6 +11,19 @@
 </head>
 <body> 
     <main>
+		<% if (request.getAttribute("error") != null) { %>
+		    <div id="errorDiv" class="alert alert-danger">
+		        ${requestScope.error}
+		    </div>
+		<% } %>
+		<script>
+		setTimeout(function() {
+		    var errorDiv = document.getElementById("errorDiv");
+		    if (errorDiv) {
+		        errorDiv.style.display = "none";
+		    }
+		}, 3000);
+		</script>
         <section class="h-auto w-auto bg-light">
             <div class="container h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
@@ -55,10 +68,15 @@
 					                                  <option value="Brasileño">Brasileño</option>
 					                              </select>
 					                          </div>
-					                           <div class="form-group">
+					                           <div class="form-group mb-2">
 			                                        <label for="password">Contraseña:</label>
 			                                        <input type="password" id="password" name="password" class="form-control" required>
+			                                   		 <small>La contraseña debe tener al menos 6 caracteres.</small>
 			                                    </div>
+			                                <div class="form-group mb-3">
+												    <label for="confirmar_contrasena">Confirmar Contraseña:</label>
+											        <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" class="form-control" required pattern=".{6,}">
+										    </div>
 					                          
                                             <button type="button" class="btn btn-dark btn-lg" onclick="window.location.href='visitante';">Cancelar</button>
                                             <button type="submit" id="submitButtonPostulante" class="btn btn-warning btn-lg">Enviar</button>
@@ -110,6 +128,11 @@
 					                        <div class="form-group mb-2">
 										        <label for="password">Contraseña:</label>
 										        <input type="password" id="password" name="password" class="form-control" required>
+										        <small>La contraseña debe tener al menos 6 caracteres.</small>
+										    </div>
+										    <div class="form-group mb-3">
+												    <label for="confirmar_contrasena">Confirmar Contraseña:</label>
+											        <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" class="form-control" required pattern=".{6,}">
 										    </div>
                                             
                                             <button type="button" class="btn btn-dark btn-lg" onclick="window.location.href='visitante';">Cancelar</button>

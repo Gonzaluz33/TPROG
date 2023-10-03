@@ -51,7 +51,7 @@ public class Login extends HttpServlet {
 	 */
 	
 	private String generateJWT(String email, String secret_Key) {
-	    long expirationTimeMillis = System.currentTimeMillis() + 10000; // Tiempo de expiración (1 hora)
+	    long expirationTimeMillis = System.currentTimeMillis() + 3600000; // Tiempo de expiración (1 hora)
 	    Key key = Keys.hmacShaKeyFor(secret_Key.getBytes());
 
 	    String jwt = Jwts.builder()
