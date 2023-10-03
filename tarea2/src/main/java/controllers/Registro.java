@@ -68,7 +68,7 @@ public class Registro extends HttpServlet {
 	            String password = request.getParameter("password");
 	            String passwordConfirm = request.getParameter("confirmar_contrasena");
 	            if (nickname.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || 
-	            	    nomEmpresa.isEmpty() || desc.isEmpty() || linkWeb.isEmpty() || password.isEmpty() || 
+	            	    nomEmpresa.isEmpty() || desc.isEmpty() || password.isEmpty() || 
 	            	    passwordConfirm.isEmpty()) {
 	            	    request.setAttribute("error", "Todos los campos son obligatorios.");
 	            	    request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
