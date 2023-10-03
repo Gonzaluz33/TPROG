@@ -4,7 +4,6 @@
 <html>
 	<head>
     <jsp:include page="/WEB-INF/template/head.jsp" />
-	<title>Trabajo.uy</title>
 	   <script>
 	        <% if (request.getAttribute("sessionExpired") != null) { %>
 	            alert("La sesión ha expirado. Por favor, inicie sesión nuevamente.");
@@ -41,37 +40,31 @@
 		    </div>
 		  </div>
 		</div>
-		
-		<!--  <nav class="navbar navbar-expand-lg bg-body-tertiary bg-navbar">
-	    <div class="container-fluid justify-content-center">
-	      <div class="collapse navbar-collapse justify-content-center">
-	        <ul class="navbar-nav">
-	          <li class="nav-item">
-	            <a class="nav-link active text-white" aria-current="page" href="index.html">Inicio</a>
-	          </li>
-	          <li class="nav-item">
-	            <a class="nav-link active text-white" aria-current="page" href="./visitante/ConsultaDeUsuario.html">Consulta de Usuario</a>
-	          </li>
-	          <li class="nav-item dropdown">
-	            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-	              Paquetes y Tipos de Publicación
-	            </a>
-	            <ul class="dropdown-menu">
-	              <li><a class="dropdown-item" href="./visitante/ConsultaPaquete.html">Consultar Paquetes</a></li>
-	              <li><a class="dropdown-item" href="./visitante/ConsultaTipos.html">Consultar Tipos de Publicación</a></li>
-	            </ul>
-	          </li>
-	          <li class="nav-item">
-	            <a class="nav-link text-white" href="./postulante/dashboardPostulante.html">Dashboard Postulante</a>
-	          </li>
-	          <li class="nav-item">
-	            <a class="nav-link text-white" href="./Empresa/dashboardEmpresa.html">Dashboard Empresa</a>
-	          </li>
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
-	  -->	
+			
+		 <nav class="navbar navbar-expand-lg bg-body-tertiary bg-navbar">
+		    <div class="container-fluid justify-content-center">
+		      <div class="collapse navbar-collapse justify-content-center">
+		        <ul class="navbar-nav">
+		          <li class="nav-item">
+		            <a class="nav-link active text-white" aria-current="page" href="index.html">Inicio</a>
+		          </li>
+		          <li class="nav-item">
+		            <a class="nav-link active text-white" aria-current="page" href="/tarea2/visitante/consultaUsuario">Consulta de Usuario</a>
+		          </li>
+		          <li class="nav-item dropdown">
+		            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		              Paquetes y Tipos de Publicación
+		            </a>
+		            <ul class="dropdown-menu">
+		              <li><a class="dropdown-item" href="/tarea2/visitante/consultaPaquete">Consultar Paquetes</a></li>
+		              <li><a class="dropdown-item" href="/tarea2/visitante/consultaTipos">Consultar Tipos de Publicación</a></li>
+		            </ul>
+		          </li>
+		        </ul>
+		      </div>
+		    </div>
+		 </nav>
+
 		<main>	
 			<!-- El contenido principal del sitio web -->
 			   <div class="container-fluid mt-3">

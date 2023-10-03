@@ -10,4 +10,44 @@
     <servlet-name>registro</servlet-name>
     <servlet-class>controllers.registro</servlet-class>
   </servlet>
+  <servlet>
+    <description></description>
+    <display-name>ConsultaUsuario</display-name>
+    <servlet-name>ConsultaUsuario</servlet-name>
+    <servlet-class>ConsultaUsuario</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConsultaUsuario</servlet-name>
+    <url-pattern>/ConsultaUsuario</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ConsultaOferta</display-name>
+    <servlet-name>ConsultaOferta</servlet-name>
+    <servlet-class>controllers.ConsultaOferta</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConsultaOferta</servlet-name>
+    <url-pattern>/ConsultaOferta</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ConsultaPaquete</display-name>
+    <servlet-name>ConsultaPaquete</servlet-name>
+    <servlet-class>controllers.ConsultaPaquete</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConsultaPaquete</servlet-name>
+    <url-pattern>/ConsultaPaquete</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ConsultaTipos</display-name>
+    <servlet-name>ConsultaTipos</servlet-name>
+    <servlet-class>controllers.ConsultaTipos</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConsultaTipos</servlet-name>
+    <url-pattern>/ConsultaTipos</url-pattern>
+  </servlet-mapping>
 </web-app>

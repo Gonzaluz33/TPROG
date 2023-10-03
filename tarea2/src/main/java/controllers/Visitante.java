@@ -75,7 +75,7 @@ public class Visitante extends HttpServlet {
         	            req.getRequestDispatcher("/WEB-INF/empresa/dashboardEmpresa.jsp").forward(req, resp);
         	        } else if (usuario instanceof DTPostulante) {
         	      
-        	            req.getRequestDispatcher("/WEB-INF/visitante/dashboardPostulante.jsp").forward(req, resp);
+        	            req.getRequestDispatcher("/WEB-INF/postulante/dashboardPostulante.jsp").forward(req, resp);
         	        }
         	      
         	    } else {

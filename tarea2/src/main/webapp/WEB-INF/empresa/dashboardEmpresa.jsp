@@ -2,15 +2,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 	<script src="media/js/bootstrap.min.js?v=<?php echo time(); ?>"></script>
- 	<script src="media/js/jquery-3.7.1.min.js?v=<?php echo time(); ?>"></script>
- 	<link rel="stylesheet" type="text/css" href="media/styles/bootstrap.min.css?v=<?php echo time(); ?>">
- 	<link rel="stylesheet" type="text/css" href="media/styles/style.css?v=<?php echo time(); ?>">
+     <jsp:include page="/WEB-INF/template/head.jsp" />
  	<link rel="stylesheet" type="text/css" href="media/styles/dashboardEmpresa.css?v=<?php echo time(); ?>">
-    <title>Trabajo.uy</title>
 </head>
 <body>
     <header>
@@ -113,6 +106,6 @@
         </section>
     </main>
 </body>
-<script src="../js/index.js"></script>
-<script src="../js/dasboardEmpresa.js"></script>
+	<script src="../js/index.js"></script>
+	<script src="../js/dasboardEmpresa.js"></script>
 </html>
