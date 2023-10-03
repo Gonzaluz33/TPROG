@@ -154,13 +154,22 @@ public class Registro extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-				try {
-					processRequest(request, response);
-				} catch (ServletException | IOException | UsuarioRepetidoException | CorreoRepetidoException e) {
-					request.setAttribute("error", "El nickname o email ya estan registrados.");
-	                request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
-					e.printStackTrace();
-				}	
+		try {
+			processRequest(request, response);
+		} catch (ServletException | IOException  e) {
+			request.setAttribute("error", "Ocurrio un error.");
+            request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
+			e.printStackTrace();
+		}
+		catch (UsuarioRepetidoException e) {
+			request.setAttribute("error", "El nickname ya existe.");
+            request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
+            e.printStackTrace();
+		} catch (CorreoRepetidoException e) {
+			request.setAttribute("error", "El correo ya existe.");
+            request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
+            e.printStackTrace();
+		}
 	}
 
 	/**
@@ -171,15 +180,23 @@ public class Registro extends HttpServlet {
 			throws ServletException, IOException {
 				try {
 					processRequest(request, response);
-				} catch (ServletException | IOException | UsuarioRepetidoException | CorreoRepetidoException e) {
-					request.setAttribute("error", "El nickname o email ya estan registrados.");
+				} catch (ServletException | IOException  e) {
+					request.setAttribute("error", "Ocurrio un error.");
 	                request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
 					e.printStackTrace();
 				}
+				catch (UsuarioRepetidoException e) {
+					request.setAttribute("error", "El nickname ya existe.");
+	                request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
+	                e.printStackTrace();
+				} catch (CorreoRepetidoException e) {
+					request.setAttribute("error", "El correo ya existe.");
+	                request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
+	                e.printStackTrace();
+				}
 	}
-	
-	
-
-	
-
 }
+	
+	
+
+	

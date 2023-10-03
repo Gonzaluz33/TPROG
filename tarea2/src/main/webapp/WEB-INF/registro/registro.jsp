@@ -135,8 +135,10 @@
 											        <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" autocomplete="off" class="form-control" required pattern=".{6,}">
 										    </div>
                                             
-                                            <button type="button" class="btn btn-dark btn-lg" onclick="window.location.href='visitante';">Cancelar</button>
-                                            <button type="submit"  id="submitButtonEmpresa" class="btn btn-warning btn-lg">Enviar</button>
+                                            <div class="mt-3">
+	                                            <button type="button" class="btn btn-dark btn-lg" onclick="window.location.href='visitante';">Cancelar</button>
+	                                            <button type="submit"  id="submitButtonEmpresa" class="btn btn-warning btn-lg">Enviar</button>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>

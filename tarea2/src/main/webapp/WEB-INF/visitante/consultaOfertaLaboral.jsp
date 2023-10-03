@@ -10,14 +10,14 @@
             <nav class="navbar bg-body-tertiary border-bottom border-black">
                 <div class="container d-flex py-1 ">
                     <div style="width: 20%;">
-                        <a class="navbar-brand" href="#"><img class="w-50" src="../src/img/trabajo_logo.png" alt=""></a>
+                        <a class="navbar-brand" href="#"><img class="w-50" src="media/img/trabajo_logo.png" alt=""></a>
                     </div>
                     <div style="width: 80%;">
                         <form class="d-flex " role="search">
                             <input class="form-control square-corners  me-2 " type="search"
                                 placeholder="Búsqueda de ofertas laborales" aria-label="Search">
                             <button class="btn btn-outline-light bg-dark square-corners" type="submit"><i
-                                    class="fas fa-search"></i> Buscar</button>
+                                    class="fas fa-search"></i>Buscar</button>
                         </form>
                     </div>
                 </div>     
@@ -62,7 +62,4 @@
 
           </main>
     </body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-        crossorigin="anonymous"></script>
 </html>
