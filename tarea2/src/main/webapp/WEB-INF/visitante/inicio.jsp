@@ -9,25 +9,28 @@
 	            alert("La sesión ha expirado. Por favor, inicie sesión nuevamente.");
 	        <% } %>
 	    </script>    
-		<% String successMessage = (String) request.getAttribute("succes_register"); %>
-		<% if (successMessage != null) { %>
-		<script>
-		    $(document).ready(function () {
-		        $('#successAlert').show();
-		        setTimeout(function () {
-		            $('#successAlert').hide();
-		        }, 4000); // 4 segundos
-		    });
-		</script>
-		<% } %>
+		
 	</head>
 	<body>
 		<jsp:include page="/WEB-INF/template/headerVisitante.jsp" />
-		<div id="successAlert" class="alert alert-success" style="display: none;">
-		    <% if (successMessage != null) { %>
-		        <%= successMessage %>
-		    <% } %>
-		</div>
+		<%
+		    String mensaje = request.getParameter("mensaje");
+		    if (mensaje != null) {
+			%>
+			<div id="mensajeDiv" class="alert alert-success">
+			    <%= mensaje %>
+			</div>
+			<script>
+			    setTimeout(function() {
+			        var mensajeDiv = document.getElementById('mensajeDiv');
+			        if (mensajeDiv) {
+			            mensajeDiv.style.display = 'none';
+			        }
+			    }, 3000); // 3000 milisegundos (3 segundos)
+			</script>
+			<%
+			    }
+		%>
 		<!-- Modal Login-->
 		<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">

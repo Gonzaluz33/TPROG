@@ -15,6 +15,7 @@ import model.IControladorUsuario;
 import model.Fabrica;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.net.URLEncoder;
 
 
 /**
@@ -82,7 +83,7 @@ public class Registro extends HttpServlet {
 					            IControladorUsuario iconuser = factory.getIControladorUsuario();
 					            iconuser.altaEmpresa(nickname,nombre,apellido,email,password,nomEmpresa,desc,linkWeb);
 					            request.setAttribute("succes_register", "Usuario Registrado con exito.");
-					            response.sendRedirect("visitante");
+				                request.getRequestDispatcher("visitante").forward(request, response);
 				            	}else {
 				            		request.setAttribute("error", "El email ingresado no es valido.");
 					                request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
@@ -114,9 +115,8 @@ public class Registro extends HttpServlet {
 					            	LocalDate fecha = parseFecha(fechaNacimiento);
 					            	if(fecha != null) {
 						                iconuser.altaPostulante(nickname,nombre,apellido,email,password,fecha,nacionalidad);
-						                request.setAttribute("succes_register", "Usuario Registrado con exito.");
-						                request.getRequestDispatcher("visitante").forward(request, response);
-						                //response.sendRedirect("visitante");
+						                String mensaje = "Usuario Registrado con éxito.";
+						                response.sendRedirect("visitante?mensaje=" + URLEncoder.encode(mensaje, "UTF-8"));
 					            	}else {
 					            		request.setAttribute("error", "La fecha es invalida.");
 						                request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
