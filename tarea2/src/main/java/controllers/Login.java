@@ -76,7 +76,7 @@ public class Login extends HttpServlet {
 		    response.addCookie(new Cookie("jwt", jwt));
 		}
 		response.sendRedirect("visitante");
-		//request.getRequestDispatcher("/visitante").forward(request, response);
+		//request.getRequestDispatcher("visitante").forward(request, response);
 	}
 
 	/**

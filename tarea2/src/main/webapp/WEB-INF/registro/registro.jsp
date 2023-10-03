@@ -70,12 +70,12 @@
 					                          </div>
 					                           <div class="form-group mb-2">
 			                                        <label for="password">Contraseña:</label>
-			                                        <input type="password" id="password" name="password" class="form-control" required>
+			                                        <input type="password" id="password" name="password" autocomplete="off" class="form-control" required>
 			                                   		 <small>La contraseña debe tener al menos 6 caracteres.</small>
 			                                    </div>
 			                                <div class="form-group mb-3">
 												    <label for="confirmar_contrasena">Confirmar Contraseña:</label>
-											        <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" class="form-control" required pattern=".{6,}">
+											        <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" autocomplete="off" class="form-control" required pattern=".{6,}">
 										    </div>
 					                          
                                             <button type="button" class="btn btn-dark btn-lg" onclick="window.location.href='visitante';">Cancelar</button>
@@ -127,12 +127,12 @@
 					                        
 					                        <div class="form-group mb-2">
 										        <label for="password">Contraseña:</label>
-										        <input type="password" id="password" name="password" class="form-control" required>
+										        <input type="password" id="password" name="password" autocomplete="off" class="form-control" required>
 										        <small>La contraseña debe tener al menos 6 caracteres.</small>
 										    </div>
 										    <div class="form-group mb-3">
 												    <label for="confirmar_contrasena">Confirmar Contraseña:</label>
-											        <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" class="form-control" required pattern=".{6,}">
+											        <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" autocomplete="off" class="form-control" required pattern=".{6,}">
 										    </div>
                                             
                                             <button type="button" class="btn btn-dark btn-lg" onclick="window.location.href='visitante';">Cancelar</button>
