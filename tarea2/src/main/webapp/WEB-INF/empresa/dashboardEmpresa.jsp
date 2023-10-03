@@ -11,7 +11,7 @@
             <div class=" d-flex justify-content-between align-items-center w-100" style="height: 8vh;">
                 <div class="d-flex" style="width: 80vw;">
                     <div>
-                        <a class="navbar-brand" href="index.html"><img width="160" src="../src/img/trabajo_logo.png" alt=""></a>
+                        <a class="navbar-brand" href="index.html"><img width="160" src="media/img/trabajo_logo.png" alt=""></a>
                     </div>
                     <h3 class="m-0 d-flex align-items-center">Usuario Empresa</h3>
                 </div>
@@ -21,7 +21,7 @@
                     </div>
 
                     <div class="d-flex px-2">
-                        <a class="text-decoration-none text-black fw-bold " href="../index.html">Cerrar Sesión</a>
+                        <a class="text-decoration-none text-black fw-bold " href="/tarea2/cerrar-sesion">Cerrar Sesión</a>
                     </div>
 
                 </div>
@@ -106,6 +106,6 @@
         </section>
     </main>
 </body>
-	<script src="../js/index.js"></script>
-	<script src="../js/dasboardEmpresa.js"></script>
+	<script src="media/js/index.js"></script>
+	<script src="media/js/dasboardEmpresa.js"></script>
 </html>

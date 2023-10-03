@@ -50,4 +50,34 @@
     <servlet-name>ConsultaTipos</servlet-name>
     <url-pattern>/ConsultaTipos</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Postulante</display-name>
+    <servlet-name>Postulante</servlet-name>
+    <servlet-class>controllers.Postulante</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Postulante</servlet-name>
+    <url-pattern>/Postulante</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Empresa</display-name>
+    <servlet-name>Empresa</servlet-name>
+    <servlet-class>controllers.Empresa</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Empresa</servlet-name>
+    <url-pattern>/Empresa</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Logout</display-name>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>controllers.Logout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/Logout</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -70,12 +70,10 @@ public class Visitante extends HttpServlet {
         	    if(iconuser.usuarioExiste(correo)) {
         	        DTUsuario usuario = iconuser.consultarUsuarioPorCorreo(correo);
         	      
-        	        if (usuario instanceof DTEmpresa) {
-        	           
-        	            req.getRequestDispatcher("/WEB-INF/empresa/dashboardEmpresa.jsp").forward(req, resp);
+        	        if (usuario instanceof DTEmpresa) {     	           
+        	        	resp.sendRedirect("empresa");
         	        } else if (usuario instanceof DTPostulante) {
-        	      
-        	            req.getRequestDispatcher("/WEB-INF/postulante/dashboardPostulante.jsp").forward(req, resp);
+        	        	resp.sendRedirect("postulante");
         	        }
         	      
         	    } else {
