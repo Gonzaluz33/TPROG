@@ -3,8 +3,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<jsp:include page="/WEB-INF/template/head.jsp" />
+    <jsp:include page="/WEB-INF/template/head.jsp" />
 	<title>Trabajo.uy</title>
+	   <script>
+	        <% if (request.getAttribute("sessionExpired") != null) { %>
+	            alert("La sesión ha expirado. Por favor, inicie sesión nuevamente.");
+	        <% } %>
+	    </script>
 	</head>
 	<body>
 		<jsp:include page="/WEB-INF/template/headerVisitante.jsp" />
@@ -17,25 +22,27 @@
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		      <div class="modal-body">
-		        <form>
-		          <div class="form-group mb-2">
-		            <label class="mb-3" for="email">Email</label>
-		            <input type="email" class="form-control" id="email" placeholder="Ingrese su email">
-		          </div>
-		          <div class="form-group mb-2">
-		            <label class="mb-3" for="password">Contraseña</label>
-		            <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña">
-		          </div>
-		        </form>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary btn-dark" data-bs-dismiss="modal">Cerrar</button>
-		        <button type="submit" class="btn btn-warning">Iniciar sesión</button>
+		        <form action="iniciar-sesion" method="post">
+			          <div class="form-group mb-2">
+			            <label class="mb-3" for="login">Email</label>
+			            <input type="text" class="form-control" id="login" name="login" placeholder="Ingrese su email">
+			          </div>
+			          <div class="form-group mb-2">
+			            <label class="mb-3" for="password">Contraseña</label>
+			            <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña">
+			          </div>
+			      
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary btn-dark" data-bs-dismiss="modal">Cerrar</button>
+			        <button type="submit" class="btn btn-warning">Iniciar sesión</button>
+			      </div>
+		      </form>
 		      </div>
 		    </div>
 		  </div>
 		</div>
-		<nav class="navbar navbar-expand-lg bg-body-tertiary bg-navbar">
+		
+		<!--  <nav class="navbar navbar-expand-lg bg-body-tertiary bg-navbar">
 	    <div class="container-fluid justify-content-center">
 	      <div class="collapse navbar-collapse justify-content-center">
 	        <ul class="navbar-nav">
@@ -63,10 +70,11 @@
 	        </ul>
 	      </div>
 	    </div>
-	  </nav>	
+	  </nav>
+	  -->	
 		<main>	
 			<!-- El contenido principal del sitio web -->
-			   <div class="container-fluid">
+			   <div class="container-fluid mt-3">
 			        <div class="row">
 			            <div class="col-md-2  mt-2 col-sm-12">
 			               <div class=" container-fluid p-3 mx-auto border border-dark text-center" id="keywordList">
@@ -142,10 +150,7 @@
 			        </div>
 			      </div>
 		</main>
-		
-	    <script src="js/login.js"></script>
-	    <script src="js/index.js"></script>
-	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-	      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+	    <script src="media/js/login.js"></script>
+	    <script src="media/js/index.js"></script>
 	</body>
 </html>
