@@ -112,8 +112,10 @@
 										        <input type="password" id="password" name="password" class="form-control" required>
 										    </div>
                                             
-                                            <button type="button" class="btn btn-dark btn-lg" onclick="window.location.href='visitante';">Cancelar</button>
-                                            <button type="submit"  id="submitButtonEmpresa" class="btn btn-warning btn-lg">Enviar</button>
+                                            <div class="mt-3">
+	                                            <button type="button" class="btn btn-dark btn-lg" onclick="window.location.href='visitante';">Cancelar</button>
+	                                            <button type="submit"  id="submitButtonEmpresa" class="btn btn-warning btn-lg">Enviar</button>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>

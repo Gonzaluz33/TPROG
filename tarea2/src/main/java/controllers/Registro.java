@@ -110,7 +110,7 @@ public class Registro extends HttpServlet {
 				} catch (ServletException | IOException | UsuarioRepetidoException | CorreoRepetidoException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}	
+				}
 	}
 
 	/**
@@ -120,12 +120,19 @@ public class Registro extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 				try {
-					processRequest(request, response);
-				} catch (ServletException | IOException | UsuarioRepetidoException | CorreoRepetidoException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				    processRequest(request, response);
+				} catch (ServletException e) {
+				    // Manejar ServletException
+				    e.printStackTrace();  
+				} catch (IOException e) {
+				    // Manejar IOException
+				    e.printStackTrace();
+				} catch (UsuarioRepetidoException e) {
+				    // Manejar UsuarioRepetidoException
+					request.getRequestDispatcher("/WEB-INF/errorPages/UsuarioExiste.jsp").forward(request, response);
+				    
+				} catch (CorreoRepetidoException e) {
+					request.getRequestDispatcher("/WEB-INF/errorPages/CorreoExiste.jsp").forward(request, response);
+				}		
 	}
-	
-
 }
