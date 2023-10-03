@@ -73,7 +73,7 @@ mainContentData.forEach(data => {
                             ${keywords}
                         </div>
                         <div class="d-flex justify-content-end">
-                            <a href="./visitante/consultaOfertaLaboral.html" class="text-dark">Ver más</a>
+                            <a href="/tarea2/consultaOferta" class="text-dark">Ver más</a>
                         </div>
                     </div>
                   </div>

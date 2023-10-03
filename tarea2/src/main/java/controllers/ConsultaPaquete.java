@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Servlet implementation class ConsultaPaquete
  */
-@WebServlet("/visitante/consultaPaquete")
+@WebServlet("/consultaPaquete")
 public class ConsultaPaquete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
