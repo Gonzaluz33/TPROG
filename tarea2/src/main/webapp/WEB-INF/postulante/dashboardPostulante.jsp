@@ -12,7 +12,7 @@
             <div class=" d-flex justify-content-between align-items-center w-100" style="height: 8vh;">
                 <div class="d-flex">
                     <div>
-                        <a class="navbar-brand" href="/tarea2/postulante"><img width="160" src="/media/img/trabajo_logo.png" alt=""></a>
+                        <a class="navbar-brand" href="/tarea2/postulante"><img width="160" src="media/img/trabajo_logo.png" alt=""></a>
                     </div>
                     <h3 class="m-0 d-flex align-items-center">Usuario Postulante</h3>
                 </div>
@@ -26,10 +26,10 @@
         <section id="sectionMenu">
             <div class="p-2">
                 <div class="list-group">
-                    <a href="./consultaUsuario.html"><button type="button" class="list-group-item list-group-item-action" >Consulta de Usuario</button></a>
-                    <a href="./consultaTipoPublicacion.html"><button type="button" class="list-group-item list-group-item-action">Consulta de Tipo de Publicacion</button></a>
-                    <a href="./consultaPostulacionOferta.html"><button type="button" class="list-group-item list-group-item-action">Consulta de Postulación a Oferta Laboral</button></a>
-                    <a href="./postularAOferta.html"><button type="button" class="list-group-item list-group-item-action">Postular a Oferta Laboral</button></a>
+                    <a href="/tarea2/consultaUsuario"><button type="button" class="list-group-item list-group-item-action" >Consulta de Usuario</button></a>
+                    <a href="/tarea2/consultaTipos"><button type="button" class="list-group-item list-group-item-action">Consulta de Tipo de Publicacion</button></a>
+                    <a href="/tarea2/consultaPostulacionAOferta"><button type="button" class="list-group-item list-group-item-action">Consulta de Postulación a Oferta Laboral</button></a>
+                    <a href="/tarea2/postularAOferta"><button type="button" class="list-group-item list-group-item-action">Postular a Oferta Laboral</button></a>
                 </div>
             </div>
         </section>

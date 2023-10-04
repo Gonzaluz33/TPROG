@@ -3,13 +3,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery-3.7.1.min.js"></script>
-    <link rel="stylesheet" href="../css/style.css">
-    <title>Trabajo.uy</title>
+   <jsp:include page="/WEB-INF/template/head.jsp"/>
 </head>
 
 <body>
@@ -18,7 +12,7 @@
             <div class=" d-flex justify-content-between align-items-center w-100" style="height: 8vh;">
                 <div class="d-flex" style="width: 80vw;">
                     <div>
-                        <a class="navbar-brand" href="/tarea2/postulante"><img width="160" src="/media/img/trabajo_logo.png"
+                        <a class="navbar-brand" href="/tarea2/postulante"><img width="160" src="media/img/trabajo_logo.png"
                                 alt=""></a>
                     </div>
                     <h3 class="m-0 d-flex align-items-center">Postular a Oferta Laboral</h3>

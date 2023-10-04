@@ -11,7 +11,7 @@
             <div class=" d-flex justify-content-between align-items-center w-100" style="height: 8vh;">
                 <div class="d-flex" style="width: 80vw;">
                     <div>
-                        <a class="navbar-brand" href="/tarea2/postulante"><img width="160" src="/media/img/trabajo_logo.png"
+                        <a class="navbar-brand" href="/tarea2/postulante"><img width="160" src="media/img/trabajo_logo.png"
                                 alt=""></a>
                     </div>
                     <h3 class="m-0 d-flex align-items-center">Consulta de Tipo de Publicación</h3>

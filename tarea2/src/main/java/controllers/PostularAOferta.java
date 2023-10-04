@@ -8,36 +8,36 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Servlet implementation class ConsultaTipos
+ * Servlet implementation class PostularAOferta
  */
-@WebServlet("/consultaTipos")
-public class ConsultaTipos extends HttpServlet {
+@WebServlet("/postularAOferta")
+public class PostularAOferta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ConsultaTipos() {
+    public PostularAOferta() {
         super();
         // TODO Auto-generated constructor stub
     }
-   
+    
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	UtilidadesJWT utilidadesJWT = UtilidadesJWT.obtenerInstancia();
     	String tipoUsuario = utilidadesJWT.obtenerTipoUsuarioPorRequest(req, resp);
     	switch(tipoUsuario) {
     		case ("postulante"):
-    			req.getRequestDispatcher("/WEB-INF/postulante/consultaTipoPublicacion.jsp").forward(req, resp);
+    			req.getRequestDispatcher("/WEB-INF/postulante/PostularAOferta.jsp").forward(req, resp);
     			break;
     		case ("empresa"):
-    			req.getRequestDispatcher("/WEB-INF/empresa/consultaTipoPublicacion.jsp").forward(req, resp);
+    			req.getRequestDispatcher("/WEB-INF/empresa/dashboardEmpresa.jsp").forward(req, resp);
     			break;
     		default:
-    			req.getRequestDispatcher("/WEB-INF/visitante/consultaTipoPublicacion.jsp").forward(req, resp);
+    			req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
     			break;
-  		
     	}
     }
+    
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -52,7 +52,7 @@ public class ConsultaTipos extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		processRequest(request, response);
+		doGet(request, response);
 	}
 
 }
