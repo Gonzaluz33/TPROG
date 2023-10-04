@@ -127,4 +127,14 @@
     <servlet-name>AltaOfertaLaboral</servlet-name>
     <url-pattern>/AltaOfertaLaboral</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InformacionPostulacion</display-name>
+    <servlet-name>InformacionPostulacion</servlet-name>
+    <servlet-class>controllers.InformacionPostulacion</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InformacionPostulacion</servlet-name>
+    <url-pattern>/InformacionPostulacion</url-pattern>
+  </servlet-mapping>
 </web-app>
