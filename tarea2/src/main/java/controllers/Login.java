@@ -10,6 +10,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import excepciones.CorreoNoEncontradoException;
 import excepciones.CorreoRepetidoException;
 import excepciones.NicknameNoExisteException;
@@ -75,6 +76,7 @@ public class Login extends HttpServlet {
 		 IControladorUsuario icontuser = factory.getIControladorUsuario();
 		 String login = request.getParameter("login");
 	     String password = request.getParameter("password");
+	     HttpSession session = request.getSession();
 	     if(icontuser.usuarioExiste(login)) {
 			if (icontuser.validarUsuario(login,password)) {
 				DTUsuario user = icontuser.consultarUsuarioPorCorreo(login);
@@ -86,13 +88,11 @@ public class Login extends HttpServlet {
 					    response.addCookie(new Cookie("jwt", jwt));
 				}
 			}else {
-				String mensaje = "Usuario incorrecto.";
-                response.sendRedirect("visitante?mensaje=" + URLEncoder.encode(mensaje, "UTF-8"));
+				session.setAttribute("errorMessage", "Contraseña incorrecta");
 			}
 			
 	     }else {
-	    	 String mensaje = "Contraseña incorrecta.";
-             response.sendRedirect("visitante?mensaje=" + URLEncoder.encode(mensaje, "UTF-8"));
+	    	 session.setAttribute("errorMessage", "Usuario inexistente");
 	     }
 	     response.sendRedirect("visitante");    
 	}
