@@ -41,11 +41,9 @@ public class InicializadorAppListener implements ServletContextListener {
     	 ServletContext context = sce.getServletContext();
 	     boolean datosCargados = Boolean.parseBoolean(context.getInitParameter("datosCargados"));
 	     if (!datosCargados) {
-	    	 Fabrica factory = Fabrica.getInstance();
-	     	 IControladorUsuario ICU = factory.getIControladorUsuario();
-	     	// LocalDate fecha = parseFecha("12/2/2023");
+	    	 String csvFilePath = sce.getServletContext().getRealPath("/WEB-INF/DatosPrueba/Postulantes.csv");
 	     	 try {
-				ICU.altaPostulante("nickname", "nombre", "apellido", "asd@asd.com", "asdasd" ,null, "uruguaya");
+	     		cargarDatosPostulantes(csvFilePath);
 				context.setAttribute("datosCargados", "true");
 			} catch (UsuarioRepetidoException | CorreoRepetidoException e) {
 				e.printStackTrace();
@@ -63,7 +61,7 @@ public class InicializadorAppListener implements ServletContextListener {
     }
     
     
-   /* private LocalDate parseFecha(String fechaNacimiento) {
+    private LocalDate parseFecha(String fechaNacimiento) {
 	    try {
 	        LocalDate fechaNacimientoParsed = LocalDate.parse(fechaNacimiento);
 	        LocalDate fechaActual = LocalDate.now();
@@ -76,9 +74,9 @@ public class InicializadorAppListener implements ServletContextListener {
 	        e.printStackTrace();
 	        return null;
 	    }
-	}*/
+	}
     
-  /*  private void cargarDatosPostulantes(String csvFile) throws UsuarioRepetidoException, CorreoRepetidoException {
+    private void cargarDatosPostulantes(String csvFile) throws UsuarioRepetidoException, CorreoRepetidoException {
     	//String csvFile1 = "/java/Datos/Postulantes.csv";
         String line;
         String csvSplitBy = ";";
@@ -104,7 +102,7 @@ public class InicializadorAppListener implements ServletContextListener {
 	            	 nacionalidad = datos[5];
 	            	 Fabrica factory = Fabrica.getInstance();
 	            	 IControladorUsuario ICU = factory.getIControladorUsuario();
-	            	 ICU.altaPostulante(nickname, nombre, apellido, correo, "admin" ,fecha, nacionalidad);
+	            	 ICU.altaPostulante(nickname, nombre, apellido, correo, "asdasd" ,fecha, nacionalidad);
 	            }
            
             }
@@ -113,6 +111,6 @@ public class InicializadorAppListener implements ServletContextListener {
         }
  
       
-    }*/
+    }
 	
 }
