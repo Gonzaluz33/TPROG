@@ -9,9 +9,7 @@
         <header>
             <nav class="navbar bg-body-tertiary border-bottom border-black">
                 <div class="container d-flex py-1 ">
-                    <div style="width: 20%;">
-                        <a class="navbar-brand" href="#"><img class="w-50" src="media/img/trabajo_logo.png" alt=""></a>
-                    </div>
+                    <jsp:include page="/WEB-INF/template/Logo.jsp" />
                     <div style="width: 80%;">
                         <form class="d-flex " role="search">
                             <input class="form-control square-corners  me-2 " type="search"

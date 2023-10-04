@@ -21,8 +21,22 @@ public class ConsultaTipos extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+   
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	req.getRequestDispatcher("/WEB-INF/visitante/consultaTipos.jsp").forward(req, resp);
+    	UtilidadesJWT utilidadesJWT = UtilidadesJWT.obtenerInstancia();
+    	String tipoUsuario = utilidadesJWT.obtenerTipoUsuarioPorRequest(req, resp);
+    	switch(tipoUsuario) {
+    		case ("postulante"):
+    			req.getRequestDispatcher("/WEB-INF/postulante/consultaTipoPublicacion.jsp").forward(req, resp);
+    			break;
+    		case ("empresa"):
+    			req.getRequestDispatcher("/WEB-INF/empresa/consultaTipoPublicacion.jsp").forward(req, resp);
+    			break;
+    		default:
+    			req.getRequestDispatcher("/WEB-INF/visitante/consultaTipoPublicacion.jsp").forward(req, resp);
+    			break;
+  		
+    	}
     }
 
 	/**

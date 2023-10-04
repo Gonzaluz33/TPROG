@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
  <div class="d-flex me-5">
      <div class="d-flex border-end px-2 ">
-         <a href="./MiUsuario.html" class="text-decoration-none text-black fw-bold ">Mi Usuario</a>
+         <a href="/tarea2/miUsuario" class="text-decoration-none text-black fw-bold ">Mi Usuario</a>
      </div>
 
      <div class="d-flex px-2">
