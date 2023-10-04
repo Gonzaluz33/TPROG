@@ -117,4 +117,14 @@
     <servlet-name>PostularAOferta</servlet-name>
     <url-pattern>/PostularAOferta</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AltaOfertaLaboral</display-name>
+    <servlet-name>AltaOfertaLaboral</servlet-name>
+    <servlet-class>controllers.AltaOfertaLaboral</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AltaOfertaLaboral</servlet-name>
+    <url-pattern>/AltaOfertaLaboral</url-pattern>
+  </servlet-mapping>
 </web-app>
