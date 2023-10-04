@@ -10,10 +10,7 @@
         <nav class="navbar p-0 border-bottom border-black mb-1">
             <div class=" d-flex justify-content-between align-items-center w-100" style="height: 8vh;">
                 <div class="d-flex" style="width: 80vw;">
-                    <div>
-                        <a class="navbar-brand" href="index.html"><img width="160" src="../src/img/trabajo_logo.png"
-                                alt=""></a>
-                    </div>
+                    <jsp:include page="/WEB-INF/template/Logo.jsp" />
                     <h3 class="m-0 d-flex align-items-center">Consultar Paquete</h3>
                 </div>
             </div>

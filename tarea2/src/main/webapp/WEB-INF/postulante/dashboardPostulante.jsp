@@ -12,7 +12,7 @@
             <div class=" d-flex justify-content-between align-items-center w-100" style="height: 8vh;">
                 <div class="d-flex">
                     <div>
-                        <a class="navbar-brand" href="dashboardPostulante.html"><img width="160" src="media/img/trabajo_logo.png" alt=""></a>
+                        <a class="navbar-brand" href="/tarea2/postulante"><img width="160" src="/media/img/trabajo_logo.png" alt=""></a>
                     </div>
                     <h3 class="m-0 d-flex align-items-center">Usuario Postulante</h3>
                 </div>

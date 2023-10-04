@@ -6,10 +6,10 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link active text-white" aria-current="page"
-                                href="dashboardPostulante.html">Inicio</a>
+                                href="/tarea2/postulante">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="./consultaUsuario.html">Consulta de Usuario</a>
+                            <a class="nav-link active text-white" aria-current="page" href="/tarea2/consultaUsuario">Consulta de Usuario</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active text-white" aria-current="page" href="./consultaTipoPublicacion.html">Consulta de Tipo de
