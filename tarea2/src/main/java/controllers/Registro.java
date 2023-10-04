@@ -81,7 +81,7 @@ public class Registro extends HttpServlet {
 				            	if(isValidEmail(email)) {
 				            	Fabrica factory = Fabrica.getInstance();
 					            IControladorUsuario iconuser = factory.getIControladorUsuario();
-					            iconuser.altaEmpresa(nickname,nombre,apellido,email,password,nomEmpresa,desc,linkWeb);
+					            iconuser.altaEmpresa(nickname,nombre,apellido,email,password,nomEmpresa,desc,linkWeb,"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png");
 					            String mensaje = "Usuario Registrado con éxito.";
 				                response.sendRedirect("visitante?mensaje=" + URLEncoder.encode(mensaje, "UTF-8"));
 				            	}else {
@@ -114,7 +114,7 @@ public class Registro extends HttpServlet {
 					            	IControladorUsuario iconuser = factory.getIControladorUsuario();
 					            	LocalDate fecha = parseFecha(fechaNacimiento);
 					            	if(fecha != null) {
-						                iconuser.altaPostulante(nickname,nombre,apellido,email,password,fecha,nacionalidad);
+						                iconuser.altaPostulante(nickname,nombre,apellido,email,password,fecha,nacionalidad,"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png");
 						                String mensaje = "Usuario Registrado con éxito.";
 						                response.sendRedirect("visitante?mensaje=" + URLEncoder.encode(mensaje, "UTF-8"));
 					            	}else {

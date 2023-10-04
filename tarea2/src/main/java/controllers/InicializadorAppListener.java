@@ -126,7 +126,7 @@ public class InicializadorAppListener implements ServletContextListener {
 	            	 nacionalidad = datos[5];
 	            	 Fabrica factory = Fabrica.getInstance();
 	            	 IControladorUsuario ICU = factory.getIControladorUsuario();
-	            	 ICU.altaPostulante(nickname, nombre, apellido, correo, "asdasd" ,fecha, nacionalidad);
+	            	 ICU.altaPostulante(nickname, nombre, apellido, correo, "asdasd" ,fecha, nacionalidad,"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png");
 	            }
            
             }
