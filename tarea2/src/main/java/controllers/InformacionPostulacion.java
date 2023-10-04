@@ -8,36 +8,34 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Servlet implementation class ConsultaPostulacionAOferta
+ * Servlet implementation class InformacionPostulacion
  */
-@WebServlet("/consultaPostulacionAOferta")
-public class ConsultaPostulacionAOferta extends HttpServlet {
+@WebServlet("/informacionPostulacion")
+public class InformacionPostulacion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ConsultaPostulacionAOferta() {
+    public InformacionPostulacion() {
         super();
         // TODO Auto-generated constructor stub
     }
-    
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	UtilidadesJWT utilidadesJWT = UtilidadesJWT.obtenerInstancia();
     	String tipoUsuario = utilidadesJWT.obtenerTipoUsuarioPorRequest(req, resp);
     	switch(tipoUsuario) {
     		case ("postulante"):
-    			req.getRequestDispatcher("/WEB-INF/postulante/consultaPostulacionOferta.jsp").forward(req, resp);
+    			req.getRequestDispatcher("/WEB-INF/postulante/dashboardPostulante.jsp").forward(req, resp);
     			break;
     		case ("empresa"):
-    			req.getRequestDispatcher("/WEB-INF/empresa/consultaPostulacionAOferta.jsp").forward(req, resp);
+    			req.getRequestDispatcher("/WEB-INF/empresa/informacionPostulacion.jsp").forward(req, resp);
     			break;
     		default:
     			req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
     			break;
-    	}
+    	}   	
     }
-    
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

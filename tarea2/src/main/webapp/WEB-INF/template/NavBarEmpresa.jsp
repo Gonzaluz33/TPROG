@@ -6,20 +6,20 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link active text-white" aria-current="page"
-                                href="dashboardEmpresa.html">Inicio</a>
+                                href="/tarea2/empresa">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="./altaOfertaLaboral.html">Alta de Oferta Laboral</a>
+                            <a class="nav-link active text-white" aria-current="page" href="/tarea2/altaOfertaLaboral">Alta de Oferta Laboral</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active text-white" aria-current="page"
-                                href="./consultaUsuario.html">Consulta de Usuario</a>
+                                href="/tarea2/consultaUsuario">Consulta de Usuario</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./consultaTipoPublicacion.html">Consulta de Tipo De Publicación</a>
+                            <a class="nav-link text-white" href="/tarea2/consultaTipos">Consulta de Tipo De Publicación</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./consultaPostulacionOferta.html">Consulta de Postulación a Oferta Laboral</a>
+                            <a class="nav-link text-white" href="/tarea2/consultaPostulacionAOferta">Consulta de Postulación a Oferta Laboral</a>
                         </li>
                     </ul>
                 </div>
