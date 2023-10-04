@@ -18,7 +18,6 @@ import model.IControladorUsuario;
  * Application Lifecycle Listener implementation class InicializadorAppListener
  *
  */
-
 @WebListener
 public class InicializadorAppListener implements ServletContextListener {
 

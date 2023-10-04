@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.security.Key;
 import jakarta.servlet.ServletException;
@@ -71,11 +72,20 @@ public class Login extends HttpServlet {
 		 IControladorUsuario icontuser = factory.getIControladorUsuario();
 		 String login = request.getParameter("login");
 	     String password = request.getParameter("password");
-		if (icontuser.validarUsuario(login,password)) {
-		    String jwt = generateJWT(login,secret_Key);
-		    response.addCookie(new Cookie("jwt", jwt));
-		}
-		response.sendRedirect("visitante");
+	     if(icontuser.usuarioExiste(login)) {
+			if (icontuser.validarUsuario(login,password)) {
+			    String jwt = generateJWT(login,secret_Key);
+			    response.addCookie(new Cookie("jwt", jwt));
+			}else {
+				String mensaje = "Usuario incorrecto.";
+                response.sendRedirect("visitante?mensaje=" + URLEncoder.encode(mensaje, "UTF-8"));
+			}
+			
+	     }else {
+	    	 String mensaje = "Contraseña incorrecta.";
+             response.sendRedirect("visitante?mensaje=" + URLEncoder.encode(mensaje, "UTF-8"));
+	     }
+	     response.sendRedirect("visitante");    
 	}
 
 	/**

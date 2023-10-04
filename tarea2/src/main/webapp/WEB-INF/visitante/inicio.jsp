@@ -13,6 +13,12 @@
 	</head>
 	<body>
 		<jsp:include page="/WEB-INF/template/headerVisitante.jsp" />
+		
+		<% String errorMessage = request.getParameter("errorMessage"); %>
+		<% if(errorMessage != null && !errorMessage.isEmpty()) { %>
+		    <div class="error-message"><%= errorMessage %></div>
+		<% } %>
+		
 		<%
 		    String mensaje = request.getParameter("mensaje");
 		    if (mensaje != null) {
