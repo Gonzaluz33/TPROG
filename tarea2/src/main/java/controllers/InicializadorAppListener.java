@@ -117,6 +117,8 @@ public class InicializadorAppListener implements ServletContextListener {
 	            String correo = "";
 	            LocalDate fecha = null;
 	            String nacionalidad = "";
+	            String password = "";
+	            String url_imagen = "";
 	            if(datos.length > 0) {
 	            	 nickname = datos[0];
 	            	 nombre = datos[1];
@@ -124,9 +126,11 @@ public class InicializadorAppListener implements ServletContextListener {
 	            	 correo = datos[3];
 	            	 fecha = parseFecha(datos[4].trim());
 	            	 nacionalidad = datos[5];
+	            	 password = datos[6];
+	            	 url_imagen = datos[7];
 	            	 Fabrica factory = Fabrica.getInstance();
 	            	 IControladorUsuario ICU = factory.getIControladorUsuario();
-	            	 ICU.altaPostulante(nickname, nombre, apellido, correo, "asdasd" ,fecha, nacionalidad,"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png");
+	            	 ICU.altaPostulante(nickname, nombre, apellido, correo, password,fecha, nacionalidad,url_imagen);
 	            }
            
             }

@@ -74,7 +74,7 @@ public class Registro extends HttpServlet {
 	            	    request.setAttribute("error", "Todos los campos son obligatorios.");
 	            	    request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
 	            	} else {
-				            if (!password.equals(passwordConfirm)) {
+				            if (!password.equals(passwordConfirm) || password.length() < 6) {
 				                request.setAttribute("error", "Las contraseñas no coinciden.");
 				                request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
 				            }else {
@@ -105,7 +105,7 @@ public class Registro extends HttpServlet {
 	                	    request.setAttribute("error", "Todos los campos son obligatorios.");
 	                	    request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
 	                	} else {
-	                		if (!password.equals(passwordConfirm)) {
+	                		if (!password.equals(passwordConfirm) || password.length() < 6) {
 				                request.setAttribute("error", "Las contraseñas no coinciden.");
 				                request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
 				            }else {
