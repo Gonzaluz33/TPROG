@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.google.gson.Gson"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,16 +10,28 @@
 	        <% if (request.getAttribute("sessionExpired") != null) { %>
 	            alert("La sesión ha expirado. Por favor, inicie sesión nuevamente.");
 	        <% } %>
-	    </script>    
+	    </script>   
 		
 	</head>
 	<body>
 		<jsp:include page="/WEB-INF/template/headerVisitante.jsp" />
 		
-		<% String errorMessage = request.getParameter("errorMessage"); %>
+		<% 
+		String errorMessage = (String)session.getAttribute("errorMessage");
+		session.removeAttribute("errorMessage"); 
+		%>
 		<% if(errorMessage != null && !errorMessage.isEmpty()) { %>
-		    <div class="error-message"><%= errorMessage %></div>
+		     <div class="alert alert-danger error-message" role="alert">
+		        <%= errorMessage %>
+		    </div>
 		<% } %>
+		<script type="text/javascript">
+		    $(document).ready(function() {
+		        setTimeout(function() {
+		            $(".error-message").fadeOut("slow");
+		        }, 3000);
+		    });
+		</script>
 		
 		<%
 		    String mensaje = request.getParameter("mensaje");
@@ -75,67 +89,18 @@
 			                <h4>Filtrar Publicaciones:</h4>
 			                <h5>Keywords</h5>
 			                <br>
-			                  <div class="form-check">
-			                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-			                    <label class="form-check-label" for="flexCheckChecked">
-			                      Tiempo Completo
-			                    </label>
-			                  </div>
-			                  <div class="form-check">
-			                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-			                    <label class="form-check-label" for="flexCheckChecked">
-			                      Medio Tiempo
-			                    </label>
-			                  </div>
-			                  <div class="form-check">
-			                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-			                    <label class="form-check-label" for="flexCheckChecked">
-			                      Remoto
-			                    </label>
-			                  </div>
-			                  <div class="form-check">
-			                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-			                    <label class="form-check-label" for="flexCheckChecked">
-			                      Freelance
-			                    </label>
-			                  </div>
-			                  <div class="form-check">
-			                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-			                    <label class="form-check-label" for="flexCheckChecked">
-			                      Temporal
-			                    </label>
-			                  </div>
-			                  <div class="form-check">
-			                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-			                    <label class="form-check-label" for="flexCheckChecked">
-			                      Permanente
-			                    </label>
-			                  </div>
-			                  <div class="form-check">
-			                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-			                    <label class="form-check-label" for="flexCheckChecked">
-			                      Computación
-			
-			                    </label>
-			                  </div>
-			                  <div class="form-check">
-			                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-			                    <label class="form-check-label" for="flexCheckChecked">
-			                      Administración
-			                    </label>
-			                  </div>
-			                  <div class="form-check">
-			                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-			                    <label class="form-check-label" for="flexCheckChecked">
-			                      Logística
-			                    </label>
-			                  </div>
-			                    <div class="form-check">
-			                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-			                      <label class="form-check-label" for="flexCheckChecked">
-			                        Contabilidad
-			                      </label>
-			                    </div>                    
+			                <%
+							    Gson gson = new Gson();
+							    List<String> keywordsList = gson.fromJson((String) request.getAttribute("keywords"), List.class);
+							%>
+			                  <% for(String keyword : keywordsList) { %>
+							    <div class="form-check">
+							        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked<%=keyword %>">
+							        <label class="form-check-label" for="flexCheckChecked<%=keyword %>">
+							            <%= keyword %>
+							        </label>
+							    </div>
+							<% } %>           
 			              </div>
 			            </div>
 			            <div class="col-md-10 col-sm-12 p-2" id="mainContent">
