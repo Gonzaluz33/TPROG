@@ -23,10 +23,10 @@
         <section id="sectionMenu">
             <div class="p-2">
                 <div class="list-group">
-                    <a href="./altaOfertaLaboral.html"><button type="button" class="list-group-item list-group-item-action">Alta de Oferta Laboral</button></a>
-                    <a href="./consultaUsuario.html"><button type="button" class="list-group-item list-group-item-action">Consulta de Usuario</button></a>
-                    <a href="./consultaTipoPublicacion.html"><button type="button" class="list-group-item list-group-item-action">Consulta de Tipo de Publicacion</button></a>
-                    <a href="./consultaPostulacionOferta.html"><button type="button" class="list-group-item list-group-item-action">Consulta de Postulación a Oferta Laboral</button></a>
+                    <a href="/tarea2/altaOfertaLaboral"><button type="button" class="list-group-item list-group-item-action">Alta de Oferta Laboral</button></a>
+                    <a href="/tarea2/consultaUsuario"><button type="button" class="list-group-item list-group-item-action">Consulta de Usuario</button></a>
+                    <a href="/tarea2/consultaTipos"><button type="button" class="list-group-item list-group-item-action">Consulta de Tipo de Publicacion</button></a>
+                    <a href="/tarea2/consultaPostulacionAOferta"><button type="button" class="list-group-item list-group-item-action">Consulta de Postulación a Oferta Laboral</button></a>
                 </div>
             </div>
         </section>
