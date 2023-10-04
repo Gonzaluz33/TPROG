@@ -4,6 +4,10 @@
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
+  <context-param>
+    <param-name>datosCargados</param-name>
+    <param-value>false</param-value>
+  </context-param>
   <servlet>
     <description></description>
     <display-name>Registro</display-name>
@@ -80,4 +84,17 @@
     <servlet-name>Logout</servlet-name>
     <url-pattern>/Logout</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CargarDatos</display-name>
+    <servlet-name>CargarDatos</servlet-name>
+    <servlet-class>controllers.CargarDatos</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CargarDatos</servlet-name>
+    <url-pattern>/CargarDatos</url-pattern>
+  </servlet-mapping>
+  <listener>
+    <listener-class>controllers.InicializadorAppListener</listener-class>
+  </listener>
 </web-app>

@@ -82,8 +82,8 @@ public class Registro extends HttpServlet {
 				            	Fabrica factory = Fabrica.getInstance();
 					            IControladorUsuario iconuser = factory.getIControladorUsuario();
 					            iconuser.altaEmpresa(nickname,nombre,apellido,email,password,nomEmpresa,desc,linkWeb);
-					            request.setAttribute("succes_register", "Usuario Registrado con exito.");
-				                request.getRequestDispatcher("visitante").forward(request, response);
+					            String mensaje = "Usuario Registrado con éxito.";
+				                response.sendRedirect("visitante?mensaje=" + URLEncoder.encode(mensaje, "UTF-8"));
 				            	}else {
 				            		request.setAttribute("error", "El email ingresado no es valido.");
 					                request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);

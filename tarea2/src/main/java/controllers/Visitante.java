@@ -7,13 +7,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Fabrica;
 import model.IControladorUsuario;
+import model.TokenBlacklist;
 import utils.DTEmpresa;
 import utils.DTPostulante;
 import utils.DTUsuario;
 import jakarta.servlet.http.Cookie;
 import java.io.IOException;
 import java.security.Key;
-import java.util.Date;
 import excepciones.CorreoRepetidoException;
 import excepciones.NicknameNoExisteException;
 import excepciones.UsuarioRepetidoException;
@@ -39,7 +39,6 @@ public class Visitante extends HttpServlet {
       
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException, UsuarioRepetidoException, CorreoRepetidoException, NicknameNoExisteException {
-	    	
     	 Cookie[] cookies = req.getCookies();
          String jwtCookieName = "jwt";
          String jwt = null;
@@ -51,50 +50,63 @@ public class Visitante extends HttpServlet {
                  }
              }
          }
-    
+         
          if (jwt != null) {
-             try {
-            	 Key secretKey = Keys.hmacShaKeyFor(secret_Key.getBytes());
-                 Jws<Claims> claimsJws = Jwts.parserBuilder()
-                         .setSigningKey(secretKey)
-                         .build()
-                         .parseClaimsJws(jwt);
-
-                 Claims claims = claimsJws.getBody();
-                 //Date expirationDate = claims.getExpiration();
-        	    String correo = (String) claims.get("email");
- 
-        	    Fabrica factory = Fabrica.getInstance();
-        	    IControladorUsuario iconuser = factory.getIControladorUsuario();
-        	    
-        	    if(iconuser.usuarioExiste(correo)) {
-        	        DTUsuario usuario = iconuser.consultarUsuarioPorCorreo(correo);
-        	      
-        	        if (usuario instanceof DTEmpresa) {     	           
-        	        	resp.sendRedirect("empresa");
-        	        } else if (usuario instanceof DTPostulante) {
-        	        	resp.sendRedirect("postulante");
-        	        }
-        	      
-        	    } else {
-        	    	// Eliminar la cookie JWT
-             	    Cookie jwtCookie = new Cookie("jwt", "");
-             	    jwtCookie.setMaxAge(0); // Establece la fecha de expiración en el pasado
-             	    resp.addCookie(jwtCookie);
-        	        req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
-        	    }
-                	
-
-                 
-             } catch (Exception e) {
-                 // El JWT no es válido o ha expirado, maneja este caso según tus necesidades
-            	 req.setAttribute("sessionExpired", true);
+        	 TokenBlacklist blacklist = TokenBlacklist.getInstance();
+        	 if(!blacklist.isTokenBlacklisted(jwt)) {
+		             try {
+		            	 Key secretKey = Keys.hmacShaKeyFor(secret_Key.getBytes());
+		                 Jws<Claims> claimsJws = Jwts.parserBuilder()
+		                         .setSigningKey(secretKey)
+		                         .build()
+		                         .parseClaimsJws(jwt);
+		
+		                 Claims claims = claimsJws.getBody();
+		                 //Date expirationDate = claims.getExpiration();
+		        	    String correo = (String) claims.get("email");
+		 
+		        	    Fabrica factory = Fabrica.getInstance();
+		        	    IControladorUsuario iconuser = factory.getIControladorUsuario();
+		        	    
+		        	    if(iconuser.usuarioExiste(correo)) {
+		        	        DTUsuario usuario = iconuser.consultarUsuarioPorCorreo(correo);
+		        	      
+		        	        if (usuario instanceof DTEmpresa) {     	           
+		        	        	resp.sendRedirect("empresa");
+		        	        } else if (usuario instanceof DTPostulante) {
+		        	        	resp.sendRedirect("postulante");
+		        	        }
+		        	      
+		        	    } else {
+		        	    	// Eliminar la cookie JWT
+		             	    Cookie jwtCookie = new Cookie("jwt", "");
+		             	    jwtCookie.setMaxAge(0); // Establece la fecha de expiración en el pasado
+		             	    resp.addCookie(jwtCookie);
+		        	        req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
+		        	    }
+		                	
+		
+		                 
+		             } catch (Exception e) {
+		                 // El JWT no es válido o ha expirado, maneja este caso según tus necesidades
+		            	 req.setAttribute("sessionExpired", true);
+		         	    // Eliminar la cookie JWT
+		         	    Cookie jwtCookie = new Cookie("jwt", "");
+		         	    jwtCookie.setMaxAge(0); // Establece la fecha de expiración en el pasado
+		         	    resp.addCookie(jwtCookie);
+		         	    req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
+		             }
+             
+        	 }else {
+        		// El JWT esta en la blacklist
+            	req.setAttribute("invalidToken", true);
          	    // Eliminar la cookie JWT
          	    Cookie jwtCookie = new Cookie("jwt", "");
-         	    jwtCookie.setMaxAge(0); // Establece la fecha de expiración en el pasado
+         	    jwtCookie.setMaxAge(0);
          	    resp.addCookie(jwtCookie);
          	    req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
-             }
+        	 }
+             
          } else {
              req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
          }
