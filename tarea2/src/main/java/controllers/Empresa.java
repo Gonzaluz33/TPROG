@@ -23,7 +23,20 @@ public class Empresa extends HttpServlet {
     }
     
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	req.getRequestDispatcher("/WEB-INF/empresa/dashboardEmpresa.jsp").forward(req, resp);
+    	UtilidadesJWT utilidadesJWT = UtilidadesJWT.obtenerInstancia();
+    	String tipoUsuario = utilidadesJWT.obtenerTipoUsuarioPorRequest(req, resp);
+    	switch(tipoUsuario) {
+    		case ("empresa"):
+    			req.getRequestDispatcher("/WEB-INF/empresa/dashboardEmpresa.jsp").forward(req, resp);
+    			break;
+    		case ("postulante"):
+    			resp.sendRedirect("postulante");
+    			break;
+    		default:
+    			resp.sendRedirect("visitante");
+    			break;
+    	}   	
+    	
     }
     
 

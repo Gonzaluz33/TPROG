@@ -7,11 +7,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import jakarta.servlet.ServletContext;
 import excepciones.CorreoRepetidoException;
+import excepciones.KeywordExisteException;
 import excepciones.UsuarioRepetidoException;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 import model.Fabrica;
+import model.IControladorOfertas;
 import model.IControladorUsuario;
 
 /**
@@ -40,11 +42,13 @@ public class InicializadorAppListener implements ServletContextListener {
     	 ServletContext context = sce.getServletContext();
 	     boolean datosCargados = Boolean.parseBoolean(context.getInitParameter("datosCargados"));
 	     if (!datosCargados) {
-	    	 String csvFilePath = sce.getServletContext().getRealPath("/WEB-INF/DatosPrueba/Postulantes.csv");
+	    	 String csvFilePathPostulantes = sce.getServletContext().getRealPath("/WEB-INF/DatosCSV/Postulantes.csv");
+	    	 String csvFilePathKeywords = sce.getServletContext().getRealPath("/WEB-INF/DatosCSV/Keywords.csv");
 	     	 try {
-	     		cargarDatosPostulantes(csvFilePath);
+	     		cargarDatosPostulantes(csvFilePathPostulantes);
+	     		cargarDatosKeywords(csvFilePathKeywords);
 				context.setAttribute("datosCargados", "true");
-			} catch (UsuarioRepetidoException | CorreoRepetidoException e) {
+			} catch (UsuarioRepetidoException | CorreoRepetidoException | KeywordExisteException e) {
 				e.printStackTrace();
 			}
 	    	
@@ -74,6 +78,27 @@ public class InicializadorAppListener implements ServletContextListener {
 	        return null;
 	    }
 	}
+    
+    private void cargarDatosKeywords(String csvFile) throws KeywordExisteException{	
+	    String line = "";
+	    String cvsSplitBy = ";";
+	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+	    	//br.readLine();
+	        while ((line = br.readLine()) != null) {
+	            String[] data = line.split(cvsSplitBy);
+	            String nombre = "";         
+	            if(data.length > 0) {
+	            	 nombre = data[0];
+	            	 Fabrica factory = Fabrica.getInstance();
+	            	 IControladorOfertas ICO = factory.getIControladorOfertas();
+	            	 ICO.altaKeyword(nombre);
+	            }      
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+    }
+	   
     
     private void cargarDatosPostulantes(String csvFile) throws UsuarioRepetidoException, CorreoRepetidoException {
     	//String csvFile1 = "/java/Datos/Postulantes.csv";

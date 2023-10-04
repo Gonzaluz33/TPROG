@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Fabrica;
+import model.IControladorOfertas;
 import model.IControladorUsuario;
 import model.TokenBlacklist;
 import utils.DTEmpresa;
@@ -14,6 +15,10 @@ import utils.DTUsuario;
 import jakarta.servlet.http.Cookie;
 import java.io.IOException;
 import java.security.Key;
+import java.util.List;
+
+import com.google.gson.Gson;
+
 import excepciones.CorreoRepetidoException;
 import excepciones.NicknameNoExisteException;
 import excepciones.UsuarioRepetidoException;
@@ -78,7 +83,14 @@ public class Visitante extends HttpServlet {
       
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException, UsuarioRepetidoException, CorreoRepetidoException, NicknameNoExisteException {
-    	 Cookie[] cookies = req.getCookies();
+		 Fabrica factory = Fabrica.getInstance();
+    	 IControladorOfertas ICO = factory.getIControladorOfertas();
+    	 List<String> keywords = ICO.obtenerKeywords();
+    	 Gson gson = new Gson();
+    	 String keywordsJSON = gson.toJson(keywords);
+    	 req.setAttribute("keywords", keywordsJSON);
+		
+		Cookie[] cookies = req.getCookies();
          String jwtCookieName = "jwt";
          String jwt = null;
          if (cookies != null) {
@@ -90,6 +102,7 @@ public class Visitante extends HttpServlet {
              }
          }    
          if (jwt != null) {
+        	
         	 TokenBlacklist blacklist = TokenBlacklist.getInstance();
         	 if(!blacklist.isTokenBlacklisted(jwt)) {
 		             try {
@@ -103,7 +116,7 @@ public class Visitante extends HttpServlet {
 		                 //Date expirationDate = claims.getExpiration();
 		        	    String correo = (String) claims.get("email");
 		 
-		        	    Fabrica factory = Fabrica.getInstance();
+		        	    //Fabrica factory = Fabrica.getInstance();
 		        	    IControladorUsuario iconuser = factory.getIControladorUsuario();
 		        	    
 		        	    if(iconuser.usuarioExiste(correo)) {
