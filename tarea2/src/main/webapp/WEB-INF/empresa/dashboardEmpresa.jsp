@@ -15,16 +15,7 @@
                     </div>
                     <h3 class="m-0 d-flex align-items-center">Usuario Empresa</h3>
                 </div>
-                <div class="d-flex me-5">
-                    <div class="d-flex border-end px-2 ">
-                        <a href="MiUsuario.html" class="text-decoration-none text-black fw-bold ">Mi Usuario</a>
-                    </div>
-
-                    <div class="d-flex px-2">
-                        <a class="text-decoration-none text-black fw-bold " href="/tarea2/cerrar-sesion">Cerrar Sesión</a>
-                    </div>
-
-                </div>
+              <jsp:include page="/WEB-INF/template/CerrarSesionEmpresa.jsp"/>
             </div>
         </nav>
     </header>
