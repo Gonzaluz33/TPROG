@@ -12,6 +12,7 @@ public class DTUsuario {
     private String apellido;
     private String correo;
     private String contraseña;
+    private String url_imagen;
 
     // constructores
     public DTUsuario() {
@@ -20,19 +21,24 @@ public class DTUsuario {
         this.setApellido(new String());
         this.setCorreo(new String());
         this.setContraseña(new String());
+        this.setUrlImagen(new String());;
     }
 
-    public DTUsuario(String nickname, String nombre, String apellido, String correo, String contraseña) {
+    public DTUsuario(String nickname, String nombre, String apellido, String correo, String contraseña, String url_imagen) {
     	this.setNickname(nickname);
         this.setNombre(nombre);
         this.setApellido(apellido);
         this.setCorreo(correo);
         this.setContraseña(contraseña);
+        this.setUrlImagen(url_imagen);
     }
 
     // getters
     public String getNickname() {
         return nickname;
+    }
+    public String getUrlImagen() {
+        return url_imagen;
     }
     
     public String getNombre() {
@@ -58,6 +64,9 @@ public class DTUsuario {
     // setters
     private void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+    private void setUrlImagen(String url_imagen) {
+        this.url_imagen = url_imagen;
     }
     
     private void setNombre(String nombre) {

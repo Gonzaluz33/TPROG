@@ -1,12 +1,9 @@
 package model;
 
 import org.mindrot.jbcrypt.BCrypt;
-
 import java.time.LocalDate;
-
 import java.util.List;
 import java.util.Set;
-
 import excepciones.CorreoNoEncontradoException;
 import excepciones.CorreoRepetidoException;
 import excepciones.NicknameNoExisteException;
@@ -29,19 +26,19 @@ public class ControladorUsuarios implements IControladorUsuario{
     }
 
 	public void altaPostulante(String nickname, String nombre, String apellido, String email,String contraseña ,LocalDate fechaNacimiento,
-			String nacionalidad) throws UsuarioRepetidoException, CorreoRepetidoException {
+			String nacionalidad, String url_imagen) throws UsuarioRepetidoException, CorreoRepetidoException {
         ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
         String contraseñaHasheada = BCrypt.hashpw(contraseña, BCrypt.gensalt());
-        Postulante p = new Postulante(nickname, nombre, apellido, email, contraseñaHasheada ,fechaNacimiento, nacionalidad);
+        Postulante p = new Postulante(nickname, nombre, apellido, email, contraseñaHasheada ,fechaNacimiento, nacionalidad, url_imagen);
         manejadorU.altaPostulante(p);
 	}
 	
 	@Override
 	public void altaEmpresa(String nickname, String nombre, String apellido, String email, String contraseña ,String nomEmpresa ,String desc,
-			String linkWeb) throws UsuarioRepetidoException, CorreoRepetidoException {
+			String linkWeb, String url_imagen) throws UsuarioRepetidoException, CorreoRepetidoException {
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
 		String contraseñaHasheada = BCrypt.hashpw(contraseña, BCrypt.gensalt());
-		Empresa e = new Empresa(nickname, nombre, apellido, email, contraseñaHasheada ,nomEmpresa ,desc, linkWeb);
+		Empresa e = new Empresa(nickname, nombre, apellido, email, contraseñaHasheada ,nomEmpresa ,desc, linkWeb, url_imagen);
         manejadorU.altaEmpresa(e);
 	}
 	
@@ -52,7 +49,8 @@ public class ControladorUsuarios implements IControladorUsuario{
 	public Boolean usuarioExiste(String correo) {
 		try {
 	        ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
-	        Usuario u = manejadorU.getUsuarioXCorreo(correo);
+	        @SuppressWarnings("unused")
+			Usuario u = manejadorU.getUsuarioXCorreo(correo);
 	        return true;
 	    } catch (NicknameNoExisteException e) {
 	        return false;

@@ -15,6 +15,7 @@ public class Usuario {
     private String apellido;
     private String correo; //unico
     private String contraseña;
+    private String url_imagen;
 
     // constructores
     public Usuario() {
@@ -23,14 +24,16 @@ public class Usuario {
         setApellido(new String());;
         setCorreo(new String());;
         setContraseña(new String());
+        setUrlImagen(new String());
     }
     
-    public Usuario(String nickname, String nombre, String apellido, String correo, String contraseña) {
+    public Usuario(String nickname, String nombre, String apellido, String correo, String contraseña, String url_imagen) {
         this.setNickname(nickname);
         this.setNombre(nombre);
         this.setApellido(apellido);
         this.setCorreo(correo);
         this.setContraseña(contraseña);
+        this.setUrlImagen(url_imagen);
     }
 
     // getters
@@ -53,8 +56,16 @@ public class Usuario {
     public String getContraseña() {
         return contraseña;
     }
+ // getters
+    public String getUrlImagen() {
+        return url_imagen;
+    }
 
     // setters
+    public void setUrlImagen(String url_imagen) {
+        this.url_imagen = url_imagen;
+    }
+    
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }

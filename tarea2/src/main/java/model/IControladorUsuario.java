@@ -49,8 +49,8 @@ public interface IControladorUsuario {
 	
 	public Boolean validarUsuario(String correo, String contraseña) throws NicknameNoExisteException;
 
-    public abstract void altaPostulante(String nickname, String nombre, String apellido, String email,String contraseña ,LocalDate fechaNacimiento, String nacionalidad) throws UsuarioRepetidoException, CorreoRepetidoException;
-    public abstract void altaEmpresa(String nickname, String nombre, String apellido, String email, String contraseña,String nomEmpresa ,String desc, String linkWeb)throws UsuarioRepetidoException, CorreoRepetidoException;
+    public abstract void altaPostulante(String nickname, String nombre, String apellido, String email,String contraseña ,LocalDate fechaNacimiento, String nacionalidad, String url_imagen) throws UsuarioRepetidoException, CorreoRepetidoException;
+    public abstract void altaEmpresa(String nickname, String nombre, String apellido, String email, String contraseña,String nomEmpresa ,String desc, String linkWeb, String url_imagen)throws UsuarioRepetidoException, CorreoRepetidoException;
     
     /**
 	 * Devuelve un set de tipo DTOferta con todas las ofertas asociadas a la empresa con el nickname "nicknameEmpresa" ordenadas alfabeticamente por el nombre de las ofertas.

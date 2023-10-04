@@ -17,7 +17,7 @@ public class DTPostulante extends DTUsuario {
 	private List<DTPostulacion> postulaciones;
 	
 	// constructores
-	public DTPostulante(String string, String string2, String string3, String string4, String string5, LocalDate localDate, String string6, List<DTPostulacion> list) {
+	public DTPostulante(String string, String string2, String string3, String string4, String string5, LocalDate localDate, String string6, List<DTPostulacion> list,String url_imagen) {
 		super();
 		this.setFechaNacimiento(new Date());
         this.setNacionalidad(new String());
@@ -27,15 +27,15 @@ public class DTPostulante extends DTUsuario {
 	/**
 	 * Constructor SIN la lista de postulaciones asociada al postulante.
 	 */
-	public DTPostulante(String nickname, String nombre, String apellido, String correo, String contraseña ,Date fechaNacimiento, String nacionalidad) {
-		super(nickname, nombre, apellido, correo, contraseña);
+	public DTPostulante(String nickname, String nombre, String apellido, String correo, String contraseña ,Date fechaNacimiento, String nacionalidad, String url_imagen) {
+		super(nickname, nombre, apellido, correo, contraseña, url_imagen);
 		this.setFechaNacimiento(fechaNacimiento);
         this.setNacionalidad(nacionalidad);
         this.setPostulaciones(new ArrayList<DTPostulacion>());
 	}
 	
-	public DTPostulante(String nickname, String nombre, String apellido, String correo, String contraseña ,Date fechaNacimiento, String nacionalidad, List<DTPostulacion> postulaciones) {
-		super(nickname, nombre, apellido, correo, contraseña);
+	public DTPostulante(String nickname, String nombre, String apellido, String correo, String contraseña ,Date fechaNacimiento, String nacionalidad, List<DTPostulacion> postulaciones, String url_imagen) {
+		super(nickname, nombre, apellido, correo, contraseña, url_imagen);
 		this.setFechaNacimiento(fechaNacimiento);
         this.setNacionalidad(nacionalidad);
         this.setPostulaciones(postulaciones);
