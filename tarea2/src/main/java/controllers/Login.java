@@ -10,6 +10,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import excepciones.CorreoNoEncontradoException;
 import excepciones.CorreoRepetidoException;
 import excepciones.NicknameNoExisteException;
 import excepciones.UsuarioNoEncontrado;
@@ -18,6 +19,7 @@ import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import model.IControladorUsuario;
+import utils.DTEmpresa;
 import utils.DTUsuario;
 import model.Fabrica;
 
@@ -51,13 +53,14 @@ public class Login extends HttpServlet {
 	 * 
 	 */
 	
-	private String generateJWT(String email, String secret_Key) {
+	private String generateJWT(String email, String tipo_usuario, String secret_Key) {
 	    long expirationTimeMillis = System.currentTimeMillis() + 3600000; // Tiempo de expiración (1 hora)
 	    Key key = Keys.hmacShaKeyFor(secret_Key.getBytes());
 
 	    String jwt = Jwts.builder()
 	            .setSubject(email)
 	            .claim("email", email)
+	            .claim("tipoUsuario", tipo_usuario)
 	            .setExpiration(new Date(expirationTimeMillis))
 	            .signWith(key, SignatureAlgorithm.HS256)
 	            .compact();
@@ -67,15 +70,21 @@ public class Login extends HttpServlet {
 	
 	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException, NicknameNoExisteException, UsuarioNoEncontrado, UsuarioRepetidoException, CorreoRepetidoException {
+			throws ServletException, IOException, NicknameNoExisteException, UsuarioNoEncontrado, UsuarioRepetidoException, CorreoRepetidoException, CorreoNoEncontradoException {
 		 Fabrica factory = Fabrica.getInstance();
 		 IControladorUsuario icontuser = factory.getIControladorUsuario();
 		 String login = request.getParameter("login");
 	     String password = request.getParameter("password");
 	     if(icontuser.usuarioExiste(login)) {
 			if (icontuser.validarUsuario(login,password)) {
-			    String jwt = generateJWT(login,secret_Key);
-			    response.addCookie(new Cookie("jwt", jwt));
+				DTUsuario user = icontuser.consultarUsuarioPorCorreo(login);
+				if(user instanceof DTEmpresa) {
+					String jwt = generateJWT(login,"empresa",secret_Key);
+				    response.addCookie(new Cookie("jwt", jwt));
+				}else {
+					 String jwt = generateJWT(login,"postulante",secret_Key);
+					    response.addCookie(new Cookie("jwt", jwt));
+				}
 			}else {
 				String mensaje = "Usuario incorrecto.";
                 response.sendRedirect("visitante?mensaje=" + URLEncoder.encode(mensaje, "UTF-8"));
@@ -105,6 +114,9 @@ public class Login extends HttpServlet {
 			} catch (CorreoRepetidoException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (CorreoNoEncontradoException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 	
 	}
@@ -124,6 +136,9 @@ public class Login extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (CorreoRepetidoException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (CorreoNoEncontradoException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
