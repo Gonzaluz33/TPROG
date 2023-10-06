@@ -12,9 +12,10 @@ public class DTPaquete {
 	private Integer descuento;
 	private double costoAsociado;
 	private LocalDate fechaAlta;
+	private String url_imagen;
 	private List<Tupla_Cantidad_TipoPublicacion> listaDeTuplas;
 	
-	public DTPaquete(String nombre, String descripcion, Integer validez, Integer descuento, double costoAsociado, LocalDate fechaAlta, List<Tupla_Cantidad_TipoPublicacion> lista) {
+	public DTPaquete(String nombre, String descripcion, Integer validez, Integer descuento, double costoAsociado, LocalDate fechaAlta, List<Tupla_Cantidad_TipoPublicacion> lista,String url_imagen) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.validez = validez;
@@ -22,6 +23,7 @@ public class DTPaquete {
 		this.costoAsociado = costoAsociado;
 		this.fechaAlta = fechaAlta;
 		this.listaDeTuplas = lista;
+		this.url_imagen = url_imagen;
 	}
 	
     // Getters
@@ -31,6 +33,9 @@ public class DTPaquete {
 	
     public String getNombre() {
         return nombre;
+    }
+    public String getUrlImagen() {
+        return url_imagen;
     }
 
     public String getDescripcion() {
@@ -65,6 +70,9 @@ public class DTPaquete {
     // Setters
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    public void setUrlImagen(String url_imagen) {
+        this.url_imagen = url_imagen;
     }
 
     public void setDescripcion(String descripcion) {

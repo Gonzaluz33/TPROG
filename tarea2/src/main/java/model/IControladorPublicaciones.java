@@ -13,7 +13,7 @@ public interface IControladorPublicaciones {
 	 public List<DTTipoPublicacion> obtenerTipos();
 	 public Publicacion addPublicacion(OfertaLaboral ofL, String tipo);
 	 public abstract void altaTipoPublicacionOL (String nombre, String descripcion, int exposicion, Integer duracion, Integer CostoPublic, LocalDate fecha ) throws TipoPublicExisteException ;
-	 public abstract void altaPaqueteTipoPublicacion(String nombre, String descripcion, int validez, int descuento, String fecha) throws PaqueteExisteException;
+	 public abstract void altaPaqueteTipoPublicacion(String nombre, String descripcion, int validez, int descuento, String fecha,String url_imagen) throws PaqueteExisteException;
 	 public List<DTPaquete> listarPaquetes();
 	 public abstract void agregarTipoPublicacion(String nombrePaquete ,Integer cant, String nombreTipoPublicacion);
 	 public DTTipoPublicacion obtenerDatosTipoPublicacion(String nombre);

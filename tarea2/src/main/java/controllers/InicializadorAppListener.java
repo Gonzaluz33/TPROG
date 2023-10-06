@@ -8,12 +8,15 @@ import java.time.format.DateTimeParseException;
 import jakarta.servlet.ServletContext;
 import excepciones.CorreoRepetidoException;
 import excepciones.KeywordExisteException;
+import excepciones.PaqueteExisteException;
+import excepciones.TipoPublicExisteException;
 import excepciones.UsuarioRepetidoException;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 import model.Fabrica;
 import model.IControladorOfertas;
+import model.IControladorPublicaciones;
 import model.IControladorUsuario;
 
 /**
@@ -44,11 +47,19 @@ public class InicializadorAppListener implements ServletContextListener {
 	     if (!datosCargados) {
 	    	 String csvFilePathPostulantes = sce.getServletContext().getRealPath("/WEB-INF/DatosCSV/Postulantes.csv");
 	    	 String csvFilePathKeywords = sce.getServletContext().getRealPath("/WEB-INF/DatosCSV/Keywords.csv");
+	    	 String csvFilePathEmpresas = sce.getServletContext().getRealPath("/WEB-INF/DatosCSV/Empresas.csv");
+	    	 String csvFilePathTiposPublicacion = sce.getServletContext().getRealPath("/WEB-INF/DatosCSV/TiposPublicacion.csv");
+	    	 String csvFilePathPaquetes = sce.getServletContext().getRealPath("/WEB-INF/DatosCSV/Paquetes.csv");
+	    	 String csvFilePathTiposPublicacionPaquetes = sce.getServletContext().getRealPath("/WEB-INF/DatosCSV/TiposPublicacionPaquetes.csv");
 	     	 try {
 	     		cargarDatosPostulantes(csvFilePathPostulantes);
 	     		cargarDatosKeywords(csvFilePathKeywords);
+	     		cargarDatosEmpresas(csvFilePathEmpresas);
+	     		cargarDatosTipoPublicacion(csvFilePathTiposPublicacion);
+	     		cargarDatosPaquetes(csvFilePathPaquetes);
+	     		cargarDatosTiposPublicacionPaquetes(csvFilePathTiposPublicacionPaquetes);
 				context.setAttribute("datosCargados", "true");
-			} catch (UsuarioRepetidoException | CorreoRepetidoException | KeywordExisteException e) {
+			} catch (UsuarioRepetidoException | CorreoRepetidoException | KeywordExisteException | TipoPublicExisteException | PaqueteExisteException e) {
 				e.printStackTrace();
 			}
 	    	
@@ -64,7 +75,7 @@ public class InicializadorAppListener implements ServletContextListener {
     }
     
     
-    private LocalDate parseFecha(String fechaNacimiento) {
+    private LocalDate parseFechaNacimiento(String fechaNacimiento) {
 	    try {
 	        LocalDate fechaNacimientoParsed = LocalDate.parse(fechaNacimiento);
 	        LocalDate fechaActual = LocalDate.now();
@@ -78,6 +89,16 @@ public class InicializadorAppListener implements ServletContextListener {
 	        return null;
 	    }
 	}
+    private LocalDate parseFecha(String fecha) {
+	    try {
+	        LocalDate fechaParsed = LocalDate.parse(fecha);
+	            return fechaParsed;
+	    } catch (DateTimeParseException e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+    
     
     private void cargarDatosKeywords(String csvFile) throws KeywordExisteException{	
 	    String line = "";
@@ -101,13 +122,11 @@ public class InicializadorAppListener implements ServletContextListener {
 	   
     
     private void cargarDatosPostulantes(String csvFile) throws UsuarioRepetidoException, CorreoRepetidoException {
-    	//String csvFile1 = "/java/Datos/Postulantes.csv";
         String line;
         String csvSplitBy = ";";
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             // Leer la primera línea (encabezados) y descartarla si es necesario
-            // Si tus datos CSV tienen encabezados, puedes descartar la primera línea
             //br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] datos = line.split(csvSplitBy);
@@ -124,7 +143,7 @@ public class InicializadorAppListener implements ServletContextListener {
 	            	 nombre = datos[1];
 	            	 apellido = datos[2];
 	            	 correo = datos[3];
-	            	 fecha = parseFecha(datos[4].trim());
+	            	 fecha = parseFechaNacimiento(datos[4].trim());
 	            	 nacionalidad = datos[5];
 	            	 password = datos[6];
 	            	 url_imagen = datos[7];
@@ -140,5 +159,127 @@ public class InicializadorAppListener implements ServletContextListener {
  
       
     }
+    
+    private void cargarDatosEmpresas(String csvFile) throws UsuarioRepetidoException, CorreoRepetidoException {	
+	    String line = "";
+	    String cvsSplitBy = ";";
+	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+	        while ((line = br.readLine()) != null) {
+	            String[] empresaData = line.split(cvsSplitBy);
+	            String nickname = "";
+	            String nombre = "";
+	            String apellido = "";
+	            String correo = "";
+	            String descripcion = "";
+	            String link = "";
+	            String password = "";
+	            String url_image = "";
+	            
+	            if(empresaData.length > 0) {
+	            	 nickname = empresaData[0];
+	            	 nombre = empresaData[1];
+	            	 apellido = empresaData[2];
+	            	 correo = empresaData[3];
+	            	 descripcion = empresaData[4];
+			         link = empresaData[5]; 
+			         password = empresaData[6];
+			         url_image = empresaData[7];
+			         Fabrica factory = Fabrica.getInstance();
+	            	 IControladorUsuario ICU = factory.getIControladorUsuario();
+	            	 ICU.altaEmpresa(nickname, nombre, apellido, correo, password,nickname, descripcion, link,url_image);
+	            }
+	            
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	   
+	}
+    private void cargarDatosTipoPublicacion(String csvFile) throws TipoPublicExisteException{	
+	    String line = "";
+	    String cvsSplitBy = ";";
+	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+	        while ((line = br.readLine()) != null) {
+	            String[] tiposPublicaionData = line.split(cvsSplitBy);
+	            String nombre = "";
+	            String desc = "";
+	            int exp = 0;
+	            Integer duracion = 0;
+	            Integer costo = 0;
+	           LocalDate alta = null;
+	            
+	            if(tiposPublicaionData.length > 0) {
+	            	 nombre = tiposPublicaionData[0];
+	            	 desc = tiposPublicaionData[1];
+	            	 exp = Integer.parseInt(tiposPublicaionData[2]) ;
+	            	 duracion = Integer.parseInt(tiposPublicaionData[3]) ;
+	            	 costo = Integer.parseInt(tiposPublicaionData[4]);
+	            	 alta = parseFecha(tiposPublicaionData[5].trim());
+	            	 Fabrica factory = Fabrica.getInstance();
+	            	 IControladorPublicaciones ICP = factory.getIControladorPublicaciones();
+	            	 ICP.altaTipoPublicacionOL(nombre, desc, exp, duracion, costo, alta);
+	            }
+	            
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	   
+	}
+    
+    private void cargarDatosPaquetes(String csvFile) throws KeywordExisteException, PaqueteExisteException{	  
+	    String line = "";
+	    String cvsSplitBy = ";";
+	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+	        while ((line = br.readLine()) != null) {
+	            String[] paquetesData = line.split(cvsSplitBy);
+	            String nombreTipo = "";
+	            String descripcionTipo = "";
+	            int validez = 0;
+	            int descuento = 0;
+	            String fechaAlta = "00/00/0000";
+	            String url_imagen = "";
+	            if(paquetesData.length > 0) {
+	            	nombreTipo = paquetesData[0];
+	            	descripcionTipo = paquetesData[1];
+	            	validez = Integer.parseInt(paquetesData[2]);
+	            	descuento = Integer.parseInt(paquetesData[3]);
+	            	fechaAlta = paquetesData[4];
+	            	url_imagen = paquetesData[5];
+	             	Fabrica factory = Fabrica.getInstance();
+	            	IControladorPublicaciones ICP = factory.getIControladorPublicaciones();
+	            	ICP.altaPaqueteTipoPublicacion(nombreTipo, descripcionTipo, validez, descuento, fechaAlta,url_imagen);
+	            }      
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    } 
+	   
+	}
+    
+   private void cargarDatosTiposPublicacionPaquetes(String csvFile){	
+	    String line = "";
+	    String cvsSplitBy = ";";
+	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+	        while ((line = br.readLine()) != null) {
+	            String[] tiposPublicaionPaquetesData = line.split(cvsSplitBy);
+	            String nombrePaquete = "";
+	            Integer cantidad = 0;
+	            String nombreTipoPublicacion = "";
+	            if(tiposPublicaionPaquetesData.length > 0) {
+	            	nombrePaquete = tiposPublicaionPaquetesData[0];
+	            	cantidad = Integer.parseInt(tiposPublicaionPaquetesData[2]);
+	            	nombreTipoPublicacion = tiposPublicaionPaquetesData[1];
+	            	Fabrica factory = Fabrica.getInstance();
+	            	IControladorPublicaciones ICP = factory.getIControladorPublicaciones();
+	            	ICP.agregarTipoPublicacion(nombrePaquete,cantidad,nombreTipoPublicacion);
+	            }
+	            
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	   
+	}
 	
 }
