@@ -10,6 +10,7 @@ import model.IControladorOfertas;
 import model.IControladorUsuario;
 import model.TokenBlacklist;
 import utils.DTEmpresa;
+import utils.DTOferta;
 import utils.DTPostulante;
 import utils.DTUsuario;
 import jakarta.servlet.http.Cookie;
@@ -41,46 +42,7 @@ public class Visitante extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-    /*
-    private String obtenerTipoUsuarioPorRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    	Cookie[] cookies = req.getCookies();
-        String jwtCookieName = "jwt";
-        String jwt = null;
-        String response = "invalido";
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (jwtCookieName.equals(cookie.getName())) {
-                    jwt = cookie.getValue();
-                    break;
-                }
-            }
-            
-            if (jwt != null) {
-            	response = "visitante";
-		        TokenBlacklist blacklist = TokenBlacklist.getInstance();
-		       	 if(!blacklist.isTokenBlacklisted(jwt)) {
-				             try {
-				            	 Key secretKey = Keys.hmacShaKeyFor(secret_Key.getBytes());
-				                 Jws<Claims> claimsJws = Jwts.parserBuilder()
-				                         .setSigningKey(secretKey)
-				                         .build()
-				                         .parseClaimsJws(jwt);
-				
-				                 Claims claims = claimsJws.getBody();
-				        	    String tipoUsuario = (String) claims.get("tipoUsuario");
-				        	    response = tipoUsuario;
-				        	    
-				             } catch (Exception e) {
-				            	 response = "visitante"; 
-				             }
-		        }
-            }
-        }else {
-        	response = "visitante";
-        }
-		return response;  
-    } */
-      
+ 
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException, UsuarioRepetidoException, CorreoRepetidoException, NicknameNoExisteException {
 		 Fabrica factory = Fabrica.getInstance();
@@ -89,6 +51,9 @@ public class Visitante extends HttpServlet {
     	 Gson gson = new Gson();
     	 String keywordsJSON = gson.toJson(keywords);
     	 req.setAttribute("keywords", keywordsJSON);
+    	 List<DTOferta> ofertas = ICO.obtenerOfertasLaborales();
+    	 String ofertasJSON = gson.toJson(ofertas);
+    	 req.setAttribute("ofertas", ofertasJSON);
 		
 		Cookie[] cookies = req.getCookies();
          String jwtCookieName = "jwt";

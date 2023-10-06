@@ -69,6 +69,11 @@ public class ControladorOfertas implements IControladorOfertas{
 		List<DTEmpresa> empresas = controlU.listarEmpresas();
 		return empresas;
 	}
+	
+	public List<DTOferta> obtenerOfertasLaborales(){
+		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+		return manejadorOL.obtenerOfertasLaborales();
+	}
 
 	public Set<DTOferta> obtenerOfertasVigentesDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
 		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();

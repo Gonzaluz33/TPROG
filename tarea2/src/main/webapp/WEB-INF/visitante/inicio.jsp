@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
+<%@ page import="utils.DTOferta" %>
 <%@ page import="com.google.gson.Gson"%>
+<%@ page import="java.lang.reflect.Type"%>
+<%@ page import="com.google.gson.reflect.TypeToken"%>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -11,6 +15,7 @@
 	            alert("La sesión ha expirado. Por favor, inicie sesión nuevamente.");
 	        <% } %>
 	    </script>   
+	    <% Gson gson = new Gson(); %>
 		
 	</head>
 	<body>
@@ -90,7 +95,7 @@
 			                <h5>Keywords</h5>
 			                <br>
 			                <%
-							    Gson gson = new Gson();
+							   // Gson gson = new Gson();
 							    List<String> keywordsList = gson.fromJson((String) request.getAttribute("keywords"), List.class);
 							%>
 			                  <% for(String keyword : keywordsList) { %>
@@ -103,9 +108,44 @@
 							<% } %>           
 			              </div>
 			            </div>
-			            <div class="col-md-10 col-sm-12 p-2" id="mainContent">
-
-			            </div>
+			            
+			           <div class="col-md-10 col-sm-12 p-2" id="mainContent">
+					    <% 
+					        String ofertasJSON = (String) request.getAttribute("ofertas");
+					       // Gson gson = new Gson();
+					        Type listType = new TypeToken<List<DTOferta>>() {}.getType();
+					        List<DTOferta> ofertas = gson.fromJson(ofertasJSON, listType);
+					        for(DTOferta oferta : ofertas) {
+					    %>
+					        <div class="d-flex p-2 border border-dark align-items-center mb-2">
+					            <div style="width: 25%;">
+					                <img class="w-75" src="https://tinyurl.com/45nsf34m" alt="">
+					            </div>
+					            <div class="w-75">
+					                <div class="d-flex flex-column">
+					                    <h3><%= oferta.getNombre() %></h3>
+					                    <div>
+					                        <p>
+					                            <%= oferta.getDescripcion() %>
+					                        </p>
+					                    </div>
+					                    <div class="d-flex flex-column mb-2">
+					                        <b>Departamento: <%= oferta.getDepartamento() %></b>
+					                        <b>Ciudad: <%= oferta.getCiudad() %></b>
+					                    </div>
+					                    <div class="d-flex gap-1 justify-content-start">
+					                        <%-- Aquí puedes iterar a través de las keywords asociadas a la oferta si las tienes --%>
+					                    </div>
+					                    <div class="d-flex justify-content-end">
+					                        <a href="/tarea2/consultaOferta" class="text-dark">Ver más</a>
+					                    </div>
+					                </div>
+					            </div>
+					        </div>
+					    <% 
+					        }
+					    %>
+					</div>
 			        </div>
 			      </div>
 		</main>

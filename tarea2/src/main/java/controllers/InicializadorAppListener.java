@@ -5,9 +5,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import jakarta.servlet.ServletContext;
 import excepciones.CorreoRepetidoException;
 import excepciones.KeywordExisteException;
+import excepciones.NicknameNoExisteException;
+import excepciones.NombreExisteException;
 import excepciones.PaqueteExisteException;
 import excepciones.TipoPublicExisteException;
 import excepciones.UsuarioRepetidoException;
@@ -51,15 +57,17 @@ public class InicializadorAppListener implements ServletContextListener {
 	    	 String csvFilePathTiposPublicacion = sce.getServletContext().getRealPath("/WEB-INF/DatosCSV/TiposPublicacion.csv");
 	    	 String csvFilePathPaquetes = sce.getServletContext().getRealPath("/WEB-INF/DatosCSV/Paquetes.csv");
 	    	 String csvFilePathTiposPublicacionPaquetes = sce.getServletContext().getRealPath("/WEB-INF/DatosCSV/TiposPublicacionPaquetes.csv");
-	     	 try {
+	    	 String csvFilePathOfertasLaboralesPrueba = sce.getServletContext().getRealPath("/WEB-INF/DatosCSV/OfertasLaboralesPrueba.csv");
+	    	 try {
 	     		cargarDatosPostulantes(csvFilePathPostulantes);
 	     		cargarDatosKeywords(csvFilePathKeywords);
-	     		cargarDatosEmpresas(csvFilePathEmpresas);
+	     		cargarDatosEmpresas(csvFilePathEmpresas); 
 	     		cargarDatosTipoPublicacion(csvFilePathTiposPublicacion);
 	     		cargarDatosPaquetes(csvFilePathPaquetes);
 	     		cargarDatosTiposPublicacionPaquetes(csvFilePathTiposPublicacionPaquetes);
+	     		cargarDatosOfertasLaboralesPrueba(csvFilePathOfertasLaboralesPrueba);
 				context.setAttribute("datosCargados", "true");
-			} catch (UsuarioRepetidoException | CorreoRepetidoException | KeywordExisteException | TipoPublicExisteException | PaqueteExisteException e) {
+			} catch (UsuarioRepetidoException | CorreoRepetidoException | KeywordExisteException | TipoPublicExisteException | PaqueteExisteException | NombreExisteException | NicknameNoExisteException e) {
 				e.printStackTrace();
 			}
 	    	
@@ -281,5 +289,55 @@ public class InicializadorAppListener implements ServletContextListener {
 	    }
 	   
 	}
+   
+   
+   private void cargarDatosOfertasLaboralesPrueba(String csvFile) throws NombreExisteException, KeywordExisteException, NicknameNoExisteException{	
+
+	   	String line = "";
+	    String cvsSplitBy = ";";
+	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+	    	//br.readLine();
+	        while ((line = br.readLine()) != null) {
+	            String[] ofertasLaboralesData = line.split(cvsSplitBy);
+	            String nombre = "";    
+	            String desc = ""; 
+	            String rem = ""; 
+	            String horario = ""; 
+	            List<String> keys = new ArrayList<>();
+	            String ciudad = ""; 
+	            String depa = ""; 
+	            String tipo = "";
+	            String empresa = ""; 
+	            
+	            
+	            if(ofertasLaboralesData.length > 0) {
+	            	
+	            	 nombre = ofertasLaboralesData[0];
+	            	 desc = ofertasLaboralesData[1];
+	            	 rem = ofertasLaboralesData[5];
+	            	 horario = ofertasLaboralesData[4];
+	            	 ciudad = ofertasLaboralesData[3];
+	            	 depa = ofertasLaboralesData[2];
+	            	 tipo = ofertasLaboralesData[7];
+	            	 empresa = ofertasLaboralesData[6];
+	            	 if(ofertasLaboralesData.length > 9) {
+		            	 keys = Arrays.asList(ofertasLaboralesData[9].split("/"));
+	            	 }
+	            	 Fabrica factory = Fabrica.getInstance();
+	            	 IControladorOfertas ICO = factory.getIControladorOfertas();
+	            	 try {
+	            	 ICO.altaOferta(nombre, desc, rem, horario, keys, ciudad, depa, tipo, empresa);
+	            	 }catch(Exception e) {
+	            		 
+	            	 }
+	            }      
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	   
+	}
+   
+   
 	
 }

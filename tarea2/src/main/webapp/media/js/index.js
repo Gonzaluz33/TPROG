@@ -1,5 +1,4 @@
-const keywords = ["Tiempo Completo", "Medio Tiempo", "Remoto", "Freelance", "Temporal", "Permanente", "Computación", "Administración", "Logística", "Contabilidad"];
-const mainContentData = [
+/*const mainContentData = [
     {
         image: 'https://tinyurl.com/45nsf34m', 
         nombreOferta: 'Desarrollador Frontend', 
@@ -20,33 +19,9 @@ const mainContentData = [
 ];
 
 window.addEventListener('DOMContentLoaded', () => {
-    cargarKeywords(keywords);
     cargarContenidoPrincipal();
 });
 
-
-function cargarKeywords(keywords){
-    /*const headerDiv = document.createElement("div");
-    headerDiv.className = "border border-dark mb-3 bg-dark-subtle text-center";
-    headerDiv.innerHTML = '<h4>Keywords</h4>';
-    $("#keywordList").append(headerDiv);
-    const ulElement = document.createElement("ul");
-    ulElement.className = "list-unstyled";
-
-    keywords.forEach(keyword => {
-        const liElement = document.createElement("li");
-        const aElement = document.createElement("a");
-        aElement.innerHTML = keyword;
-        aElement.setAttribute("href", "#");
-        aElement.style.color = "inherit";
-        aElement.style.textDecoration = "none";
-        liElement.appendChild(aElement);
-        liElement.className = "";
-        ulElement.appendChild(liElement);
-        $("#keywordList").append(ulElement);
-        liElement.classList.add("p-2");
-    });*/
-}
 
 function cargarContenidoPrincipal() {
 mainContentData.forEach(data => {
@@ -82,4 +57,4 @@ mainContentData.forEach(data => {
     $('#mainContent').append(contentDiv);
 });
 }
-
+*/

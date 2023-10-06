@@ -26,6 +26,7 @@ public interface IControladorOfertas {
 	 */
 	public DTOferta obtenerDatosOferta(String nombreOferta) throws OfertaNoExisteException;
 	public List<DTEmpresa> obtenerEmpresas();
+	public List<DTOferta> obtenerOfertasLaborales();
 
 	/**
 	 * Postula al postulante con nick "nicknamePostulante" a la oferta de nombre "nombreOfertaLaboral".

@@ -58,6 +58,18 @@ public class ManejadorOfertaLaboral {
 				.get(nombreOferta)
 				.toDataType();
 	}
+	
+	public List<DTOferta> obtenerOfertasLaborales() {
+	    Map<String, OfertaLaboral> ofertas = coleccionOfertasLaborales;
+	    List<DTOferta> returnOfertas = new ArrayList<>();
+	    
+	    for (OfertaLaboral oferta : ofertas.values()) {
+	        DTOferta dtoOferta = oferta.toDataType();
+	        returnOfertas.add(dtoOferta);
+	    }
+	    
+	    return returnOfertas;
+	}
 
 	public void addKeyword(Keyword key) throws KeywordExisteException {
 		if(coleccionKeyword.containsKey(key.getNombre())) {
