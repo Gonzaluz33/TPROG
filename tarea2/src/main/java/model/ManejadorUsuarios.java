@@ -94,7 +94,8 @@ public class ManejadorUsuarios {
 	public List<DTUsuario> obtenerListaUsuarios() {
 		List<DTUsuario> listaUsuarios = new ArrayList<DTUsuario>();
 		for (Map.Entry<String, Usuario> entry : coleccionUsuarios.entrySet()) {
-			listaUsuarios.add(entry.getValue().toDataType());
+			Usuario usr = entry.getValue();
+			listaUsuarios.add(usr.toDataType());
 		}
 		listaUsuarios.sort(Comparator.comparing(DTUsuario::getNombre)
 				.thenComparing(DTUsuario::getApellido));

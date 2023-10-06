@@ -1,3 +1,6 @@
+<%@page import="java.util.Collection"%>
+<%@page import="utils.DTUsuario"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,11 +27,18 @@
 <div class="d-flex flex-column justify-content-center p-3">
     <div>
         <div class="form-floating">
+       		<%
+				Collection<DTUsuario> usuarios = (Collection<DTUsuario>)
+						request.getAttribute("usuarios");
+				int contador = 0;
+				for(DTUsuario usuario: usuarios){
+			%>
+			
+			
             <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                <option selected>lgarcia</option>
-                <option value="1">EcoTech</option>
-
+                <option value="<%= usuario.getNickname()%>">usuario.getNombre()</option>
             </select>
+            <% } %>
             <label for="floatingSelect">Seleccione un usuario:</label>
         </div>
     </div>
