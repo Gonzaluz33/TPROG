@@ -12,6 +12,7 @@
 <%@ page import="java.time.LocalDate"%>
 <%@ page import=" utils.LocalDateSerializer"%>
 <%@ page import="utils.LocalDateTimeAdapter"%>
+<%@ page import="java.net.URLEncoder" %>
 
 
 <!DOCTYPE html>
@@ -67,7 +68,7 @@
 			<%
 			    }
 		%>
-		<!-- Modal Login-->
+
 		<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
@@ -97,7 +98,7 @@
 		</div>
 		<jsp:include page="/WEB-INF/template/NavBarVisitante.jsp" />
 		<main>	
-			<!-- El contenido principal del sitio web -->
+
 			   <div class="container-fluid mt-3">
 			        <div class="row">
 			            <div class="col-md-2  mt-2 col-sm-12">
@@ -107,7 +108,6 @@
 			                <br>
 			                 <form action="visitante" method="get">
 						        <%
-						            // Gson gson = new Gson();
 						            List<String> keywordsList = gson.fromJson((String) request.getAttribute("keywords"), List.class);
 						        %>
 						        <% for(String keyword : keywordsList) { %>
@@ -119,7 +119,7 @@
 						            </div>
 						        <% } %>
 						        <button type="submit" class="btn btn-warning w-75 m-3">Filtrar</button>
-						    </form>  <!-- Finaliza el formulario aquí -->       
+						    </form>     
 			              </div>
 			            </div>
 			            
@@ -158,7 +158,8 @@
 									    %>
 					                    </div>
 					                    <div class="d-flex justify-content-end">
-					                        <a href="/tarea2/consultaOferta" class="text-dark">Ver más</a>
+					                       <span class="badge bg-dark"><a href="consultaOferta?nombreOferta=<%= URLEncoder.encode(publicacion.getDtOferta().getNombre(), "UTF-8") %>" class="text-white text-decoration-none">Ver más</a></span>
+					                        
 					                    </div>
 					                </div>
 					            </div>

@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import utils.DTOferta;
 import utils.DTPaquete;
 import utils.DTPublicacion;
@@ -104,8 +103,6 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 	public List<DTPublicacion> obtenerPublicacionesPorKeywords(List<String> keywords) {
 	    ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
 	    List<DTPublicacion> publicaciones = manejadorP.obtenerPublicaciones();
-
-	    // Convertir todas las keywords a minúsculas (o a mayúsculas)
 	    List<String> keywordsLowerCase = keywords.stream()
 	        .map(String::toLowerCase)
 	        .collect(Collectors.toList());
@@ -114,11 +111,11 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 	        .filter(dtPublicacion -> {
 	            DTOferta oferta = dtPublicacion.getDtOferta();
 	            List<String> ofertaKeywords = oferta.getKeywords();
-	            // Convertir todas las keywords de la oferta a minúsculas (o a mayúsculas)
+
 	            List<String> ofertaKeywordsLowerCase = ofertaKeywords.stream()
 	                .map(String::toLowerCase)
 	                .collect(Collectors.toList());
-	            // Verificar si alguna de las keywords de la oferta coincide con alguna de las keywords proporcionadas
+
 	            return !Collections.disjoint(keywordsLowerCase, ofertaKeywordsLowerCase);
 	        })
 	        .collect(Collectors.toList());

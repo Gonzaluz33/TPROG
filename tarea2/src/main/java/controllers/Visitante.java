@@ -24,7 +24,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -71,11 +70,7 @@ public class Visitante extends HttpServlet {
 
 		if (busqueda != null && !busqueda.isEmpty()) {
 			publicaciones = ICP.obtenerPublicacionesPorBusqueda(busqueda);
-			System.out.println(publicaciones);
 		} else if (keywordsSeleccionadas != null && keywordsSeleccionadas.length > 0) {
-			// for(String keyword : keywordsSeleccionadas) {
-			// System.out.println(keyword);
-			// }
 			List<String> keywordsAFiltrar = new ArrayList<>(Arrays.asList(keywordsSeleccionadas));
 			publicaciones = ICP.obtenerPublicacionesPorKeywords(keywordsAFiltrar);
 		} else {
