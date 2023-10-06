@@ -22,35 +22,35 @@
            <jsp:include page="/WEB-INF/template/NavBarEmpresa.jsp"/>
             <div class="d-flex flex-column justify-content-start p-3">
                 <div class="col-12">
-                    <form class="d-flex justify-content-between gap-3">
+                    <form class="d-flex justify-content-between gap-3" action= "altaOfertaLaboral" method = "post">
                         <div class="col-6">
                             <div class="mb-3">
                                 <label class="form-label">Seleccione un Tipo de Publicación:</label>
-                                <select class="form-select" id="floatingSelect">
-                                    <option selected value="0">Premium</option>
-                                    <option value="1">Destacada</option>
-                                    <option value="2">Estándar</option>
-                                    <option value="3">Básica</option>
-                                </select>
+                                <select class="form-select" id="floatingSelect" name="tipoPublicacion">
+   	 								<option selected value="0">Premium</option>
+    								<option value="1">Destacada</option>
+   								 	<option value="2">Estándar</option>
+    								<option value="3">Básica</option>
+								</select>
                             </div>
                             <div class="mb-3 d-flex gap-5 justify-content-between">
                                 <div class="col-5">
                                     <label class="form-label">Nombre:</label>
-                                    <input type="text" class="form-control" placeholder="Ingrese Nombre">
+                                    <input type="text" class="form-control" placeholder="Ingrese Nombre" name ="nombre">
                                 </div>
                                 <div class="col-5">
                                     <label for="exampleInputPassword1" class="form-label">Remuneración:</label>
-                                    <input type="number" class="form-control" placeholder="Ingrese Remuneración" >
+                                    <input type="number" class="form-control" placeholder="Ingrese Remuneración" name = "renumeracion">
                                 </div>
                             </div>
                             <div class="mb-3 d-flex gap-5 justify-content-between">
                                 <div class="col-5">
                                     <label for="exampleInputPassword1" class="form-label">Horario:</label>
-                                    <input type="text" class="form-control" placeholder="Ingrese un horario">
+                                    <input type="text" class="form-control" placeholder="Ingrese un horario" name = "horario">
                                 </div>
                                 <div class="col-5">
                                     <label for="exampleInputPassword1" class="form-label">Departamento:</label>
-                                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name= "departamento">
                                         <option value="artigas">Artigas</option>
                                         <option value="canelones">Canelones</option>
                                         <option value="cerro_largo">Cerro Largo</option>
@@ -76,10 +76,10 @@
                             <div class="mb-3 d-flex gap-5 justify-content-between">
                                 <div class="col-12">
                                     <label class="form-label">Ciudad:</label>
-                                    <input type="text" class="form-control" placeholder="Ingrese Ciudad">
+                                    <input type="text" class="form-control" placeholder="Ingrese Ciudad" name = "ciudad">
                                     <div class="mt-3">
                                         <label class="form-label">URL imagen:</label>
-                                        <input type="text" class="form-control" placeholder="Ingrese URL de imagen (opcional)">
+                                        <input type="text" class="form-control" placeholder="Ingrese URL de imagen (opcional)" name= "urlImagen">
                                     </div>
                                 </div>
                             </div>
@@ -88,12 +88,12 @@
                         <div class="col-6">
                             <div class="mb-3">
                                 <label for="floatingTextarea2">Descripción:</label>
-                                <textarea class="form-control" placeholder="Ingrese una descripción"
+                                <textarea class="form-control" placeholder="Ingrese una descripción" name= "descrpicion"
                                     style="height: 120px;"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="floatingTextarea2">Seleccione Keywords:</label>
-                                <select class="custom-select form-control" multiple>
+                                <select class="custom-select form-control" multiple name = "keywords">
                                     <option value="opcion1">Tiempo completo</option>
                                     <option value="opcion2">Medio tiempo</option>
                                     <option value="opcion3">Remoto</option>
@@ -110,16 +110,16 @@
                                 <label>Forma de Pago de Oferta:</label>
                                <div class="mt-2">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" value="General">
+                                        <input class="form-check-input" type="radio" name="formaPago" value="General">
                                         <label class="form-check-label" for="inlineRadio1">General</label>
                                     </div>
                                     <div class="form-check mb-3 form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" value="Paquete">
+                                        <input class="form-check-input" type="radio" name="formaPago" value="Paquete">
                                         <label class="form-check-label" for="inlineRadio2">Paquete adquirido previamente</label>
                                     </div>
                                     <div>
                                         <label class="form-check-label" for="inlineRadio2">Seleccione Paquete:</label>
-                                        <select class="form-select" id="floatingSelect">
+                                        <select class="form-select" id="floatingSelect" name="paqueteSeleccionado">
                                             <option value="3">Básico</option>
                                         </select>
                                     </div>
