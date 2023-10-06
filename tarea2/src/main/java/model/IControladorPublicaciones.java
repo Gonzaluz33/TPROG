@@ -7,6 +7,7 @@ import excepciones.TipoPublicExisteException;
 import java.util.List;
 
 import utils.DTPaquete;
+import utils.DTPublicacion;
 import utils.DTTipoPublicacion;
 
 public interface IControladorPublicaciones {
@@ -17,4 +18,7 @@ public interface IControladorPublicaciones {
 	 public List<DTPaquete> listarPaquetes();
 	 public abstract void agregarTipoPublicacion(String nombrePaquete ,Integer cant, String nombreTipoPublicacion);
 	 public DTTipoPublicacion obtenerDatosTipoPublicacion(String nombre);
+	 public List<DTPublicacion> obtenerPublicaciones();
+	 public List<DTPublicacion> obtenerPublicacionesPorBusqueda(String busqueda);
+	 public List<DTPublicacion> obtenerPublicacionesPorKeywords(List<String> keywords);
 }

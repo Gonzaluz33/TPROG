@@ -1,6 +1,6 @@
 package excepciones;
 
-public class NombreExisteException extends Exception{
+public class NombreExisteException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	public NombreExisteException() {

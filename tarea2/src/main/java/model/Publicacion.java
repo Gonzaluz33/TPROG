@@ -1,5 +1,6 @@
 package model;
 
+import utils.DTPublicacion;
 import java.time.LocalDate;
 
 public class Publicacion {
@@ -73,5 +74,20 @@ public class Publicacion {
 		LocalDate fechaActual = LocalDate.now();
 		return fechaActual.isBefore(fechaVencimiento);
 	}
+	
+	 public DTPublicacion toDatatype() {
+	        DTPublicacion dtPublicacion = new DTPublicacion();
+	        dtPublicacion.setId(this.id);
+	        dtPublicacion.setCostoAsociado(this.costoAsociado);
+	        dtPublicacion.setFechaAlta(this.fechaAlta);
+	        dtPublicacion.setFechaVencimiento(this.fechaVencimiento);
+	        
+	        // Suponiendo que OfertaLaboral tiene un método toDatatype que devuelve un DTOferta
+	        if (this.oferta != null) {
+	            dtPublicacion.setDtOferta(this.oferta.toDataType());
+	        }
+	        
+	        return dtPublicacion;
+	    }
 	
 }

@@ -1,6 +1,5 @@
 package model;
 
-
 import utils.DTEmpresa;
 import utils.DTOferta;
 import excepciones.NombreExisteException;
@@ -14,19 +13,16 @@ import java.util.List;
 import java.util.Set;
 import java.time.LocalDateTime;
 
+public class ControladorOfertas implements IControladorOfertas {
 
+	private static ControladorOfertas instancia;
 
-public class ControladorOfertas implements IControladorOfertas{
-	
-	private static ControladorOfertas instancia; 
-	
 	public static ControladorOfertas getInstance() {
-        if (instancia == null) {
-            instancia = new ControladorOfertas();
-        }
-        return instancia;
-    }
-	
+		if (instancia == null) {
+			instancia = new ControladorOfertas();
+		}
+		return instancia;
+	}
 
 	public DTOferta obtenerDatosOferta(String nombreOferta) throws OfertaNoExisteException {
 		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
@@ -38,8 +34,9 @@ public class ControladorOfertas implements IControladorOfertas{
 		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
 		mOL.addKeyword(key);
 	}
-		
-	public void altaOferta(String nombre, String desc, String remuner, String horario, List<String> keywords, String ciudad, String depa, String tipo, String empresa)
+
+	public void altaOferta(String nombre, String desc, String remuner, String horario, List<String> keywords,
+			String ciudad, String depa, String tipo, String empresa)
 			throws NombreExisteException, KeywordExisteException, NicknameNoExisteException {
 		LocalDateTime fecha = LocalDateTime.now();
 		ControladorUsuarios contU = ControladorUsuarios.getInstance();
@@ -58,24 +55,27 @@ public class ControladorOfertas implements IControladorOfertas{
 		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
 		return mOL.obtenerKeywords();
 	}
-	
-	public void postularAOferta(String nombreOfertaLaboral, String nicknamePostulante, String cvReducido, String motivacion, LocalDateTime fechaPostulacion) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException {
+
+	public void postularAOferta(String nombreOfertaLaboral, String nicknamePostulante, String cvReducido,
+			String motivacion, LocalDateTime fechaPostulacion)
+			throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException {
 		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
 		manejadorOL.postularAOferta(nombreOfertaLaboral, nicknamePostulante, cvReducido, motivacion, fechaPostulacion);
 	}
 
-	public List<DTEmpresa> obtenerEmpresas(){
+	public List<DTEmpresa> obtenerEmpresas() {
 		IControladorUsuario controlU = ControladorUsuarios.getInstance();
 		List<DTEmpresa> empresas = controlU.listarEmpresas();
 		return empresas;
 	}
-	
-	public List<DTOferta> obtenerOfertasLaborales(){
+
+	public List<DTOferta> obtenerOfertasLaborales() {
 		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
 		return manejadorOL.obtenerOfertasLaborales();
 	}
 
-	public Set<DTOferta> obtenerOfertasVigentesDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
+	public Set<DTOferta> obtenerOfertasVigentesDeEmpresa(String nicknameEmpresa)
+			throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
 		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
 		return manejadorOL.obtenerOfertasVigentesDeEmpresa(nicknameEmpresa);
 	}

@@ -1,6 +1,5 @@
 package excepciones;
 
-
 public class UsuarioNoEsEmpresaException extends Exception {
 
 	private static final long serialVersionUID = 1L;
@@ -21,7 +20,8 @@ public class UsuarioNoEsEmpresaException extends Exception {
 		super(message, cause);
 	}
 
-	public UsuarioNoEsEmpresaException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+	public UsuarioNoEsEmpresaException(String message, Throwable cause, boolean enableSuppression,
+			boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
 

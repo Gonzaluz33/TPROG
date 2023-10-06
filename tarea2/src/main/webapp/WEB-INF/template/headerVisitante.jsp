@@ -7,8 +7,8 @@
  				<a class="navbar-brand" href="visitante"><img class="w-50"  src="media/img/trabajo_logo.png" alt=""></a>
             </div>
             <div  style="width: 50%;">
-                <form class="d-flex " role="search" >
-                    <input class="form-control square-corners  me-2 " type="search" placeholder="Búsqueda de ofertas laborales" aria-label="Search">
+                <form class="d-flex " action="visitante" method="get">
+                    <input class="form-control square-corners me-2" name="busqueda" type="search" placeholder="Búsqueda de ofertas laborales" aria-label="Search">
                     <button class="btn btn-outline-light bg-dark square-corners" type="submit"><i class="fas fa-search"></i> Buscar</button>
                  </form>
             </div>

@@ -2,9 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="utils.DTOferta" %>
+<%@ page import="utils.DTPublicacion" %>
 <%@ page import="com.google.gson.Gson"%>
 <%@ page import="java.lang.reflect.Type"%>
 <%@ page import="com.google.gson.reflect.TypeToken"%>
+<%@ page import="com.google.gson.GsonBuilder"%>
+<%@ page import="java.time.LocalDateTime"%>
+<%@ page import="com.google.gson.reflect.TypeToken"%>
+<%@ page import="java.time.LocalDate"%>
+<%@ page import=" utils.LocalDateSerializer"%>
+<%@ page import="utils.LocalDateTimeAdapter"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -15,8 +23,11 @@
 	            alert("La sesión ha expirado. Por favor, inicie sesión nuevamente.");
 	        <% } %>
 	    </script>   
-	    <% Gson gson = new Gson(); %>
-		
+	    <% Gson gson = new GsonBuilder()
+     		    .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
+     		    .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+     		    .create(); 
+        %>
 	</head>
 	<body>
 		<jsp:include page="/WEB-INF/template/headerVisitante.jsp" />
@@ -94,28 +105,30 @@
 			                <h4>Filtrar Publicaciones:</h4>
 			                <h5>Keywords</h5>
 			                <br>
-			                <%
-							   // Gson gson = new Gson();
-							    List<String> keywordsList = gson.fromJson((String) request.getAttribute("keywords"), List.class);
-							%>
-			                  <% for(String keyword : keywordsList) { %>
-							    <div class="form-check">
-							        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked<%=keyword %>">
-							        <label class="form-check-label" for="flexCheckChecked<%=keyword %>">
-							            <%= keyword %>
-							        </label>
-							    </div>
-							<% } %>           
+			                 <form action="visitante" method="get">
+						        <%
+						            // Gson gson = new Gson();
+						            List<String> keywordsList = gson.fromJson((String) request.getAttribute("keywords"), List.class);
+						        %>
+						        <% for(String keyword : keywordsList) { %>
+						            <div class="form-check">
+						                <input class="form-check-input" name="keywords" type="checkbox" value="<%=keyword %>" id="flexCheckChecked<%=keyword %>">
+						                <label class="form-check-label" for="flexCheckChecked<%=keyword %>">
+						                    <%= keyword %>
+						                </label>
+						            </div>
+						        <% } %>
+						        <button type="submit" class="btn btn-warning w-75 m-3">Filtrar</button>
+						    </form>  <!-- Finaliza el formulario aquí -->       
 			              </div>
 			            </div>
 			            
 			           <div class="col-md-10 col-sm-12 p-2" id="mainContent">
 					    <% 
-					        String ofertasJSON = (String) request.getAttribute("ofertas");
-					       // Gson gson = new Gson();
-					        Type listType = new TypeToken<List<DTOferta>>() {}.getType();
-					        List<DTOferta> ofertas = gson.fromJson(ofertasJSON, listType);
-					        for(DTOferta oferta : ofertas) {
+					        String publicacionesJSON = (String) request.getAttribute("publicaciones");
+					        Type listType = new TypeToken<List<DTPublicacion>>() {}.getType();
+					        List<DTPublicacion> publicaciones = gson.fromJson(publicacionesJSON, listType);
+					        for(DTPublicacion publicacion : publicaciones) {
 					    %>
 					        <div class="d-flex p-2 border border-dark align-items-center mb-2">
 					            <div style="width: 25%;">
@@ -123,18 +136,26 @@
 					            </div>
 					            <div class="w-75">
 					                <div class="d-flex flex-column">
-					                    <h3><%= oferta.getNombre() %></h3>
+					                    <h3><%= publicacion.getDtOferta().getNombre() %></h3>
 					                    <div>
 					                        <p>
-					                            <%= oferta.getDescripcion() %>
+					                            <%= publicacion.getDtOferta().getDescripcion() %>
 					                        </p>
 					                    </div>
 					                    <div class="d-flex flex-column mb-2">
-					                        <b>Departamento: <%= oferta.getDepartamento() %></b>
-					                        <b>Ciudad: <%= oferta.getCiudad() %></b>
+					                        <b>Departamento: <%= publicacion.getDtOferta().getDepartamento() %></b>
+					                        <b>Ciudad: <%= publicacion.getDtOferta().getCiudad() %></b>
 					                    </div>
 					                    <div class="d-flex gap-1 justify-content-start">
-					                        <%-- Aquí puedes iterar a través de las keywords asociadas a la oferta si las tienes --%>
+					                   <%   
+									        List<String> keywordsDeOferta = publicacion.getDtOferta().getKeywords();
+									       
+									        for(String keyword : keywordsDeOferta) {
+									    %>
+									     	 <span class="keyword"><%= keyword %></span>
+									    <% 
+									        }
+									    %>
 					                    </div>
 					                    <div class="d-flex justify-content-end">
 					                        <a href="/tarea2/consultaOferta" class="text-dark">Ver más</a>

@@ -46,55 +46,50 @@ public class Login extends HttpServlet {
 	 * 
 	 * @param request  servlet request
 	 * @param response servlet response
-	 * @throws ServletException if a servlet-specific error occurs
-	 * @throws IOException      if an I/O error occurs
-	 * @throws NicknameNoExisteException 
-	 * @throws CorreoRepetidoException 
-	 * @throws UsuarioRepetidoException 
+	 * @throws ServletException          if a servlet-specific error occurs
+	 * @throws IOException               if an I/O error occurs
+	 * @throws NicknameNoExisteException
+	 * @throws CorreoRepetidoException
+	 * @throws UsuarioRepetidoException
 	 * 
 	 */
-	
+
 	private String generateJWT(String email, String tipo_usuario, String secret_Key) {
-	    long expirationTimeMillis = System.currentTimeMillis() + 3600000; // Tiempo de expiración (1 hora)
-	    Key key = Keys.hmacShaKeyFor(secret_Key.getBytes());
+		long expirationTimeMillis = System.currentTimeMillis() + 3600000; // Tiempo de expiración (1 hora)
+		Key key = Keys.hmacShaKeyFor(secret_Key.getBytes());
 
-	    String jwt = Jwts.builder()
-	            .setSubject(email)
-	            .claim("email", email)
-	            .claim("tipoUsuario", tipo_usuario)
-	            .setExpiration(new Date(expirationTimeMillis))
-	            .signWith(key, SignatureAlgorithm.HS256)
-	            .compact();
+		String jwt = Jwts.builder().setSubject(email).claim("email", email).claim("tipoUsuario", tipo_usuario)
+				.setExpiration(new Date(expirationTimeMillis)).signWith(key, SignatureAlgorithm.HS256).compact();
 
-	    return jwt;
+		return jwt;
 	}
-	
-	
+
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException, NicknameNoExisteException, UsuarioNoEncontrado, UsuarioRepetidoException, CorreoRepetidoException, CorreoNoEncontradoException {
-		 Fabrica factory = Fabrica.getInstance();
-		 IControladorUsuario icontuser = factory.getIControladorUsuario();
-		 String login = request.getParameter("login");
-	     String password = request.getParameter("password");
-	     HttpSession session = request.getSession();
-	     if(icontuser.usuarioExiste(login)) {
-			if (icontuser.validarUsuario(login,password)) {
+			throws ServletException, IOException, NicknameNoExisteException, UsuarioNoEncontrado,
+			UsuarioRepetidoException, CorreoRepetidoException, CorreoNoEncontradoException {
+		Fabrica factory = Fabrica.getInstance();
+		IControladorUsuario icontuser = factory.getIControladorUsuario();
+		String login = request.getParameter("login");
+		String password = request.getParameter("password");
+		HttpSession session = request.getSession();
+		if (icontuser.usuarioExiste(login)) {
+			if (icontuser.validarUsuario(login, password)) {
 				DTUsuario user = icontuser.consultarUsuarioPorCorreo(login);
-				if(user instanceof DTEmpresa) {
-					String jwt = generateJWT(login,"empresa",secret_Key);
-				    response.addCookie(new Cookie("jwt", jwt));
-				}else {
-					 String jwt = generateJWT(login,"postulante",secret_Key);
-					    response.addCookie(new Cookie("jwt", jwt));
+				if (user instanceof DTEmpresa) {
+					String jwt = generateJWT(login, "empresa", secret_Key);
+					response.addCookie(new Cookie("jwt", jwt));
+				} else {
+					String jwt = generateJWT(login, "postulante", secret_Key);
+					response.addCookie(new Cookie("jwt", jwt));
 				}
-			}else {
+			} else {
 				session.setAttribute("errorMessage", "Contraseña incorrecta");
 			}
-			
-	     }else {
-	    	 session.setAttribute("errorMessage", "Usuario inexistente");
-	     }
-	     response.sendRedirect("visitante");    
+
+		} else {
+			session.setAttribute("errorMessage", "Usuario inexistente");
+		}
+		response.sendRedirect("visitante");
 	}
 
 	/**
@@ -103,22 +98,22 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			try {
-				processRequest(request, response);
-			} catch (ServletException | IOException | NicknameNoExisteException | UsuarioNoEncontrado e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (UsuarioRepetidoException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (CorreoRepetidoException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (CorreoNoEncontradoException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	
+		try {
+			processRequest(request, response);
+		} catch (ServletException | IOException | NicknameNoExisteException | UsuarioNoEncontrado e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UsuarioRepetidoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CorreoRepetidoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CorreoNoEncontradoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	/**
@@ -127,22 +122,21 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			try {
-				processRequest(request, response);
-			} catch (ServletException | IOException | NicknameNoExisteException | UsuarioNoEncontrado e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (UsuarioRepetidoException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (CorreoRepetidoException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (CorreoNoEncontradoException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			processRequest(request, response);
+		} catch (ServletException | IOException | NicknameNoExisteException | UsuarioNoEncontrado e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UsuarioRepetidoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CorreoRepetidoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CorreoNoEncontradoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	
 
 }

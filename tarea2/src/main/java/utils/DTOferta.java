@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class DTOferta {
-	
+
 	private String nombre;
 	private String descripcion;
 	private String ciudad;
@@ -15,132 +15,136 @@ public class DTOferta {
 	private LocalDateTime fechaAlta;
 	private List<DTPostulacion> postulaciones;
 	private List<String> keywords;
-	
+
 	private String nicknameEmpresa;
-	
+
 	// constructores
-    public DTOferta() {
-        this.setNombre(new String());
-        this.setDescripcion(new String());
-        this.setCiudad(new String());
-        this.setDepartamento(new String());
-        this.setHorario(new String());
-        this.setRemuneracion(new String());
-        this.setFechaAlta(fechaAlta);
-        this.setPostulacion(new ArrayList<DTPostulacion>());
-        this.setNicknameEmpresa(new String());
+	public DTOferta() {
+		this.setNombre(new String());
+		this.setDescripcion(new String());
+		this.setCiudad(new String());
+		this.setDepartamento(new String());
+		this.setHorario(new String());
+		this.setRemuneracion(new String());
+		this.setFechaAlta(fechaAlta);
+		this.setPostulacion(new ArrayList<DTPostulacion>());
+		this.setNicknameEmpresa(new String());
 		this.setKeywords(new ArrayList<String>());
-    }
+	}
 
-    /**
-     * Constructor SIN lista de postulaciones asociadas a la oferta laboral.
-     */
-    public DTOferta(String nombre, String descripcion, String ciudad, String departamento, String horario, String remuneracion, LocalDateTime fechaAlta, String nicknameEmpresa, List<String> keywords) {
-        this.setNombre(nombre);
-        this.setDescripcion(descripcion);
-        this.setCiudad(ciudad);
-        this.setDepartamento(departamento);
-        this.setHorario(horario);
-        this.setRemuneracion(remuneracion);
-        this.setFechaAlta(fechaAlta);
-        this.setPostulacion(null);
-        this.setNicknameEmpresa(nicknameEmpresa);
+	/**
+	 * Constructor SIN lista de postulaciones asociadas a la oferta laboral.
+	 */
+	public DTOferta(String nombre, String descripcion, String ciudad, String departamento, String horario,
+			String remuneracion, LocalDateTime fechaAlta, String nicknameEmpresa, List<String> keywords) {
+		this.setNombre(nombre);
+		this.setDescripcion(descripcion);
+		this.setCiudad(ciudad);
+		this.setDepartamento(departamento);
+		this.setHorario(horario);
+		this.setRemuneracion(remuneracion);
+		this.setFechaAlta(fechaAlta);
+		this.setPostulacion(null);
+		this.setNicknameEmpresa(nicknameEmpresa);
 		this.setKeywords(keywords);
-    }
+	}
 
-    /**
-     * Constructor CON lista de postulaciones asociadas a la oferta laboral.
-     */
-    public DTOferta(String nombre, String descripcion, String ciudad, String departamento, String horario, String remuneracion, LocalDateTime fechaAlta, List<DTPostulacion> postulaciones, String nicknameEmpresa, List<String> keywords) {
-        this.setNombre(nombre);
-        this.setDescripcion(descripcion);
-        this.setCiudad(ciudad);
-        this.setDepartamento(departamento);
-        this.setHorario(horario);
-        this.setRemuneracion(remuneracion);
-        this.setFechaAlta(fechaAlta);
+	/**
+	 * Constructor CON lista de postulaciones asociadas a la oferta laboral.
+	 */
+	public DTOferta(String nombre, String descripcion, String ciudad, String departamento, String horario,
+			String remuneracion, LocalDateTime fechaAlta, List<DTPostulacion> postulaciones, String nicknameEmpresa,
+			List<String> keywords) {
+		this.setNombre(nombre);
+		this.setDescripcion(descripcion);
+		this.setCiudad(ciudad);
+		this.setDepartamento(departamento);
+		this.setHorario(horario);
+		this.setRemuneracion(remuneracion);
+		this.setFechaAlta(fechaAlta);
 		this.setPostulacion(postulaciones);
 		this.setNicknameEmpresa(nicknameEmpresa);
 		this.setKeywords(keywords);
-    }
+	}
 
-    // getters
-    public String getNombre() {
-        return nombre;
-    }
-    public String getDescripcion() {
-        return descripcion;
-    }
+	// getters
+	public String getNombre() {
+		return nombre;
+	}
 
-    public String getCiudad() {
-        return ciudad;
-    }
+	public String getDescripcion() {
+		return descripcion;
+	}
 
-    public String getDepartamento() {
-        return departamento;
-    }
+	public String getCiudad() {
+		return ciudad;
+	}
 
-    public String getHorario() {
-        return horario;
-    }
+	public String getDepartamento() {
+		return departamento;
+	}
 
-    public String getRemuneracion() {
-        return remuneracion;
-    }
-    
+	public String getHorario() {
+		return horario;
+	}
+
+	public String getRemuneracion() {
+		return remuneracion;
+	}
+
 	public List<DTPostulacion> getPostulaciones() {
 		return postulaciones;
 	}
-	
+
 	public LocalDateTime getFechaAlta() {
 		return fechaAlta;
 	}
-	
+
 	public String getNicknameEmpresa() {
 		return nicknameEmpresa;
 	}
-	
+
 	public List<String> getKeywords() {
 		return keywords;
 	}
 
-    // setters
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	// setters
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
 
-    public void setDepartamento(String departamento) {
-        this.departamento = departamento;
-    }
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
+	}
 
-    public void setHorario(String horario) {
-        this.horario = horario;
-    }
+	public void setHorario(String horario) {
+		this.horario = horario;
+	}
 
-    public void setRemuneracion(String remuneracion) {
-        this.remuneracion = remuneracion;
-    }
-    
+	public void setRemuneracion(String remuneracion) {
+		this.remuneracion = remuneracion;
+	}
+
 	public void setPostulacion(List<DTPostulacion> postulaciones) {
 		this.postulaciones = postulaciones;
 	}
-	
+
 	public void setFechaAlta(LocalDateTime fecha) {
-        this.fechaAlta = fecha;
-    }
-	
+		this.fechaAlta = fecha;
+	}
+
 	public void setNicknameEmpresa(String nicknameEmpresa) {
 		this.nicknameEmpresa = nicknameEmpresa;
 	}
-	
+
 	public void setKeywords(List<String> keywords) {
 		this.keywords = keywords;
 	}
