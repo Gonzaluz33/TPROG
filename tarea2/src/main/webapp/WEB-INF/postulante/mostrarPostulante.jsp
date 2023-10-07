@@ -29,13 +29,14 @@
     <main>
        	<jsp:include page="/WEB-INF/template/NavBarPostulante.jsp" />
         <div class="d-flex col-10 gap-5 p-5">
+        	<%
+           		DTPostulante usuario = (DTPostulante) request.getAttribute("usuarioSeleccionado");
+            %>
             <div class="d-flex justify-content-center">
-                <img width="250" height="250" src="https://tinyurl.com/yckek63e" alt="">
+ 				<img class="w-75" src="<%=usuario.getUrlImagen() %>">
             </div>
             <div class="d-flex gap-5">
-            	<%
-            		DTPostulante usuario = (DTPostulante) request.getAttribute("usuarioSeleccionado");
-            	%>
+            	
                 <div>
                     <h2>Datos Personales:</h2>
                     <p class="m-0"><span class="fw-bold">Nickname: </span><%= usuario.getNickname() %></p>

@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="utils.DTTipoPublicacion"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -19,27 +21,14 @@
     <main>
         <jsp:include page="/WEB-INF/template/NavBarVisitante.jsp" />
         <div class="d-flex flex-column justify-content-center p-4">
-            <div class="form-floating">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                    <option value="0"selected>Básica</option>
-                    <option value="1">Estándar</option>
-                    <option value="2">Destacada</option>
-                    <option value="3">Premium</option>
-                </select>
-                <label for="floatingSelect">Seleccione un Tipo de Publicación:</label>
-            </div>
+            <h2>Seleccione un Tipo de Publicación:</h2>
             <div class="d-flex mt-4 gap-3 flex-column">
-                <div class="d-flex gap-5">
-                    <div>
-                        <h2>Datos del tipo seleccionado:</h2>
-                        <p class="m-0"><span class="fw-bold">Nombre: </span>Básica</p>
-                        <p class="m-0"><span class="fw-bold">Descripción: </span>Publica de forma sencilla en la lista de ofertas.</p>
-                        <p class="m-0"><span class="fw-bold">Exposicion: </span>4</p>
-                        <p class="m-0"><span class="fw-bold">Duración: </span>7</p>
-                        <p class="m-0"><span class="fw-bold">Costo: </span>50</p>
-                        <p class="m-0"><span class="fw-bold">Fecha de Alta: </span>07/08/23</p>
-                    </div>       
-                </div> 
+                <ul>
+				        <% List<DTTipoPublicacion> tiposPublicacion = (List<DTTipoPublicacion>) request.getAttribute("tiposPublicacion");
+				           for (DTTipoPublicacion tipo : tiposPublicacion) { %>
+				            <li><a href="mostrarTipo?nombre=<%= tipo.getNombre()%>"><%= tipo.getNombre()%></a></li>
+				        <% } %>
+				    </ul>
             </div>
         </div>
 

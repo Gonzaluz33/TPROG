@@ -80,7 +80,6 @@ public class Empresa extends Usuario {
 	 */
 	@Override
 	public DTUsuario toDataType() {
-		System.out.println("llego");
 		return new DTEmpresa(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getContraseña() ,this.getNombreEmpresa(), this.getDescripcion(), this.getLinkWeb(), this.getOfertas(), "asd");
 	}
 

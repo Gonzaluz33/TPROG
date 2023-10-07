@@ -5,7 +5,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Fabrica;
+import model.IControladorPublicaciones;
+import utils.DTTipoPublicacion;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Servlet implementation class ConsultaTipos
@@ -25,6 +31,12 @@ public class ConsultaTipos extends HttpServlet {
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		UtilidadesJWT utilidadesJWT = UtilidadesJWT.obtenerInstancia();
 		String tipoUsuario = utilidadesJWT.obtenerTipoUsuarioPorRequest(req, resp);
+		Fabrica factory = Fabrica.getInstance();
+		IControladorPublicaciones icontpub = factory.getIControladorPublicaciones();
+		List<DTTipoPublicacion> tiposPublicacion = new ArrayList<>();
+		tiposPublicacion = icontpub.obtenerTipos();    	
+		req.setAttribute("tiposPublicacion", tiposPublicacion);
+		
 		switch (tipoUsuario) {
 		case ("postulante"):
 			req.getRequestDispatcher("/WEB-INF/postulante/consultaTipoPublicacion.jsp").forward(req, resp);
@@ -33,7 +45,7 @@ public class ConsultaTipos extends HttpServlet {
 			req.getRequestDispatcher("/WEB-INF/empresa/consultaTipoPublicacion.jsp").forward(req, resp);
 			break;
 		default:
-			req.getRequestDispatcher("/WEB-INF/visitante/consultaTipoPublicacion.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/visitante/consultaTipos.jsp").forward(req, resp);
 			break;
 
 		}
