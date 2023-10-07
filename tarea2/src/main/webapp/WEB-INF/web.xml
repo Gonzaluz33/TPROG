@@ -137,4 +137,14 @@
     <servlet-name>InformacionPostulacion</servlet-name>
     <url-pattern>/InformacionPostulacion</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MostrarTipo</display-name>
+    <servlet-name>MostrarTipo</servlet-name>
+    <servlet-class>controllers.MostrarTipo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MostrarTipo</servlet-name>
+    <url-pattern>/MostrarTipo</url-pattern>
+  </servlet-mapping>
 </web-app>
