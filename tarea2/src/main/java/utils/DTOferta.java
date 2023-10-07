@@ -13,6 +13,8 @@ public class DTOferta {
 	private String horario;
 	private String remuneracion;
 	private LocalDateTime fechaAlta;
+	private EnumEstadoOferta estado;
+	private String imagen;
 	private List<DTPostulacion> postulaciones;
 	private List<String> keywords;
 
@@ -27,6 +29,8 @@ public class DTOferta {
 		this.setHorario(new String());
 		this.setRemuneracion(new String());
 		this.setFechaAlta(fechaAlta);
+		this.setEstado(estado);
+		this.setImagen(imagen);
 		this.setPostulacion(new ArrayList<DTPostulacion>());
 		this.setNicknameEmpresa(new String());
 		this.setKeywords(new ArrayList<String>());
@@ -36,7 +40,7 @@ public class DTOferta {
 	 * Constructor SIN lista de postulaciones asociadas a la oferta laboral.
 	 */
 	public DTOferta(String nombre, String descripcion, String ciudad, String departamento, String horario,
-			String remuneracion, LocalDateTime fechaAlta, String nicknameEmpresa, List<String> keywords) {
+			String remuneracion, LocalDateTime fechaAlta, EnumEstadoOferta estado ,String imagen,String nicknameEmpresa, List<String> keywords) {
 		this.setNombre(nombre);
 		this.setDescripcion(descripcion);
 		this.setCiudad(ciudad);
@@ -44,6 +48,8 @@ public class DTOferta {
 		this.setHorario(horario);
 		this.setRemuneracion(remuneracion);
 		this.setFechaAlta(fechaAlta);
+		this.setEstado(estado);
+		this.setImagen(imagen);
 		this.setPostulacion(null);
 		this.setNicknameEmpresa(nicknameEmpresa);
 		this.setKeywords(keywords);
@@ -53,7 +59,7 @@ public class DTOferta {
 	 * Constructor CON lista de postulaciones asociadas a la oferta laboral.
 	 */
 	public DTOferta(String nombre, String descripcion, String ciudad, String departamento, String horario,
-			String remuneracion, LocalDateTime fechaAlta, List<DTPostulacion> postulaciones, String nicknameEmpresa,
+			String remuneracion, LocalDateTime fechaAlta,EnumEstadoOferta estado ,String imagen ,List<DTPostulacion> postulaciones, String nicknameEmpresa,
 			List<String> keywords) {
 		this.setNombre(nombre);
 		this.setDescripcion(descripcion);
@@ -62,6 +68,8 @@ public class DTOferta {
 		this.setHorario(horario);
 		this.setRemuneracion(remuneracion);
 		this.setFechaAlta(fechaAlta);
+		this.setEstado(estado);
+		this.setImagen(imagen);
 		this.setPostulacion(postulaciones);
 		this.setNicknameEmpresa(nicknameEmpresa);
 		this.setKeywords(keywords);
@@ -107,6 +115,14 @@ public class DTOferta {
 	public List<String> getKeywords() {
 		return keywords;
 	}
+	
+	public EnumEstadoOferta getEstado() {
+		return estado;
+	}
+	
+	public String getImagen() {
+		return imagen;
+	}
 
 	// setters
 	public void setNombre(String nombre) {
@@ -147,6 +163,14 @@ public class DTOferta {
 
 	public void setKeywords(List<String> keywords) {
 		this.keywords = keywords;
+	}
+	
+	public void setEstado (EnumEstadoOferta estado) {
+		this.estado = estado;
+	}
+	
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 }

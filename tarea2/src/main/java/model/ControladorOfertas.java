@@ -2,6 +2,7 @@ package model;
 
 import utils.DTEmpresa;
 import utils.DTOferta;
+import utils.EnumEstadoOferta;
 import excepciones.NombreExisteException;
 import excepciones.OfertaNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
@@ -36,13 +37,13 @@ public class ControladorOfertas implements IControladorOfertas {
 	}
 
 	public void altaOferta(String nombre, String desc, String remuner, String horario, List<String> keywords,
-			String ciudad, String depa, String tipo, String empresa)
+			String ciudad, String depa, String tipo, String empresa, String imagen)
 			throws NombreExisteException, KeywordExisteException, NicknameNoExisteException {
 		LocalDateTime fecha = LocalDateTime.now();
 		ControladorUsuarios contU = ControladorUsuarios.getInstance();
 		Empresa usuarioEmpresa = (Empresa) contU.obtenerUsuario(empresa);
 		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
-		OfertaLaboral ofL = new OfertaLaboral(nombre, desc, ciudad, depa, horario, fecha, remuner, usuarioEmpresa);
+		OfertaLaboral ofL = new OfertaLaboral(nombre, desc, ciudad, depa, horario, EnumEstadoOferta.INGRESADA ,imagen,fecha, remuner, usuarioEmpresa);
 		mOL.addOferta(ofL, keywords);
 		// despues de crear la oferta, creo la publicacion con el tipo
 		ControladorPublicaciones contPub = ControladorPublicaciones.getInstance();
