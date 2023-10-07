@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Fabrica;
 import model.IControladorUsuario;
 import utils.DTUsuario;
+import utils.DTPostulante;
 
 @WebServlet("/mostrarUsuario")
 public class MostrarUsuario extends HttpServlet {
@@ -31,13 +32,25 @@ public class MostrarUsuario extends HttpServlet {
 
         switch(tipoUsuario) {
 		case ("postulante"):
-			request.getRequestDispatcher("/WEB-INF/postulante/mostrarUsuario.jsp").forward(request, response);
+			if (usuario instanceof DTPostulante) {
+				request.getRequestDispatcher("/WEB-INF/postulante/mostrarPostulante.jsp").forward(request, response);
+				break;
+			}
+			request.getRequestDispatcher("/WEB-INF/postulante/mostrarEmpresa.jsp").forward(request, response);
 			break;
 		case ("empresa"):
-			request.getRequestDispatcher("/WEB-INF/empresa/mostrarUsuario.jsp").forward(request, response);
+			if (usuario instanceof DTPostulante) {
+				request.getRequestDispatcher("/WEB-INF/empresa/mostrarPostulante.jsp").forward(request, response);
+				break;
+			}
+			request.getRequestDispatcher("/WEB-INF/empresa/mostrarEmpresa.jsp").forward(request, response);
 			break;
 		default:
-			request.getRequestDispatcher("/WEB-INF/visitante/mostrarUsuario.jsp").forward(request, response);
+			if (usuario instanceof DTPostulante) {
+				request.getRequestDispatcher("/WEB-INF/visitante/mostrarPostulante.jsp").forward(request, response);
+				break;
+			}
+			request.getRequestDispatcher("/WEB-INF/visitante/mostrarEmpresa.jsp").forward(request, response);
 			break;
 	}   
     }

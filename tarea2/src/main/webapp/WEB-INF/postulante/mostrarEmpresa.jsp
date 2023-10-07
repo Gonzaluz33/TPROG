@@ -1,4 +1,6 @@
-<%@page import="utils.DTUsuario"%>
+<%@page import="utils.DTEmpresa"%>
+<%@page import="java.util.Set"%>
+<%@page import="utils.DTOferta"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -14,23 +16,26 @@
             <div class=" d-flex justify-content-between align-items-center w-100" style="height: 8vh;">
                 <div class="d-flex" style="width: 80vw;">
                     <div>
-                        <a class="navbar-brand" href="/tarea2/empresa"><img width="160" src="media/img/trabajo_logo.png"
+                        <a class="navbar-brand" href="/tarea2/postulante"><img width="160" src="media/img/trabajo_logo.png"
                                 alt=""></a>
                     </div>
                     <h3 class="m-0 d-flex align-items-center">Info Usuario</h3>
                 </div>
+				<jsp:include page="/WEB-INF/template/CerrarSesionPostulante.jsp" />
             </div>
         </nav>
     </header>
     <main>
+       	<jsp:include page="/WEB-INF/template/NavBarPostulante.jsp" />
         <div class="d-flex col-10 gap-5 p-5">
+        	<%
+            	DTEmpresa usuario = (DTEmpresa) request.getAttribute("usuarioSeleccionado");
+            %>
             <div class="d-flex justify-content-center">
-                <img width="250" height="250" src="https://tinyurl.com/yckek63e" alt="">
+ 				<img class="w-75" src="<%=usuario.getUrlImagen() %>">
             </div>
             <div class="d-flex gap-5">
-            	<%
-            		DTUsuario usuario = (DTUsuario) request.getAttribute("usuarioSeleccionado");
-            	%>
+            	
                 <div>
                     <h2>Datos Personales:</h2>
                     <p class="m-0"><span class="fw-bold">Nickname: </span><%= usuario.getNickname() %></p>
@@ -38,7 +43,22 @@
                     <p class="m-0"><span class="fw-bold">Apellido: </span><%= usuario.getApellido() %></p>
                     <p class="m-0"><span class="fw-bold">Email: </span><%= usuario.getCorreo() %></p>
                 </div>
-
+               
+                <div>
+                    <h2>Mis Ofertas Laborales Activas::</h2>
+                    <%
+                    	Set<DTOferta> ofertas = (Set<DTOferta>) usuario.getOfertas();
+                    	for (DTOferta oferta: ofertas) {                    	
+                    %>
+                    <p class="m-0"><span class="fw-bold">Nombre de Oferta Laboral: </span><a href="consultaOfertaLaboral.html"><%=oferta.getNombre() %></a></p>
+   					<% } %>
+                
+                </div>
+                
+                <div>
+                	<h2>Mis Paquetes</h2>
+                </div>
+                
             </div>
 
         </div>
