@@ -27,7 +27,7 @@ public class ConsultaPostulacionAOferta extends HttpServlet {
 		String tipoUsuario = utilidadesJWT.obtenerTipoUsuarioPorRequest(req, resp);
 		switch (tipoUsuario) {
 		case ("postulante"):
-			req.getRequestDispatcher("/WEB-INF/postulante/consultaPostulacionOferta.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/postulante/consultaPostulacionAOferta.jsp").forward(req, resp);
 			break;
 		case ("empresa"):
 			req.getRequestDispatcher("/WEB-INF/empresa/consultaPostulacionAOferta.jsp").forward(req, resp);

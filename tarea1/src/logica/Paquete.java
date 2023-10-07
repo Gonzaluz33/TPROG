@@ -66,6 +66,8 @@ public class Paquete {
     public LocalDate getFechaAlta() {
     	return fechaAlta;
     }
+    
+    
     public List<Tupla_Cantidad_TipoPublicacion> getListaDeTuplas(){
     	return listaDeTuplas;
     }
@@ -99,6 +101,7 @@ public class Paquete {
     	this.listaDeTuplas = l;
     	
     }
+    
     
     public void agregarTipoPublicacion(Integer cant, TipoPublicacion tipoPublicacion) {
     	 boolean encontrado = false;

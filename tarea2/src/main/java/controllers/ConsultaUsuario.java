@@ -5,9 +5,22 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import model.Fabrica;
+import model.IControladorUsuario;
+import utils.DTPostulante;
+import utils.DTUsuario;
+import utils.LocalDateSerializer;
+import utils.LocalDateTimeAdapter;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 /**
@@ -28,6 +41,12 @@ public class ConsultaUsuario extends HttpServlet {
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	UtilidadesJWT utilidadesJWT = UtilidadesJWT.obtenerInstancia();
     	String tipoUsuario = utilidadesJWT.obtenerTipoUsuarioPorRequest(req, resp);
+		Fabrica factory = Fabrica.getInstance();
+	    IControladorUsuario icontuser = factory.getIControladorUsuario();
+		List<DTUsuario> usuarios = new ArrayList<>();
+		usuarios = icontuser.listarUsuarios();    	
+
+		req.setAttribute("usuarios", usuarios);
     	switch(tipoUsuario) {
     		case ("postulante"):
     			req.getRequestDispatcher("/WEB-INF/postulante/consultaUsuario.jsp").forward(req, resp);

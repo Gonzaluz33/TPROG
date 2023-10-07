@@ -183,8 +183,7 @@ public class InicializadorAppListener implements ServletContextListener {
 	            String descripcion = "";
 	            String link = "";
 	            String password = "";
-	            String url_imagen = "";
-	            
+	            String url_imagen = "";            
 	            if(empresaData.length > 0) {
 	            	 nickname = empresaData[0];
 	            	 nombre = empresaData[1];
@@ -217,8 +216,7 @@ public class InicializadorAppListener implements ServletContextListener {
 	            int exp = 0;
 	            Integer duracion = 0;
 	            Integer costo = 0;
-	           LocalDate alta = null;
-	            
+	            LocalDate alta = null;	            
 	            if(tiposPublicaionData.length > 0) {
 	            	 nombre = tiposPublicaionData[0];
 	            	 desc = tiposPublicaionData[1];
@@ -241,6 +239,7 @@ public class InicializadorAppListener implements ServletContextListener {
     private void cargarDatosPaquetes(String csvFile) throws KeywordExisteException, PaqueteExisteException{	  
 	    String line = "";
 	    String cvsSplitBy = ";";
+	    int iter = 1;
 	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 	        while ((line = br.readLine()) != null) {
 	            String[] paquetesData = line.split(cvsSplitBy);
@@ -256,7 +255,8 @@ public class InicializadorAppListener implements ServletContextListener {
 	            	validez = Integer.parseInt(paquetesData[2]);
 	            	descuento = Integer.parseInt(paquetesData[3]);
 	            	fechaAlta = paquetesData[4];
-	            	url_imagen = paquetesData[5];
+	            	url_imagen = "media/img/imgPaquetes/Paq"+iter+".jpg";
+			        iter++;
 	             	Fabrica factory = Fabrica.getInstance();
 	            	IControladorPublicaciones ICP = factory.getIControladorPublicaciones();
 	            	ICP.altaPaqueteTipoPublicacion(nombreTipo, descripcionTipo, validez, descuento, fechaAlta,url_imagen);
@@ -298,6 +298,7 @@ public class InicializadorAppListener implements ServletContextListener {
 
 	   	String line = "";
 	    String cvsSplitBy = ";";
+	    int iter = 1;
 	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 	    	//br.readLine();
 	        while ((line = br.readLine()) != null) {
@@ -311,8 +312,7 @@ public class InicializadorAppListener implements ServletContextListener {
 	            String depa = ""; 
 	            String tipo = "";
 	            String empresa = ""; 
-	            
-	            
+	            String url_imagen = "";            
 	            if(ofertasLaboralesData.length > 0) {
 	            	
 	            	 nombre = ofertasLaboralesData[0];
@@ -323,13 +323,15 @@ public class InicializadorAppListener implements ServletContextListener {
 	            	 depa = ofertasLaboralesData[2];
 	            	 tipo = ofertasLaboralesData[7];
 	            	 empresa = ofertasLaboralesData[6];
+			         url_imagen = "media/img/imgOfertas/O"+iter+".jpg";
+			         iter++;
 	            	 if(ofertasLaboralesData.length > 9) {
 		            	 keys = Arrays.asList(ofertasLaboralesData[9].split("/"));
 	            	 }
 	            	 Fabrica factory = Fabrica.getInstance();
 	            	 IControladorOfertas ICO = factory.getIControladorOfertas();
 	            	 try {
-	            	 ICO.altaOferta(nombre, desc, rem, horario, keys, ciudad, depa, tipo, empresa);
+	            	 ICO.altaOferta(nombre, desc, rem, horario, keys, ciudad, depa, tipo, empresa, url_imagen);
 	            	 }catch(Exception e) {
 	            		 
 	            	 }
