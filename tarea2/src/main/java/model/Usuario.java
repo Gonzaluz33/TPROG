@@ -90,8 +90,9 @@ public class Usuario {
      * Retorna los datos del usuario como un DataType DTUsuario.
      */
     public DTUsuario toDataType() {
-    	if (this instanceof Empresa)
+    	if (this instanceof Empresa) {
     		return ( (Empresa) this ).toDataType();
+    	}
     	return ( (Postulante) this ).toDataType();
     }
 

@@ -45,7 +45,7 @@
 		            DTOferta oferta = gson.fromJson(ofertaJSON, DTOferta.class);
 		            if(oferta != null){
 		        %>
-		            <div class="card mb-5">
+		            <div class="card mb-5 p-3">
 		                <div class="card-header">
 		                    <h3 class="fw-bold m-3"><%= oferta.getNombre() %></h3>
 		                    <div class="col-md-6">

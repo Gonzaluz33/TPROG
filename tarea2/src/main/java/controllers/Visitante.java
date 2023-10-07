@@ -106,13 +106,11 @@ public class Visitante extends HttpServlet {
 					IControladorUsuario iconuser = factory.getIControladorUsuario();
 					if (iconuser.usuarioExiste(correo)) {
 						DTUsuario usuario = iconuser.consultarUsuarioPorCorreo(correo);
-
 						if (usuario instanceof DTEmpresa) {
 							resp.sendRedirect("empresa");
 						} else if (usuario instanceof DTPostulante) {
 							resp.sendRedirect("postulante");
 						}
-
 					} else {
 						// Eliminar la cookie JWT
 						Cookie jwtCookie = new Cookie("jwt", "");

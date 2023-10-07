@@ -132,7 +132,7 @@ public class InicializadorAppListener implements ServletContextListener {
     private void cargarDatosPostulantes(String csvFile) throws UsuarioRepetidoException, CorreoRepetidoException {
         String line;
         String csvSplitBy = ";";
-
+        int iter = 1;
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             // Leer la primera línea (encabezados) y descartarla si es necesario
             //br.readLine();
@@ -154,7 +154,8 @@ public class InicializadorAppListener implements ServletContextListener {
 	            	 fecha = parseFechaNacimiento(datos[4].trim());
 	            	 nacionalidad = datos[5];
 	            	 password = datos[6];
-	            	 url_imagen = datos[7];
+	            	 url_imagen = "media/img/imgPostulantes/U"+iter+".jpg";
+	            	 iter++;
 	            	 Fabrica factory = Fabrica.getInstance();
 	            	 IControladorUsuario ICU = factory.getIControladorUsuario();
 	            	 ICU.altaPostulante(nickname, nombre, apellido, correo, password,fecha, nacionalidad,url_imagen);
@@ -171,6 +172,7 @@ public class InicializadorAppListener implements ServletContextListener {
     private void cargarDatosEmpresas(String csvFile) throws UsuarioRepetidoException, CorreoRepetidoException {	
 	    String line = "";
 	    String cvsSplitBy = ";";
+	    int iter = 11;
 	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 	        while ((line = br.readLine()) != null) {
 	            String[] empresaData = line.split(cvsSplitBy);
@@ -181,7 +183,7 @@ public class InicializadorAppListener implements ServletContextListener {
 	            String descripcion = "";
 	            String link = "";
 	            String password = "";
-	            String url_image = "";
+	            String url_imagen = "";
 	            
 	            if(empresaData.length > 0) {
 	            	 nickname = empresaData[0];
@@ -191,10 +193,11 @@ public class InicializadorAppListener implements ServletContextListener {
 	            	 descripcion = empresaData[4];
 			         link = empresaData[5]; 
 			         password = empresaData[6];
-			         url_image = empresaData[7];
+			         url_imagen = "media/img/imgEmpresas/U"+iter+".jpg";
+	            	 iter++;
 			         Fabrica factory = Fabrica.getInstance();
 	            	 IControladorUsuario ICU = factory.getIControladorUsuario();
-	            	 ICU.altaEmpresa(nickname, nombre, apellido, correo, password,nickname, descripcion, link,url_image);
+	            	 ICU.altaEmpresa(nickname, nombre, apellido, correo, password,nickname, descripcion, link,url_imagen);
 	            }
 	            
 	        }

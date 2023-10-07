@@ -123,14 +123,14 @@
 			              </div>
 			            </div>
 			            
-			           <div class="col-md-10 col-sm-12 p-2" id="mainContent">
+			           <div class="col-md-9 p-2 col-sm-12 mx-auto" id="mainContent">
 					    <% 
 					        String publicacionesJSON = (String) request.getAttribute("publicaciones");
 					        Type listType = new TypeToken<List<DTPublicacion>>() {}.getType();
 					        List<DTPublicacion> publicaciones = gson.fromJson(publicacionesJSON, listType);
 					        for(DTPublicacion publicacion : publicaciones) {
 					    %>
-					        <div class="d-flex p-2 border border-dark align-items-center mb-2">
+					        <div class="d-flex p-2  border border-dark align-items-center mb-3">
 					            <div style="width: 25%;">
 					                <img class="w-75" src="https://tinyurl.com/45nsf34m" alt="">
 					            </div>
