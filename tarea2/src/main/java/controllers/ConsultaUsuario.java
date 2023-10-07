@@ -45,14 +45,7 @@ public class ConsultaUsuario extends HttpServlet {
 	    IControladorUsuario icontuser = factory.getIControladorUsuario();
 		List<DTUsuario> usuarios = new ArrayList<>();
 		usuarios = icontuser.listarUsuarios();    	
-    	Gson gson = new GsonBuilder()
-    		    .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
-    		    .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
-    		    .create();
 
-    	String usuariosJson = gson.toJson(usuarios);
-    	System.out.println(usuariosJson);
-    	req.setAttribute("jsonUsers", usuariosJson);
 		req.setAttribute("usuarios", usuarios);
     	switch(tipoUsuario) {
     		case ("postulante"):

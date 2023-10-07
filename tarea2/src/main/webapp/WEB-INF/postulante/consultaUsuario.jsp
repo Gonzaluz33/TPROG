@@ -27,57 +27,18 @@
         </nav>
     </header>
     <main>
-	    <script>
-		     function mostrarUsuarioSeleccionado(nickname) {
-		        var infoUsuarioDiv = document.getElementById("infoUsuario");
-		        // Recorre la lista de usuarios para encontrar el usuario seleccionado por el nickname
-				var usuarios = <%= request.getAttribute("jsonUsers") %>;
-		        var usuarioSeleccionado = usuarios.find(function(usuario) {
-		            return usuario.nickname === nickname;
-		        });
-		        console.log(usuarioSeleccionado);
-		        // Muestra la información del usuario seleccionado en el div "infoUsuario"
-		        if (usuarioSeleccionado) {
-		            infoUsuarioDiv.innerHTML = `
-		                <h2>Datos Personales:</h2>
-		                <p class="m-0"><span class="fw-bold">Nickname: </span>jorge</p>
-		                <p class="m-0"><span class="fw-bold">Nombre: </span>${usuarioSeleccionado.nombre}</p>
-		                <p class="m-0"><span class="fw-bold">Apellido: </span>${usuarioSeleccionado.apellido}</p>
-		                <p class="m-0"><span class="fw-bold">Email: </span>${usuarioSeleccionado.correo}</p>
-		                <p>${usuarioSeleccionado}</p>
-		            `;
-		            console.log(usuarioSeleccionado.correo);
-		        } else {
-		            infoUsuarioDiv.innerHTML = ""; // Limpia el contenido si no se seleccionó ningún usuario
-		        }
-		     }	
-	    </script>
         <jsp:include page="/WEB-INF/template/NavBarPostulante.jsp"/>
         <div class="d-flex flex-column justify-content-center p-4">
-            <div>
-                <div class="form-floating">
-                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example" onchange=mostrarUsuarioSeleccionado(this.value)>
-                        <%
-                        List<DTUsuario> usuarios = (List<DTUsuario>) request.getAttribute("usuarios");
-                        for(DTUsuario usuario: usuarios) {
-                        %>
-                        <option value="<%= usuario.getNickname()%>"><%= usuario.getNickname()%></option>
-                        <% } %>
-                    </select>
-                    <label for="floatingSelect">Seleccione un usuario:</label>
-                </div>
-            </div>
-            <div class="d-flex mt-4 gap-3 flex-column">
-                <div class="d-flex gap-5">
-                    <div class="d-flex justify-content-center">
-                        <img width="250" height="250"src="https://tinyurl.com/yckek63e" alt="">
-                    </div>
-                    <div id="infoUsuario">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+		    <h1>Lista de Usuarios</h1>
+		    
+		    <ul>
+		        <% List<DTUsuario> usuarios = (List<DTUsuario>) request.getAttribute("usuarios");
+		           for (DTUsuario usuario : usuarios) { %>
+		            <li><a href="mostrarUsuario?nickname=<%= usuario.getNickname()%>"><%= usuario.getNickname()%></a></li>
+		        <% } %>
+		    </ul>
+	    </div>
+	    </main>
     
 
 </body>
