@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Fabrica;
 import model.IControladorOfertas;
 import utils.DTOferta;
+import utils.DTUsuario;
 import utils.LocalDateSerializer;
 import utils.LocalDateTimeAdapter;
 
@@ -42,6 +43,11 @@ public class ConsultaOferta extends HttpServlet {
 	    	Fabrica factory = Fabrica.getInstance();
 	    	IControladorOfertas ICO = factory.getIControladorOfertas();
 	    	try {
+	    		UtilidadesJWT jwtUtil = UtilidadesJWT.obtenerInstancia();
+	    		DTUsuario user = jwtUtil.obtenerDatosDeUsuarioJWT(req, resp);
+	    		if(user != null) {
+	    			req.setAttribute("imgPerfil",(String) user.getUrlImagen());
+	    		}
 	    		Gson gsonAux = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
 	    				.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
 				DTOferta oferta = ICO.obtenerDatosOferta(nombreOferta);

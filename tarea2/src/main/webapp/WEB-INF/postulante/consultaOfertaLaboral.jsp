@@ -21,6 +21,8 @@
      		    .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
      		    .create(); 
         %>
+         <%   String imgPerfilJSON = (String) request.getAttribute("imgPerfil");
+		 %>
 </head>
 
 <body>
@@ -30,7 +32,17 @@
                 <div class="d-flex ms-5">
                       <jsp:include page="/WEB-INF/template/Logo.jsp"/>
                 </div>
-                 <jsp:include page="/WEB-INF/template/CerrarSesionPostulante.jsp"/>
+                  <div class="d-flex me-5">
+					 <div class="d-flex">
+					    <img src="<%=imgPerfilJSON%>" class="rounded-circle" alt="Foto de perfil" style="width:40px; height:40px; border: 2px solid black;">
+					  </div>
+				     <div class="d-flex border-end px-2 mt-2">
+				         <a href="/tarea2/miUsuario" class="text-decoration-none text-black fw-bold ">Mi Usuario</a>
+				     </div>
+				     <div class="d-flex px-2 mt-2">
+				         <a class="text-decoration-none text-black fw-bold " href="/tarea2/cerrar-sesion">Cerrar Sesión<i class="ms-2 fas fa-sign-out-alt"></i></a>
+				     </div>
+				 </div>
             </div>
         </nav>
     </header>
@@ -44,7 +56,7 @@
             <div class="d-flex  justify-content-center">
                         <div class="row d-flex text-center align-items-center justify-content-center">
                             <div>
-                                <img class="w-75" src="https://tinyurl.com/45nsf34m" alt="">
+                                <img class="w-75" src="<%= oferta.getImagen() %>" alt="">
                             </div>
                         
                         </div>

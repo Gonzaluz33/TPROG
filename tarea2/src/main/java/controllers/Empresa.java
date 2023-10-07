@@ -101,6 +101,7 @@ public class Empresa extends HttpServlet {
 						if (usuario instanceof DTEmpresa) {
 							esValidoEmpresa = true;
 							String imagen = usuario.getUrlImagen();
+							System.out.println("xd");							
 							req.setAttribute("imgPerfil", imagen);
 						}
 
