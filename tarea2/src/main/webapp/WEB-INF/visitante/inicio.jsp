@@ -132,13 +132,14 @@
 					    %>
 					        <div class="d-flex p-2  border border-dark align-items-center mb-3">
 					            <div style="width: 25%;">
-					                <img class="w-75" src="https://tinyurl.com/45nsf34m" alt="">
+					                <img class="w-75" src="<%= publicacion.getDtOferta().getImagen()%>" alt="">
 					            </div>
 					            <div class="w-75">
 					                <div class="d-flex flex-column">
 					                    <h3><%= publicacion.getDtOferta().getNombre() %></h3>
 					                    <div>
 					                        <p>
+					                       		 <%= publicacion.getDtOferta().getImagen()%>
 					                            <%= publicacion.getDtOferta().getDescripcion() %>
 					                        </p>
 					                    </div>

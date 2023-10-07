@@ -183,8 +183,7 @@ public class InicializadorAppListener implements ServletContextListener {
 	            String descripcion = "";
 	            String link = "";
 	            String password = "";
-	            String url_imagen = "";
-	            
+	            String url_imagen = "";            
 	            if(empresaData.length > 0) {
 	            	 nickname = empresaData[0];
 	            	 nombre = empresaData[1];
@@ -217,8 +216,7 @@ public class InicializadorAppListener implements ServletContextListener {
 	            int exp = 0;
 	            Integer duracion = 0;
 	            Integer costo = 0;
-	           LocalDate alta = null;
-	            
+	            LocalDate alta = null;	            
 	            if(tiposPublicaionData.length > 0) {
 	            	 nombre = tiposPublicaionData[0];
 	            	 desc = tiposPublicaionData[1];
@@ -298,6 +296,7 @@ public class InicializadorAppListener implements ServletContextListener {
 
 	   	String line = "";
 	    String cvsSplitBy = ";";
+	    int iter = 1;
 	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 	    	//br.readLine();
 	        while ((line = br.readLine()) != null) {
@@ -311,8 +310,7 @@ public class InicializadorAppListener implements ServletContextListener {
 	            String depa = ""; 
 	            String tipo = "";
 	            String empresa = ""; 
-	            
-	            
+	            String url_imagen = "";            
 	            if(ofertasLaboralesData.length > 0) {
 	            	
 	            	 nombre = ofertasLaboralesData[0];
@@ -323,6 +321,8 @@ public class InicializadorAppListener implements ServletContextListener {
 	            	 depa = ofertasLaboralesData[2];
 	            	 tipo = ofertasLaboralesData[7];
 	            	 empresa = ofertasLaboralesData[6];
+			         url_imagen = "media/img/imgOfertas/O"+iter+".jpg";
+			         iter++;
 	            	 if(ofertasLaboralesData.length > 9) {
 		            	 keys = Arrays.asList(ofertasLaboralesData[9].split("/"));
 	            	 }
