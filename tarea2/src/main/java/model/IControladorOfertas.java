@@ -18,7 +18,7 @@ public interface IControladorOfertas {
 
 	public abstract void altaKeyword(String nombre) throws KeywordExisteException;
 	public abstract List<String> obtenerKeywords();
-	public void altaOferta(String nombre, String desc, String remuner, String horario, List<String> keywords, String ciudad, String depa, String tipo, String empresa) throws NombreExisteException, KeywordExisteException, NicknameNoExisteException;
+	public void altaOferta(String nombre, String desc, String remuner, String horario, List<String> keywords, String ciudad, String depa, String tipo, String empresa, String imagen) throws NombreExisteException, KeywordExisteException, NicknameNoExisteException;
 
 	/**
 	 * Devuelve un DTOferta con la informacion de la oferta con el nombre brindado incluyendo sus postulaciones.
@@ -26,6 +26,7 @@ public interface IControladorOfertas {
 	 */
 	public DTOferta obtenerDatosOferta(String nombreOferta) throws OfertaNoExisteException;
 	public List<DTEmpresa> obtenerEmpresas();
+	public List<DTOferta> obtenerOfertasLaborales();
 
 	/**
 	 * Postula al postulante con nick "nicknamePostulante" a la oferta de nombre "nombreOfertaLaboral".

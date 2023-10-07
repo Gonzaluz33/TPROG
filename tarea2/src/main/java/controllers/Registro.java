@@ -74,7 +74,7 @@ public class Registro extends HttpServlet {
 	            	    request.setAttribute("error", "Todos los campos son obligatorios.");
 	            	    request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
 	            	} else {
-				            if (!password.equals(passwordConfirm)) {
+				            if (!password.equals(passwordConfirm) || password.length() < 6) {
 				                request.setAttribute("error", "Las contraseñas no coinciden.");
 				                request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
 				            }else {
@@ -82,7 +82,7 @@ public class Registro extends HttpServlet {
 				            	Fabrica factory = Fabrica.getInstance();
 					            IControladorUsuario iconuser = factory.getIControladorUsuario();
 					            iconuser.altaEmpresa(nickname,nombre,apellido,email,password,nomEmpresa,desc,linkWeb,"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png");
-					            String mensaje = "Usuario Registrado con éxito.";
+					            String mensaje = "Empresa Registrada con éxito.";
 				                response.sendRedirect("visitante?mensaje=" + URLEncoder.encode(mensaje, "UTF-8"));
 				            	}else {
 				            		request.setAttribute("error", "El email ingresado no es valido.");
@@ -105,7 +105,7 @@ public class Registro extends HttpServlet {
 	                	    request.setAttribute("error", "Todos los campos son obligatorios.");
 	                	    request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
 	                	} else {
-	                		if (!password.equals(passwordConfirm)) {
+	                		if (!password.equals(passwordConfirm) || password.length() < 6) {
 				                request.setAttribute("error", "Las contraseñas no coinciden.");
 				                request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
 				            }else {
@@ -115,7 +115,7 @@ public class Registro extends HttpServlet {
 					            	LocalDate fecha = parseFecha(fechaNacimiento);
 					            	if(fecha != null) {
 						                iconuser.altaPostulante(nickname,nombre,apellido,email,password,fecha,nacionalidad,"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png");
-						                String mensaje = "Usuario Registrado con éxito.";
+						                String mensaje = "Postulante Registrado con éxito.";
 						                response.sendRedirect("visitante?mensaje=" + URLEncoder.encode(mensaje, "UTF-8"));
 					            	}else {
 					            		request.setAttribute("error", "La fecha es invalida.");
@@ -154,22 +154,8 @@ public class Registro extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {
-			processRequest(request, response);
-		} catch (ServletException | IOException  e) {
-			request.setAttribute("error", "Ocurrio un error.");
-            request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
-			e.printStackTrace();
-		}
-		catch (UsuarioRepetidoException e) {
-			request.setAttribute("error", "El nickname ya existe.");
-            request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
-            e.printStackTrace();
-		} catch (CorreoRepetidoException e) {
-			request.setAttribute("error", "El correo ya existe.");
-            request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
-            e.printStackTrace();
-		}
+		request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
+		
 	}
 
 	/**

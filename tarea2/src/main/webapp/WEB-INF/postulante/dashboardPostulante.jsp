@@ -1,106 +1,161 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="java.util.List" %>
+<%@ page import="utils.DTOferta" %>
+<%@ page import="utils.DTPublicacion" %>
+<%@ page import="com.google.gson.Gson"%>
+<%@ page import="java.lang.reflect.Type"%>
+<%@ page import="com.google.gson.reflect.TypeToken"%>
+<%@ page import="com.google.gson.GsonBuilder"%>
+<%@ page import="java.time.LocalDateTime"%>
+<%@ page import="com.google.gson.reflect.TypeToken"%>
+<%@ page import="java.time.LocalDate"%>
+<%@ page import=" utils.LocalDateSerializer"%>
+<%@ page import="utils.LocalDateTimeAdapter"%>
+<%@ page import="java.net.URLEncoder" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<jsp:include page="/WEB-INF/template/head.jsp"/> 
- 		<link rel="stylesheet" type="text/css" href="media/styles/dashboardPostulante.css?v=<?php echo time(); ?>">
+		<% Gson gson = new GsonBuilder()
+     		    .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
+     		    .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+     		    .create(); 
+        %>
+        <%   String imgPerfilJSON = (String) request.getAttribute("imgPerfil");
+		 %>
 	</head>
 	<body>
     <header>
-        <nav class="navbar p-0 border-bottom border-black mb-1">
-            <div class=" d-flex justify-content-between align-items-center w-100" style="height: 8vh;">
+        <nav class="navbar p-3  mb-4 border-bottom border-black">
+            <div class="d-flex justify-content-between align-items-center w-100" style="height: 8vh;">
                 <div class="d-flex">
-                    <div>
-                        <a class="navbar-brand" href="/tarea2/postulante"><img width="160" src="media/img/trabajo_logo.png" alt=""></a>
+                    <div class="ms-5">
+                        <a class="navbar-brand" href="/tarea2/postulante"><img class="img-fluid w-50" src="media/img/trabajo_logo.png" alt=""></a>
                     </div>
-                    <h3 class="m-0 d-flex align-items-center">Usuario Postulante</h3>
+                  
                 </div>
                  <div class="d-flex me-5">
-				 <jsp:include page="/WEB-INF/template/CerrarSesionPostulante.jsp" />
- 			</div>
+                 
+				 <div class="d-flex me-5">
+					 <div class="d-flex">
+					    <img src="<%=imgPerfilJSON%>" class="rounded-circle" alt="Foto de perfil" style="width:40px; height:40px; border: 2px solid black;">
+					  </div>
+				     <div class="d-flex border-end px-2 mt-2">
+				         <a href="/tarea2/miUsuario" class="text-decoration-none text-black fw-bold "><img src="">Mi Usuario</a>
+				     </div>
+				     <div class="d-flex px-2 mt-2">
+				         <a class="text-decoration-none text-black fw-bold " href="/tarea2/cerrar-sesion">Cerrar Sesión<i class="ms-2 fas fa-sign-out-alt"></i></a>
+				     </div>
+ </div>
+ 				</div>
             </div>
         </nav>
     </header>
     <main>
-        <section id="sectionMenu">
-            <div class="p-2">
+       <div class="container">
+   			  <div class="row">
+             <div class="col-md-2 mx-auto mt-3 col-sm-12">
+            <div class="bg-light p-2 rounded">
+                <h5 class="text-center mb-3">Menú</h5>
                 <div class="list-group">
-                    <a href="/tarea2/consultaUsuario"><button type="button" class="list-group-item list-group-item-action" >Consulta de Usuario</button></a>
-                    <a href="/tarea2/consultaTipos"><button type="button" class="list-group-item list-group-item-action">Consulta de Tipo de Publicacion</button></a>
-                    <a href="/tarea2/consultaPostulacionAOferta"><button type="button" class="list-group-item list-group-item-action">Consulta de Postulación a Oferta Laboral</button></a>
-                    <a href="/tarea2/postularAOferta"><button type="button" class="list-group-item list-group-item-action">Postular a Oferta Laboral</button></a>
+                    <a href="/tarea2/consultaUsuario" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-user me-3"></i> Consulta de Usuario
+                    </a>
+                    <a href="/tarea2/consultaTipos" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-file-alt me-3"></i> Consulta de Tipo de Publicación
+                    </a>
+                    <a href="/tarea2/consultaPostulacionAOferta" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-briefcase me-3"></i> Consulta de Postulación a Oferta Laboral
+                    </a>
+                    <a href="/tarea2/postularAOferta" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-paper-plane me-3"></i> Postular a Oferta Laboral
+                    </a>
                 </div>
-            </div>
-        </section>
-        <div id="mainOfertas">
-            <div class="d-flex justify-content-center col-12">
-                <form class="d-flex col-12" role="search">
-                    <input class="form-control square-corners" type="search" placeholder="Búsqueda de ofertas laborales"
-                        aria-label="Search">
-                    <button class="btn btn-outline-light bg-dark square-corners" type="submit"><i class="fas fa-search"></i>
-                        Buscar</button>
-                </form>
             </div>
         </div>
-       <section id="sectionKeywords"> 
-                    <div class="container-fluid p-3 mx-auto border border-dark text-center" id="keywordList">
-                        <h4>Keywords:</h4>
-                        <br>
-                        <div>
-                            <label class="form-check-label" for="flexCheckChecked">
-                                Tiempo Completo
-                            </label>
-                        </div>
-                        <div >                        
-                            <label class="form-check-label" for="flexCheckChecked">
-                                Medio Tiempo
-                            </label>
-                        </div>
-                        <div>
-                            <label class="form-check-label" for="flexCheckChecked">
-                                Remoto
-                            </label>
-                        </div>
-                        <div>
-                            <label class="form-check-label" for="flexCheckChecked">
-                                Freelance
-                            </label>
-                        </div>
-                        <div>
-                            <label class="form-check-label" for="flexCheckChecked">
-                                Temporal
-                            </label>
-                        </div>
-                        <div>
-                            <label class="form-check-label" for="flexCheckChecked">
-                                Permanente
-                            </label>
-                        </div>
-                        <div>
-                            <label class="form-check-label" for="flexCheckChecked">
-                                Computación
-                            </label>
-                        </div>
-                        <div>
-                            <label class="form-check-label" for="flexCheckChecked">
-                                Administración
-                            </label>
-                        </div>
-                        <div>
-                            <label class="form-check-label" for="flexCheckChecked">
-                                Logística
-                            </label>
-                        </div>
-                        <div>
-                            <label class="form-check-label" for="flexCheckChecked">
-                                Contabilidad
-                            </label>
-                        </div>
-                </div>
-        </section>
+
+       <div class="col-md-8 mx-auto" id="mainOfertas">
+    <div class="row">
+    
+    	<form class="d-flex col-12 my-3" action="postulante" method="get">
+                    <input class="form-control square-corners me-2" name="busqueda" type="search" placeholder="Búsqueda de ofertas laborales" aria-label="Search">
+                    <button class="btn btn-outline-light bg-dark square-corners" type="submit"><i class="fas fa-search"></i> Buscar</button>
+        </form>
+    
+    
+    </div>
+    <div class="col-md-12 col-sm-12 mx-auto">
+					    <% 
+					        String publicacionesJSON = (String) request.getAttribute("publicaciones");
+					        Type listType = new TypeToken<List<DTPublicacion>>() {}.getType();
+					        List<DTPublicacion> publicaciones = gson.fromJson(publicacionesJSON, listType);
+					        for(DTPublicacion publicacion : publicaciones) {
+					    %>
+					        <div class="d-flex p-2  border border-dark align-items-center mb-3">
+					            <div style="width: 25%;">
+					                <img class="w-75" src="<%= publicacion.getDtOferta().getImagen()%>" alt="">
+					            </div>
+					            <div class="w-75">
+					                <div class="d-flex flex-column">
+					                    <h3><%= publicacion.getDtOferta().getNombre() %></h3>
+					                    <div>
+					                        <p>
+					                            <%= publicacion.getDtOferta().getDescripcion() %>
+					                        </p>
+					                    </div>
+					                    <div class="d-flex flex-column mb-2">
+					                        <b>Departamento: <%= publicacion.getDtOferta().getDepartamento() %></b>
+					                        <b>Ciudad: <%= publicacion.getDtOferta().getCiudad() %></b>
+					                    </div>
+					                    <div class="d-flex gap-1 justify-content-start">
+					                   <%   
+									        List<String> keywordsDeOferta = publicacion.getDtOferta().getKeywords();
+									       
+									        for(String keyword : keywordsDeOferta) {
+									    %>
+									     	 <span class="keyword"><%= keyword %></span>
+									    <% 
+									        }
+									    %>
+					                    </div>
+					                    <div class="d-flex justify-content-end">
+					                       <span class="badge bg-dark"><a href="consultaOferta?nombreOferta=<%= URLEncoder.encode(publicacion.getDtOferta().getNombre(), "UTF-8") %>" class="text-white text-decoration-none">Ver más</a></span>
+					                        
+					                    </div>
+					                </div>
+					            </div>
+					        </div>
+					    <% 
+					        }
+					    %>
+					</div>
+					</div>
+		    		  <div class="col-md-2  mt-3 col-sm-12">
+			               <div class=" container-fluid p-3 mx-auto border border-dark text-center" id="keywordList">
+			                <h4>Filtrar Publicaciones:</h4>
+			                <h5>Keywords</h5>
+			                <br>
+			                 <form action="postulante" method="get">
+						        <%
+						            List<String> keywordsList = gson.fromJson((String) request.getAttribute("keywords"), List.class);
+						        %>
+						        <% for(String keyword : keywordsList) { %>
+						            <div class="form-check">
+						                <input class="form-check-input" name="keywords" type="checkbox" value="<%=keyword %>" id="flexCheckChecked<%=keyword %>">
+						                <label class="form-check-label" for="flexCheckChecked<%=keyword %>">
+						                    <%= keyword %>
+						                </label>
+						            </div>
+						        <% } %>
+						        <button type="submit" class="btn btn-warning w-75 m-3">Filtrar</button>
+						    </form>     
+			              </div>
+			            </div>
+     </div>
+     </div>
     </main>
 
 </body>
-    <script src="media/js/dashboardPostulante.js"></script>
+
 </html>

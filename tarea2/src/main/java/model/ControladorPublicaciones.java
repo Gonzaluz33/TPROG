@@ -2,9 +2,12 @@ package model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
-
+import java.util.stream.Collectors;
+import utils.DTOferta;
 import utils.DTPaquete;
+import utils.DTPublicacion;
 import utils.DTTipoPublicacion;
 import excepciones.TipoPublicExisteException;
 import excepciones.PaqueteExisteException;
@@ -32,11 +35,12 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 	
 	public Publicacion addPublicacion(OfertaLaboral ofL, String tipo) {
 		ManejadorPublicaciones manPub = ManejadorPublicaciones.getInstance();
-		Integer id = manPub.getLastPubId();
 		TipoPublicacion datosTipo = manPub.getTipo(tipo);
-		LocalDate inicio = datosTipo.getAlta();
-		LocalDate fin = LocalDate.of(inicio.getYear(),inicio.getMonthValue(),inicio.getDayOfMonth()).plusDays(datosTipo.getDuracion());
-		Publicacion pub = new Publicacion(id, datosTipo.getCosto(), inicio, fin, ofL);
+		Integer id = manPub.getLastPubId();
+		Integer duracion = datosTipo.getDuracion();
+		LocalDate fechaActual = LocalDate.now();
+		LocalDate fin = fechaActual.plusDays(duracion);
+		Publicacion pub = new Publicacion(id, datosTipo.getCosto(), fechaActual, fin, ofL);
 		manPub.addPublicacion(pub);
 		//find tipo, agregar asociacion si no existe, y pumquepam
 		return pub;
@@ -48,17 +52,17 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		manejadorP.altaTipoPublicacionOL(tipoP);
 	}
 	
-	public void altaPaqueteTipoPublicacion(String nombre, String descripcion, int validez, int descuento ,String fecha) throws PaqueteExisteException {
+	public void altaPaqueteTipoPublicacion(String nombre, String descripcion, int validez, int descuento ,String fecha,String url_imagen) throws PaqueteExisteException {
 		ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
 		if(!fecha.isEmpty()) {
 		       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		        LocalDate fechaParseada = LocalDate.parse(fecha, formatter);
-				Paquete paquete = new Paquete(nombre, descripcion, validez, descuento, 0, fechaParseada);
+				Paquete paquete = new Paquete(nombre, descripcion, validez, descuento, 0, fechaParseada,url_imagen);
 				manejadorP.addPaqueteTipoPublicacion(paquete);
 		}
 		else {
 			LocalDate fechaAlta = LocalDate.now();
-			Paquete paquete = new Paquete(nombre, descripcion, validez, descuento, 0, fechaAlta);
+			Paquete paquete = new Paquete(nombre, descripcion, validez, descuento, 0, fechaAlta,url_imagen);
 			manejadorP.addPaqueteTipoPublicacion(paquete);
 		}
 
@@ -75,4 +79,47 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
 		return manejadorP.obtenerListaPaquetes();
 	}
+	
+	public List<DTPublicacion> obtenerPublicaciones() {
+		ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
+		return manejadorP.obtenerPublicaciones();
+	}
+	
+	public List<DTPublicacion> obtenerPublicacionesPorBusqueda(String busqueda) {
+        ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
+        List<DTPublicacion> publicaciones = manejadorP.obtenerPublicaciones();
+        System.out.println(publicaciones);
+        return publicaciones.stream()
+                .filter(dtPublicacion -> {
+                    DTOferta oferta = dtPublicacion.getDtOferta();
+                    return oferta.getNombre().toLowerCase().contains(busqueda.toLowerCase())
+                            || oferta.getDescripcion().toLowerCase().contains(busqueda.toLowerCase())
+                            || oferta.getCiudad().toLowerCase().contains(busqueda.toLowerCase())
+                            || oferta.getDepartamento().toLowerCase().contains(busqueda.toLowerCase());
+                })
+                .collect(Collectors.toList());
+    }
+	
+	public List<DTPublicacion> obtenerPublicacionesPorKeywords(List<String> keywords) {
+	    ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
+	    List<DTPublicacion> publicaciones = manejadorP.obtenerPublicaciones();
+	    List<String> keywordsLowerCase = keywords.stream()
+	        .map(String::toLowerCase)
+	        .collect(Collectors.toList());
+
+	    return publicaciones.stream()
+	        .filter(dtPublicacion -> {
+	            DTOferta oferta = dtPublicacion.getDtOferta();
+	            List<String> ofertaKeywords = oferta.getKeywords();
+
+	            List<String> ofertaKeywordsLowerCase = ofertaKeywords.stream()
+	                .map(String::toLowerCase)
+	                .collect(Collectors.toList());
+
+	            return !Collections.disjoint(keywordsLowerCase, ofertaKeywordsLowerCase);
+	        })
+	        .collect(Collectors.toList());
+	}
+
+	
 }

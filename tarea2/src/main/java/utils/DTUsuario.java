@@ -1,89 +1,92 @@
 package utils;
 
 /**
- * Datatype para transportar la información de un usuario entre capa lógica y de presentación.
- * Clase padre de DTEmpresa y DTPostulante.
+ * Datatype para transportar la información de un usuario entre capa lógica y de
+ * presentación. Clase padre de DTEmpresa y DTPostulante.
  *
  */
 public class DTUsuario {
 
 	private String nickname;
-    private String nombre;
-    private String apellido;
-    private String correo;
-    private String contraseña;
-    private String url_imagen;
+	private String nombre;
+	private String apellido;
+	private String correo;
+	private String contraseña;
+	private String url_imagen;
 
-    // constructores
-    public DTUsuario() {
-    	this.setNickname(new String());
-        this.setNombre(new String());
-        this.setApellido(new String());
-        this.setCorreo(new String());
-        this.setContraseña(new String());
-        this.setUrlImagen(new String());;
-    }
+	// constructores
+	public DTUsuario() {
+		this.setNickname(new String());
+		this.setNombre(new String());
+		this.setApellido(new String());
+		this.setCorreo(new String());
+		this.setContraseña(new String());
+		this.setUrlImagen(new String());
+		;
+	}
 
-    public DTUsuario(String nickname, String nombre, String apellido, String correo, String contraseña, String url_imagen) {
-    	this.setNickname(nickname);
-        this.setNombre(nombre);
-        this.setApellido(apellido);
-        this.setCorreo(correo);
-        this.setContraseña(contraseña);
-        this.setUrlImagen(url_imagen);
-    }
+	public DTUsuario(String nickname, String nombre, String apellido, String correo, String contraseña,
+			String url_imagen) {
+		this.setNickname(nickname);
+		this.setNombre(nombre);
+		this.setApellido(apellido);
+		this.setCorreo(correo);
+		this.setContraseña(contraseña);
+		this.setUrlImagen(url_imagen);
+	}
 
-    // getters
-    public String getNickname() {
-        return nickname;
-    }
-    public String getUrlImagen() {
-        return url_imagen;
-    }
-    
-    public String getNombre() {
-        return nombre;
-    }
+	// getters
+	public String getNickname() {
+		return nickname;
+	}
 
-    public String getApellido() {
-        return apellido;
-    }
+	public String getUrlImagen() {
+		return url_imagen;
+	}
 
-    public String getCorreo() {
-        return correo;
-    }
-    
-    public String getContraseña() {
-        return contraseña;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public String toString(){
-        return nombre + " " + apellido;
-    }
+	public String getApellido() {
+		return apellido;
+	}
 
-    // setters
-    private void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-    private void setUrlImagen(String url_imagen) {
-        this.url_imagen = url_imagen;
-    }
-    
-    private void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public String getCorreo() {
+		return correo;
+	}
 
-    private void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
+	public String getContraseña() {
+		return contraseña;
+	}
 
-    private void setCorreo(String correo) {
-        this.correo = correo;
-    }
-    
-    public void setContraseña(String contraseña) {
-    	this.contraseña = contraseña;
-    }
+	public String toString() {
+		return nombre + " " + apellido;
+	}
+
+	// setters
+	private void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	private void setUrlImagen(String url_imagen) {
+		this.url_imagen = url_imagen;
+	}
+
+	private void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	private void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	private void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
+	}
 
 }
-

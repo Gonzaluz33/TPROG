@@ -20,7 +20,8 @@ public class OfertaNoExisteException extends Exception {
 		super(message, cause);
 	}
 
-	public OfertaNoExisteException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+	public OfertaNoExisteException(String message, Throwable cause, boolean enableSuppression,
+			boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
 

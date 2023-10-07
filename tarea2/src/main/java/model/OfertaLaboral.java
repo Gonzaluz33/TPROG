@@ -3,6 +3,7 @@ package model;
 import utils.DTOferta;
 import utils.DTPostulacion;
 import utils.DTUsuario;
+import utils.EnumEstadoOferta;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ public class OfertaLaboral {
 	private String horario;
 	private String remuneracion;
 	private LocalDateTime fechaAlta;
+	private EnumEstadoOferta estado;
+	private String imagen;
 	private Usuario empresa;
 	private List<Postulacion> postulaciones = new ArrayList<Postulacion>();
 	private List<Publicacion> publicaciones = new ArrayList<Publicacion>();
@@ -30,18 +33,22 @@ public class OfertaLaboral {
 		this.departamento = new String();
 		this.descripcion = new String();
 		this.fechaAlta = null;
+		this.estado = null;
+		this.imagen = null;
 		this.horario = new String();
 		this.nombre = new String();
 		this.remuneracion = new String();
 		this.empresa = new Empresa();
 	}
 	
-	public OfertaLaboral(String n, String desc, String c, String dep, String hora, LocalDateTime fecha, String remuneracion, Usuario emp) {
+	public OfertaLaboral(String n, String desc, String c, String dep, String hora, EnumEstadoOferta estado ,String imagen ,LocalDateTime fecha, String remuneracion, Usuario emp) {
 		this.setCiudad(c);
 		this.setDepartamento(dep);
 		this.setDescripcion(desc);
 		this.setFechaAlta(fecha);
 		this.setHorario(hora);
+		this.setEstado(estado);
+		this.setImagen(imagen);
 		this.setNombre(n);
 		this.setRemuneracion(remuneracion);
 		this.setEmpresa(emp);
@@ -81,6 +88,14 @@ public class OfertaLaboral {
 	}
 	public DTUsuario getEmpresa() {
 		return empresa.toDataType();
+	}
+	
+	public EnumEstadoOferta getEstado() {
+		return estado;
+	}
+	
+	public String getImagen() {
+		return imagen;
 	}
 	
 	/**
@@ -129,6 +144,13 @@ public class OfertaLaboral {
 	public void setEmpresa (Usuario empresa) {
 		this.empresa = empresa;
 	}
+	public void setEstado (EnumEstadoOferta estado) {
+		this.estado = estado;
+	}
+	
+	public void setImagen (String imagen) {
+		this.imagen = imagen;
+	}
 	
 	/**
 	 * Añade la postulacion a la coleccion de postulaciones asociadas a la oferta laboral.
@@ -153,6 +175,8 @@ public class OfertaLaboral {
 				this.getHorario(),
 				this.getRemuneracion(),
 				this.getFechaAlta(),
+				this.getEstado(),
+				this.getImagen(),
 				this.getPostulaciones(),
 				this.empresa.getNickname(),
 				listaKeywordsString);

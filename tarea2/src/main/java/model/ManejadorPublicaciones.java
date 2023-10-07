@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import excepciones.PaqueteExisteException;
 import excepciones.TipoPublicExisteException;
 import utils.DTPaquete;
+import utils.DTPublicacion;
 import utils.DTTipoPublicacion;
 
 
@@ -65,6 +66,18 @@ public class ManejadorPublicaciones {
 	
 	public TipoPublicacion getTipo(String nombre) {
 		return coleccionTipos.get(nombre);
+	}
+	
+	public List<DTPublicacion> obtenerPublicaciones() {
+	    List<DTPublicacion> dtPublicacionesList = new ArrayList<>();
+ 
+
+	    for (Map.Entry<Integer, Publicacion> entry : coleccionPublicaciones.entrySet()) {
+	        Publicacion publicacion = entry.getValue();
+	        DTPublicacion dtPublicacion = publicacion.toDatatype();
+	        dtPublicacionesList.add(dtPublicacion);
+	    }
+	    return dtPublicacionesList;
 	}
 
 	/**

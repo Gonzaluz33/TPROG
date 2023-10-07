@@ -78,6 +78,7 @@ public class Postulante extends Usuario{
 		DTPostulante dtt = new DTPostulante(getNickname(), getNombre(), getApellido(), getCorreo(), getContraseña(), getFechaNacimiento(), getNacionalidad(), getPostulaciones(), getUrlImagen());
 		return dtt;
 	}
+
 	
 }
 

@@ -19,7 +19,8 @@ public class PaqueteExisteException extends Exception {
 		super(message, cause);
 	}
 
-	public PaqueteExisteException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+	public PaqueteExisteException(String message, Throwable cause, boolean enableSuppression,
+			boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
 

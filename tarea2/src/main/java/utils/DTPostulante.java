@@ -1,6 +1,6 @@
 package utils;
 
-import java.util.Date;
+
 import java.util.List;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -68,3 +68,4 @@ public class DTPostulante extends DTUsuario {
 	}
 	
 }
+
