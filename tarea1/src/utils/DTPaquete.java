@@ -61,6 +61,7 @@ public class DTPaquete {
 		.collect(Collectors.toList());
     	
     }
+    
 
     // Setters
     public void setNombre(String nombre) {
@@ -89,5 +90,5 @@ public class DTPaquete {
     public void setListaDeTuplas(List<Tupla_Cantidad_TipoPublicacion> l) {
     	this.listaDeTuplas = l;	
     }
-
+    
 }

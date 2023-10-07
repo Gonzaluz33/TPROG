@@ -239,6 +239,7 @@ public class InicializadorAppListener implements ServletContextListener {
     private void cargarDatosPaquetes(String csvFile) throws KeywordExisteException, PaqueteExisteException{	  
 	    String line = "";
 	    String cvsSplitBy = ";";
+	    int iter = 1;
 	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 	        while ((line = br.readLine()) != null) {
 	            String[] paquetesData = line.split(cvsSplitBy);
@@ -254,7 +255,8 @@ public class InicializadorAppListener implements ServletContextListener {
 	            	validez = Integer.parseInt(paquetesData[2]);
 	            	descuento = Integer.parseInt(paquetesData[3]);
 	            	fechaAlta = paquetesData[4];
-	            	url_imagen = paquetesData[5];
+	            	url_imagen = "media/img/imgPaquetes/Paq"+iter+".jpg";
+			        iter++;
 	             	Fabrica factory = Fabrica.getInstance();
 	            	IControladorPublicaciones ICP = factory.getIControladorPublicaciones();
 	            	ICP.altaPaqueteTipoPublicacion(nombreTipo, descripcionTipo, validez, descuento, fechaAlta,url_imagen);

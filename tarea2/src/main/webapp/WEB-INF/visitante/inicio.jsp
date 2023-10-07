@@ -139,7 +139,6 @@
 					                    <h3><%= publicacion.getDtOferta().getNombre() %></h3>
 					                    <div>
 					                        <p>
-					                       		 <%= publicacion.getDtOferta().getImagen()%>
 					                            <%= publicacion.getDtOferta().getDescripcion() %>
 					                        </p>
 					                    </div>
