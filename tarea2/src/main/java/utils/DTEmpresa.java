@@ -48,9 +48,7 @@ public class DTEmpresa extends DTUsuario {
 
 	// setters
 	private void setNombreEmpresa(String nombreEmpresa) {
-		System.out.println(nombreEmpresa);
 		this.nombreEmpresa = nombreEmpresa;
-		System.out.println(this.nombreEmpresa);
 	}
 
 	private void setDescripcion(String descripcion) {
