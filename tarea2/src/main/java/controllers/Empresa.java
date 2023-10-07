@@ -12,12 +12,10 @@ import model.IControladorPublicaciones;
 import model.IControladorUsuario;
 import model.TokenBlacklist;
 import utils.DTEmpresa;
-import utils.DTPostulante;
 import utils.DTPublicacion;
 import utils.DTUsuario;
 import utils.LocalDateSerializer;
 import utils.LocalDateTimeAdapter;
-
 import java.io.IOException;
 import java.security.Key;
 import java.time.LocalDate;
@@ -25,10 +23,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
