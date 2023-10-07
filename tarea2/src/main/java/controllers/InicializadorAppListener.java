@@ -329,7 +329,7 @@ public class InicializadorAppListener implements ServletContextListener {
 	            	 Fabrica factory = Fabrica.getInstance();
 	            	 IControladorOfertas ICO = factory.getIControladorOfertas();
 	            	 try {
-	            	 ICO.altaOferta(nombre, desc, rem, horario, keys, ciudad, depa, tipo, empresa, " ");
+	            	 ICO.altaOferta(nombre, desc, rem, horario, keys, ciudad, depa, tipo, empresa, url_imagen);
 	            	 }catch(Exception e) {
 	            		 
 	            	 }
