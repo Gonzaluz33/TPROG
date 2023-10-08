@@ -37,12 +37,12 @@ public class ConsultaPostulacionAOferta extends HttpServlet {
 		String tipoUsuario = utilidadesJWT.obtenerTipoUsuarioPorRequest(req, resp);
 		
 		switch (tipoUsuario) {
-		case ("postulante"):
+		case "postulante":
 			DTPostulante usuario = (DTPostulante) utilidadesJWT.obtenerDatosDeUsuarioJWT(req, resp);
 			req.setAttribute("usuario", usuario);
 			req.getRequestDispatcher("/WEB-INF/postulante/consultaPostulacionAOferta.jsp").forward(req, resp);
 			break;
-		case ("empresa"):
+		case "empresa":
 			Fabrica factory = Fabrica.getInstance();
 	    	IControladorOfertas ICO = factory.getIControladorOfertas();
 	    	DTUsuario usr = utilidadesJWT.obtenerDatosDeUsuarioJWT(req, resp);

@@ -36,7 +36,9 @@ public class MostrarUsuario extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+    	DTUsuario autenticado = utilidadesJWT.obtenerDatosDeUsuarioJWT(request, response);
+    	request.setAttribute("autenticado", autenticado.getNickname());
         request.setAttribute("usuarioSeleccionado", usuario);
 
         switch(tipoUsuario) {

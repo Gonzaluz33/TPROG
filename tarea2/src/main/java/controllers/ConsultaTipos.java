@@ -38,10 +38,10 @@ public class ConsultaTipos extends HttpServlet {
 		req.setAttribute("tiposPublicacion", tiposPublicacion);
 		
 		switch (tipoUsuario) {
-		case ("postulante"):
+		case "postulante":
 			req.getRequestDispatcher("/WEB-INF/postulante/consultaTipoPublicacion.jsp").forward(req, resp);
 			break;
-		case ("empresa"):
+		case "empresa":
 			req.getRequestDispatcher("/WEB-INF/empresa/consultaTipoPublicacion.jsp").forward(req, resp);
 			break;
 		default:

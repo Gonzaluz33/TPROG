@@ -83,21 +83,21 @@ public class ManejadorPublicaciones {
 	/**
 	 * Crea el Tipo de Publicacion y lo agrega a coleccionTipos.
 	 */
-	public void altaTipoPublicacionOL(TipoPublicacion p) throws TipoPublicExisteException {
-		if(coleccionTipos.get(p.getNombre()) != null) {
-			throw new TipoPublicExisteException("El Tipo Publicacion de Oferta Laboral con nombre" + p.getNombre() + " ya existe");
+	public void altaTipoPublicacionOL(TipoPublicacion tipoPub) throws TipoPublicExisteException {
+		if(coleccionTipos.get(tipoPub.getNombre()) != null) {
+			throw new TipoPublicExisteException("El Tipo Publicacion de Oferta Laboral con nombre" + tipoPub.getNombre() + " ya existe");
 		}
 		else {
-			coleccionTipos.put(p.getNombre(), p);			
+			coleccionTipos.put(tipoPub.getNombre(), tipoPub);			
 		}
 	}
 	
-	public void addPaqueteTipoPublicacion(Paquete p) throws PaqueteExisteException {
-		if(coleccionPaquetes.get(p.getNombre()) != null) {
+	public void addPaqueteTipoPublicacion(Paquete paq) throws PaqueteExisteException {
+		if(coleccionPaquetes.get(paq.getNombre()) != null) {
 			throw new PaqueteExisteException("Ya existe un paquete con el nombre ingresado.");
 		}
 		else {
-			coleccionPaquetes.put(p.getNombre(), p);	
+			coleccionPaquetes.put(paq.getNombre(), paq);	
 		}
 	};
 	

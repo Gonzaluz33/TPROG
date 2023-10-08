@@ -1,6 +1,8 @@
 <%@page import="utils.DTPostulante"%>
 <%@page import="utils.DTPostulacion"%>
 <%@page import="java.util.List"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -36,7 +38,9 @@
                         <% 
                         DTPostulante usuario = (DTPostulante) request.getAttribute("usuario");
                     	List<DTPostulacion> posts = (List<DTPostulacion>) usuario.getPostulaciones();
-                    	for (DTPostulacion post: posts) {                    	
+                    	for (DTPostulacion post: posts) {
+	                   		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	                        String formattedDate = post.getFecha().format(formatter);
                     %>                    
 				      
 				      <div class="card mb-2">
@@ -46,7 +50,7 @@
 				      	</h5>
 				      	<p class="m-0 card-text"><span class="fw-bold">Motivacion: </span><%=post.getMotivacion() %></p>
                    		<p class="m-0 card-text"><span class="fw-bold">Cv reducido: </span><%=post.getCvReducido() %></p>
-                  		<p class="m-0 card-text"><span class="fw-bold">Fecha de postulacion: </span><%=post.getFecha() %></p>		
+                  		<p class="m-0 card-text"><span class="fw-bold">Fecha de postulacion: </span><%=formattedDate %></p>		
 				      </div>
 				      				     
 				      </div>
