@@ -119,9 +119,9 @@ public class InicializadorAppListener implements ServletContextListener {
     private void cargarDatosKeywords(String csvFile) throws KeywordExisteException{	
 	    String line = "";
 	    String cvsSplitBy = ";";
-	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+	    try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
 	    	//br.readLine();
-	        while ((line = br.readLine()) != null) {
+	        while ((line = bufferReader.readLine()) != null) {
 	            String[] data = line.split(cvsSplitBy);
 	            String nombre = "";         
 	            if(data.length > 0) {
@@ -141,10 +141,10 @@ public class InicializadorAppListener implements ServletContextListener {
         String line;
         String csvSplitBy = ";";
         int iter = 1;
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
             // Leer la primera línea (encabezados) y descartarla si es necesario
             //br.readLine();
-            while ((line = br.readLine()) != null) {
+            while ((line = bufferReader.readLine()) != null) {
                 String[] datos = line.split(csvSplitBy);
                 String nickname = "";
 	            String nombre = "";
@@ -181,8 +181,8 @@ public class InicializadorAppListener implements ServletContextListener {
 	    String line = "";
 	    String cvsSplitBy = ";";
 	    int iter = 11;
-	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-	        while ((line = br.readLine()) != null) {
+	    try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
+	        while ((line = bufferReader.readLine()) != null) {
 	            String[] empresaData = line.split(cvsSplitBy);
 	            String nickname = "";
 	            String nombre = "";
@@ -216,8 +216,8 @@ public class InicializadorAppListener implements ServletContextListener {
     private void cargarDatosTipoPublicacion(String csvFile) throws TipoPublicExisteException{	
 	    String line = "";
 	    String cvsSplitBy = ";";
-	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-	        while ((line = br.readLine()) != null) {
+	    try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
+	        while ((line = bufferReader.readLine()) != null) {
 	            String[] tiposPublicaionData = line.split(cvsSplitBy);
 	            String nombre = "";
 	            String desc = "";
@@ -248,8 +248,8 @@ public class InicializadorAppListener implements ServletContextListener {
 	    String line = "";
 	    String cvsSplitBy = ";";
 	    int iter = 1;
-	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-	        while ((line = br.readLine()) != null) {
+	    try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
+	        while ((line = bufferReader.readLine()) != null) {
 	            String[] paquetesData = line.split(cvsSplitBy);
 	            String nombreTipo = "";
 	            String descripcionTipo = "";
@@ -279,8 +279,8 @@ public class InicializadorAppListener implements ServletContextListener {
    private void cargarDatosTiposPublicacionPaquetes(String csvFile){	
 	    String line = "";
 	    String cvsSplitBy = ";";
-	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-	        while ((line = br.readLine()) != null) {
+	    try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
+	        while ((line = bufferReader.readLine()) != null) {
 	            String[] tiposPublicaionPaquetesData = line.split(cvsSplitBy);
 	            String nombrePaquete = "";
 	            Integer cantidad = 0;
@@ -307,9 +307,9 @@ public class InicializadorAppListener implements ServletContextListener {
 	   	String line = "";
 	    String cvsSplitBy = ";";
 	    int iter = 1;
-	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+	    try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
 	    	//br.readLine();
-	        while ((line = br.readLine()) != null) {
+	        while ((line = bufferReader.readLine()) != null) {
 	            String[] ofertasLaboralesData = line.split(cvsSplitBy);
 	            String nombre = "";    
 	            String desc = ""; 
@@ -370,9 +370,8 @@ public class InicializadorAppListener implements ServletContextListener {
 	   System.out.println(csvFile);
 	   String line = "";
 	   String cvsSplitBy = ";";
-	   int iter = 1;
-	   try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-		   while ((line = br.readLine()) != null) {
+	   try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
+		   while ((line = bufferReader.readLine()) != null) {
 			   //String nombreOfertaLaboral, String nicknamePostulante, String CVReducido, String motivacion,  LocalDateTime fechaPublic 
 			   String[] postulacionesData = line.split(cvsSplitBy);
 	           String nombre = "";    
@@ -380,7 +379,6 @@ public class InicializadorAppListener implements ServletContextListener {
 	           String nickname = ""; 
 	           String cv = "";
 	           LocalDate fecha = null;
-	           iter++;
 	           if(postulacionesData.length > 0) {
 	        	   nickname = postulacionesData[0];
 	        	   nombre = postulacionesData[4];

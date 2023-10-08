@@ -41,15 +41,15 @@ public class OfertaLaboral {
 		this.empresa = new Empresa();
 	}
 	
-	public OfertaLaboral(String n, String desc, String c, String dep, String hora, EnumEstadoOferta estado ,String imagen ,LocalDateTime fecha, String remuneracion, Usuario emp) {
-		this.setCiudad(c);
+	public OfertaLaboral(String nomb, String desc, String ciudad, String dep, String hora, EnumEstadoOferta estado ,String imagen ,LocalDateTime fecha, String remuneracion, Usuario emp) {
+		this.setCiudad(ciudad);
 		this.setDepartamento(dep);
 		this.setDescripcion(desc);
 		this.setFechaAlta(fecha);
 		this.setHorario(hora);
 		this.setEstado(estado);
 		this.setImagen(imagen);
-		this.setNombre(n);
+		this.setNombre(nomb);
 		this.setRemuneracion(remuneracion);
 		this.setEmpresa(emp);
 	}
@@ -112,28 +112,28 @@ public class OfertaLaboral {
 	}
 
 		
-	public void setNombre(String n) {
-		this.nombre = n;
+	public void setNombre(String name) {
+		this.nombre = name;
 	}
-	public void setDescripcion(String d) {
-		this.descripcion= d;
-	}
-	
-	public void setCiudad(String c) {
-		this.ciudad = c;
+	public void setDescripcion(String desc) {
+		this.descripcion= desc;
 	}
 	
-	public void setDepartamento(String d) {
-		this.departamento=d;
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
 	}
-	public void setHorario(String h) {
-		this.horario = h;
+	
+	public void setDepartamento(String depa) {
+		this.departamento = depa;
 	}
-	public void setRemuneracion(String r) {
-		this.remuneracion = r;
+	public void setHorario(String horario) {
+		this.horario = horario;
 	}
-	public void setFechaAlta(LocalDateTime fa) {
-		this.fechaAlta = fa;
+	public void setRemuneracion(String rem) {
+		this.remuneracion = rem;
+	}
+	public void setFechaAlta(LocalDateTime fechaA) {
+		this.fechaAlta = fechaA;
 	}
 	public void setPublicacion(ArrayList<Publicacion> pub) {
 		this.publicaciones = pub;

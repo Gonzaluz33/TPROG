@@ -88,7 +88,6 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 	public List<DTPublicacion> obtenerPublicacionesPorBusqueda(String busqueda) {
         ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
         List<DTPublicacion> publicaciones = manejadorP.obtenerPublicaciones();
-        System.out.println(publicaciones);
         return publicaciones.stream()
                 .filter(dtPublicacion -> {
                     DTOferta oferta = dtPublicacion.getDtOferta();

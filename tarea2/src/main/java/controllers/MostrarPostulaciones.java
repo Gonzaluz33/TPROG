@@ -32,13 +32,12 @@ public class MostrarPostulaciones extends HttpServlet{
 		Fabrica factory = Fabrica.getInstance();
 		IControladorOfertas icontof = factory.getIControladorOfertas();
 		DTOferta oferta = icontof.obtenerDatosOferta(nombre);
-		System.out.print(nombre + oferta);
         request.setAttribute("oferta", oferta);
         switch(tipoUsuario) {
-		case ("postulante"):
+		case "postulante":
 			request.getRequestDispatcher("/WEB-INF/postulante/dashboardPostulante.jsp").forward(request, response);
 			break;
-		case ("empresa"):
+		case "empresa":
 			request.getRequestDispatcher("/WEB-INF/empresa/informacionPostulacion.jsp").forward(request, response);
 			break;
 		default:

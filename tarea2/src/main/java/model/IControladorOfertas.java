@@ -17,8 +17,8 @@ import utils.DTPostulacion;
 
 public interface IControladorOfertas {
 
-	public abstract void altaKeyword(String nombre) throws KeywordExisteException;
-	public abstract List<String> obtenerKeywords();
+	public void altaKeyword(String nombre) throws KeywordExisteException;
+	public List<String> obtenerKeywords();
 	public void altaOferta(String nombre, String desc, String remuner, String horario, List<String> keywords, String ciudad, String depa, String tipo, String empresa, String imagen) throws NombreExisteException, KeywordExisteException, NicknameNoExisteException;
 
 	/**

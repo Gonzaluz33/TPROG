@@ -81,8 +81,8 @@ public class Paquete {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public void setUrlImagen(String url_imagen) {
-        this.url_imagen = url_imagen;
+    public void setUrlImagen(String urlImagen) {
+        this.url_imagen = urlImagen;
     }
 
 
@@ -102,12 +102,12 @@ public class Paquete {
         this.costoAsociado = costoAsociado;
     }
     
-    public void setFechaAlta(LocalDate d) {
-    	this.fechaAlta = d;
+    public void setFechaAlta(LocalDate feachaA) {
+    	this.fechaAlta = feachaA;
     }
     
-    public void setListaDeTuplas(List<Tupla_Cantidad_TipoPublicacion> l) {
-    	this.listaDeTuplas = l;
+    public void setListaDeTuplas(List<Tupla_Cantidad_TipoPublicacion> listTuplas) {
+    	this.listaDeTuplas = listTuplas;
     	
     }
     

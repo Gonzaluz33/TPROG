@@ -62,8 +62,8 @@ public class Usuario {
     }
 
     // setters
-    public void setUrlImagen(String url_imagen) {
-        this.url_imagen = url_imagen;
+    public void setUrlImagen(String urlImagen) {
+        this.url_imagen = urlImagen;
     }
     
     public void setNickname(String nickname) {
@@ -82,8 +82,8 @@ public class Usuario {
         this.correo = correo;
     }
     
-    public void setContraseña(String contraseña) {
-    	this.contraseña = contraseña;
+    public void setContraseña(String cont) {
+    	this.contraseña = cont;
     }
     
     /**
