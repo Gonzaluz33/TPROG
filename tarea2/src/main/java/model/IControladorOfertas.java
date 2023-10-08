@@ -12,6 +12,7 @@ import excepciones.OfertaNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
 import excepciones.UsuarioNoEsPostulanteException;
 import utils.DTOferta;
+import utils.DTPostulacion;
 
 
 public interface IControladorOfertas {
@@ -44,4 +45,8 @@ public interface IControladorOfertas {
 	 */
 	public Set<DTOferta> obtenerOfertasVigentesDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException;
 
+	public List<DTPostulacion> obtenerPostulacionesPorPostulante(String nicknamePostulante)
+            throws NicknameNoExisteException, UsuarioNoEsPostulanteException ;
+	public DTPostulacion estaPostuladoAOfertaLaboral(String nicknameUsuario, String nombreOfertaLaboral)
+            throws OfertaNoExisteException, NicknameNoExisteException, UsuarioNoEsPostulanteException ;
 }

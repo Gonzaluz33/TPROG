@@ -2,6 +2,7 @@ package model;
 
 import utils.DTEmpresa;
 import utils.DTOferta;
+import utils.DTPostulacion;
 import utils.EnumEstadoOferta;
 import excepciones.NombreExisteException;
 import excepciones.OfertaNoExisteException;
@@ -80,5 +81,22 @@ public class ControladorOfertas implements IControladorOfertas {
 		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
 		return manejadorOL.obtenerOfertasVigentesDeEmpresa(nicknameEmpresa);
 	}
+	
+	public List<DTPostulacion> obtenerPostulacionesPorPostulante(String nicknamePostulante)
+            throws NicknameNoExisteException, UsuarioNoEsPostulanteException {
+		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+		return manejadorOL.obtenerPostulacionesPorPostulante(nicknamePostulante);
+		
+	}
+	
+	public DTPostulacion estaPostuladoAOfertaLaboral(String nicknameUsuario, String nombreOfertaLaboral)
+            throws OfertaNoExisteException, NicknameNoExisteException, UsuarioNoEsPostulanteException {
+		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+		return manejadorOL.estaPostuladoAOfertaLaboral(nicknameUsuario, nombreOfertaLaboral);
+	};
+	
+	
+	
+	
 
 }

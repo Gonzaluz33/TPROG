@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,8 +15,10 @@ import excepciones.CorreoRepetidoException;
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
 import excepciones.NombreExisteException;
+import excepciones.OfertaNoExisteException;
 import excepciones.PaqueteExisteException;
 import excepciones.TipoPublicExisteException;
+import excepciones.UsuarioNoEsPostulanteException;
 import excepciones.UsuarioRepetidoException;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
@@ -312,7 +315,9 @@ public class InicializadorAppListener implements ServletContextListener {
 	            String depa = ""; 
 	            String tipo = "";
 	            String empresa = ""; 
-	            String url_imagen = "";            
+	            String url_imagen = "";  
+	            Fabrica factory = Fabrica.getInstance();
+           	 	IControladorOfertas ICO = factory.getIControladorOfertas();
 	            if(ofertasLaboralesData.length > 0) {
 	            	
 	            	 nombre = ofertasLaboralesData[0];
@@ -328,14 +333,27 @@ public class InicializadorAppListener implements ServletContextListener {
 	            	 if(ofertasLaboralesData.length > 9) {
 		            	 keys = Arrays.asList(ofertasLaboralesData[9].split("/"));
 	            	 }
-	            	 Fabrica factory = Fabrica.getInstance();
-	            	 IControladorOfertas ICO = factory.getIControladorOfertas();
+	            	
 	            	 try {
 	            	 ICO.altaOferta(nombre, desc, rem, horario, keys, ciudad, depa, tipo, empresa, url_imagen);
 	            	 }catch(Exception e) {
 	            		 
 	            	 }
-	            }      
+	            } 
+	            try {
+					ICO.postularAOferta("Desarrollador Frontend","lgarcia","El caso de uso comienza cuando un visitante/usuario desea consultar el\r\n"
+							+ "perfil de un usuario. Para ello el sistema muestra la lista de todos los usuarios y el visitante/usuario elige uno. Luego, el sistema muestra todos los\r\n"
+							+ "datos básicos del usuario, incluyendo, si tiene, su imagen asociada. \r\n"
+							+ "Si se consulta una empresa, se muestra también la información básica de\r\n"
+							+ "las ofertas laborales que tiene (en estado “Confirmada”).\r\n"
+							+ "En caso de que una Empresa consulte su propio perfil, adicionalmente\r\n"
+							+ "verá sus ofertas laborales en los estados “Ingresada” y “Rechazada”;\r\n"
+							+ "también verá la información de sus compras de paquetes. En caso de\r\n"
+							+ "que un Postulante consulte su propio perfil, adicionalmente verá la información de sus postulaciones a las ofertas laborales.\r\n"
+							+ "Si el usuario selecciona una oferta laboral, o un paquete o u","asdasdasdads",LocalDateTime.now());
+				} catch (NicknameNoExisteException | UsuarioNoEsPostulanteException | OfertaNoExisteException e) {
+					e.printStackTrace();
+				}
 	        }
 	    } catch (IOException e) {
 	        e.printStackTrace();

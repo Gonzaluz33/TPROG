@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import="utils.DTOferta" %>
+     <%@ page import="utils.DTPostulacion" %>
 <%@ page import="com.google.gson.Gson"%>
 <%@ page import="java.lang.reflect.Type"%>
 <%@ page import="com.google.gson.reflect.TypeToken"%>
@@ -88,38 +89,39 @@
                             </div>
                         </div>
             </div>
-            <div class="d-flex mt-5 justify-content-center">
-                <div class="col-8">
-                    <h3 class="fw-bold">Mi Postulación:</h3>
-                        <div class="d-flex">
-                            <div>
-                                <h4>CV:</h4>
-                                <p>
-                                    Licenciada en Administración, experiencia
-                                    en gestión de equipos y
-                                    proyectos. Conocimientos
-                                    en Microsoft Office.
-                                </p>
-                                <h4>Motivación:</h4>
-                                <p>
-                                    Estoy emocionada por
-                                    la oportunidad de formar parte de un equipo
-                                    dinámico y contribuir
-                                    con mis habilidades de
-                                    liderazgo.
-                                </p>
-                                <h4>Fecha:</h4>
-                                <p>
-                                    16/08/23
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                </div>
-            </div>
-        </div>
+              <%  String postulacionJSON = (String) request.getAttribute("postulacion");
+			    DTPostulacion postulacion = gson.fromJson(postulacionJSON, DTPostulacion.class);
+			    if(postulacion != null){
+			%>
+			    <div class="container mt-5 mb-5">
+			        <div class="row justify-content-center">
+			            <div class="col-8">
+			                <div class="card">
+			                    <div class="card-header">
+			                        <h3 class="fw-bold">Mi Postulación:</h3>
+			                    </div>
+			                    <div class="card-body">
+			                        <h4>CV:</h4>
+			                        <p><%=postulacion.getCvReducido()%></p>
+			                        <h4>Motivación:</h4>
+			                        <p><%=postulacion.getMotivacion()%></p>
+			                        <h4>Fecha:</h4>
+			                        <p><%=postulacion.getFecha()%></p>  <!-- Considera formatear la fecha -->
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			<%
+			    } else {
+			%>
+			    <!-- Puedes mostrar un mensaje o contenido alternativo si no hay postulación -->
+			<%  
+			    }
+			%>
+         
+         
+         
          <%
 		            } else {
 		                %>

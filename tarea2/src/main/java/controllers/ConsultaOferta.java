@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Fabrica;
 import model.IControladorOfertas;
 import utils.DTOferta;
+import utils.DTPostulacion;
+import utils.DTPostulante;
 import utils.DTUsuario;
 import utils.LocalDateSerializer;
 import utils.LocalDateTimeAdapter;
@@ -19,7 +21,9 @@ import java.time.LocalDateTime;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import excepciones.NicknameNoExisteException;
 import excepciones.OfertaNoExisteException;
+import excepciones.UsuarioNoEsPostulanteException;
 
 /**
  * Servlet implementation class ConsultaOferta
@@ -42,17 +46,31 @@ public class ConsultaOferta extends HttpServlet {
 	    	if(!nombreOferta.isEmpty()) {
 	    	Fabrica factory = Fabrica.getInstance();
 	    	IControladorOfertas ICO = factory.getIControladorOfertas();
-	    	try {
-	    		UtilidadesJWT jwtUtil = UtilidadesJWT.obtenerInstancia();
-	    		DTUsuario user = jwtUtil.obtenerDatosDeUsuarioJWT(req, resp);
-	    		if(user != null) {
-	    			req.setAttribute("imgPerfil",(String) user.getUrlImagen());
-	    		}
+	    	try {		
 	    		Gson gsonAux = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
 	    				.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
 				DTOferta oferta = ICO.obtenerDatosOferta(nombreOferta);
 				String ofertaJSON = gsonAux.toJson(oferta);
 				req.setAttribute("oferta", ofertaJSON);
+				
+				UtilidadesJWT jwtUtil = UtilidadesJWT.obtenerInstancia();
+	    		DTUsuario user = jwtUtil.obtenerDatosDeUsuarioJWT(req, resp);
+	    		if(user != null) {
+	    			req.setAttribute("imgPerfil",(String) user.getUrlImagen());
+	    			if(user instanceof DTPostulante) {
+	    				DTPostulacion mostrarPostulacion = null;
+	    				try {
+	    					mostrarPostulacion = ICO.estaPostuladoAOfertaLaboral(user.getNickname(), oferta.getNombre());
+						} catch (NicknameNoExisteException | UsuarioNoEsPostulanteException e) {
+							
+						}
+	    				if(mostrarPostulacion != null) {
+	    					String mostrarPostulacionJSON = gsonAux.toJson(mostrarPostulacion);
+	    					req.setAttribute("postulacion", mostrarPostulacionJSON);
+	    				}
+	    				
+	    			}
+	    		}
 			} catch (OfertaNoExisteException e) {
 				
 				e.printStackTrace();

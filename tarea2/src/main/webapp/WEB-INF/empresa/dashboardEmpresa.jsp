@@ -22,6 +22,7 @@
      		    .create(); 
         %>
         <%   String imgPerfilJSON = (String) request.getAttribute("imgPerfil");
+        	System.out.println(imgPerfilJSON);
 		 %>
 </head>
 <body>
