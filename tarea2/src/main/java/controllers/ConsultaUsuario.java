@@ -61,7 +61,10 @@ public class ConsultaUsuario extends HttpServlet {
 			List<DTUsuario> usuariosFiltrados = buscarUsuariosPorNickname(nickname,usuarios);
 			req.setAttribute("usuariosFiltrados", usuariosFiltrados);
 		}
-		
+		DTUsuario user = utilidadesJWT.obtenerDatosDeUsuarioJWT(req, resp);
+		if(user != null) {
+			req.setAttribute("imgPerfil", user.getUrlImagen());
+		}
 
 		req.setAttribute("usuarios", usuarios);
     	switch(tipoUsuario) {

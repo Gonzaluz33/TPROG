@@ -106,7 +106,7 @@
 			                        <h4>Motivación:</h4>
 			                        <p><%=postulacion.getMotivacion()%></p>
 			                        <h4>Fecha:</h4>
-			                        <p><%=postulacion.getFecha()%></p>  <!-- Considera formatear la fecha -->
+			                        <p><%=postulacion.getFecha()%></p> 
 			                    </div>
 			                </div>
 			            </div>
@@ -115,7 +115,7 @@
 			<%
 			    } else {
 			%>
-			    <!-- Puedes mostrar un mensaje o contenido alternativo si no hay postulación -->
+			    
 			<%  
 			    }
 			%>
@@ -131,6 +131,9 @@
 		                <%  
 		                    }
 		                %>
+		<div class="my-4 container d-flex justify-content-center">
+    <a href="visitante" class="btn btn-dark">Volver atrás</a>
+</div>          
     </main>
 </body>
 

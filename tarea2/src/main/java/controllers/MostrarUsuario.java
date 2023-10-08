@@ -38,7 +38,11 @@ public class MostrarUsuario extends HttpServlet {
 		}
 		
     	DTUsuario autenticado = utilidadesJWT.obtenerDatosDeUsuarioJWT(request, response);
+    	if(autenticado != null) {
+    		request.setAttribute("imgPerfil", autenticado.getUrlImagen());
+    	}
     	request.setAttribute("autenticado", autenticado.getNickname());
+    	
         request.setAttribute("usuarioSeleccionado", usuario);
 
         switch(tipoUsuario) {

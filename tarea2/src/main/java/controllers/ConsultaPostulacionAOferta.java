@@ -40,6 +40,7 @@ public class ConsultaPostulacionAOferta extends HttpServlet {
 		case "postulante":
 			DTPostulante usuario = (DTPostulante) utilidadesJWT.obtenerDatosDeUsuarioJWT(req, resp);
 			req.setAttribute("usuario", usuario);
+			req.setAttribute("imgPerfil", usuario.getUrlImagen());
 			req.getRequestDispatcher("/WEB-INF/postulante/consultaPostulacionAOferta.jsp").forward(req, resp);
 			break;
 		case "empresa":

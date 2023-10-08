@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Fabrica;
 import model.IControladorPublicaciones;
 import utils.DTTipoPublicacion;
+import utils.DTUsuario;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,7 +37,8 @@ public class ConsultaTipos extends HttpServlet {
 		List<DTTipoPublicacion> tiposPublicacion = new ArrayList<>();
 		tiposPublicacion = icontpub.obtenerTipos();    	
 		req.setAttribute("tiposPublicacion", tiposPublicacion);
-		
+		DTUsuario user = utilidadesJWT.obtenerDatosDeUsuarioJWT(req, resp);
+		req.setAttribute("imgPerfil", user.getUrlImagen());
 		switch (tipoUsuario) {
 		case "postulante":
 			req.getRequestDispatcher("/WEB-INF/postulante/consultaTipoPublicacion.jsp").forward(req, resp);
