@@ -14,8 +14,17 @@ import utils.DTPostulante;
 
 @WebServlet("/mostrarUsuario")
 public class MostrarUsuario extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, java.io.IOException {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, java.io.IOException {
         String usuarioSeleccionado = request.getParameter("nickname");
+        if(usuarioSeleccionado == null) {
+        	response.sendRedirect("visitante");
+        	return;
+        }
         UtilidadesJWT utilidadesJWT = UtilidadesJWT.obtenerInstancia();
     	String tipoUsuario = utilidadesJWT.obtenerTipoUsuarioPorRequest(request, response);
 		Fabrica factory = Fabrica.getInstance();

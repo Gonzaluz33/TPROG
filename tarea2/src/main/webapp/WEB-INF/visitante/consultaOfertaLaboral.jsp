@@ -25,21 +25,23 @@
     </head>
     <body>
         <header>
-            <nav class="navbar bg-body-tertiary border-bottom border-black">
-                <div class="container d-flex py-1 ">
-                    <jsp:include page="/WEB-INF/template/Logo.jsp" />
-                    
-                </div>     
-            </nav>
+              <nav class="navbar p-3">
+		            <div class=" d-flex justify-content-between align-items-center w-100" style="height: 8vh;">
+		                <div class="d-flex" style="width: 80vw;">
+		                    <jsp:include page="/WEB-INF/template/Logo.jsp" />
+		                    <h3 class="m-0 d-flex align-items-center">Consulta Oferta Laboral</h3>
+		                </div>
+		            </div>
+		        </nav>
         </header>
        <main>
 		    <jsp:include page="/WEB-INF/template/NavBarVisitante.jsp" />
-		    <div class="container mt-5">
+		    <div class="container mt-3">
 		        <%  String ofertaJSON = (String) request.getAttribute("oferta");
 		            DTOferta oferta = gson.fromJson(ofertaJSON, DTOferta.class);
 		            if(oferta != null){
 		        %>
-		            <div class="card mb-5 p-3">
+		            <div class="card mb-3 p-3">
 		                <div class="card-header">
 		                    <h3 class="fw-bold m-3"><%= oferta.getNombre() %></h3>
 		                    <div class="col-md-6">
@@ -60,9 +62,12 @@
 		                            <span class="badge bg-info"><%= keyword %></span>
 		                        <% } %>
 		                    </p>
-		                    <button type="button" class="btn btn-secondary float-end" onclick="window.history.back();">Atrás</button>
+		                    
 		                </div>
 		            </div>
+		            <div class="mt-2 mb-4">
+					            <a href="visitante" class="btn btn-secondary">Volver atrás</a>
+					</div>
 		             
 		        <%
 		            } else {

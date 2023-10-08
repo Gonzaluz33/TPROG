@@ -37,6 +37,16 @@ public class ConsultaUsuario extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    private List<DTUsuario> buscarUsuariosPorNickname(String nickname, List<DTUsuario> usuarios) {
+        List<DTUsuario> usuariosEncontrados = new ArrayList<>();
+        for (DTUsuario usuario : usuarios) {
+            if (usuario.getNickname().toLowerCase().contains(nickname.toLowerCase())) {
+                usuariosEncontrados.add(usuario);
+            }
+        }
+        return usuariosEncontrados;
+    }
        
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	UtilidadesJWT utilidadesJWT = UtilidadesJWT.obtenerInstancia();
@@ -44,7 +54,14 @@ public class ConsultaUsuario extends HttpServlet {
 		Fabrica factory = Fabrica.getInstance();
 	    IControladorUsuario icontuser = factory.getIControladorUsuario();
 		List<DTUsuario> usuarios = new ArrayList<>();
-		usuarios = icontuser.listarUsuarios();    	
+		usuarios = icontuser.listarUsuarios();
+		
+		String nickname = req.getParameter("nickname");
+		if(nickname != null) {
+			List<DTUsuario> usuariosFiltrados = buscarUsuariosPorNickname(nickname,usuarios);
+			req.setAttribute("usuariosFiltrados", usuariosFiltrados);
+		}
+		
 
 		req.setAttribute("usuarios", usuarios);
     	switch(tipoUsuario) {

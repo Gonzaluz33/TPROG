@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar p-0 border-bottom border-black mb-1">
+        <nav class="navbar ">
             <div class=" d-flex justify-content-between align-items-center w-100" style="height: 8vh;">
                 <div class="d-flex" style="width: 80vw;">
                     <div>
@@ -23,6 +23,7 @@
         </nav>
     </header>
     <main>
+     <jsp:include page="/WEB-INF/template/NavBarVisitante.jsp" />
         <div class="d-flex col-10 gap-5 p-5">
             <div class="d-flex gap-5">
             	<%

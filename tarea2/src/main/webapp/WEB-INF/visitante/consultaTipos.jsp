@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar p-0 border-bottom border-black mb-1">
+        <nav class="navbar p-3">
             <div class=" d-flex justify-content-between align-items-center w-100" style="height: 8vh;">
                 <div class="d-flex" style="width: 80vw;">
                     <jsp:include page="/WEB-INF/template/Logo.jsp" />
@@ -20,17 +20,21 @@
     </header>
     <main>
         <jsp:include page="/WEB-INF/template/NavBarVisitante.jsp" />
-        <div class="d-flex flex-column justify-content-center p-4">
-            <h2>Seleccione un Tipo de Publicación:</h2>
-            <div class="d-flex mt-4 gap-3 flex-column">
-                <ul>
-				        <% List<DTTipoPublicacion> tiposPublicacion = (List<DTTipoPublicacion>) request.getAttribute("tiposPublicacion");
-				           for (DTTipoPublicacion tipo : tiposPublicacion) { %>
-				            <li><a href="mostrarTipo?nombre=<%= tipo.getNombre()%>"><%= tipo.getNombre()%></a></li>
-				        <% } %>
-				    </ul>
-            </div>
-        </div>
+        <div class="container my-5">
+	    <h2 class="mb-4">Seleccione un Tipo de Publicación:</h2>
+	    <ul class="list-group">
+	        <% List<DTTipoPublicacion> tiposPublicacion = (List<DTTipoPublicacion>) request.getAttribute("tiposPublicacion");
+	           for (DTTipoPublicacion tipo : tiposPublicacion) { %>
+	        <li class="list-group-item">
+	            <a class="text-decoration-none text-black fw-bold" href="mostrarTipo?nombre=<%= tipo.getNombre()%>"><%= tipo.getNombre()%></a>
+	        </li>
+	        <% } %>
+	    </ul>
+	     <div class="mt-4">
+	            <a href="visitante" class="btn btn-secondary">Volver atrás</a>
+	        </div>
+		</div>
+
 
     </main>
 </body>
