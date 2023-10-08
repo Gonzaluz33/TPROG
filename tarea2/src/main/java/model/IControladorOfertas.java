@@ -19,7 +19,7 @@ public interface IControladorOfertas {
 	public abstract void altaKeyword(String nombre) throws KeywordExisteException;
 	public abstract List<String> obtenerKeywords();
 	public void altaOferta(String nombre, String desc, String remuner, String horario, List<String> keywords, String ciudad, String depa, String tipo, String empresa) throws NombreExisteException, KeywordExisteException, NicknameNoExisteException;
-
+	public void altaOfertaWeb(String nombre, String descripcion, String renumeracion, String horario, String ciudad, String departanemto, String tipoPublicacion, String formaPago, String paqueteSeleccionado, String[] Keywords,String urlImagen, String empresaActual ) throws NicknameNoExisteException, NombreExisteException, KeywordExisteException;
 	/**
 	 * Devuelve un DTOferta con la informacion de la oferta con el nombre brindado incluyendo sus postulaciones.
 	 * Si no existe una oferta con ese nombre en el sistema tira una OfertaNoExisteException.

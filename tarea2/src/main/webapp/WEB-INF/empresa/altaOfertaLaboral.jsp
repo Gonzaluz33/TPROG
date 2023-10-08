@@ -4,6 +4,7 @@
 <html lang="en">
     <head>
         <jsp:include page="/WEB-INF/template/head.jsp"/>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
 
     <body>
@@ -19,6 +20,11 @@
             </nav>
         </header>
         <main>
+        <% if (request.getAttribute("error") != null) { %>
+		    <div id="errorDiv" class="alert alert-danger">
+		        ${requestScope.error}
+		    </div>
+		<% } %>
            <jsp:include page="/WEB-INF/template/NavBarEmpresa.jsp"/>
             <div class="d-flex flex-column justify-content-start p-3">
                 <div class="col-12">
@@ -40,7 +46,7 @@
                                 </div>
                                 <div class="col-5">
                                     <label for="exampleInputPassword1" class="form-label">Remuneración:</label>
-                                    <input type="number" class="form-control" placeholder="Ingrese Remuneración" name = "renumeracion">
+                                    <input type="number" class="form-control" placeholder="Ingrese Remuneración" name = "remuneracion">
                                 </div>
                             </div>
                             <div class="mb-3 d-flex gap-5 justify-content-between">
@@ -88,22 +94,22 @@
                         <div class="col-6">
                             <div class="mb-3">
                                 <label for="floatingTextarea2">Descripción:</label>
-                                <textarea class="form-control" placeholder="Ingrese una descripción" name= "descrpicion"
+                                <textarea class="form-control" placeholder="Ingrese una descripción" name= "descripcion"
                                     style="height: 120px;"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="floatingTextarea2">Seleccione Keywords:</label>
                                 <select class="custom-select form-control" multiple name = "keywords">
-                                    <option value="opcion1">Tiempo completo</option>
-                                    <option value="opcion2">Medio tiempo</option>
-                                    <option value="opcion3">Remoto</option>
-                                    <option value="opcion1">Freelance</option>
-                                    <option value="opcion2">Temporal</option>
-                                    <option value="opcion3">Permanente</option>
-                                    <option value="opcion4">Computación</option>
-                                    <option value="opcion4">Administración</option>
-                                    <option value="opcion4">Logística</option>
-                                    <option value="opcion4">Contabilidad</option>
+                                    <option value="Tiempo completo">Tiempo completo</option>
+                                    <option value="Medio tiempo">Medio tiempo</option>
+                                    <option value="Remoto">Remoto</option>
+                                    <option value="Freelance">Freelance</option>
+                                    <option value="Temporal">Temporal</option>
+                                    <option value="Permanente">Permanente</option>
+                                    <option value="Computacion">Computación</option>
+                                    <option value="Administracion">Administración</option>
+                                    <option value="Logistica">Logística</option>
+                                    <option value="Contabilidad">Contabilidad</option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -119,30 +125,46 @@
                                     </div>
                                     <div>
                                         <label class="form-check-label" for="inlineRadio2">Seleccione Paquete:</label>
-                                        <select class="form-select" id="floatingSelect" name="paqueteSeleccionado">
+                                        <select class="form-select" id="paqueteSelect" name="paqueteSeleccionado">
                                             <option value="3">Básico</option>
                                         </select>
                                     </div>
                                </div>
                                
                             </div>
-                        </div>
-                    </form>
                     <div class="d-flex justify-content-end mt-2">
                         <button type="submit" class="btn btn-dark">Confirmar</button>
                     </div>
+                        </div>
+              
+                    </form>
 
                 </div>
             </div>
         </main>
+        <script>
+        $(document).ready(function() {
+            
+            $("input[name='formaPago']").change(function() {
+                if ($("input[name='formaPago']:checked").val() == "Paquete") {
+                    $("#paqueteSelect").prop("disabled", false);
+                } else {
+                    $("#paqueteSelect").prop("disabled", true);
+                }
+            });
+            $("#paqueteSelect").prop("disabled", true);
+        });
+</script>
     </body>
     <script>
-        $('#multiple-select-field').select2({
-                theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-                placeholder: $(this).data('placeholder'),
-                closeOnSelect: false,
-            });
+    /*
+    $('#multiple-select-field').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            closeOnSelect: false,
+        });
+    */
     </script>
 
 </html>

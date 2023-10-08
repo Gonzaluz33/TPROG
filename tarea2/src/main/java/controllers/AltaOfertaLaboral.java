@@ -2,17 +2,29 @@ package controllers;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Fabrica;
 import model.IControladorOfertas;
+import model.IControladorUsuario;
+import model.TokenBlacklist;
+import utils.DTUsuario;
 
 import java.io.IOException;
+import java.security.Key;
 
 import excepciones.CorreoRepetidoException;
+import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
+import excepciones.NombreExisteException;
 import excepciones.UsuarioRepetidoException;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 
 /**
  * Servlet implementation class AltaOfertaLaboral
@@ -20,6 +32,7 @@ import excepciones.UsuarioRepetidoException;
 @WebServlet("/altaOfertaLaboral")
 public class AltaOfertaLaboral extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String secret_Key = "6a2b5c8e1f4a7d0987654321abcdef09"; // Clave secreta para verificar JWT
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -37,10 +50,13 @@ public class AltaOfertaLaboral extends HttpServlet {
 	 * @param response servlet response
 	 * @throws ServletException if a servlet-specific error occurs
 	 * @throws IOException      if an I/O error occurs
+     * @throws KeywordExisteException 
+     * @throws NombreExisteException 
+     * @throws NicknameNoExisteException 
 	 * 
 	 */
     
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, UsuarioRepetidoException {
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, UsuarioRepetidoException, NicknameNoExisteException, NombreExisteException, KeywordExisteException {
         UtilidadesJWT utilidadesJWT = UtilidadesJWT.obtenerInstancia();
         String tipoUsuario = utilidadesJWT.obtenerTipoUsuarioPorRequest(request, response);
         
@@ -57,23 +73,44 @@ public class AltaOfertaLaboral extends HttpServlet {
                 	String descripcion = request.getParameter("descripcion");
                 	String[] keywords = request.getParameterValues("keywords"); 
                 	String formaPago = request.getParameter("formaPago");
+                	int remuneracionInt = 0; // Default value
+                	boolean remuneracionValida = false;
+
+                	if (!remuneracion.isEmpty()) {
+                	    try {
+                	        remuneracionInt = Integer.parseInt(remuneracion);
+                	        if (remuneracionInt >= 0) {
+                	            remuneracionValida = true;
+                	        }
+                	    } catch (NumberFormatException e) {
+                	        // La conversión falló; remuneracionValida permanece como false.
+                	    }
+                	}
                 	String paqueteSeleccionado = request.getParameter("paqueteSeleccionado");	
-                	 if (tipoPublicacion.isEmpty() || nombre.isEmpty() || remuneracion.isEmpty() || horario.isEmpty() || 
+                	 if (tipoPublicacion.isEmpty() || nombre.isEmpty() ||  !remuneracionValida || horario.isEmpty() || 
      	            	    departamento.isEmpty() || ciudad.isEmpty() || descripcion.isEmpty() || 
-     	            	    (keywords==null || keywords.length == 0) || formaPago.isEmpty() || paqueteSeleccionado.isEmpty()) {           		 
+     	            	    (keywords==null || keywords.length == 0) || formaPago.isEmpty() || (paqueteSeleccionado == null || paqueteSeleccionado.isEmpty())) {           		 
      	            	    request.setAttribute("error", "Todos los campos son obligatorios.");
-     	            	    request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
+     	            	    request.getRequestDispatcher("/WEB-INF/empresa/altaOfertaLaboral.jsp").forward(request, response);
      	            	    
      	            	} else {
+     	            		try {
      	            		Fabrica factory = Fabrica.getInstance();
      	            		IControladorOfertas iconofer = factory.getIControladorOfertas();
-     	            		iconofer.altaOferta(nombre, descripcion, remuneracion, horario, ciudad, departamento, tipoPublicacion, formaPago, paqueteSeleccionado, keywords);
-     	            		
-     	            		
+     	            		DTUsuario usuarioActual = utilidadesJWT.obtenerDatosDeUsuarioJWT(request, response);
+     	            		String usuarioNickname = usuarioActual.getNickname();
+     	            		iconofer.altaOfertaWeb(nombre, descripcion, remuneracion, horario, ciudad, departamento, tipoPublicacion, formaPago, paqueteSeleccionado, keywords, urlImagen, usuarioNickname);		     	            		
      	            		request.setAttribute("message", "Oferta laboral registrada con éxito");
-     	                    // req.getRequestDispatcher("/WEB-INF/empresa/confirmacionOferta.jsp").forward(req, resp);
-     	            	}		
-                    
+     	                    request.getRequestDispatcher("/WEB-INF/empresa/dashboardEmpresa.jsp").forward(request, response);
+     	            		}
+     	                   catch (Exception e) {
+     	                	    // Aquí puedes registrar el error y mostrar un mensaje de error al usuario.
+     	                	    e.printStackTrace();
+     	                	    request.setAttribute("error", "Hubo un problema al registrar la oferta laboral. Por favor, inténtalo de nuevo.");
+     	                	    request.getRequestDispatcher("/WEB-INF/empresa/altaOfertaLaboral.jsp").forward(request, response);
+     	                	}
+     	            	}
+     	            		
                 } else {
                     // Es un GET, solo mostrar el formulario
                     request.getRequestDispatcher("/WEB-INF/empresa/altaOfertaLaboral.jsp").forward(request, response);
@@ -98,13 +135,22 @@ public class AltaOfertaLaboral extends HttpServlet {
 			processRequest(request, response);
 		} catch (ServletException | IOException  e) {
 			request.setAttribute("error", "Ocurrio un error.");
-            request.getRequestDispatcher("/WEB-INF/registro/altaOfertaLaboral.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/empresa/altaOfertaLaboral.jsp").forward(request, response);
 			e.printStackTrace();
 		}
 		catch (UsuarioRepetidoException e) {
 			request.setAttribute("error", "El nickname ya existe.");
-            request.getRequestDispatcher("/WEB-INF/registro/altaOfertaLaboral.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/empresa/altaOfertaLaboral.jsp").forward(request, response);
             e.printStackTrace();
+		} catch (NicknameNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NombreExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (KeywordExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -116,14 +162,23 @@ public class AltaOfertaLaboral extends HttpServlet {
 			processRequest(request, response);
 		} catch (ServletException | IOException  e) {
 			request.setAttribute("error", "Ocurrio un error.");
-            request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/empresa/registro.jsp").forward(request, response);
 			e.printStackTrace();
 		}
 		catch (UsuarioRepetidoException e) {
 			request.setAttribute("error", "El nickname ya existe.");
-            request.getRequestDispatcher("/WEB-INF/registro/registro.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/empresa/registro.jsp").forward(request, response);
             e.printStackTrace();
+		} catch (NicknameNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NombreExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (KeywordExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
-
+	
 }
