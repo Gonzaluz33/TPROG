@@ -21,20 +21,14 @@
      		    .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
      		    .create(); 
         %>
+        
     </head>
     <body>
         <header>
             <nav class="navbar bg-body-tertiary border-bottom border-black">
                 <div class="container d-flex py-1 ">
                     <jsp:include page="/WEB-INF/template/Logo.jsp" />
-                    <div style="width: 80%;">
-                        <form class="d-flex " role="search">
-                            <input class="form-control square-corners  me-2 " type="search"
-                                placeholder="Búsqueda de ofertas laborales" aria-label="Search">
-                            <button class="btn btn-outline-light bg-dark square-corners" type="submit"><i
-                                    class="fas fa-search"></i>Buscar</button>
-                        </form>
-                    </div>
+                    
                 </div>     
             </nav>
         </header>
@@ -49,7 +43,7 @@
 		                <div class="card-header">
 		                    <h3 class="fw-bold m-3"><%= oferta.getNombre() %></h3>
 		                    <div class="col-md-6">
-			                    <img src="https://tinyurl.com/45nsf34m" class="img-fluid w-50 m-2" alt="Imagen de la oferta laboral">
+			                    <img src="<%= oferta.getImagen() %>" class="img-fluid w-50 m-2" alt="Imagen de la oferta laboral">
 			                </div>
 		                </div>
 		                <div class="card-body">
@@ -66,6 +60,7 @@
 		                            <span class="badge bg-info"><%= keyword %></span>
 		                        <% } %>
 		                    </p>
+		                    <button type="button" class="btn btn-secondary float-end" onclick="window.history.back();">Atrás</button>
 		                </div>
 		            </div>
 		             
