@@ -5,7 +5,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Fabrica;
+import model.IControladorOfertas;
+import utils.DTOferta;
+import utils.DTUsuario;
+
 import java.io.IOException;
+import java.util.Set;
+
+import excepciones.NicknameNoExisteException;
+import excepciones.UsuarioNoEsEmpresaException;
 
 /**
  * Servlet implementation class InformacionPostulacion
@@ -22,9 +31,10 @@ public class InformacionPostulacion extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NicknameNoExisteException, UsuarioNoEsEmpresaException {
 		UtilidadesJWT utilidadesJWT = UtilidadesJWT.obtenerInstancia();
 		String tipoUsuario = utilidadesJWT.obtenerTipoUsuarioPorRequest(req, resp);
+		
 		switch (tipoUsuario) {
 		case ("postulante"):
 			req.getRequestDispatcher("/WEB-INF/postulante/dashboardPostulante.jsp").forward(req, resp);
@@ -45,7 +55,21 @@ public class InformacionPostulacion extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		processRequest(request, response);
+		try {
+			processRequest(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NicknameNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UsuarioNoEsEmpresaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

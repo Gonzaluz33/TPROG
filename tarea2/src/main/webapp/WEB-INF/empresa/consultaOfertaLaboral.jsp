@@ -1,3 +1,16 @@
+<%@page import="utils.DTOferta"%>
+<%@ page import="com.google.gson.Gson"%>
+<%@ page import="java.lang.reflect.Type"%>
+<%@ page import="com.google.gson.reflect.TypeToken"%>
+<%@ page import="com.google.gson.GsonBuilder"%>
+<%@ page import="java.time.LocalDateTime"%>
+<%@ page import="com.google.gson.reflect.TypeToken"%>
+<%@ page import="java.time.LocalDate"%>
+<%@ page import=" utils.LocalDateSerializer"%>
+<%@ page import="utils.LocalDateTimeAdapter"%>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="utils.LocalDateTimeAdapter"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
         <%@ page import="utils.DTOferta" %>

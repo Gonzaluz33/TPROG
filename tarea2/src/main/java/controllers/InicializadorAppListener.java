@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -27,6 +28,7 @@ import model.Fabrica;
 import model.IControladorOfertas;
 import model.IControladorPublicaciones;
 import model.IControladorUsuario;
+import model.Postulacion;
 
 /**
  * Application Lifecycle Listener implementation class InicializadorAppListener
@@ -60,7 +62,9 @@ public class InicializadorAppListener implements ServletContextListener {
 	    	 String csvFilePathTiposPublicacion = sce.getServletContext().getRealPath("/WEB-INF/DatosCSV/TiposPublicacion.csv");
 	    	 String csvFilePathPaquetes = sce.getServletContext().getRealPath("/WEB-INF/DatosCSV/Paquetes.csv");
 	    	 String csvFilePathTiposPublicacionPaquetes = sce.getServletContext().getRealPath("/WEB-INF/DatosCSV/TiposPublicacionPaquetes.csv");
-	    	 String csvFilePathOfertasLaboralesPrueba = sce.getServletContext().getRealPath("/WEB-INF/DatosCSV/OfertasLaboralesPrueba.csv");
+	    	 String csvFilePathOfertasLaboralesPrueba = sce.getServletContext().getRealPath("/WEB-INF/DatosCSV/OfertasLaboralesPrueba.csv");	    	 
+	    	 String csvFilePathPostulaciones = sce.getServletContext().getRealPath("/WEB-INF/DatosCSV/Postulaciones.csv");
+
 	    	 try {
 	     		cargarDatosPostulantes(csvFilePathPostulantes);
 	     		cargarDatosKeywords(csvFilePathKeywords);
@@ -69,8 +73,9 @@ public class InicializadorAppListener implements ServletContextListener {
 	     		cargarDatosPaquetes(csvFilePathPaquetes);
 	     		cargarDatosTiposPublicacionPaquetes(csvFilePathTiposPublicacionPaquetes);
 	     		cargarDatosOfertasLaboralesPrueba(csvFilePathOfertasLaboralesPrueba);
+	     		cargarPostulaciones(csvFilePathPostulaciones);
 				context.setAttribute("datosCargados", "true");
-			} catch (UsuarioRepetidoException | CorreoRepetidoException | KeywordExisteException | TipoPublicExisteException | PaqueteExisteException | NombreExisteException | NicknameNoExisteException e) {
+			} catch (UsuarioRepetidoException | CorreoRepetidoException | KeywordExisteException | TipoPublicExisteException | PaqueteExisteException | NombreExisteException | NicknameNoExisteException | IOException e) {
 				e.printStackTrace();
 			}
 	    	
@@ -361,6 +366,40 @@ public class InicializadorAppListener implements ServletContextListener {
 	   
 	}
    
-   
+   private void cargarPostulaciones(String csvFile) throws FileNotFoundException, IOException {
+	   System.out.println(csvFile);
+	   String line = "";
+	   String cvsSplitBy = ";";
+	   int iter = 1;
+	   try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+		   while ((line = br.readLine()) != null) {
+			   //String nombreOfertaLaboral, String nicknamePostulante, String CVReducido, String motivacion,  LocalDateTime fechaPublic 
+			   String[] postulacionesData = line.split(cvsSplitBy);
+	           String nombre = "";    
+	           String motivacion = "";
+	           String nickname = ""; 
+	           String cv = "";
+	           LocalDate fecha = null;
+	           iter++;
+	           if(postulacionesData.length > 0) {
+	        	   nickname = postulacionesData[0];
+	        	   nombre = postulacionesData[4];
+	        	   cv = postulacionesData[1];
+	        	   motivacion = postulacionesData[2];
+	        	   fecha= parseFecha(postulacionesData[3].trim());
+	        	   Fabrica factory = Fabrica.getInstance();
+	               IControladorOfertas ICO = factory.getIControladorOfertas();
+	               try {
+	            	   ICO.postularAOferta(nombre, nickname, cv, motivacion, null);
+            	   }catch(Exception e) {
+	            		 
+	            	 }
+	           }
+
+		   }
+	   }catch (IOException e) {
+	        e.printStackTrace();
+	    }
+   }
 	
 }
