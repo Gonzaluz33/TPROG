@@ -25,15 +25,14 @@
 			            <div class="col-md-6">
 			                <div class="card">
 			                    <div class="card-header">
-			                        <h1 class="card-title">Seleccione una Empresa:</h1>
+			                        <h3 class="card-title">Seleccione una Empresa:</h3>
 			                    </div>
 			                    <div class="card-body">
 			                        <ul class="list-group list-group-flush">
 			                            <% List<DTEmpresa> empresas = (List<DTEmpresa>) request.getAttribute("empresas");
 			                               for (DTEmpresa empresa : empresas) { %>
 			                            <li class="list-group-item">
-			                                <a class="text-decoration-none text-black fw-bold" href="mostrarOfertasAPostular?Empresa=<%= empresa.getNickname()%>"><%= empresa.getNombreEmpresa()%></a>        
-			                                     <span class="badge rounded-pill text-bg-success">Empresa</span>                        
+			                                <a class="text-decoration-none text-black fw-bold" href="mostrarOfertasAPostular?Empresa=<%= empresa.getNickname()%>"><%= empresa.getNombreEmpresa()%></a>                         
 			                            </li>
 			                            <% } %>
 			                        </ul>

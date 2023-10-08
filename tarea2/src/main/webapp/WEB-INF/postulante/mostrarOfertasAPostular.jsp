@@ -39,7 +39,7 @@
 			            <div class="col-md-6">
 			                <div class="card">
 			                    <div class="card-header">
-			                        <h1 class="card-title">Seleccione una Oferta:</h1>
+			                        <h3 class="card-title">Seleccione una Oferta:</h3>
 			                    </div>
 			                    <div class="card-body">
 			                        <ul class="list-group list-group-flush">
@@ -49,7 +49,7 @@
 			                            	Set<DTOferta> ofertas = gson.fromJson(ofertasJSON, listType);
 			                               for (DTOferta oferta : ofertas) { %>
 			                            <li class="list-group-item">
-			                                <a class="text-decoration-none text-black fw-bold" href="#"><%= oferta.getNombre()%></a>                             
+			                                <a class="text-decoration-none text-black fw-bold" href="confirmarPostulacion?NombreOferta=<%= oferta.getNombre()%>"><%= oferta.getNombre()%></a>                             
 			                            </li>
 			                            <% } %>
 			                        </ul>
