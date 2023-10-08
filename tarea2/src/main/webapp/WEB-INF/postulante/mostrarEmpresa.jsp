@@ -43,21 +43,6 @@
                     <p class="m-0"><span class="fw-bold">Apellido: </span><%= usuario.getApellido() %></p>
                     <p class="m-0"><span class="fw-bold">Email: </span><%= usuario.getCorreo() %></p>
                 </div>
-               
-                <div>
-                    <h2>Mis Ofertas Laborales Activas::</h2>
-                    <%
-                    	Set<DTOferta> ofertas = (Set<DTOferta>) usuario.getOfertas();
-                    	for (DTOferta oferta: ofertas) {                    	
-                    %>
-                    <p class="m-0"><span class="fw-bold">Nombre de Oferta Laboral: </span><a href="consultaOfertaLaboral.html"><%=oferta.getNombre() %></a></p>
-   					<% } %>
-                
-                </div>
-                
-                <div>
-                	<h2>Mis Paquetes</h2>
-                </div>
                 
             </div>
 

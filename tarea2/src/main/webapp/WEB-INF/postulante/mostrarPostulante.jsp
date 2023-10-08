@@ -28,12 +28,12 @@
     </header>
     <main>
        	<jsp:include page="/WEB-INF/template/NavBarPostulante.jsp" />
-        <div class="d-flex col-10 gap-5 p-5">
+        <div class="d-flex col-12 gap-5 p-5">
         	<%
            		DTPostulante usuario = (DTPostulante) request.getAttribute("usuarioSeleccionado");
             %>
-            <div class="d-flex justify-content-center">
- 				<img class="w-75" src="<%=usuario.getUrlImagen() %>">
+            <div class="d-flex w-10 justify-content-center">
+ 				<img class=" h-75 mw-10" src="<%=usuario.getUrlImagen() %>">
             </div>
             <div class="d-flex gap-5">
             	
@@ -44,31 +44,30 @@
                     <p class="m-0"><span class="fw-bold">Apellido: </span><%= usuario.getApellido() %></p>
                     <p class="m-0"><span class="fw-bold">Email: </span><%= usuario.getCorreo() %></p>
                 </div>
-               
-                <div>
+               	<%
+               		String autenticado = (String) request.getAttribute("autenticado");
+               		if (autenticado!=null && autenticado == usuario.getNickname()){ 
+               	%>
+                <div class="w-50 justify-content-left">
                     <h2>Mis postulaciones:</h2>
                     <% 
                     	List<DTPostulacion> posts = (List<DTPostulacion>) usuario.getPostulaciones();
                     	for (DTPostulacion post: posts) {                    	
                     %>
-                    <p class="m-0"><span class="fw-bold">Nombre de Oferta Laboral: </span>Desarrollador Frontend</p>
-                    
-					<div class="accordion-item">
-					    <h2 class="accordion-header">
-					      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-							<%=post.getNombreOfertaLaboral()%>
-					      </button>
-					    </h2>
-					    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-					      <div class="accordion-body">
-					      	<p class="m-0"><span class="fw-bold">Motivacion: </span><%=post.getMotivacion() %></p>
-                    		<p class="m-0"><span class="fw-bold">Cv reducido: </span><%=post.getCvReducido() %></p>
-                   			<p class="m-0"><span class="fw-bold">Nombre de Oferta Laboral: </span><%=post.getFecha() %></p>					     
-					      </div>
-					    </div>
-					  </div>
+                    <div class="card mb-2">
+                      <div class="card-header">
+                        <h3 class="fw-bold"><%=post.getNombreOfertaLaboral()%></h3>
+                      </div>
+				      <div class="card-body">
+				      	<p class="m-0 card-text"><span class="fw-bold">Motivacion: </span><%=post.getMotivacion() %></p>
+                   		<p class="m-0 card-text"><span class="fw-bold">Cv reducido: </span><%=post.getCvReducido() %></p>
+                  		<p class="m-0 card-text"><span class="fw-bold">Fecha de postulacion: </span><%=post.getFecha() %></p>		
+				      </div>
+				      				     
+				      </div>
 					<% } %>
                 </div>
+                <%} %>
                 
             </div>
 
