@@ -7,6 +7,14 @@
 	<head>
 		 <jsp:include page="/WEB-INF/template/head.jsp"/>
 	</head>
+	<script>
+		setTimeout(function() {
+		    var errorDiv = document.getElementById("errorDiv");
+		    if (errorDiv) {
+		        errorDiv.style.display = "none";
+		    }
+		}, 5000);
+	</script>
 	<body>
 		    <header>
 		        <nav class="navbar p-3">
@@ -20,6 +28,11 @@
 		    </header>
 		   <main>
 			    <jsp:include page="/WEB-INF/template/NavBarPostulante.jsp" />
+			    <% if (request.getAttribute("error") != null) { %>
+				    <div id="errorDiv" class="alert alert-danger">
+				        ${requestScope.error}
+				    </div>
+				<% } %>
 			    <div class="container my-5">
 			         <% DTOferta oferta = (DTOferta) request.getAttribute("ofertaSeleccionada");%>
 					        <div class="d-flex p-1  border border-dark align-items-center mb-3">

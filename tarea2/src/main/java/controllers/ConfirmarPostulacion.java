@@ -87,9 +87,13 @@ public class ConfirmarPostulacion extends HttpServlet {
 				response.sendRedirect("visitante");
 				break;
 	        }
-		} catch (NicknameNoExisteException | UsuarioNoEsPostulanteException | OfertaNoExisteException e) {
+		} catch (NicknameNoExisteException | UsuarioNoEsPostulanteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch(OfertaNoExisteException e) {
+			request.setAttribute("error", e.getMessage());
+			doGet(request, response);
+            e.printStackTrace();
 		}
 		
 	}

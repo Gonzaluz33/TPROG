@@ -15,6 +15,7 @@
 		                    <jsp:include page="/WEB-INF/template/Logo.jsp" />
 		                    <h3 class="m-0 d-flex align-items-center">Postular A Oferta Laboral</h3>
 		                </div>
+		            	<jsp:include page="/WEB-INF/template/CerrarSesionPostulante.jsp" />
 		            </div>
 		        </nav>
 		    </header>
