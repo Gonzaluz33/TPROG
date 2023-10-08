@@ -98,7 +98,6 @@
 		</div>
 		<jsp:include page="/WEB-INF/template/NavBarVisitante.jsp" />
 		<main>	
-
 			   <div class="container-fluid mt-3">
 			        <div class="row">
 			            <div class="col-md-2  mt-2 col-sm-12">
