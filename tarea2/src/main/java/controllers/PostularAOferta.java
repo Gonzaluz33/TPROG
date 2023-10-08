@@ -5,7 +5,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Fabrica;
+import model.IControladorUsuario;
+import utils.DTEmpresa;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Servlet implementation class PostularAOferta
@@ -25,6 +31,12 @@ public class PostularAOferta extends HttpServlet {
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	UtilidadesJWT utilidadesJWT = UtilidadesJWT.obtenerInstancia();
     	String tipoUsuario = utilidadesJWT.obtenerTipoUsuarioPorRequest(req, resp);
+    	Fabrica factory = Fabrica.getInstance();
+	    IControladorUsuario icontuser = factory.getIControladorUsuario();
+		List<DTEmpresa> empresas = new ArrayList<>();
+		empresas = icontuser.listarEmpresas();
+		req.setAttribute("empresas", empresas);
+		
     	switch(tipoUsuario) {
     		case ("postulante"):
     			req.getRequestDispatcher("/WEB-INF/postulante/PostularAOferta.jsp").forward(req, resp);

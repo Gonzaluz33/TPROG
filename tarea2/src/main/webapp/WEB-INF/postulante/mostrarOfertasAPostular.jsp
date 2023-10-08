@@ -1,11 +1,25 @@
-<%@page import="java.util.List"%>
-<%@page import="utils.DTEmpresa"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.util.Set"%>
+<%@page import="utils.DTOferta"%>
+<%@ page import="com.google.gson.Gson"%>
+<%@ page import="java.lang.reflect.Type"%>
+<%@ page import="com.google.gson.reflect.TypeToken"%>
+<%@ page import="com.google.gson.GsonBuilder"%>
+<%@ page import="java.time.LocalDateTime"%>
+<%@ page import="java.time.LocalDate"%>
+<%@ page import=" utils.LocalDateSerializer"%>
+<%@ page import="utils.LocalDateTimeAdapter"%>
+<%@ page import="java.net.URLEncoder" %>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		 <jsp:include page="/WEB-INF/template/head.jsp"/>
+		 <% Gson gson = new GsonBuilder()
+     		    .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
+     		    .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+     		    .create(); 
+        %>
 	</head>
 	<body>
 		    <header>
@@ -25,15 +39,17 @@
 			            <div class="col-md-6">
 			                <div class="card">
 			                    <div class="card-header">
-			                        <h1 class="card-title">Seleccione una Empresa:</h1>
+			                        <h1 class="card-title">Seleccione una Oferta:</h1>
 			                    </div>
 			                    <div class="card-body">
 			                        <ul class="list-group list-group-flush">
-			                            <% List<DTEmpresa> empresas = (List<DTEmpresa>) request.getAttribute("empresas");
-			                               for (DTEmpresa empresa : empresas) { %>
+			                            <%
+			                            	String ofertasJSON = (String) request.getAttribute("ofertasVigentes");
+			                            	Type listType = new TypeToken<Set<DTOferta>>() {}.getType();	
+			                            	Set<DTOferta> ofertas = gson.fromJson(ofertasJSON, listType);
+			                               for (DTOferta oferta : ofertas) { %>
 			                            <li class="list-group-item">
-			                                <a class="text-decoration-none text-black fw-bold" href="mostrarOfertasAPostular?Empresa=<%= empresa.getNickname()%>"><%= empresa.getNombreEmpresa()%></a>        
-			                                     <span class="badge rounded-pill text-bg-success">Empresa</span>                        
+			                                <a class="text-decoration-none text-black fw-bold" href="#"><%= oferta.getNombre()%></a>                             
 			                            </li>
 			                            <% } %>
 			                        </ul>
@@ -42,7 +58,7 @@
 			            </div>
 					</div>
 					<div class="mt-4">
-					    <a href="postulante" class="btn btn-dark">Volver atrás</a>
+					    <a href="postularAOferta" class="btn btn-dark">Volver atrás</a>
 					</div>
 				</div>
 			</main>

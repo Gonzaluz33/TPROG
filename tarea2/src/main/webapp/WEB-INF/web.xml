@@ -147,4 +147,14 @@
     <servlet-name>MostrarTipo</servlet-name>
     <url-pattern>/MostrarTipo</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MostrarOfertasAPostular</display-name>
+    <servlet-name>MostrarOfertasAPostular</servlet-name>
+    <servlet-class>controllers.MostrarOfertasAPostular</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MostrarOfertasAPostular</servlet-name>
+    <url-pattern>/MostrarOfertasAPostular</url-pattern>
+  </servlet-mapping>
 </web-app>
