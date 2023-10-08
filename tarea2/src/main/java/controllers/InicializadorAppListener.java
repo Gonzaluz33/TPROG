@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -107,7 +108,8 @@ public class InicializadorAppListener implements ServletContextListener {
 	}
     private LocalDate parseFecha(String fecha) {
 	    try {
-	        LocalDate fechaParsed = LocalDate.parse(fecha);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	        LocalDate fechaParsed = LocalDate.parse(fecha, formatter);
 	            return fechaParsed;
 	    } catch (DateTimeParseException e) {
 	        e.printStackTrace();
@@ -367,7 +369,6 @@ public class InicializadorAppListener implements ServletContextListener {
 	}
    
    private void cargarPostulaciones(String csvFile) throws FileNotFoundException, IOException {
-	   System.out.println(csvFile);
 	   String line = "";
 	   String cvsSplitBy = ";";
 	   int iter = 1;
@@ -379,18 +380,18 @@ public class InicializadorAppListener implements ServletContextListener {
 	           String motivacion = "";
 	           String nickname = ""; 
 	           String cv = "";
-	           LocalDate fecha = null;
+	           LocalDateTime fecha = null;
 	           iter++;
 	           if(postulacionesData.length > 0) {
 	        	   nickname = postulacionesData[0];
 	        	   nombre = postulacionesData[4];
 	        	   cv = postulacionesData[1];
 	        	   motivacion = postulacionesData[2];
-	        	   fecha= parseFecha(postulacionesData[3].trim());
+	        	   fecha= parseFecha(postulacionesData[3].trim()).atStartOfDay();
 	        	   Fabrica factory = Fabrica.getInstance();
 	               IControladorOfertas ICO = factory.getIControladorOfertas();
 	               try {
-	            	   ICO.postularAOferta(nombre, nickname, cv, motivacion, null);
+	            	   ICO.postularAOferta(nombre, nickname, cv, motivacion, fecha);
             	   }catch(Exception e) {
 	            		 
 	            	 }
