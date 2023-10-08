@@ -1,3 +1,6 @@
+<%@page import="utils.DTPostulante"%>
+<%@page import="utils.DTPostulacion"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -30,11 +33,26 @@
                 <div class="d-flex gap-5">
                     <div>
                         <h2>Mis Postulaciones:</h2>
-                        <p class="m-0"><span class="fw-bold">Nombre de la oferta: </span></p>
-                        <ul>
-                            <li><a href="consultaOfertaLaboral.html">Desarrollador Frontend</a></li>
-                        </ul>
+                        <% 
+                        DTPostulante usuario = (DTPostulante) request.getAttribute("usuario");
+                    	List<DTPostulacion> posts = (List<DTPostulacion>) usuario.getPostulaciones();
+                    	for (DTPostulacion post: posts) {                    	
+                    %>                    
+				      
+				      <div class="card mb-2">
+				      <div class="card-body">
+				      	<h5 class="card-title">
+    						<%=post.getNombreOfertaLaboral()%>
+				      	</h5>
+				      	<p class="m-0 card-text"><span class="fw-bold">Motivacion: </span><%=post.getMotivacion() %></p>
+                   		<p class="m-0 card-text"><span class="fw-bold">Cv reducido: </span><%=post.getCvReducido() %></p>
+                  		<p class="m-0 card-text"><span class="fw-bold">Fecha de postulacion: </span><%=post.getFecha() %></p>		
+				      </div>
+				      				     
+				      </div>
+					<% } %>
                     </div>
+              
                 </div>
             </div>
 
