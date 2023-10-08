@@ -54,26 +54,26 @@
 					               </div>			                	
 					            </div>				             
 					        </div>
-					        <div>
-				            		
-						                <form class="d-flex justify-content-between">
-						                    <div>
-						                        <textarea class="form-control" style="height: 280px; width: 25vw;" placeholder="Ingrese CV reducido"></textarea>
-						                    </div>
-						                    <div>
-						                        <textarea class="form-control" style="height: 280px; width: 25vw;" placeholder="Ingrese Motivación:"></textarea>
-						                    </div>
-						                </form>
-
-            							<div class="d-flex justify-content-between mt-3">
-            								<div>
-											    <button onClick="retroceder()" type="button" class="btn btn-dark">Volver atrás</button>
-            								</div>
-								            <div>
-								                <button type="submit" class="btn btn-dark">Confirmar</button>
-								            </div>  
-            							</div>
-					            </div>		        
+					        <div>           		
+				                <form class="d-flex flex-column" action="confirmarPostulacion?NombreOferta=<%= oferta.getNombre() %>" method="post">
+				                    <div class="d-flex justify-content-between">
+					                    <div>
+					                        <textarea class="form-control" style="height: 280px; width: 20vw;" id="cv" name="cv" placeholder="Ingrese CV reducido"></textarea>
+					                    </div>
+					                    <div>
+					                        <textarea class="form-control" style="height: 280px; width: 20vw;" id="motivacion" name="motivacion" placeholder="Ingrese Motivación:"></textarea>
+					                    </div>
+				                    </div>
+	       							<div class="d-flex justify-content-between mt-3">
+	       								<div>
+							    			<button onClick="retroceder()" type="button" class="btn btn-dark">Volver atrás</button>
+	       								</div>
+							            <div>
+							                <button type="submit" class="btn btn-dark">Confirmar</button>
+							            </div>  
+	        						</div>
+				                </form>
+				            </div>		        
 					
 				</div>
 			</main>

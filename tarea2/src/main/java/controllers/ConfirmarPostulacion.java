@@ -10,8 +10,11 @@ import model.IControladorOfertas;
 import utils.DTOferta;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
+import excepciones.NicknameNoExisteException;
 import excepciones.OfertaNoExisteException;
+import excepciones.UsuarioNoEsPostulanteException;
 
 /**
  * Servlet implementation class ConfirmarPostulacion
@@ -62,7 +65,33 @@ public class ConfirmarPostulacion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		UtilidadesJWT utilidadesJWT = UtilidadesJWT.obtenerInstancia();
+		String tipoUsuario = utilidadesJWT.obtenerTipoUsuarioPorRequest(request, response);
+		try {
+			switch(tipoUsuario) {
+			case ("postulante"):
+				Fabrica factory = Fabrica.getInstance();
+				String NombreOferta = request.getParameter("NombreOferta");
+		        String nicknamePostulante = utilidadesJWT.obtenerDatosDeUsuarioJWT(request, response).getNickname();
+		        String cvReducido = request.getParameter("cv");
+		        String motivacion = request.getParameter("motivacion");
+		        LocalDateTime fechaActual = LocalDateTime.now();
+				IControladorOfertas ICO = factory.getIControladorOfertas();
+				ICO.postularAOferta(NombreOferta, nicknamePostulante, cvReducido, motivacion, fechaActual);
+				response.sendRedirect("postulante");
+				break;
+			case ("empresa"):
+				response.sendRedirect("empresa");
+				break;
+			default:
+				response.sendRedirect("visitante");
+				break;
+	        }
+		} catch (NicknameNoExisteException | UsuarioNoEsPostulanteException | OfertaNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }
