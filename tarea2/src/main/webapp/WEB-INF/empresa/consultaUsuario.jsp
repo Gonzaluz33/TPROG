@@ -110,7 +110,7 @@
 </div>
 
 <div class="mt-4">
-    <a href="visitante" class="btn btn-dark">Volver atrás</a>
+    <a onclick="window.history.back();" class="btn btn-dark">Volver atrás</a>
 </div>
     </div>
 	    </main>

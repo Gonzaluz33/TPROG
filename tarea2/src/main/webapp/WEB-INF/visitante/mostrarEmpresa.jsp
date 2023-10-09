@@ -55,7 +55,7 @@
 
         <div class="row mt-5">
             <div class="col d-flex justify-content-center">
-                <button type="button" class="btn btn-dark btn-lg" onclick="window.location.href='consultaUsuario';">Volver</button>
+                <button type="button" class="btn btn-dark btn-lg" onclick="window.history.back();" >Volver</button>
             </div>
         </div>
     </div>
