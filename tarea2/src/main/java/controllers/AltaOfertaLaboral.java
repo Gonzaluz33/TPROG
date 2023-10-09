@@ -10,13 +10,23 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Fabrica;
 import model.IControladorOfertas;
+import model.IControladorPublicaciones;
 import model.IControladorUsuario;
 import model.TokenBlacklist;
+import utils.DTTipoPublicacion;
 import utils.DTUsuario;
 import utils.EnumEstadoOferta;
+import utils.LocalDateSerializer;
+import utils.LocalDateTimeAdapter;
 
 import java.io.IOException;
 import java.security.Key;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import excepciones.CorreoRepetidoException;
 import excepciones.KeywordExisteException;
@@ -62,6 +72,10 @@ public class AltaOfertaLaboral extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, UsuarioRepetidoException, NicknameNoExisteException, NombreExisteException, KeywordExisteException {
         UtilidadesJWT utilidadesJWT = UtilidadesJWT.obtenerInstancia();
         String tipoUsuario = utilidadesJWT.obtenerTipoUsuarioPorRequest(request, response);
+        DTUsuario user = utilidadesJWT.obtenerDatosDeUsuarioJWT(request, response);
+        if(user!=null) {
+        	request.setAttribute("imgPerfil", user.getUrlImagen());
+        }
         
         switch(tipoUsuario) {
             case "empresa":
@@ -116,6 +130,17 @@ public class AltaOfertaLaboral extends HttpServlet {
      	            		
                 } else {
                     // Es un GET, solo mostrar el formulario
+                	Fabrica factory = Fabrica.getInstance();
+                	IControladorOfertas ICO = factory.getIControladorOfertas();
+                	IControladorPublicaciones ICP = factory.getIControladorPublicaciones();
+                	List<String> keywords = ICO.obtenerKeywords();
+                	List<DTTipoPublicacion> tiposPub = ICP.obtenerTipos();
+                	Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
+                	        .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
+                	String tiposPubJson = gson.toJson(tiposPub);
+                	String keywordsJson = gson.toJson(keywords);
+                	request.setAttribute("tiposPub", tiposPubJson);
+                	request.setAttribute("keywords", keywordsJson);
                     request.getRequestDispatcher("/WEB-INF/empresa/altaOfertaLaboral.jsp").forward(request, response);
                 }
                 break;

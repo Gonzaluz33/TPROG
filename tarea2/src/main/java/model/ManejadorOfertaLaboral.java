@@ -12,12 +12,14 @@ import java.util.Set;
 
 import excepciones.NombreExisteException;
 import utils.DTUsuario;
+import utils.EnumEstadoOferta;
+
 import java.time.LocalDateTime;
 
 import excepciones.OfertaNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
 import excepciones.UsuarioNoEsPostulanteException;
-
+import model.OfertaLaboral;
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
 import utils.DTEmpresa;
@@ -49,6 +51,14 @@ public class ManejadorOfertaLaboral {
 			ofL.addKeyword(keyword);
 		}
 		coleccionOfertasLaborales.put(ofL.getNombre(), ofL);
+	}
+	
+	public void confirmarOfertaLaboral(String nombreOferta) throws OfertaNoExisteException {
+	    OfertaLaboral oferta = this.coleccionOfertasLaborales.get(nombreOferta);
+	    if (oferta == null) {
+	        throw new OfertaNoExisteException("No existe una oferta laboral con el nombre: " + nombreOferta);
+	    }
+	    oferta.setEstado(EnumEstadoOferta.CONFIRMADA);
 	}
 
 	/**

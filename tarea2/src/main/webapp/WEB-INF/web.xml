@@ -167,4 +167,5 @@
     <servlet-name>ConfirmarPostulacion</servlet-name>
     <url-pattern>/ConfirmarPostulacion</url-pattern>
   </servlet-mapping>
+  
 </web-app>

@@ -81,6 +81,14 @@ public class ManejadorOfertaLaboral {
 		return out;
 	}
 	
+	public void confirmarOfertaLaboral(String nombreOferta) throws OfertaNoExisteException {
+	    OfertaLaboral oferta = this.coleccionOfertasLaborales.get(nombreOferta);
+	    if (oferta == null) {
+	        throw new OfertaNoExisteException("No existe una oferta laboral con el nombre: " + nombreOferta);
+	    }
+	    oferta.setEstado(EnumEstadoOferta.CONFIRMADA);
+	}
+	
 	/**
 	 * Postula al postulante a la oferta cuyo nombre es "nombreOfertaLaboral".
 	 * Si no existe una oferta con ese nombre tira una OfertaNoExisteException.

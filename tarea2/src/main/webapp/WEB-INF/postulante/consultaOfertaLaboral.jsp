@@ -123,8 +123,13 @@
 			<%
 			    } else {
 			%>
-			    
-			<%  
+			       
+			        <div class="row d-flex justify-content-center my-5">
+			            <a class="btn btn-success" href="confirmarPostulacion?NombreOferta=<%= URLEncoder.encode(publicacion.getDtOferta().getNombre(), "UTF-8") %>">
+			                Postularse
+			            </a>
+			        </div>
+			<%
 			    }
 			%>
          

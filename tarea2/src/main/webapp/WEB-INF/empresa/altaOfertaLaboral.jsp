@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="com.google.gson.Gson" %>
+<%@ page import="com.google.gson.GsonBuilder" %>
+<%@ page import="com.google.gson.reflect.TypeToken" %>
+<%@ page import="java.lang.reflect.Type" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.util.List" %>
+<%@ page import="utils.DTTipoPublicacion" %> 
+<%@ page import="utils.LocalDateSerializer" %> 
+<%@ page import="utils.LocalDateTimeAdapter" %> 
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -50,10 +61,18 @@
                             <div class="mb-3">
                                 <label class="form-label">Seleccione un Tipo de Publicación:</label>
                                 <select class="form-select" id="floatingSelect" name="tipoPublicacion">
-   	 								<option selected value="Premium">Premium</option>
-    								<option value="Destacada">Destacada</option>
-   								 	<option value="Estándar">Estándar</option>
-    								<option value="Básica">Básica</option>
+								    <%
+								        String tiposPubJson = (String) request.getAttribute("tiposPub");
+								        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
+								                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
+								        Type listType = new TypeToken<List<DTTipoPublicacion>>() {}.getType();
+								        List<DTTipoPublicacion> tiposPub = gson.fromJson(tiposPubJson, listType);
+								        for(DTTipoPublicacion tipo : tiposPub) {
+								    %>
+								        <option value="<%= tipo.getNombre() %>"><%= tipo.getNombre() %></option>
+								    <%
+								        }
+								    %>
 								</select>
                             </div>
                             <div class="mb-3 d-flex gap-5 justify-content-between">
@@ -117,17 +136,17 @@
                             <div class="mb-3">
                                 <label for="floatingTextarea2">Seleccione Keywords:</label>
                                 <select class="custom-select form-control" multiple name = "keywords">
-                                    <option value="Tiempo completo">Tiempo completo</option>
-                                    <option value="Medio tiempo">Medio tiempo</option>
-                                    <option value="Remoto">Remoto</option>
-                                    <option value="Freelance">Freelance</option>
-                                    <option value="Temporal">Temporal</option>
-                                    <option value="Permanente">Permanente</option>
-                                    <option value="Computacion">Computación</option>
-                                    <option value="Administracion">Administración</option>
-                                    <option value="Logistica">Logística</option>
-                                    <option value="Contabilidad">Contabilidad</option>
-                                </select>
+								    <%
+								        String keywordsJson = (String) request.getAttribute("keywords");
+								        Type listTypeStr = new TypeToken<List<String>>() {}.getType();
+								        List<String> keywords = gson.fromJson(keywordsJson, listTypeStr);
+								        for(String keyword : keywords) {
+								    %>
+								        <option value="<%= keyword %>"><%= keyword %></option>
+								    <%
+								        }
+								    %>
+								</select>
                             </div>
                             <div class="mb-3">
                                 <label>Forma de Pago de Oferta:</label>
@@ -158,7 +177,10 @@
                         </div>
               
                     </form>
-
+					</div>
+             <div class="mt-4 mb-5 text-center">
+            <a onclick="window.history.back();" class="btn btn-dark">Volver atrás</a>
+        </div>
                 </div>
             </div>
         </main>

@@ -30,6 +30,8 @@ public interface IControladorOfertas {
 	public OfertaLaboral getOfertaLaboral(String nombreOferta) throws OfertaNoExisteException;
 	
 	public List<DTEmpresa> obtenerEmpresas();
+	
+	public void confirmarOfertaLaboral(String nombreOferta) throws OfertaNoExisteException ;
 
 	/**
 	 * Postula al postulante con nick "nicknamePostulante" a la oferta de nombre "nombreOfertaLaboral".

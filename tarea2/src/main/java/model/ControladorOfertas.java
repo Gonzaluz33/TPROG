@@ -10,10 +10,8 @@ import excepciones.UsuarioNoEsEmpresaException;
 import excepciones.UsuarioNoEsPostulanteException;
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.time.LocalDateTime;
@@ -39,6 +37,8 @@ public class ControladorOfertas implements IControladorOfertas {
 		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
 		mOL.addKeyword(key);
 	}
+	
+	
 
 	public void altaOferta(String nombre, String desc, String remuner, String horario, List<String> keywords,
 			String ciudad, String depa, String tipo, String empresa)
@@ -125,9 +125,23 @@ public class ControladorOfertas implements IControladorOfertas {
             throws OfertaNoExisteException, NicknameNoExisteException, UsuarioNoEsPostulanteException {
 		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
 		return manejadorOL.estaPostuladoAOfertaLaboral(nicknameUsuario, nombreOfertaLaboral);
-	};
+	}
 	
+	public void confirmarOfertaLaboral(String nombreOferta) throws OfertaNoExisteException {
+	    ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+	    manejadorOL.confirmarOfertaLaboral(nombreOferta);
+	}
 	
+	public boolean verificarPertenenciaOferta(String nombreOferta, String nickname) throws OfertaNoExisteException {
+        ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+        DTOferta oferta = manejadorOL.obtenerOfertaLaboral(nombreOferta); 
+        if (oferta != null) {
+            String nicknameEmpresa = oferta.getNicknameEmpresa(); 
+            return nicknameEmpresa.equals(nickname);
+        } else {
+            throw new OfertaNoExisteException("No existe una oferta laboral con el nombre proporcionado: " + nombreOferta);
+        }
+    }
 	
 	
 

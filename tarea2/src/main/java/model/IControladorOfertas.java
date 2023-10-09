@@ -30,6 +30,8 @@ public interface IControladorOfertas {
 	public DTOferta obtenerDatosOferta(String nombreOferta) throws OfertaNoExisteException;
 	public List<DTEmpresa> obtenerEmpresas();
 	public List<DTOferta> obtenerOfertasLaborales();
+	
+	
 
 	/**
 	 * Postula al postulante con nick "nicknamePostulante" a la oferta de nombre "nombreOfertaLaboral".
@@ -51,4 +53,9 @@ public interface IControladorOfertas {
             throws NicknameNoExisteException, UsuarioNoEsPostulanteException ;
 	public DTPostulacion estaPostuladoAOfertaLaboral(String nicknameUsuario, String nombreOfertaLaboral)
             throws OfertaNoExisteException, NicknameNoExisteException, UsuarioNoEsPostulanteException ;
+	
+	public void confirmarOfertaLaboral(String nombreOferta) throws OfertaNoExisteException ;
+	
+	
+	public boolean verificarPertenenciaOferta(String nombreOferta, String nickname) throws OfertaNoExisteException ;
 }

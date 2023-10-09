@@ -70,7 +70,7 @@
         </div>
         <% } %>
     </div>
-     <div class="mt-4 text-center">
+     <div class="mt-4 mb-5 text-center">
             <button type="button" class="btn btn-dark" onclick="window.history.back();">Volver atrás</button>
         </div>
     </div>

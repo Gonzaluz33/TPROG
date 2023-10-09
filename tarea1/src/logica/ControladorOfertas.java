@@ -29,6 +29,11 @@ public class ControladorOfertas implements IControladorOfertas{
         return instancia;
     }
 	
+	public void confirmarOfertaLaboral(String nombreOferta) throws OfertaNoExisteException {
+	    ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+	    manejadorOL.confirmarOfertaLaboral(nombreOferta);
+	}
+	
 
 	public DTOferta obtenerDatosOferta(String nombreOferta) throws OfertaNoExisteException {
 		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
@@ -45,6 +50,17 @@ public class ControladorOfertas implements IControladorOfertas{
 		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
 		mOL.addKeyword(key);
 	}
+	
+	public boolean verificarPertenenciaOferta(String nombreOferta, String nickname) throws OfertaNoExisteException {
+        ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+        OfertaLaboral oferta = manejadorOL.getOfertaLaboral(nombreOferta); 
+        if (oferta != null) {
+            String nicknameEmpresa = oferta.getEmpresa().getNickname(); 
+            return nicknameEmpresa.equals(nickname);
+        } else {
+            throw new OfertaNoExisteException("No existe una oferta laboral con el nombre proporcionado: " + nombreOferta);
+        }
+    }
 		
 	public void altaOferta(String nombre, String desc, String remuner, String horario, List<String> keywords, String ciudad, String depa, String tipo, String empresa)
 			throws NombreExisteException, KeywordExisteException, NicknameNoExisteException {

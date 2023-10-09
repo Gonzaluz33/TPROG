@@ -88,34 +88,47 @@
                     <th scope="col">Horario:</th>
                     <th scope="col">Fecha de Alta:</th>
                     <th scope="col">Estado:</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-               <%
-				    String publicacionesJSON = (String) request.getAttribute("publicaciones");
-				    if(publicacionesJSON != null) {
-				        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
-				            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
-				        Type setType = new TypeToken<List<DTPublicacion>>(){}.getType();
-				        List<DTPublicacion> publicaciones = gson.fromJson(publicacionesJSON, setType);
-				        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-				        for(DTPublicacion publicacion : publicaciones) {
-				            LocalDateTime fechaAlta = publicacion.getDtOferta().getFechaAlta();
-				            String formattedDate = (fechaAlta != null) ? fechaAlta.format(formatter) : "N/A";
-				%>
-				        <tr>
-				            <td class="fw-bold"><%= publicacion.getDtOferta().getNombre() %></td>
-				            <td><%=publicacion.getDtTipo().toString()%></td>
-				            <td><%= publicacion.getDtOferta().getRemuneracion() %></td>
-				            <td><%= publicacion.getDtOferta().getHorario() %></td>
-				            <td><%= formattedDate %></td>
-				            <td><%= publicacion.getDtOferta().getEstado().name() %></td>
-				        </tr>
-				<% 
-				        }
-				    }
-				%>
-            </tbody>
+    <%
+        String publicacionesJSON = (String) request.getAttribute("publicaciones");
+        if(publicacionesJSON != null) {
+            Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
+            Type setType = new TypeToken<List<DTPublicacion>>(){}.getType();
+            List<DTPublicacion> publicaciones = gson.fromJson(publicacionesJSON, setType);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            for(DTPublicacion publicacion : publicaciones) {
+                LocalDateTime fechaAlta = publicacion.getDtOferta().getFechaAlta();
+                String formattedDate = (fechaAlta != null) ? fechaAlta.format(formatter) : "N/A";
+    %>
+            <tr>
+                <td class="fw-bold"><%= publicacion.getDtOferta().getNombre() %></td>
+                <td><%=publicacion.getDtTipo().toString()%></td>
+                <td><%= publicacion.getDtOferta().getRemuneracion() %></td>
+                <td><%= publicacion.getDtOferta().getHorario() %></td>
+                <td><%= formattedDate %></td>
+                <td><%= publicacion.getDtOferta().getEstado().name() %></td>
+                <td>
+                    <%
+                        if(!publicacion.getDtOferta().getEstado().name().equals("CONFIRMADA")) {
+                    %>
+                        <form action="confirmarOferta" method="POST">
+                            <input type="hidden" name="nombreOferta" value="<%= publicacion.getDtOferta().getNombre() %>">
+                            <button type="submit" class="btn btn-success">Confirmar Oferta</button>
+                        </form>
+                    <%
+                        }
+                    %>
+                </td>
+            </tr>
+    <% 
+            }
+        }
+    %>
+</tbody>
         </table>
     </div>
 </div>
