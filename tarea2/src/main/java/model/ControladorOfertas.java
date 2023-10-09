@@ -75,6 +75,7 @@ public class ControladorOfertas implements IControladorOfertas {
 	        // Constructor básico con formaPago
 	        ofl = new OfertaLaboral(nombre, descripcion, ciudad, departanemto, horario, fecha,estado , renumeracion, usuarioEmpresa, formaPago);
 	    }
+	    
 	    List<String> keywordsList = new ArrayList<>(Arrays.asList(Keywords));
 	    mOL.addOferta(ofl, keywordsList);
 	    ControladorPublicaciones contPub = ControladorPublicaciones.getInstance();
