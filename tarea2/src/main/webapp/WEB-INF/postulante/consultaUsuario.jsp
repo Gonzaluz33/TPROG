@@ -16,7 +16,7 @@
 
 <body>
     <header>
-         <header>
+       
 		        <nav class="navbar p-3">
             <div class="d-flex justify-content-between align-items-center w-100" style="height: 8vh;">
                 <div class="d-flex">
@@ -41,7 +41,6 @@
  				</div>
             </div>
         </nav>
-		    </header>
     </header>
     <main>
         <jsp:include page="/WEB-INF/template/NavBarPostulante.jsp"/>

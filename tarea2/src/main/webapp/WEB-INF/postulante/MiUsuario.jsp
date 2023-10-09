@@ -79,11 +79,11 @@
                 </div>
 
    
-                <div class="card mt-4">
+                <div class="card mt-4 mt-3 mb-5">
 				    <div class="card-header">
 				        <h2>Mis Postulaciones</h2>
 				    </div>
-				    <div class="card-body">
+				    <div class="card-body ">
 				        <%  
 				            String postulacionesJSON = (String) request.getAttribute("postulaciones");
 				            List<DTPostulacion> postulaciones = null;
@@ -97,8 +97,8 @@
 				           <strong>Nombre de Oferta Laboral: </strong>
 				            <% for(DTPostulacion postulacion : postulaciones){ %>
 				            <li class="list-group-item mt-2 p-3">
-				                <a class="btn btn-dark ms-2" href="consultaOferta?nombreOferta=<%= URLEncoder.encode(postulacion.getNombreOfertaLaboral(), "UTF-8") %>">
-				                    <%= postulacion.getNombreOfertaLaboral() %>
+				                <a class="fw-bold text-black text-decoration-none ms-2" href="consultaOferta?nombreOferta=<%= URLEncoder.encode(postulacion.getNombreOfertaLaboral(), "UTF-8") %>">
+				                    <%= postulacion.getNombreOfertaLaboral() %> >
 				                </a>
 				            </li>
 				            <% } %>
@@ -115,6 +115,9 @@
             </div>
         </div>
     </div>
+    <div class="my-4 container d-flex justify-content-center">
+    <a href="visitante" class="btn btn-dark">Volver atrás</a>
+</div>     
 </main>
 </body>
 

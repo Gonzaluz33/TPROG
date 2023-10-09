@@ -10,6 +10,7 @@ import model.IControladorOfertas;
 import model.IControladorPublicaciones;
 import utils.DTOferta;
 import utils.DTPublicacion;
+import utils.DTUsuario;
 import utils.LocalDateSerializer;
 import utils.LocalDateTimeAdapter;
 
@@ -54,6 +55,11 @@ public class MostrarOfertasAPostular extends HttpServlet {
 				.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
 		String ofertasJson = gsonAux.toJson(ofertas);
 		request.setAttribute("ofertasVigentes", ofertasJson);
+		
+		DTUsuario user = utilidadesJWT.obtenerDatosDeUsuarioJWT(request, response);
+		if(user!=null) {
+			request.setAttribute("imgPerfil", user.getUrlImagen());
+		}
 		
 		switch(tipoUsuario) {
 		case ("postulante"):

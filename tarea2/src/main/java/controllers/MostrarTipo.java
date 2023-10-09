@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Fabrica;
 import model.IControladorPublicaciones;
 import utils.DTTipoPublicacion;
+import utils.DTUsuario;
 
 import java.io.IOException;
 
@@ -35,6 +36,10 @@ public class MostrarTipo extends HttpServlet {
 		Fabrica factory = Fabrica.getInstance();
 		IControladorPublicaciones icontpub = factory.getIControladorPublicaciones();
 		DTTipoPublicacion tipo = null;
+		DTUsuario user = utilidadesJWT.obtenerDatosDeUsuarioJWT(request, response);
+		if(user!=null) {
+			request.setAttribute("imgPerfil", user.getUrlImagen());
+		}
 		tipo = icontpub.obtenerDatosTipoPublicacion(nombre);
         request.setAttribute("tipoSeleccionado", tipo);
         switch(tipoUsuario) {

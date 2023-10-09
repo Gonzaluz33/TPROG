@@ -18,24 +18,28 @@
             </div>
         </nav>
     </header>
-    <main>
-        <jsp:include page="/WEB-INF/template/NavBarVisitante.jsp" />
-        <div class="container my-5">
-	    <h2 class="mb-4">Seleccione un Tipo de Publicación:</h2>
-	    <ul class="list-group">
-	        <% List<DTTipoPublicacion> tiposPublicacion = (List<DTTipoPublicacion>) request.getAttribute("tiposPublicacion");
-	           for (DTTipoPublicacion tipo : tiposPublicacion) { %>
-	        <li class="list-group-item">
-	            <a class="text-decoration-none text-black fw-bold" href="mostrarTipo?nombre=<%= tipo.getNombre()%>"><%= tipo.getNombre()%></a>
-	        </li>
-	        <% } %>
-	    </ul>
-	     <div class="mt-4">
-	            <a href="visitante" class="btn btn-secondary">Volver atrás</a>
-	        </div>
-		</div>
-
-
-    </main>
+   <main>
+    <jsp:include page="/WEB-INF/template/NavBarVisitante.jsp" />
+    <div class="container my-5">
+        <h2 class="mb-4 text-center">Seleccione un Tipo de Publicación:</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="list-group">
+                    <%
+                        List<DTTipoPublicacion> tiposPublicacion = (List<DTTipoPublicacion>) request.getAttribute("tiposPublicacion");
+                        for (DTTipoPublicacion tipo : tiposPublicacion) {
+                    %>
+                    <a href="mostrarTipo?nombre=<%= tipo.getNombre()%>" class="list-group-item list-group-item-action text-center">
+                        <%= tipo.getNombre()%>
+                    </a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 text-center">
+            <a href="visitante" class="btn btn-dark">Volver atrás</a>
+        </div>
+    </div>
+</main>
 </body>
 </html>

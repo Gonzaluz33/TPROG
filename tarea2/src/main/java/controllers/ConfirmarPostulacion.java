@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Fabrica;
 import model.IControladorOfertas;
 import utils.DTOferta;
+import utils.DTUsuario;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -41,6 +42,10 @@ public class ConfirmarPostulacion extends HttpServlet {
     	String tipoUsuario = utilidadesJWT.obtenerTipoUsuarioPorRequest(request, response);
 		Fabrica factory = Fabrica.getInstance();
 		IControladorOfertas ICO = factory.getIControladorOfertas();
+		DTUsuario user = utilidadesJWT.obtenerDatosDeUsuarioJWT(request, response);
+		if(user!=null) {
+			request.setAttribute("imgPerfil", user.getUrlImagen());
+		}
 		try {
 			DTOferta ofertaSeleccionada = ICO.obtenerDatosOferta(NombreOferta);
 			request.setAttribute("ofertaSeleccionada", ofertaSeleccionada);

@@ -48,6 +48,7 @@ public class ConsultaPostulacionAOferta extends HttpServlet {
 	    	IControladorOfertas ICO = factory.getIControladorOfertas();
 	    	DTUsuario usr = utilidadesJWT.obtenerDatosDeUsuarioJWT(req, resp);
 	    	Set<DTOferta> ofertas = ICO.obtenerOfertasVigentesDeEmpresa(usr.getNickname());
+	    	req.setAttribute("imgPerfil", usr.getUrlImagen());
 	    	req.setAttribute("ofertas", ofertas);
 	    	
 			req.getRequestDispatcher("/WEB-INF/empresa/consultaPostulacionOferta.jsp").forward(req, resp);

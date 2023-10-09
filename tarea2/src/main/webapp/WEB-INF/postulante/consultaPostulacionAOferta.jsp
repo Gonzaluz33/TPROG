@@ -57,9 +57,9 @@
 	                        String formattedDate = post.getFecha().format(formatter);
                     %>                    
 				      
-				      <div class="card mb-2">
+				      <div class="card mb-2 my-3">
 				      <div class="card-header">
-    						<span class="fw-bold"><%=post.getNombreOfertaLaboral()%></span>
+    						<span class="fw-bold"><%=post.getNombreOfertaLaboral()%> </span>
 				      	</div>
 				      <div class="card-body">
 				      	
