@@ -75,11 +75,11 @@
                                 <p class="m-0"><span class="fw-bold">Departamento: </span><%= publicacion.getDtOferta().getDepartamento() %></p>
                                 <p class="m-0"><span class="fw-bold">Ciudad: </span><%= publicacion.getDtOferta().getCiudad() %> </p>
 
-                                <p class="m-0"><span class="fw-bold">Tipo de Publicacion:</span> publicacion.getDtTipo().getNombre() <a href="./consultaTipoPublicacion.html">Ver más</a></p>
+                                <p class="m-0"><span class="fw-bold">Tipo de Publicacion:</span>  <%= publicacion.getDtTipo().getNombre()%> <a href="mostrarTipo?nombre=<%= publicacion.getDtTipo().getNombre()%>">Ver más</a></p>
                                
                             </div>
                             <div class="row d-flex  mt-3">
-                                <p class="m-0"><span class="fw-bold">Fecha de alta:</span> <%= publicacion.getDtOferta().getFechaAlta() %></p>
+                                <p class="m-0"><span class="fw-bold">Fecha de alta:</span>  <%= publicacion.getDtOferta().getFechaAlta() %></p>
                             </div>
                         
                             <div class="row d-flex  mt-3">
