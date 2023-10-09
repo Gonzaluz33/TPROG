@@ -4,6 +4,7 @@
 <html lang="en">
     <head>
         <jsp:include page="/WEB-INF/template/head.jsp"/>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
 
     <body>
@@ -19,38 +20,43 @@
             </nav>
         </header>
         <main>
+        <% if (request.getAttribute("error") != null) { %>
+		    <div id="errorDiv" class="alert alert-danger">
+		        ${requestScope.error}
+		    </div>
+		<% } %>
            <jsp:include page="/WEB-INF/template/NavBarEmpresa.jsp"/>
             <div class="d-flex flex-column justify-content-start p-3">
                 <div class="col-12">
-                    <form class="d-flex justify-content-between gap-3">
+                    <form class="d-flex justify-content-between gap-3" action= "altaOfertaLaboral" method = "post">
                         <div class="col-6">
                             <div class="mb-3">
                                 <label class="form-label">Seleccione un Tipo de Publicación:</label>
-                                <select class="form-select" id="floatingSelect">
-                                    <option selected value="0">Premium</option>
-                                    <option value="1">Destacada</option>
-                                    <option value="2">Estándar</option>
-                                    <option value="3">Básica</option>
-                                </select>
+                                <select class="form-select" id="floatingSelect" name="tipoPublicacion">
+   	 								<option selected value="0">Premium</option>
+    								<option value="1">Destacada</option>
+   								 	<option value="2">Estándar</option>
+    								<option value="3">Básica</option>
+								</select>
                             </div>
                             <div class="mb-3 d-flex gap-5 justify-content-between">
                                 <div class="col-5">
                                     <label class="form-label">Nombre:</label>
-                                    <input type="text" class="form-control" placeholder="Ingrese Nombre">
+                                    <input type="text" class="form-control" placeholder="Ingrese Nombre" name ="nombre">
                                 </div>
                                 <div class="col-5">
                                     <label for="exampleInputPassword1" class="form-label">Remuneración:</label>
-                                    <input type="number" class="form-control" placeholder="Ingrese Remuneración" >
+                                    <input type="number" class="form-control" placeholder="Ingrese Remuneración" name = "remuneracion">
                                 </div>
                             </div>
                             <div class="mb-3 d-flex gap-5 justify-content-between">
                                 <div class="col-5">
                                     <label for="exampleInputPassword1" class="form-label">Horario:</label>
-                                    <input type="text" class="form-control" placeholder="Ingrese un horario">
+                                    <input type="text" class="form-control" placeholder="Ingrese un horario" name = "horario">
                                 </div>
                                 <div class="col-5">
                                     <label for="exampleInputPassword1" class="form-label">Departamento:</label>
-                                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name= "departamento">
                                         <option value="artigas">Artigas</option>
                                         <option value="canelones">Canelones</option>
                                         <option value="cerro_largo">Cerro Largo</option>
@@ -76,10 +82,10 @@
                             <div class="mb-3 d-flex gap-5 justify-content-between">
                                 <div class="col-12">
                                     <label class="form-label">Ciudad:</label>
-                                    <input type="text" class="form-control" placeholder="Ingrese Ciudad">
+                                    <input type="text" class="form-control" placeholder="Ingrese Ciudad" name = "ciudad">
                                     <div class="mt-3">
                                         <label class="form-label">URL imagen:</label>
-                                        <input type="text" class="form-control" placeholder="Ingrese URL de imagen (opcional)">
+                                        <input type="text" class="form-control" placeholder="Ingrese URL de imagen (opcional)" name= "urlImagen">
                                     </div>
                                 </div>
                             </div>
@@ -88,61 +94,80 @@
                         <div class="col-6">
                             <div class="mb-3">
                                 <label for="floatingTextarea2">Descripción:</label>
-                                <textarea class="form-control" placeholder="Ingrese una descripción"
+                                <textarea class="form-control" placeholder="Ingrese una descripción" name= "descripcion"
                                     style="height: 120px;"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="floatingTextarea2">Seleccione Keywords:</label>
-                                <select class="custom-select form-control" multiple>
-                                    <option value="opcion1">Tiempo completo</option>
-                                    <option value="opcion2">Medio tiempo</option>
-                                    <option value="opcion3">Remoto</option>
-                                    <option value="opcion1">Freelance</option>
-                                    <option value="opcion2">Temporal</option>
-                                    <option value="opcion3">Permanente</option>
-                                    <option value="opcion4">Computación</option>
-                                    <option value="opcion4">Administración</option>
-                                    <option value="opcion4">Logística</option>
-                                    <option value="opcion4">Contabilidad</option>
+                                <select class="custom-select form-control" multiple name = "keywords">
+                                    <option value="Tiempo completo">Tiempo completo</option>
+                                    <option value="Medio tiempo">Medio tiempo</option>
+                                    <option value="Remoto">Remoto</option>
+                                    <option value="Freelance">Freelance</option>
+                                    <option value="Temporal">Temporal</option>
+                                    <option value="Permanente">Permanente</option>
+                                    <option value="Computacion">Computación</option>
+                                    <option value="Administracion">Administración</option>
+                                    <option value="Logistica">Logística</option>
+                                    <option value="Contabilidad">Contabilidad</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label>Forma de Pago de Oferta:</label>
                                <div class="mt-2">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" value="General">
+                                        <input class="form-check-input" type="radio" name="formaPago" value="General">
                                         <label class="form-check-label" for="inlineRadio1">General</label>
                                     </div>
                                     <div class="form-check mb-3 form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" value="Paquete">
+                                        <input class="form-check-input" type="radio" name="formaPago" value="Paquete">
                                         <label class="form-check-label" for="inlineRadio2">Paquete adquirido previamente</label>
                                     </div>
                                     <div>
                                         <label class="form-check-label" for="inlineRadio2">Seleccione Paquete:</label>
-                                        <select class="form-select" id="floatingSelect">
-                                            <option value="3">Básico</option>
+                                        <select class="form-select" id="paqueteSelect" name="paqueteSeleccionado">
+                                            <option selected value="0">Premium</option>
+    										<option value="1">Destacado</option>
+   								 			<option value="2">Express</option>
+    										<option value="3">Básica</option>
                                         </select>
                                     </div>
                                </div>
                                
                             </div>
-                        </div>
-                    </form>
                     <div class="d-flex justify-content-end mt-2">
                         <button type="submit" class="btn btn-dark">Confirmar</button>
                     </div>
+                        </div>
+              
+                    </form>
 
                 </div>
             </div>
         </main>
+        <script>
+        $(document).ready(function() {
+            
+            $("input[name='formaPago']").change(function() {
+                if ($("input[name='formaPago']:checked").val() == "Paquete") {
+                    $("#paqueteSelect").prop("disabled", false);
+                } else {
+                    $("#paqueteSelect").prop("disabled", true);
+                }
+            });
+            $("#paqueteSelect").prop("disabled", true);
+        });
+</script>
     </body>
     <script>
-        $('#multiple-select-field').select2({
-                theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-                placeholder: $(this).data('placeholder'),
-                closeOnSelect: false,
-            });
+    /*
+    $('#multiple-select-field').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            closeOnSelect: false,
+        });
+    */
     </script>
 
 </html>
