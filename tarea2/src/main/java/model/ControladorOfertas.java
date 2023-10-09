@@ -11,6 +11,9 @@ import excepciones.UsuarioNoEsPostulanteException;
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.time.LocalDateTime;
@@ -38,13 +41,13 @@ public class ControladorOfertas implements IControladorOfertas {
 	}
 
 	public void altaOferta(String nombre, String desc, String remuner, String horario, List<String> keywords,
-			String ciudad, String depa, String tipo, String empresa, String imagen)
+			String ciudad, String depa, String tipo, String empresa)
 			throws NombreExisteException, KeywordExisteException, NicknameNoExisteException {
 		LocalDateTime fecha = LocalDateTime.now();
 		ControladorUsuarios contU = ControladorUsuarios.getInstance();
 		Empresa usuarioEmpresa = (Empresa) contU.obtenerUsuario(empresa);
 		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
-		OfertaLaboral ofL = new OfertaLaboral(nombre, desc, ciudad, depa, horario, EnumEstadoOferta.INGRESADA ,imagen,fecha, remuner, usuarioEmpresa);
+		OfertaLaboral ofL = new OfertaLaboral(nombre, desc, ciudad, depa, horario, fecha,EnumEstadoOferta.INGRESADA, remuner, usuarioEmpresa);
 		mOL.addOferta(ofL, keywords);
 		// despues de crear la oferta, creo la publicacion con el tipo
 		ControladorPublicaciones contPub = ControladorPublicaciones.getInstance();
@@ -52,6 +55,34 @@ public class ControladorOfertas implements IControladorOfertas {
 		usuarioEmpresa.asociarOferta(ofL.toDataType());
 		ofL.addPublicacion(pub);
 	}
+	
+	public void altaOfertaWeb(String nombre, String descripcion, String renumeracion, String horario, String ciudad, String departanemto, String tipoPublicacion, String formaPago, String paqueteSeleccionado,EnumEstadoOferta estado, String[] Keywords,String urlImagen, String empresaActual ) throws NicknameNoExisteException, NombreExisteException, KeywordExisteException{
+		LocalDateTime fecha = LocalDateTime.now();
+		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
+		ControladorUsuarios contU = ControladorUsuarios.getInstance();
+		Empresa usuarioEmpresa = (Empresa) contU.obtenerUsuario(empresaActual);
+		OfertaLaboral ofl;
+	    if (urlImagen != null && !urlImagen.trim().isEmpty() && paqueteSeleccionado != null && !paqueteSeleccionado.trim().isEmpty()) {
+	        // Constructor con URL y paquete
+	        ofl = new OfertaLaboral(nombre, descripcion, ciudad, departanemto, horario, fecha,estado , renumeracion, usuarioEmpresa, formaPago, urlImagen, paqueteSeleccionado);
+	    } else if (urlImagen != null && !urlImagen.trim().isEmpty()) {
+	        // Constructor solo con URL
+	        ofl = new OfertaLaboral(nombre, descripcion, ciudad, departanemto, horario, fecha,estado , renumeracion, urlImagen, usuarioEmpresa, formaPago);
+	    } else if (paqueteSeleccionado != null && !paqueteSeleccionado.trim().isEmpty()) {
+	        // Constructor solo con paquete
+	        ofl = new OfertaLaboral(nombre, descripcion, ciudad, departanemto, horario, fecha,estado , renumeracion, usuarioEmpresa, formaPago, paqueteSeleccionado);
+	    } else {
+	        // Constructor básico con formaPago
+	        ofl = new OfertaLaboral(nombre, descripcion, ciudad, departanemto, horario, fecha,estado , renumeracion, usuarioEmpresa, formaPago);
+	    }
+	    List<String> keywordsList = new ArrayList<>(Arrays.asList(Keywords));
+	    mOL.addOferta(ofl, keywordsList);
+	    ControladorPublicaciones contPub = ControladorPublicaciones.getInstance();
+		Publicacion pub = contPub.addPublicacion(ofl, tipoPublicacion);
+		usuarioEmpresa.asociarOferta(ofl.toDataType());
+		ofl.addPublicacion(pub);
+	}
+
 
 	public List<String> obtenerKeywords() {
 		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
