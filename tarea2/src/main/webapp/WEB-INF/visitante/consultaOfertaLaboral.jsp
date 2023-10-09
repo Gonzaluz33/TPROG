@@ -12,6 +12,7 @@
 <%@ page import=" utils.LocalDateSerializer"%>
 <%@ page import="utils.LocalDateTimeAdapter"%>
 <%@ page import="java.net.URLEncoder" %>
+<%@page import="java.time.format.DateTimeFormatter"%>
     
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +56,11 @@
 		                    <p class="m-0"><span class="fw-bold">Horario:</span> <%= publicacion.getDtOferta().getHorario() %> </p>
 		                    <p class="m-0"><span class="fw-bold">Departamento:</span> <%= publicacion.getDtOferta().getDepartamento() %> </p>
 		                    <p class="m-0"><span class="fw-bold">Ciudad:</span> <%= publicacion.getDtOferta().getCiudad() %> </p>
-		                    <p class="m-0"><span class="fw-bold">Fecha de alta:</span> <%= publicacion.getDtOferta().getFechaAlta() %></p>
+		                    <p class="m-0"><span class="fw-bold">Fecha de alta:</span> <%
+			                    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+									LocalDateTime fecha = (LocalDateTime) request.getAttribute("fecha");
+				                     %> 
+				                     <%=fecha.format(formatter) %></p>
 		                </div>
 		                <div class="card-footer">
 		                    

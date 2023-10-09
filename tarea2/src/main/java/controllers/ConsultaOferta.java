@@ -55,6 +55,7 @@ public class ConsultaOferta extends HttpServlet {
         DTOferta oferta = ICO.obtenerDatosOferta(nombreOferta);
         String publicacionJSON = gsonAux.toJson(publicacion);
         req.setAttribute("publicacion", publicacionJSON);
+        req.setAttribute("fecha", oferta.getFechaAlta());
         
         UtilidadesJWT jwtUtil = UtilidadesJWT.obtenerInstancia();
         DTUsuario user = jwtUtil.obtenerDatosDeUsuarioJWT(req, resp);
