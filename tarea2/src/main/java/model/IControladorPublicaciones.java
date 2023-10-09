@@ -22,4 +22,5 @@ public interface IControladorPublicaciones {
 	 public List<DTPublicacion> obtenerPublicacionesPorBusqueda(String busqueda);
 	 public List<DTPublicacion> obtenerPublicacionesPorKeywords(List<String> keywords);
 	 public Publicacion obtenerPublicacionAsociadaAOferta(String nombreOferta);
+	 public List<DTPublicacion> obtenerPublicacionesDeEmpresa(String nicknameEmpresa);
 }

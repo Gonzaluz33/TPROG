@@ -7,10 +7,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Fabrica;
 import model.IControladorOfertas;
+import model.IControladorPublicaciones;
 import utils.DTEmpresa;
 import utils.DTOferta;
 import utils.DTPostulacion;
 import utils.DTPostulante;
+import utils.DTPublicacion;
 import utils.DTUsuario;
 import utils.LocalDateSerializer;
 import utils.LocalDateTimeAdapter;
@@ -78,16 +80,11 @@ public class MiUsuario extends HttpServlet {
             		req.setAttribute("apellido", user.getApellido());
             		req.setAttribute("correo", user.getCorreo());
             		Fabrica factory = Fabrica.getInstance();
-            		IControladorOfertas ICO = factory.getIControladorOfertas();
-            		Set<DTOferta> ofertas = null;
-            		try {
-						ofertas = ICO.obtenerOfertasVigentesDeEmpresa(user.getNickname());
-					} catch (NicknameNoExisteException | UsuarioNoEsEmpresaException e) {
-			
-					}
-            		if(ofertas != null && !ofertas.isEmpty()) {
-            			String ofertasJSON = gson.toJson(ofertas);
-            			req.setAttribute("ofertas", ofertasJSON);
+            		IControladorPublicaciones ICP = factory.getIControladorPublicaciones();	
+            		 List<DTPublicacion> publicaciones = ICP.obtenerPublicacionesDeEmpresa(user.getNickname());
+            		if(publicaciones != null && !publicaciones.isEmpty()) {
+            			String publicacionesJSON = gson.toJson(publicaciones);
+            			req.setAttribute("publicaciones", publicacionesJSON);
             		}
             		
         			req.getRequestDispatcher("/WEB-INF/empresa/MiUsuario.jsp").forward(req, resp);

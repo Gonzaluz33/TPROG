@@ -6,13 +6,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Fabrica;
+import model.IControladorPublicaciones;
 import model.IControladorUsuario;
 import utils.DTEmpresa;
+import utils.DTPublicacion;
 import utils.DTUsuario;
+import utils.EnumEstadoOferta;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Servlet implementation class PostularAOferta
@@ -29,13 +34,33 @@ public class PostularAOferta extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
+   
+    
+    public static List<DTUsuario> obtenerEmpresasConPublicacionesConfirmadas(IControladorPublicaciones ICP, IControladorUsuario ICU) {
+        List<DTUsuario> empresasConPublicacionesConfirmadas = new ArrayList<>();
+        List<DTEmpresa> todasLasEmpresas = ICU.listarEmpresas();
+        
+        for (DTUsuario empresa : todasLasEmpresas) {
+            List<DTPublicacion> publicacionesDeEmpresa = ICP.obtenerPublicacionesDeEmpresa(empresa.getNickname());
+            for (DTPublicacion publicacion : publicacionesDeEmpresa) {
+                if (EnumEstadoOferta.CONFIRMADA.equals(publicacion.getDtOferta().getEstado())) {
+                    empresasConPublicacionesConfirmadas.add(empresa);
+                    break; 
+                }
+            }
+        }
+        
+        return empresasConPublicacionesConfirmadas;
+    }
+    
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	UtilidadesJWT utilidadesJWT = UtilidadesJWT.obtenerInstancia();
     	String tipoUsuario = utilidadesJWT.obtenerTipoUsuarioPorRequest(req, resp);
     	Fabrica factory = Fabrica.getInstance();
 	    IControladorUsuario icontuser = factory.getIControladorUsuario();
-		List<DTEmpresa> empresas = new ArrayList<>();
-		empresas = icontuser.listarEmpresas();
+	    IControladorPublicaciones icontpub = factory.getIControladorPublicaciones();
+		List<DTUsuario> empresas = new ArrayList<>();
+		empresas = obtenerEmpresasConPublicacionesConfirmadas(icontpub,icontuser);
 		req.setAttribute("empresas", empresas);
 		DTUsuario user = utilidadesJWT.obtenerDatosDeUsuarioJWT(req, resp);
 		if(user!=null) {

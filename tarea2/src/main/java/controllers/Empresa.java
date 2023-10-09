@@ -14,6 +14,7 @@ import model.TokenBlacklist;
 import utils.DTEmpresa;
 import utils.DTPublicacion;
 import utils.DTUsuario;
+import utils.EnumEstadoOferta;
 import utils.LocalDateSerializer;
 import utils.LocalDateTimeAdapter;
 import java.io.IOException;
@@ -23,6 +24,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.jsonwebtoken.Claims;
@@ -44,6 +47,12 @@ public class Empresa extends HttpServlet {
     public Empresa() {
         super();
         // TODO Auto-generated constructor stub
+    }
+    
+    public static List<DTPublicacion> filtrarPublicacionesConfirmadas(List<DTPublicacion> publicaciones) {
+        return publicaciones.stream()
+                .filter(publicacion -> EnumEstadoOferta.CONFIRMADA.equals(publicacion.getDtOferta().getEstado()))
+                .collect(Collectors.toList());
     }
     
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -71,8 +80,9 @@ public class Empresa extends HttpServlet {
 
 			publicaciones = ICP.obtenerPublicaciones();
 		}
-
-		String publicacionesJSON = gsonAux.toJson(publicaciones);
+		
+		List<DTPublicacion> pubFiltered = filtrarPublicacionesConfirmadas(publicaciones);
+		String publicacionesJSON = gsonAux.toJson(pubFiltered);
 		req.setAttribute("publicaciones", publicacionesJSON);
 		boolean esValidoEmpresa = false;
 		Cookie[] cookies = req.getCookies();

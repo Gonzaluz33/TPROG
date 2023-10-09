@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="java.util.Set" %>
+    <%@ page import="java.util.List" %>
 <%@ page import="utils.DTOferta" %>
 <%@ page import="utils.DTPublicacion" %>
 <%@ page import="com.google.gson.Gson"%>
@@ -72,29 +72,7 @@
                         <p class="m-0"><span class="fw-bold">Apellido: </span><%=apellidoJSON%></p>
                         <p class="m-0"><span class="fw-bold">Email: </span><%=correoJSON%></p>
                     </div>
-                    <div>
-                        <h2>Paquetes Adquiridos:</h2>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Costo:</th>
-                                    <th scope="col">Fecha de Compra:</th>
-                                    <th scope="col">Fecha de vencimiento:</th>
-                                    <th scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="fw-bold">Básico</td>
-                                    <td>240</td>
-                                    <td>15/8/2023</td>
-                                    <td>15/9/2023</td>
-                                    <td><a href="#">Ver información</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                   
                 </div>
             </div>
 
@@ -114,24 +92,24 @@
             </thead>
             <tbody>
                <%
-				    String ofertasJSON = (String) request.getAttribute("ofertas");
-				    if(ofertasJSON != null) {
+				    String publicacionesJSON = (String) request.getAttribute("publicaciones");
+				    if(publicacionesJSON != null) {
 				        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
 				            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
-				        Type setType = new TypeToken<Set<DTOferta>>(){}.getType();
-				        Set<DTOferta> ofertas = gson.fromJson(ofertasJSON, setType);
+				        Type setType = new TypeToken<List<DTPublicacion>>(){}.getType();
+				        List<DTPublicacion> publicaciones = gson.fromJson(publicacionesJSON, setType);
 				        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-				        for(DTOferta oferta : ofertas) {
-				            LocalDateTime fechaAlta = oferta.getFechaAlta();
+				        for(DTPublicacion publicacion : publicaciones) {
+				            LocalDateTime fechaAlta = publicacion.getDtOferta().getFechaAlta();
 				            String formattedDate = (fechaAlta != null) ? fechaAlta.format(formatter) : "N/A";
 				%>
 				        <tr>
-				            <td class="fw-bold"><%= oferta.getNombre() %></td>
-				            <td>Premium</td>
-				            <td><%= oferta.getRemuneracion() %></td>
-				            <td><%= oferta.getHorario() %></td>
+				            <td class="fw-bold"><%= publicacion.getDtOferta().getNombre() %></td>
+				            <td><%=publicacion.getDtTipo().toString()%></td>
+				            <td><%= publicacion.getDtOferta().getRemuneracion() %></td>
+				            <td><%= publicacion.getDtOferta().getHorario() %></td>
 				            <td><%= formattedDate %></td>
-				            <td><%= oferta.getEstado().name() %></td>
+				            <td><%= publicacion.getDtOferta().getEstado().name() %></td>
 				        </tr>
 				<% 
 				        }

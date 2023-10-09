@@ -75,7 +75,7 @@
                                 <p class="m-0"><span class="fw-bold">Departamento: </span><%= publicacion.getDtOferta().getDepartamento() %></p>
                                 <p class="m-0"><span class="fw-bold">Ciudad: </span><%= publicacion.getDtOferta().getCiudad() %> </p>
 
-                                <p class="m-0"><span class="fw-bold">Tipo de Publicacion:</span>  <%= publicacion.getDtTipo().getNombre()%> <a href="mostrarTipo?nombre=<%= publicacion.getDtTipo().getNombre()%>">Ver más</a></p>
+                                <p class="m-0"><span class="fw-bold">Tipo de Publicacion:</span>  <%= publicacion.getDtTipo().getNombre()%> : <a class="fw-bold text-decoration-none text-black" href="mostrarTipo?nombre=<%= publicacion.getDtTipo().getNombre()%>">Ver más ></a></p>
                                
                             </div>
                             <div class="row d-flex  mt-3">
@@ -84,7 +84,7 @@
                         
                             <div class="row d-flex  mt-3">
                                 <p class="m-0"><span class="fw-bold"> Keywords:</span>  <% for(String keyword : publicacion.getDtOferta().getKeywords()){ %>
-		                            <span class="badge bg-info"><%= keyword %></span>
+		                            <span class="badge text-bg-dark">#<%= keyword %></span>
 		                        <% } %>
                         
                             </div>

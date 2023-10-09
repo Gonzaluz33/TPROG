@@ -70,7 +70,8 @@ public class ManejadorPublicaciones {
 	
 	public List<DTPublicacion> obtenerPublicaciones() {
 	    List<DTPublicacion> dtPublicacionesList = new ArrayList<>();
- 
+	    
+
 
 	    for (Map.Entry<Integer, Publicacion> entry : coleccionPublicaciones.entrySet()) {
 	        Publicacion publicacion = entry.getValue();

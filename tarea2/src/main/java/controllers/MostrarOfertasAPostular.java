@@ -11,6 +11,7 @@ import model.IControladorPublicaciones;
 import utils.DTOferta;
 import utils.DTPublicacion;
 import utils.DTUsuario;
+import utils.EnumEstadoOferta;
 import utils.LocalDateSerializer;
 import utils.LocalDateTimeAdapter;
 
@@ -43,17 +44,27 @@ public class MostrarOfertasAPostular extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
+    public Set<DTOferta> filtrarOfertasConfirmadas(Set<DTOferta> ofertas) {
+        Set<DTOferta> ofertasConfirmadas = new HashSet<>();
+        for (DTOferta oferta : ofertas) {
+            if (EnumEstadoOferta.CONFIRMADA.equals(oferta.getEstado())) {
+                ofertasConfirmadas.add(oferta);
+            }
+        }
+        return ofertasConfirmadas;
+    }
+    
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, NicknameNoExisteException, UsuarioNoEsEmpresaException {
     	String nicknameEmpresa = request.getParameter("Empresa");
         UtilidadesJWT utilidadesJWT = UtilidadesJWT.obtenerInstancia();
     	String tipoUsuario = utilidadesJWT.obtenerTipoUsuarioPorRequest(request, response);
 		Fabrica factory = Fabrica.getInstance();
 		IControladorOfertas ICO = factory.getIControladorOfertas();
-		Set<DTOferta> ofertas = new HashSet<DTOferta>();
-		ofertas = (Set<DTOferta>) ICO.obtenerOfertasVigentesDeEmpresa(nicknameEmpresa);
+		 Set<DTOferta> ofertas = (Set<DTOferta>) ICO.obtenerOfertasVigentesDeEmpresa(nicknameEmpresa);
+		 Set<DTOferta> ofertasConfirmadas = filtrarOfertasConfirmadas(ofertas);
 		Gson gsonAux = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
 				.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
-		String ofertasJson = gsonAux.toJson(ofertas);
+		String ofertasJson = gsonAux.toJson(ofertasConfirmadas);
 		request.setAttribute("ofertasVigentes", ofertasJson);
 		
 		DTUsuario user = utilidadesJWT.obtenerDatosDeUsuarioJWT(request, response);
