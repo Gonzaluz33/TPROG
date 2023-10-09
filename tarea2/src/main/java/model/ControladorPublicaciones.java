@@ -40,7 +40,7 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 		Integer duracion = datosTipo.getDuracion();
 		LocalDate fechaActual = LocalDate.now();
 		LocalDate fin = fechaActual.plusDays(duracion);
-		Publicacion pub = new Publicacion(id, datosTipo.getCosto(), fechaActual, fin, ofL);
+		Publicacion pub = new Publicacion(id, datosTipo.getCosto(), fechaActual, fin, ofL, datosTipo);
 		manPub.addPublicacion(pub);
 		//find tipo, agregar asociacion si no existe, y pumquepam
 		return pub;
@@ -88,7 +88,6 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 	public List<DTPublicacion> obtenerPublicacionesPorBusqueda(String busqueda) {
         ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
         List<DTPublicacion> publicaciones = manejadorP.obtenerPublicaciones();
-        System.out.println(publicaciones);
         return publicaciones.stream()
                 .filter(dtPublicacion -> {
                     DTOferta oferta = dtPublicacion.getDtOferta();
@@ -121,5 +120,9 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
 	        .collect(Collectors.toList());
 	}
 
+	public Publicacion obtenerPublicacionAsociadaAOferta(String nombreOferta){
+		  ManejadorPublicaciones manejadorP = ManejadorPublicaciones.getInstance();
+		  return manejadorP.obtenerPublicacionAsociadaAOferta(nombreOferta);
+	}
 	
 }

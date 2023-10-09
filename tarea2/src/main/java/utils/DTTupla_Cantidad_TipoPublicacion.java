@@ -22,8 +22,8 @@ public class DTTupla_Cantidad_TipoPublicacion {
 		this.cantidad = cant;
 	}
 
-	public void setTipoPublicacion(String s) {
-		this.tipoPublicacion = s;
+	public void setTipoPublicacion(String tipoP) {
+		this.tipoPublicacion = tipoP;
 	}
 
 }

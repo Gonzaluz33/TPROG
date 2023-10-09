@@ -22,6 +22,7 @@
      		    .create(); 
         %>
         <%   String imgPerfilJSON = (String) request.getAttribute("imgPerfil");
+        	System.out.println(imgPerfilJSON);
 		 %>
 </head>
 <body>
@@ -93,7 +94,7 @@
 					    %>
 					        <div class="d-flex p-2  border border-dark align-items-center mb-3">
 					            <div style="width: 25%;">
-					                <img class="w-75" src="<%= publicacion.getDtOferta().getImagen()%>" alt="">
+					                <img class="w-75" src="<%= publicacion.getDtOferta().getUrlImagen()%>" alt="">
 					            </div>
 					            <div class="w-75">
 					                <div class="d-flex flex-column">

@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar p-0 border-bottom border-black mb-1">
+        <nav class="navbar p-3">
             <div class=" d-flex justify-content-between align-items-center w-100" style="height: 8vh;">
                 <div class="d-flex" style="width: 80vw;">
                     <jsp:include page="/WEB-INF/template/Logo.jsp" />
@@ -18,20 +18,28 @@
             </div>
         </nav>
     </header>
-    <main>
-        <jsp:include page="/WEB-INF/template/NavBarVisitante.jsp" />
-        <div class="d-flex flex-column justify-content-center p-4">
-            <h2>Seleccione un Tipo de Publicación:</h2>
-            <div class="d-flex mt-4 gap-3 flex-column">
-                <ul>
-				        <% List<DTTipoPublicacion> tiposPublicacion = (List<DTTipoPublicacion>) request.getAttribute("tiposPublicacion");
-				           for (DTTipoPublicacion tipo : tiposPublicacion) { %>
-				            <li><a href="mostrarTipo?nombre=<%= tipo.getNombre()%>"><%= tipo.getNombre()%></a></li>
-				        <% } %>
-				    </ul>
+   <main>
+    <jsp:include page="/WEB-INF/template/NavBarVisitante.jsp" />
+    <div class="container my-5">
+        <h2 class="mb-4 text-center">Seleccione un Tipo de Publicación:</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="list-group">
+                    <%
+                        List<DTTipoPublicacion> tiposPublicacion = (List<DTTipoPublicacion>) request.getAttribute("tiposPublicacion");
+                        for (DTTipoPublicacion tipo : tiposPublicacion) {
+                    %>
+                    <a href="mostrarTipo?nombre=<%= tipo.getNombre()%>" class="list-group-item list-group-item-action text-center">
+                        <%= tipo.getNombre()%>
+                    </a>
+                    <% } %>
+                </div>
             </div>
         </div>
-
-    </main>
+        <div class="mt-4 text-center">
+            <a onclick="window.history.back();"  class="btn btn-dark">Volver atrás</a>
+        </div>
+    </div>
+</main>
 </body>
 </html>

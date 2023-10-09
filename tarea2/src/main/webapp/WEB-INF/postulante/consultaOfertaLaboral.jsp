@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import="utils.DTOferta" %>
+    <%@ page import="utils.DTPublicacion" %>
+     <%@ page import="utils.DTPostulacion" %>
 <%@ page import="com.google.gson.Gson"%>
 <%@ page import="java.lang.reflect.Type"%>
 <%@ page import="com.google.gson.reflect.TypeToken"%>
@@ -11,6 +13,8 @@
 <%@ page import=" utils.LocalDateSerializer"%>
 <%@ page import="utils.LocalDateTimeAdapter"%>
 <%@ page import="java.net.URLEncoder" %>
+<%@page import="java.time.format.DateTimeFormatter"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,78 +52,84 @@
     </header>
     <main>
          <jsp:include page="/WEB-INF/template/NavBarPostulante.jsp"/>
-          <%  String ofertaJSON = (String) request.getAttribute("oferta");
-		            DTOferta oferta = gson.fromJson(ofertaJSON, DTOferta.class);
-		            if(oferta != null){
+          <%  String publicacionJSON = (String) request.getAttribute("publicacion");
+		            DTPublicacion publicacion = gson.fromJson(publicacionJSON, DTPublicacion.class);
+		            if(publicacion != null){
 		        %>
         <div class="p-3 mt-5 d-flex flex-column">
             <div class="d-flex  justify-content-center">
                         <div class="row d-flex text-center align-items-center justify-content-center">
                             <div>
-                                <img class="w-75" src="<%= oferta.getImagen() %>" alt="">
+                                <img class="w-75" src="<%= publicacion.getDtOferta().getUrlImagen() %>" alt="">
                             </div>
                         
                         </div>
                         <div>
                             <div class="row d-flex  mt-3">
                                 <div class="text-start align-items-center justify-content-center">
-                                    <h3 class="fw-bold"><%= oferta.getNombre() %></h3>
+                                    <h3 class="fw-bold"><%= publicacion.getDtOferta().getNombre() %></h3>
                                 </div>
-                                <p><span class="fw-bold">Descripción: </span><%= oferta.getDescripcion() %></p>
+                                <p><span class="fw-bold">Descripción: </span><%= publicacion.getDtOferta().getDescripcion() %></p>
                             </div>
                             <div class="row d-flex ">
-                                <p class="m-0"><span class="fw-bold">Remuneración: </span><%= oferta.getRemuneracion() %> pesos uruguayos </p>
-                                <p class="m-0"><span class="fw-bold">Horario: </span> <%= oferta.getHorario() %> </p>
-                                <p class="m-0"><span class="fw-bold">Departamento: </span><%= oferta.getDepartamento() %></p>
-                                <p class="m-0"><span class="fw-bold">Ciudad: </span><%= oferta.getCiudad() %> </p>
+                                <p class="m-0"><span class="fw-bold">Remuneración: </span><%= publicacion.getDtOferta().getRemuneracion() %> pesos uruguayos </p>
+                                <p class="m-0"><span class="fw-bold">Horario: </span> <%= publicacion.getDtOferta().getHorario() %> </p>
+                                <p class="m-0"><span class="fw-bold">Departamento: </span><%= publicacion.getDtOferta().getDepartamento() %></p>
+                                <p class="m-0"><span class="fw-bold">Ciudad: </span><%= publicacion.getDtOferta().getCiudad() %> </p>
 
-                                <p class="m-0"><span class="fw-bold">Tipo de Publicacion:</span> Premium <a href="./consultaTipoPublicacion.html">Ver más</a></p>
+                                <p class="m-0"><span class="fw-bold">Tipo de Publicacion:</span>  <%= publicacion.getDtTipo().getNombre()%> <a href="mostrarTipo?nombre=<%= publicacion.getDtTipo().getNombre()%>">Ver más</a></p>
                                
                             </div>
                             <div class="row d-flex  mt-3">
-                                <p class="m-0"><span class="fw-bold">Fecha de alta:</span> <%= oferta.getFechaAlta() %></p>
+                                <p class="m-0"><span class="fw-bold">Fecha de alta:</span>  <%
+			                    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+									LocalDateTime fecha = (LocalDateTime) request.getAttribute("fecha");
+				                     %> 
+				                     <%=fecha.format(formatter) %></p>
                             </div>
                         
                             <div class="row d-flex  mt-3">
-                                <p class="m-0"><span class="fw-bold"> Keywords:</span>  <% for(String keyword : oferta.getKeywords()){ %>
+                                <p class="m-0"><span class="fw-bold"> Keywords:</span>  <% for(String keyword : publicacion.getDtOferta().getKeywords()){ %>
 		                            <span class="badge bg-info"><%= keyword %></span>
 		                        <% } %>
                         
                             </div>
                         </div>
+            	</div>
             </div>
-            <div class="d-flex mt-5 justify-content-center">
-                <div class="col-8">
-                    <h3 class="fw-bold">Mi Postulación:</h3>
-                        <div class="d-flex">
-                            <div>
-                                <h4>CV:</h4>
-                                <p>
-                                    Licenciada en Administración, experiencia
-                                    en gestión de equipos y
-                                    proyectos. Conocimientos
-                                    en Microsoft Office.
-                                </p>
-                                <h4>Motivación:</h4>
-                                <p>
-                                    Estoy emocionada por
-                                    la oportunidad de formar parte de un equipo
-                                    dinámico y contribuir
-                                    con mis habilidades de
-                                    liderazgo.
-                                </p>
-                                <h4>Fecha:</h4>
-                                <p>
-                                    16/08/23
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                </div>
-            </div>
-        </div>
+              <%  String postulacionJSON = (String) request.getAttribute("postulacion");
+			    DTPostulacion postulacion = gson.fromJson(postulacionJSON, DTPostulacion.class);
+			    if(postulacion != null){
+			%>
+			    <div class="container mt-5 mb-5">
+			        <div class="row justify-content-center">
+			            <div class="col-8">
+			                <div class="card">
+			                    <div class="card-header">
+			                        <h3 class="fw-bold">Mi Postulación:</h3>
+			                    </div>
+			                    <div class="card-body">
+			                        <h4>CV:</h4>
+			                        <p><%=postulacion.getCvReducido()%></p>
+			                        <h4>Motivación:</h4>
+			                        <p><%=postulacion.getMotivacion()%></p>
+			                        <h4>Fecha:</h4>
+			                        <p><%=postulacion.getFecha()%></p> 
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			<%
+			    } else {
+			%>
+			    
+			<%  
+			    }
+			%>
+         
+         
+         
          <%
 		            } else {
 		                %>
@@ -129,6 +139,9 @@
 		                <%  
 		                    }
 		                %>
+		<div class="my-4 container d-flex justify-content-center">
+    <a class="btn btn-dark" onclick="window.history.back();" >Volver atrás</a>
+</div>          
     </main>
 </body>
 

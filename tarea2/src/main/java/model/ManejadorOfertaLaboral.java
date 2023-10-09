@@ -22,6 +22,7 @@ import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
 import utils.DTEmpresa;
 import utils.DTOferta;
+import utils.DTPostulacion;
 import utils.DTPostulante;
 
 public class ManejadorOfertaLaboral {
@@ -159,5 +160,45 @@ public class ManejadorOfertaLaboral {
 	public void limpiarColeccionKeywords() {
 		this.coleccionKeyword = new HashMap<String, Keyword>();
 	}
+	
+	public List<DTPostulacion> obtenerPostulacionesPorPostulante(String nicknamePostulante)
+            throws NicknameNoExisteException, UsuarioNoEsPostulanteException {
+        ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+        DTUsuario usuario = manejadorU.obtenerUsuario(nicknamePostulante);
+
+        // Verificar si el usuario es un postulante
+        if (!(usuario instanceof DTPostulante))
+            throw new UsuarioNoEsPostulanteException(
+                    "El usuario con nickname " + nicknamePostulante + " no es un postulante.");
+
+        List<DTPostulacion> postulaciones = new ArrayList<>();
+        for (OfertaLaboral oferta : coleccionOfertasLaborales.values()) {
+            for (DTPostulacion postulacion : oferta.getPostulaciones()) {
+                if (postulacion.getNicknamePostulante().equals(nicknamePostulante)) {
+                    postulaciones.add(postulacion);
+                }
+            }
+        }
+
+        return postulaciones;
+    }
+	
+	
+	public DTPostulacion estaPostuladoAOfertaLaboral(String nicknameUsuario, String nombreOfertaLaboral)
+            throws OfertaNoExisteException, NicknameNoExisteException, UsuarioNoEsPostulanteException {
+        ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+        DTUsuario usuario = manejadorU.obtenerUsuario(nicknameUsuario);
+        if (usuario instanceof DTPostulante) {
+        	  OfertaLaboral oferta = coleccionOfertasLaborales.get(nombreOfertaLaboral);
+              if (oferta != null){
+            	  for (DTPostulacion postulacion : oferta.getPostulaciones()) {
+                      if (postulacion.getNicknamePostulante().equals(nicknameUsuario)) {
+                    	  return postulacion; 
+                      }
+                  }
+              }
+        }
+        return null;
+    }
 
 }

@@ -1,3 +1,6 @@
+<%@ page import="utils.DTOferta"%>
+<%@ page import="java.util.Set"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -5,57 +8,53 @@
 
 <head>
     <jsp:include page="/WEB-INF/template/head.jsp"/>
+    <%   String imgPerfilJSON = (String) request.getAttribute("imgPerfil");
+		 %>
 </head>
 
 <body>
     <header>
-        <nav class="navbar p-0 border-bottom border-black mb-1">
-            <div class=" d-flex justify-content-between align-items-center w-100" style="height: 8vh;">
-                <div class="d-flex" style="width: 80vw;">
-                    <jsp:include page="/WEB-INF/template/Logo.jsp"/>
-                    <h3 class="m-0 d-flex align-items-center">Consulta de Postulación a Oferta Laboral</h3>
+        <nav class="navbar p-3">
+            <div class="d-flex justify-content-between align-items-center w-100" style="height: 8vh;">
+                <div class="d-flex">
+                    <div class="ms-5">
+                        <a class="navbar-brand" href="/tarea2/visitante"><img class="img-fluid w-50" src="media/img/trabajo_logo.png" alt=""></a>
+                    </div>
+                  
                 </div>
-                 <jsp:include page="/WEB-INF/template/CerrarSesionEmpresa.jsp"/>
+                 <div class="d-flex me-5">
+                 
+				 <div class="d-flex me-5">
+					 <div class="d-flex">
+					    <img src="<%=imgPerfilJSON%>" class="rounded-circle" alt="Foto de perfil" style="width:40px; height:40px; border: 2px solid black;">
+					  </div>
+				     <div class="d-flex border-end px-2 mt-2">
+				         <a href="/tarea2/miUsuario" class="text-decoration-none text-black fw-bold "><img src="">Mi Usuario</a>
+				     </div>
+				     <div class="d-flex px-2 mt-2">
+				         <a class="text-decoration-none text-black fw-bold " href="/tarea2/cerrar-sesion">Cerrar Sesión<i class="ms-2 fas fa-sign-out-alt"></i></a>
+				     </div>
+ </div>
+ 				</div>
             </div>
         </nav>
     </header>
     <main>
          <jsp:include page="/WEB-INF/template/NavBarEmpresa.jsp"/>
-    <div class="d-flex flex-column justify-content-center p-2">
-        <div>
-            <div class="form-floating">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                    <option selected value="0">Desarrollador Frontend</option>
-                </select>
-                <label for="floatingSelect">Seleccione una Publicación</label>
-            </div>
+  <div class="container my-4 p-4">
+    <h2 class="text-center mb-4">Seleccione una Oferta:</h2>
+    <div class="list-group">
+        <% Set<DTOferta> ofertas = (Set<DTOferta>) request.getAttribute("ofertas");
+           for (DTOferta oferta : ofertas) { %>
+            <a  href="mostrarPostulacion?nombre=<%= oferta.getNombre()%>" class="list-group-item list-group-item-action fw-bold">
+                <%= oferta.getNombre()%> >
+            </a>
+        <% } %>
+    </div>
+</div>
+ <div class="mt-4 text-center">
+            <a onclick="window.history.back();" class="btn btn-dark">Volver atrás</a>
         </div>
-        <div class="d-flex mt-4 gap-3 p-2 flex-column">
-            <h3>Listado de Postulantes:</h3>
-                <table class="table table-hover">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Nickname:</th>
-                            <th scope="col">Nombre:</th>
-                            <th scope="col">Apellido:</th>
-                            <th scope="col">Email:</th>
-                            <th scope="col">Fecha de Postulación:</th>
-                            <th scope="col">Acciones:</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">lgarcia</th>
-                            <td>Lucía</td>
-                            <td>García</td>
-                            <td>@lgarcia85@gmail.com</td>
-                            <td>16/08/23</td>
-                            <td><a href="./informaciónPostulación.html">Ver postulación</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-        </div>
-    
     </div>
     </main>
 </body>

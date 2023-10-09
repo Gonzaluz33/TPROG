@@ -29,27 +29,27 @@ public class ManejadorUsuarios {
 	/**
 	 * Crea la empresa y la agrega a coleccionUsuarios.
 	 */
-	void altaEmpresa(Empresa e) throws UsuarioRepetidoException, CorreoRepetidoException {
-		if (coleccionUsuarios.containsKey(e.getNickname().toLowerCase())){
+	void altaEmpresa(Empresa emp) throws UsuarioRepetidoException, CorreoRepetidoException {
+		if (coleccionUsuarios.containsKey(emp.getNickname().toLowerCase())){
 			throw new UsuarioRepetidoException("Ya existe un usuario con el nickname ingresado.");
 		}
-		if (coleccionCorreosUsuarios.containsKey(e.getCorreo()))
-			throw new CorreoRepetidoException("Ya existe un usuario con el correo " + e.getCorreo() + ".");
-		coleccionUsuarios.put(e.getNickname().toLowerCase(), e);
-		coleccionCorreosUsuarios.put(e.getCorreo(), e.getNickname());
+		if (coleccionCorreosUsuarios.containsKey(emp.getCorreo()))
+			throw new CorreoRepetidoException("Ya existe un usuario con el correo " + emp.getCorreo() + ".");
+		coleccionUsuarios.put(emp.getNickname().toLowerCase(), emp);
+		coleccionCorreosUsuarios.put(emp.getCorreo(), emp.getNickname());
 	}
 	
 	/**
 	 * Crea el postulante y lo agrega a coleccionUsuarios.
 	 */
-	void altaPostulante(Postulante p) throws UsuarioRepetidoException, CorreoRepetidoException {
-		if (coleccionUsuarios.containsKey(p.getNickname().toLowerCase())){
+	void altaPostulante(Postulante post) throws UsuarioRepetidoException, CorreoRepetidoException {
+		if (coleccionUsuarios.containsKey(post.getNickname().toLowerCase())){
 			throw new UsuarioRepetidoException("Ya existe un usuario con el nickname ingresado.");
 		}
-		if (coleccionCorreosUsuarios.containsKey(p.getCorreo()))
-			throw new CorreoRepetidoException("Ya existe un usuario con el correo " + p.getCorreo() + ".");
-		coleccionUsuarios.put(p.getNickname().toLowerCase(), p);
-		coleccionCorreosUsuarios.put(p.getCorreo(), p.getNickname());
+		if (coleccionCorreosUsuarios.containsKey(post.getCorreo()))
+			throw new CorreoRepetidoException("Ya existe un usuario con el correo " + post.getCorreo() + ".");
+		coleccionUsuarios.put(post.getNickname().toLowerCase(), post);
+		coleccionCorreosUsuarios.put(post.getCorreo(), post.getNickname());
 	}
 
 	/**

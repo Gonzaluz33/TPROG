@@ -71,8 +71,8 @@ public class DTPaquete {
 		this.nombre = nombre;
 	}
 
-	public void setUrlImagen(String url_imagen) {
-		this.url_imagen = url_imagen;
+	public void setUrlImagen(String urlImagen) {
+		this.url_imagen = urlImagen;
 	}
 
 	public void setDescripcion(String descripcion) {
@@ -91,12 +91,12 @@ public class DTPaquete {
 		this.costoAsociado = costoAsociado;
 	}
 
-	public void setFechaAlta(LocalDate d) {
-		this.fechaAlta = d;
+	public void setFechaAlta(LocalDate fechaA) {
+		this.fechaAlta = fechaA;
 	}
 
-	public void setListaDeTuplas(List<Tupla_Cantidad_TipoPublicacion> l) {
-		this.listaDeTuplas = l;
+	public void setListaDeTuplas(List<Tupla_Cantidad_TipoPublicacion> listTuplas) {
+		this.listaDeTuplas = listTuplas;
 	}
 
 }
