@@ -104,7 +104,7 @@ public class AltaOfertaLaboral extends HttpServlet {
      	            		String usuarioNickname = usuarioActual.getNickname();
      	            		iconofer.altaOfertaWeb(nombre, descripcion, remuneracion, horario, ciudad, departamento, tipoPublicacion, formaPago, paqueteSeleccionado,EnumEstadoOferta.INGRESADA, keywords, urlImagen, usuarioNickname);		     	            		
      	            		request.setAttribute("message", "Oferta laboral registrada con éxito");
-     	                    request.getRequestDispatcher("/WEB-INF/empresa/dashboardEmpresa.jsp").forward(request, response);
+     	                    request.getRequestDispatcher("/Empresa").forward(request, response);
      	            		}
      	                   catch (Exception e) {
      	                	    // Aquí puedes registrar el error y mostrar un mensaje de error al usuario.

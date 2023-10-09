@@ -43,17 +43,17 @@
 		    </div>
 		<% } %>
            <jsp:include page="/WEB-INF/template/NavBarEmpresa.jsp"/>
-            <div class="d-flex flex-column justify-content-start p-3">
+            <div class="d-flex flex-column justify-content-start">
                 <div class="col-12">
                     <form class="d-flex justify-content-between gap-3" action= "altaOfertaLaboral" method = "post">
-                        <div class="col-6">
+                        <div class="col-6 p-5">
                             <div class="mb-3">
                                 <label class="form-label">Seleccione un Tipo de Publicación:</label>
                                 <select class="form-select" id="floatingSelect" name="tipoPublicacion">
-   	 								<option selected value="0">Premium</option>
-    								<option value="1">Destacada</option>
-   								 	<option value="2">Estándar</option>
-    								<option value="3">Básica</option>
+   	 								<option selected value="Premium">Premium</option>
+    								<option value="Destacada">Destacada</option>
+   								 	<option value="Estándar">Estándar</option>
+    								<option value="Básica">Básica</option>
 								</select>
                             </div>
                             <div class="mb-3 d-flex gap-5 justify-content-between">
@@ -108,7 +108,7 @@
                             </div>
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-6 p-5">
                             <div class="mb-3">
                                 <label for="floatingTextarea2">Descripción:</label>
                                 <textarea class="form-control" placeholder="Ingrese una descripción" name= "descripcion"
