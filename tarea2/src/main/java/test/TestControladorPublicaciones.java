@@ -152,6 +152,4 @@ public class TestControladorPublicaciones {
 		assertEquals(controladorPublicaciones.listarPaquetes().size(), 0);
 	}
 	
-	
-	
 }
