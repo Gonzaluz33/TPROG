@@ -26,15 +26,15 @@ public class DTPostulante extends DTUsuario {
 	/**
 	 * Constructor SIN la lista de postulaciones asociada al postulante.
 	 */
-	public DTPostulante(String nickname, String nombre, String apellido, String correo, Date fechaNacimiento, String nacionalidad) {
-		super(nickname, nombre, apellido, correo);
+	public DTPostulante(String nickname, String nombre, String apellido, String correo, String contraseña ,Date fechaNacimiento, String nacionalidad) {
+		super(nickname, nombre, apellido, correo, contraseña);
 		this.setFechaNacimiento(fechaNacimiento);
         this.setNacionalidad(nacionalidad);
         this.setPostulaciones(new ArrayList<DTPostulacion>());
 	}
 	
-	public DTPostulante(String nickname, String nombre, String apellido, String correo, Date fechaNacimiento, String nacionalidad, List<DTPostulacion> postulaciones) {
-		super(nickname, nombre, apellido, correo);
+	public DTPostulante(String nickname, String nombre, String apellido, String correo, String contraseña ,Date fechaNacimiento, String nacionalidad, List<DTPostulacion> postulaciones) {
+		super(nickname, nombre, apellido, correo, contraseña);
 		this.setFechaNacimiento(fechaNacimiento);
         this.setNacionalidad(nacionalidad);
         this.setPostulaciones(postulaciones);

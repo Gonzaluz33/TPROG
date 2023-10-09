@@ -1,5 +1,6 @@
 package logica;
 
+import org.mindrot.jbcrypt.BCrypt;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -24,24 +25,36 @@ public class ControladorUsuarios implements IControladorUsuario{
         return instancia;
     }
 
-	public void altaPostulante(String nickname, String nombre, String apellido, String email, Date fechaNacimiento,
+	public void altaPostulante(String nickname, String nombre, String apellido, String email,String contraseña ,Date fechaNacimiento,
 			String nacionalidad) throws UsuarioRepetidoException, CorreoRepetidoException {
         ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
-        Postulante p = new Postulante(nickname, nombre, apellido, email, fechaNacimiento, nacionalidad);
+        String contraseñaHasheada = BCrypt.hashpw(contraseña, BCrypt.gensalt());
+        Postulante p = new Postulante(nickname, nombre, apellido, email, contraseñaHasheada ,fechaNacimiento, nacionalidad);
         manejadorU.altaPostulante(p);
 	}
 	
 	@Override
-	public void altaEmpresa(String nickname, String nombre, String apellido, String email, String nomEmpresa ,String desc,
+	public void altaEmpresa(String nickname, String nombre, String apellido, String email, String contraseña ,String nomEmpresa ,String desc,
 			String linkWeb) throws UsuarioRepetidoException, CorreoRepetidoException {
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
-		Empresa e = new Empresa(nickname, nombre, apellido, email, nomEmpresa ,desc, linkWeb);
+		String contraseñaHasheada = BCrypt.hashpw(contraseña, BCrypt.gensalt());
+		Empresa e = new Empresa(nickname, nombre, apellido, email, contraseñaHasheada ,nomEmpresa ,desc, linkWeb);
         manejadorU.altaEmpresa(e);
 	}
 	
 	public Usuario obtenerUsuario(String nickname) throws NicknameNoExisteException {
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
 		return manejadorU.getUsuario(nickname);
+	}
+	
+	public Boolean validarUsuario(String correo, String contraseña) throws NicknameNoExisteException {
+		try {
+	        ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+	        Usuario u = manejadorU.getUsuarioXCorreo(correo);
+	        return BCrypt.checkpw(contraseña, u.getContraseña());
+	    } catch (NicknameNoExisteException e) {
+	        return false;
+	    } 
 	}
 	
 	public List<DTUsuario> listarUsuarios() {

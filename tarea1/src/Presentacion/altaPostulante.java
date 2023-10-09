@@ -23,6 +23,7 @@ import javax.swing.JComboBox;
 import excepciones.CorreoRepetidoException;
 import excepciones.UsuarioRepetidoException;
 import logica.IControladorUsuario;
+import javax.swing.JPasswordField;
 
 @SuppressWarnings("serial")
 public class altaPostulante extends JInternalFrame {
@@ -37,6 +38,8 @@ public class altaPostulante extends JInternalFrame {
 	private JSpinner dia;
 	private JSpinner mes;
 	private JSpinner ano;
+	private JPasswordField contraseñaField;
+	private JPasswordField confContraseñaField;
 
 	/**
 	 * Create the frame.
@@ -51,11 +54,11 @@ public class altaPostulante extends JInternalFrame {
 		setIconifiable(true);
 		setClosable(true);
 		setTitle("Alta de Postulante");
-		setBounds(100, 100, 647, 300);
+		setBounds(100, 100, 647, 480);
 		getContentPane().setLayout(null);
 		
 		nicknameField = new JTextField();
-		nicknameField.setBounds(145, 16, 176, 20);
+		nicknameField.setBounds(145, 16, 203, 20);
 		getContentPane().add(nicknameField);
 		nicknameField.setColumns(10);
 		
@@ -64,7 +67,7 @@ public class altaPostulante extends JInternalFrame {
 		getContentPane().add(lblNewLabel);
 		
 		nombreField = new JTextField();
-		nombreField.setBounds(145, 69, 176, 20);
+		nombreField.setBounds(145, 69, 203, 20);
 		getContentPane().add(nombreField);
 		nombreField.setColumns(10);
 		
@@ -81,33 +84,49 @@ public class altaPostulante extends JInternalFrame {
 		getContentPane().add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("Fecha de Nacimiento:");
-		lblNewLabel_4.setBounds(27, 140, 139, 14);
+		lblNewLabel_4.setBounds(27, 207, 139, 14);
 		getContentPane().add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Nacionalidad:");
-		lblNewLabel_5.setBounds(27, 165, 102, 14);
+		lblNewLabel_5.setBounds(27, 232, 102, 14);
 		getContentPane().add(lblNewLabel_5);
 		
 		apellidoField = new JTextField();
 		apellidoField.setColumns(10);
-		apellidoField.setBounds(145, 41, 176, 20);
+		apellidoField.setBounds(145, 41, 203, 20);
 		getContentPane().add(apellidoField);
 		
 		correoField = new JTextField();
-		correoField.setBounds(145, 100, 176, 20);
+		correoField.setBounds(145, 100, 203, 20);
 		getContentPane().add(correoField);
 		correoField.setColumns(10);
 		
+		JLabel lblNewLabel_3_1 = new JLabel("Contraseña:");
+		lblNewLabel_3_1.setBounds(27, 134, 102, 14);
+		getContentPane().add(lblNewLabel_3_1);
+		
+		contraseñaField = new JPasswordField();
+		contraseñaField.setBounds(194, 131, 154, 20);
+		getContentPane().add(contraseñaField);
+		
+		JLabel lblNewLabel_3_1_1 = new JLabel("Confirmación de Contraseña:");
+		lblNewLabel_3_1_1.setBounds(27, 171, 169, 14);
+		getContentPane().add(lblNewLabel_3_1_1);
+		
+		confContraseñaField = new JPasswordField();
+		confContraseñaField.setBounds(194, 168, 154, 20);
+		getContentPane().add(confContraseñaField);
+		
 		dia = new JSpinner();
-		dia.setBounds(176, 137, 33, 20);
+		dia.setBounds(176, 204, 33, 20);
 		getContentPane().add(dia);
 		
 		mes = new JSpinner();
-		mes.setBounds(219, 137, 33, 20);
+		mes.setBounds(219, 204, 33, 20);
 		getContentPane().add(mes);
 		
 		ano = new JSpinner();
-		ano.setBounds(262, 137, 59, 20);
+		ano.setBounds(262, 204, 59, 20);
 		getContentPane().add(ano);
 		
 		String currentDirectory = System.getProperty("user.dir");
@@ -117,13 +136,13 @@ public class altaPostulante extends JInternalFrame {
 		String[] nacionalidades = cargarNacionalidadesDesdeCSV(csvNacionalidades);
 		
 		nacionalidadDropdown = new JComboBox<>(nacionalidades);
-		nacionalidadDropdown.setBounds(145, 162, 176, 20);
+		nacionalidadDropdown.setBounds(145, 229, 176, 20);
 		getContentPane().add(nacionalidadDropdown);
 		
 		
 		
 		Button buttonAceptar = new Button("Aceptar");
-		buttonAceptar.setBounds(27, 214, 70, 22);
+		buttonAceptar.setBounds(27, 281, 70, 22);
 		getContentPane().add(buttonAceptar);
 		
 		buttonAceptar.addActionListener(new ActionListener() {
@@ -133,8 +152,10 @@ public class altaPostulante extends JInternalFrame {
 		});
 		
 		Button buttonCancelar = new Button("Cancelar");
-		buttonCancelar.setBounds(251, 214, 70, 22);
+		buttonCancelar.setBounds(251, 281, 70, 22);
 		getContentPane().add(buttonCancelar);
+		
+
 		
 		buttonCancelar.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e) {
@@ -163,6 +184,8 @@ public class altaPostulante extends JInternalFrame {
 		String nombre = this.nombreField.getText();
 		String apellido = this.apellidoField.getText();
 		String email = this.correoField.getText();
+		String contraseña = this.contraseñaField.getPassword().toString();
+		String confContraseña = this.confContraseñaField.getPassword().toString();
 		int year = (Integer) this.ano.getValue();
 		String stringifiedMonth = this.mes.getValue() + "";
 		Integer month = Integer.parseInt(stringifiedMonth);
@@ -173,7 +196,7 @@ public class altaPostulante extends JInternalFrame {
 		
 		if(checkFormulario()) {
 			  try {
-	                controlUsr.altaPostulante(nick, nombre, apellido, email, date, nacion);
+	                controlUsr.altaPostulante(nick, nombre, apellido, email, contraseña ,date, nacion);
 	                // Muestro éxito de la operación
 	                JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
 	                        JOptionPane.INFORMATION_MESSAGE);
@@ -215,9 +238,11 @@ public class altaPostulante extends JInternalFrame {
 	    String apellido = this.apellidoField.getText();
 	    String email = this.correoField.getText();
 	    String nacion = this.nacionalidadDropdown.getSelectedItem().toString();
+	    String contraseña = new String(this.contraseñaField.getPassword());
+		String confContraseña = new String(this.confContraseñaField.getPassword());
 
 	    // Verificar si están vacíos
-	    if (nick.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || nacion.isEmpty()) {
+	    if (nick.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || nacion.isEmpty()|| contraseña.isEmpty() || confContraseña.isEmpty()) {
 	        JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
 	                JOptionPane.ERROR_MESSAGE);
 	        return false;
@@ -229,6 +254,13 @@ public class altaPostulante extends JInternalFrame {
 	                JOptionPane.ERROR_MESSAGE);
 	        return false;
 	    }
+	    
+	    if(!contraseña.equals(confContraseña)) {
+	    	JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.", "Registrar Usuario",
+	                JOptionPane.ERROR_MESSAGE);
+	        return false;
+	    }
+	    
 
 	    return esValidoFecha();
 	}
@@ -242,6 +274,5 @@ public class altaPostulante extends JInternalFrame {
 		mes.setValue(Integer.valueOf(0));
 		dia.setValue(Integer.valueOf(0));;
 	}
-	
 }
 
