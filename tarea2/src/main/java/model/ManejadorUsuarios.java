@@ -209,6 +209,7 @@ public class ManejadorUsuarios {
 	 */
 	public void limpiarColeccionUsuarios() {
 		this.coleccionUsuarios = new HashMap<String,Usuario>();
+		this.coleccionCorreosUsuarios = new HashMap<String, String>();
 	}
 
 }

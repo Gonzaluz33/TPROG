@@ -25,6 +25,8 @@
 <%@ page import=" utils.LocalDateSerializer"%>
 <%@ page import="utils.LocalDateTimeAdapter"%>
 <%@ page import="java.net.URLEncoder" %>
+<%@page import="java.time.format.DateTimeFormatter"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,7 +96,11 @@
 			    
 			                </div>
 			                <div class="row d-flex  mt-3">
-			                    <p class="m-0"><span class="fw-bold">Fecha de alta: </span> <%= publicacion.getDtOferta().getFechaAlta() %></p>
+			                    <p class="m-0"><span class="fw-bold">Fecha de alta: </span> <%
+			                    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+									LocalDateTime fecha = (LocalDateTime) request.getAttribute("fecha");
+				                     %> 
+				                     <%=fecha.format(formatter) %></p>
 			                    <p class="m-0"><span class="fw-bold">Forma de Pago: </span>Paquete</p>
 			                    <p class="m-0"><span class="fw-bold">Tipo de Paquete: </span><a href="#">Básico</a></p>
 			                </div>
