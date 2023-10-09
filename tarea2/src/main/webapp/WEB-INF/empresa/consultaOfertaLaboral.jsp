@@ -14,6 +14,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
         <%@ page import="utils.DTOferta" %>
+        <%@ page import="utils.DTPublicacion" %>
 <%@ page import="com.google.gson.Gson"%>
 <%@ page import="java.lang.reflect.Type"%>
 <%@ page import="com.google.gson.reflect.TypeToken"%>
@@ -62,43 +63,44 @@
     <main>
  		<jsp:include page="/WEB-INF/template/NavBarEmpresa.jsp"/>
 
-          <%  String ofertaJSON = (String) request.getAttribute("oferta");
-		            DTOferta oferta = gson.fromJson(ofertaJSON, DTOferta.class);
-		            if(oferta != null){
+          <%  String publicacionJSON = (String) request.getAttribute("publicacion");
+	          DTPublicacion publicacion = gson.fromJson(publicacionJSON, DTPublicacion.class);
+	          if(publicacion != null){
 			%>
 			    <div class="p-1 mt-2 d-flex flex-column">
 			        <div class="d-flex justify-content-center">
 			            <div class="row d-flex text-center align-items-center justify-content-center">
 			                <div>
-			                    <img class="w-75" src="<%=oferta.getUrlImagen()%>" alt="">
+
+			                    <img class="w-75" src="<%=publicacion.getDtOferta().getUrlImagen()%>" alt="">
+
 			                </div>
 			    
 			            </div>
 			            <div>
 			                <div class="row d-flex  mt-3">
 			                    <div class="text-start align-items-center justify-content-center">
-			                        <h3 class="fw-bold"><%= oferta.getNombre() %></h3>
+			                        <h3 class="fw-bold"><%= publicacion.getDtOferta().getNombre() %></h3>
 			                    </div>
-			                    <p><span class="fw-bold">Descripción: </span><%= oferta.getDescripcion() %></p>
+			                    <p><span class="fw-bold">Descripción: </span><%= publicacion.getDtOferta().getDescripcion() %></p>
 			                </div>
 			                <div class="row d-flex ">
-			                     <p class="m-0"><span class="fw-bold">Remuneración: </span><%= oferta.getRemuneracion() %> pesos uruguayos </p>
-                                <p class="m-0"><span class="fw-bold">Horario: </span> <%= oferta.getHorario() %> </p>
-                                <p class="m-0"><span class="fw-bold">Departamento: </span><%= oferta.getDepartamento() %></p>
-                                <p class="m-0"><span class="fw-bold">Ciudad: </span><%= oferta.getCiudad() %> </p>
+			                     <p class="m-0"><span class="fw-bold">Remuneración: </span><%= publicacion.getDtOferta().getRemuneracion() %> pesos uruguayos </p>
+                                <p class="m-0"><span class="fw-bold">Horario: </span> <%= publicacion.getDtOferta().getHorario() %> </p>
+                                <p class="m-0"><span class="fw-bold">Departamento: </span><%= publicacion.getDtOferta().getDepartamento() %></p>
+                                <p class="m-0"><span class="fw-bold">Ciudad: </span><%= publicacion.getDtOferta().getCiudad() %> </p>
 			    
-			                    <p class="m-0"><span class="fw-bold">Tipo de Publicacion:</span> Premium <a
-			                            href="./consultaTipoPublicacion.html">Ver más</a></p>
+			                    <p class="m-0"><span class="fw-bold">Tipo de Publicacion:</span> <%= publicacion.getDtTipo().getNombre()%> <a href="mostrarTipo?nombre=<%= publicacion.getDtTipo().getNombre()%>">Ver más</a></p>
 			    
 			                </div>
 			                <div class="row d-flex  mt-3">
-			                    <p class="m-0"><span class="fw-bold">Fecha de alta: </span> <%= oferta.getFechaAlta() %></p>
+			                    <p class="m-0"><span class="fw-bold">Fecha de alta: </span> <%= publicacion.getDtOferta().getFechaAlta() %></p>
 			                    <p class="m-0"><span class="fw-bold">Forma de Pago: </span>Paquete</p>
 			                    <p class="m-0"><span class="fw-bold">Tipo de Paquete: </span><a href="#">Básico</a></p>
 			                </div>
 			    
 			                <div class="row d-flex  mt-3">
-                                <p class="m-0"><span class="fw-bold"> Keywords:</span>  <% for(String keyword : oferta.getKeywords()){ %>
+                                <p class="m-0"><span class="fw-bold"> Keywords:</span>  <% for(String keyword : publicacion.getDtOferta().getKeywords()){ %>
 		                            <span class="badge bg-info"><%= keyword %></span>
 		                        <% } %>
                         
@@ -109,7 +111,7 @@
 			                            Opciones
 			                        </button>
 			                        <ul class="dropdown-menu">
-			                            <li><a class="dropdown-item" href="./consultaPostulacionOferta.html">Ver listado de Postulantes</a></li>
+			                            <li><a class="dropdown-item" href="mostrarPostulacion?nombre=<%= publicacion.getDtOferta().getNombre() %>">Ver listado de Postulantes</a></li>
 			                        </ul>
 			                    </div>
 			                </div>

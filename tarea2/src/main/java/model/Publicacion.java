@@ -9,6 +9,7 @@ public class Publicacion {
 	private LocalDate  fechaAlta;
 	private LocalDate  fechaVencimiento;
 	private OfertaLaboral oferta;
+	private TipoPublicacion tipo;
 
 	public Publicacion(){
 		this.setCosto(null);
@@ -16,14 +17,16 @@ public class Publicacion {
 		this.setFin(null);
 		this.setId(null);
 		this.setOferta(null);
+		this.setTipo(null);
 	}
 	
-	public Publicacion(Integer id, Integer costo, LocalDate  alta, LocalDate  fin, OfertaLaboral oferta){
+	public Publicacion(Integer id, Integer costo, LocalDate  alta, LocalDate  fin, OfertaLaboral oferta, TipoPublicacion tipo){
 		this.costoAsociado = costo;
 		this.fechaAlta = alta;
 		this.fechaVencimiento = fin;
 		this.id = id;
 		this.oferta = oferta;
+		this.tipo = tipo;
 	}
 	
 	public Integer getCosto() {
@@ -46,6 +49,10 @@ public class Publicacion {
 		return fechaVencimiento;
 	}
 	
+	public TipoPublicacion getTipo() {
+		return tipo;
+	}
+	
 	public void setCosto(Integer costo) {
 		this.costoAsociado=costo;
 	}
@@ -64,6 +71,10 @@ public class Publicacion {
 	
 	public void setFin(LocalDate  fin) {
 		this.fechaVencimiento=fin;
+	}
+	
+	public void setTipo(TipoPublicacion tipo) {
+		this.tipo = tipo;
 	}
 	
 	/**
@@ -86,7 +97,9 @@ public class Publicacion {
 	        if (this.oferta != null) {
 	            dtPublicacion.setDtOferta(this.oferta.toDataType());
 	        }
-	        
+	        if( this.tipo != null) {
+	        	dtPublicacion.setDtTipo(this.tipo.toDataType());
+	        }	        
 	        return dtPublicacion;
 	    }
 	

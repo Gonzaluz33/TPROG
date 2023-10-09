@@ -79,6 +79,15 @@ public class ManejadorPublicaciones {
 	    }
 	    return dtPublicacionesList;
 	}
+	
+	public Publicacion obtenerPublicacionAsociadaAOferta(String nombreOferta) {
+		 for (Publicacion publicacion : coleccionPublicaciones.values()) {
+	            if (publicacion.getOferta().getNombre().equals(nombreOferta)) {
+	                return publicacion;
+	            }
+	        }
+	        return null;
+	}
 
 	/**
 	 * Crea el Tipo de Publicacion y lo agrega a coleccionTipos.
@@ -121,5 +130,7 @@ public class ManejadorPublicaciones {
 	public void limpiarColeccionPaquetes() {
 		this.coleccionPaquetes = new HashMap<String, Paquete>();
 	}
+	
+
 
 }

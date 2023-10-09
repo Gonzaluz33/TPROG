@@ -9,18 +9,20 @@ public class DTPublicacion {
 	private LocalDate fechaAlta;
 	private LocalDate fechaVencimiento;
 	private DTOferta dtOferta;
+	private DTTipoPublicacion dtTipo;
 
 	// Constructor
 	public DTPublicacion() {
 	}
 
 	public DTPublicacion(Integer id, Integer costoAsociado, LocalDate fechaAlta, LocalDate fechaVencimiento,
-			DTOferta dtOferta) {
+			DTOferta dtOferta, DTTipoPublicacion dtTipo) {
 		this.id = id;
 		this.costoAsociado = costoAsociado;
 		this.fechaAlta = fechaAlta;
 		this.fechaVencimiento = fechaVencimiento;
 		this.dtOferta = dtOferta;
+		this.dtTipo = dtTipo;
 	}
 
 	// Getters
@@ -43,6 +45,10 @@ public class DTPublicacion {
 	public DTOferta getDtOferta() {
 		return dtOferta;
 	}
+	
+	public DTTipoPublicacion getDtTipo() {
+		return dtTipo;
+	}
 
 	// Setters
 	public void setId(Integer id) {
@@ -63,5 +69,9 @@ public class DTPublicacion {
 
 	public void setDtOferta(DTOferta dtOferta) {
 		this.dtOferta = dtOferta;
+	}
+	
+	public void setDtTipo(DTTipoPublicacion dtTipo) {
+		this.dtTipo = dtTipo;
 	}
 }
