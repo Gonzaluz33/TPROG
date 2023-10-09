@@ -95,7 +95,7 @@ public class InicializadorAppListener implements ServletContextListener {
     
     private LocalDate parseFechaNacimiento(String fechaNacimiento) {
 	    try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/M/yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
 
 	        LocalDate fechaNacimientoParsed = LocalDate.parse(fechaNacimiento, formatter);
 	        LocalDate fechaActual = LocalDate.now();
