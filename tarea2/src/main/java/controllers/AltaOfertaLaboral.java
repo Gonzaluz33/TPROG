@@ -164,13 +164,9 @@ public class AltaOfertaLaboral extends HttpServlet {
 		try {
 			processRequest(request, response);
 		} catch (ServletException | IOException  e) {
-			request.setAttribute("error", "Ocurrio un error.");
-            request.getRequestDispatcher("/WEB-INF/empresa/altaOfertaLaboral.jsp").forward(request, response);
 			e.printStackTrace();
 		}
 		catch (UsuarioRepetidoException e) {
-			request.setAttribute("error", "El nickname ya existe.");
-            request.getRequestDispatcher("/WEB-INF/empresa/altaOfertaLaboral.jsp").forward(request, response);
             e.printStackTrace();
 		} catch (NicknameNoExisteException e) {
 			// TODO Auto-generated catch block
@@ -192,23 +188,22 @@ public class AltaOfertaLaboral extends HttpServlet {
 	        processRequest(request, response);
 	    } catch (ServletException | IOException e) {
 	        request.setAttribute("error", "Ocurrió un error.");
-	        request.getRequestDispatcher("/WEB-INF/empresa/registro.jsp").forward(request, response);
+	        request.getRequestDispatcher("/WEB-INF/errorPages/ofertaExiste.jsp").forward(request, response);
 	        e.printStackTrace();
 	    } catch (UsuarioRepetidoException e) {
 	        request.setAttribute("error", "El nickname ya existe.");
-	        request.getRequestDispatcher("/WEB-INF/empresa/registro.jsp").forward(request, response);
+	        request.getRequestDispatcher("/WEB-INF/errorPages/ofertaExiste.jsp").forward(request, response);
 	        e.printStackTrace();
 	    } catch (NicknameNoExisteException e) {
 	        request.setAttribute("error", "El nickname no existe.");
-	        request.getRequestDispatcher("/WEB-INF/empresa/registro.jsp").forward(request, response);
+	        request.getRequestDispatcher("/WEB-INF/errorPages/ofertaExiste.jsp").forward(request, response);
 	        e.printStackTrace();
 	    } catch (NombreExisteException e) {
-	        request.setAttribute("error", "Ya existe una oferta laboral con el nombre ingresado.");
-	        request.getRequestDispatcher("/WEB-INF/empresa/altaOfertaLaboral.jsp").forward(request, response);
+	        request.getRequestDispatcher("/WEB-INF/errorPages/ofertaExiste.jsp").forward(request, response);
 	        e.printStackTrace();
 	    } catch (KeywordExisteException e) {
 	        request.setAttribute("error", "La palabra clave ya existe.");
-	        request.getRequestDispatcher("/WEB-INF/empresa/altaOfertaLaboral.jsp").forward(request, response);
+	        request.getRequestDispatcher("/WEB-INF/errorPages/ofertaExiste.jsp").forward(request, response);
 	        e.printStackTrace();
 	    }
 	}

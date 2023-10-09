@@ -1,4 +1,5 @@
 <%@page import="utils.DTTipoPublicacion"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -44,6 +45,7 @@
             <div class="col-md-8">
                 <%
                 DTTipoPublicacion tipo = (DTTipoPublicacion) request.getAttribute("tipoSeleccionado");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 %>
                 <div class="card">
                     <div class="card-header">
@@ -54,7 +56,7 @@
                         <p class="m-0"><span class="fw-bold">Exposición: </span><%= tipo.getExposicion() %></p>
                         <p class="m-0"><span class="fw-bold">Duración: </span><%= tipo.getDuracion() %> Días</p>
                         <p class="m-0"><span class="fw-bold">Costo: </span><%= tipo.getCosto() %></p>
-                        <p class="m-0"><span class="fw-bold">Fecha de Alta: </span><%= tipo.getAlta() %></p>
+                        <p class="m-0"><span class="fw-bold">Fecha de Alta: </span><%= tipo.getAlta().format(formatter) %></p>
                     </div>
                 </div>
             </div>

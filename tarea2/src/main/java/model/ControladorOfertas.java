@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ControladorOfertas implements IControladorOfertas {
@@ -43,7 +44,7 @@ public class ControladorOfertas implements IControladorOfertas {
 	public void altaOferta(String nombre, String desc, String remuner, String horario, List<String> keywords,
 			String ciudad, String depa, String tipo, String empresa)
 			throws NombreExisteException, KeywordExisteException, NicknameNoExisteException {
-		LocalDateTime fecha = LocalDateTime.now();
+		LocalDate fecha = LocalDate.now();
 		ControladorUsuarios contU = ControladorUsuarios.getInstance();
 		Empresa usuarioEmpresa = (Empresa) contU.obtenerUsuario(empresa);
 		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
@@ -57,7 +58,7 @@ public class ControladorOfertas implements IControladorOfertas {
 	}
 	
 	public void altaOfertaWeb(String nombre, String descripcion, String renumeracion, String horario, String ciudad, String departanemto, String tipoPublicacion, String formaPago, String paqueteSeleccionado,EnumEstadoOferta estado, String[] Keywords,String urlImagen, String empresaActual ) throws NicknameNoExisteException, NombreExisteException, KeywordExisteException{
-		LocalDateTime fecha = LocalDateTime.now();
+		LocalDate fecha = LocalDate.now();
 		ManejadorOfertaLaboral mOL = ManejadorOfertaLaboral.getInstance();
 		ControladorUsuarios contU = ControladorUsuarios.getInstance();
 		Empresa usuarioEmpresa = (Empresa) contU.obtenerUsuario(empresaActual);

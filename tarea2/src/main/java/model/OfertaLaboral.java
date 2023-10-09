@@ -5,6 +5,7 @@ import utils.DTPostulacion;
 import utils.DTUsuario;
 import utils.EnumEstadoOferta;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class OfertaLaboral {
 	private String departamento;
 	private String horario;
 	private String remuneracion;
-	private LocalDateTime fechaAlta;
+	private LocalDate fechaAlta;
 	private EnumEstadoOferta estado;
 	private String formaPago;
 	private String urlImagen;
@@ -44,7 +45,7 @@ public class OfertaLaboral {
 	}
 	
 	//constructor basico
-	public OfertaLaboral(String n, String desc, String c, String dep, String hora, LocalDateTime fecha,EnumEstadoOferta estado, String remuneracion, Usuario emp) {
+	public OfertaLaboral(String n, String desc, String c, String dep, String hora, LocalDate fecha,EnumEstadoOferta estado, String remuneracion, Usuario emp) {
 		this.setCiudad(c);
 		this.setDepartamento(dep);
 		this.setDescripcion(desc);
@@ -56,7 +57,7 @@ public class OfertaLaboral {
 		this.setEmpresa(emp);
 	}
 	//constructor con formaPago
-	public OfertaLaboral(String n, String desc, String c, String dep, String hora, LocalDateTime fecha,EnumEstadoOferta estado, String remuneracion, Usuario emp, String formaPago) {
+	public OfertaLaboral(String n, String desc, String c, String dep, String hora, LocalDate fecha,EnumEstadoOferta estado, String remuneracion, Usuario emp, String formaPago) {
 		this.setCiudad(c);
 		this.setDepartamento(dep);
 		this.setDescripcion(desc);
@@ -70,18 +71,18 @@ public class OfertaLaboral {
 	}
 	
 	//constructor con URL
-	public OfertaLaboral(String n, String desc, String c, String dep, String hora, LocalDateTime fecha,EnumEstadoOferta estado, String remuneracion, String urlImagen, Usuario emp, String formaPago) {
+	public OfertaLaboral(String n, String desc, String c, String dep, String hora, LocalDate fecha,EnumEstadoOferta estado, String remuneracion, String urlImagen, Usuario emp, String formaPago) {
 		this(n, desc, c, dep, hora, fecha, estado, remuneracion, emp, formaPago);
 		this.setUrlImagen(urlImagen);
 	}
 	//constructor con paquete
-	public OfertaLaboral(String n, String desc, String c, String dep, String hora, LocalDateTime fecha,EnumEstadoOferta estado, String remuneracion, Usuario emp,String formaPago, String paqueteSeleccionado) {
+	public OfertaLaboral(String n, String desc, String c, String dep, String hora, LocalDate fecha,EnumEstadoOferta estado, String remuneracion, Usuario emp,String formaPago, String paqueteSeleccionado) {
 		this(n, desc, c, dep, hora, fecha,estado, remuneracion, emp, formaPago);
 		this.setPaqueteSeleccionado(paqueteSeleccionado);
 	}
 	
 	//constructor con URL y paquete
-	public OfertaLaboral(String n, String desc, String c, String dep, String hora, LocalDateTime fecha,EnumEstadoOferta estado, String remuneracion, Usuario emp, String formaPago, String urlImagen, String paqueteSeleccionado) {
+	public OfertaLaboral(String n, String desc, String c, String dep, String hora, LocalDate fecha,EnumEstadoOferta estado, String remuneracion, Usuario emp, String formaPago, String urlImagen, String paqueteSeleccionado) {
 	    this(n, desc, c, dep, hora, fecha,estado, remuneracion, emp, formaPago);
 	    this.setUrlImagen(urlImagen);
 	    this.setPaqueteSeleccionado(paqueteSeleccionado);
@@ -113,7 +114,7 @@ public class OfertaLaboral {
 	public String getRemuneracion() {
 		return remuneracion;
 	}
-	public LocalDateTime getFechaAlta() {
+	public LocalDate getFechaAlta() {
 		return fechaAlta;
 	}
 	public EnumEstadoOferta getEstado() {
@@ -172,7 +173,7 @@ public class OfertaLaboral {
 	public void setRemuneracion(String rem) {
 		this.remuneracion = rem;
 	}
-	public void setFechaAlta(LocalDateTime fechaA) {
+	public void setFechaAlta(LocalDate fechaA) {
 		this.fechaAlta = fechaA;
 	}
 	public void setPublicacion(ArrayList<Publicacion> pub) {
@@ -216,7 +217,6 @@ public class OfertaLaboral {
 		// creo una lista con las keywords asociadas a la oferta en formato String
 		List<String> listaKeywordsString = new ArrayList<String>();
 		this.keywords.stream().forEach(keyword -> listaKeywordsString.add(keyword.getNombre()));
-		
 		DTOferta dto =  new DTOferta(
 				this.getNombre(),
 				this.getDescripcion(),

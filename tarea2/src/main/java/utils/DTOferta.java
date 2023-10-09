@@ -1,5 +1,6 @@
 package utils;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class DTOferta {
 	    private String departamento;
 	    private String horario;
 	    private String remuneracion;
-	    private LocalDateTime fechaAlta;
+	    private LocalDate fechaAlta;
 	    private EnumEstadoOferta estado;
 	    private String urlImagen; // He cambiado 'imagen' por 'urlImagen' para ser consistente con OfertaLaboral.
 	    private String formaPago;
@@ -39,7 +40,7 @@ public class DTOferta {
 
 	    // Constructor SIN lista de postulaciones asociadas a la oferta laboral.
 	    public DTOferta(String nombre, String descripcion, String ciudad, String departamento, String horario, 
-	                    String remuneracion, LocalDateTime fechaAlta, EnumEstadoOferta estado, 
+	                    String remuneracion, LocalDate fechaAlta, EnumEstadoOferta estado, 
 	                    String nicknameEmpresa, List<String> keywords) {
 	        this.setNombre(nombre);
 	        this.setDescripcion(descripcion);
@@ -56,7 +57,7 @@ public class DTOferta {
 
 	    // Constructor CON lista de postulaciones asociadas a la oferta laboral.
 	    public DTOferta(String nombre, String descripcion, String ciudad, String departamento, String horario, 
-	                    String remuneracion, LocalDateTime fechaAlta, EnumEstadoOferta estado,
+	                    String remuneracion, LocalDate fechaAlta, EnumEstadoOferta estado,
 	                    List<DTPostulacion> postulaciones, String nicknameEmpresa, List<String> keywords) {
 	        this.setNombre(nombre);
 	        this.setDescripcion(descripcion);
@@ -100,7 +101,7 @@ public class DTOferta {
 		return postulaciones;
 	}
 
-	public LocalDateTime getFechaAlta() {
+	public LocalDate getFechaAlta() {
 		return fechaAlta;
 	}
 
@@ -158,7 +159,7 @@ public class DTOferta {
 		this.postulaciones = postulaciones;
 	}
 
-	public void setFechaAlta(LocalDateTime fecha) {
+	public void setFechaAlta(LocalDate fecha) {
 		this.fechaAlta = fecha;
 	}
 

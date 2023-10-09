@@ -98,7 +98,7 @@
 			                <div class="row d-flex  mt-3">
 			                    <p class="m-0"><span class="fw-bold">Fecha de alta: </span> <%
 			                    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-									LocalDateTime fecha = (LocalDateTime) request.getAttribute("fecha");
+									LocalDate fecha = (LocalDate) request.getAttribute("fecha");
 				                     %> 
 				                     <%=fecha.format(formatter) %></p>
 			                    <p class="m-0"><span class="fw-bold">Forma de Pago: </span>Paquete</p>

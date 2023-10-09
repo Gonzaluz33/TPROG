@@ -19,6 +19,14 @@
         <%   String imgPerfilJSON = (String) request.getAttribute("imgPerfil");
 		 %>
     </head>
+    <script>
+		setTimeout(function() {
+		    var errorDiv = document.getElementById("errorDiv");
+		    if (errorDiv) {
+		        errorDiv.style.display = "none";
+		    }
+		}, 5000);
+	</script>
 
     <body>
         <header>

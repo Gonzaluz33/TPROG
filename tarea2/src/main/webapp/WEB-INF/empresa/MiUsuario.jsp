@@ -101,7 +101,7 @@
             List<DTPublicacion> publicaciones = gson.fromJson(publicacionesJSON, setType);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             for(DTPublicacion publicacion : publicaciones) {
-                LocalDateTime fechaAlta = publicacion.getDtOferta().getFechaAlta();
+                LocalDate fechaAlta = publicacion.getDtOferta().getFechaAlta();
                 String formattedDate = (fechaAlta != null) ? fechaAlta.format(formatter) : "N/A";
     %>
             <tr>
