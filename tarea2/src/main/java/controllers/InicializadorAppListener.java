@@ -306,12 +306,11 @@ public class InicializadorAppListener implements ServletContextListener {
    
    
    private void cargarDatosOfertasLaboralesPrueba(String csvFile) throws NombreExisteException, KeywordExisteException, NicknameNoExisteException{	
-
 	   	String line = "";
 	    String cvsSplitBy = ";";
 	    int iter = 1;
 	    try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
-	    	//br.readLine();
+	    	bufferReader.readLine();
 	        while ((line = bufferReader.readLine()) != null) {
 	            String[] ofertasLaboralesData = line.split(cvsSplitBy);
 	            String nombre = "";    
@@ -373,20 +372,7 @@ public class InicializadorAppListener implements ServletContextListener {
 	            		 e.printStackTrace();
 	            	 }
 	            } 
-	            try {
-					ICO.postularAOferta("Desarrollador Frontend","lgarcia","El caso de uso comienza cuando un visitante/usuario desea consultar el\r\n"
-							+ "perfil de un usuario. Para ello el sistema muestra la lista de todos los usuarios y el visitante/usuario elige uno. Luego, el sistema muestra todos los\r\n"
-							+ "datos básicos del usuario, incluyendo, si tiene, su imagen asociada. \r\n"
-							+ "Si se consulta una empresa, se muestra también la información básica de\r\n"
-							+ "las ofertas laborales que tiene (en estado “Confirmada”).\r\n"
-							+ "En caso de que una Empresa consulte su propio perfil, adicionalmente\r\n"
-							+ "verá sus ofertas laborales en los estados “Ingresada” y “Rechazada”;\r\n"
-							+ "también verá la información de sus compras de paquetes. En caso de\r\n"
-							+ "que un Postulante consulte su propio perfil, adicionalmente verá la información de sus postulaciones a las ofertas laborales.\r\n"
-							+ "Si el usuario selecciona una oferta laboral, o un paquete o u","asdasdasdads",LocalDateTime.now());
-				} catch (NicknameNoExisteException | UsuarioNoEsPostulanteException | OfertaNoExisteException e) {
-					e.printStackTrace();
-				}
+	            
 	        }
 	    } catch (IOException e) {
 	        e.printStackTrace();

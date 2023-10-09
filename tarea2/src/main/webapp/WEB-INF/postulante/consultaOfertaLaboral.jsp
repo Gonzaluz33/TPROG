@@ -57,7 +57,7 @@
             <div class="d-flex  justify-content-center">
                         <div class="row d-flex text-center align-items-center justify-content-center">
                             <div>
-                                <img class="w-75" src="<%= oferta.getImagen() %>" alt="">
+                                <img class="w-75" src="<%= oferta.getUrlImagen() %>" alt="">
                             </div>
                         
                         </div>
