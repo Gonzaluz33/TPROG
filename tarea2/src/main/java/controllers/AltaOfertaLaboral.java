@@ -92,7 +92,7 @@ public class AltaOfertaLaboral extends HttpServlet {
                 	String paqueteSeleccionado = request.getParameter("paqueteSeleccionado");	
                 	 if (tipoPublicacion.isEmpty() || nombre.isEmpty() ||  !remuneracionValida || horario.isEmpty() || 
      	            	    departamento.isEmpty() || ciudad.isEmpty() || descripcion.isEmpty() || 
-     	            	    (keywords==null || keywords.length == 0) || formaPago.isEmpty() || (paqueteSeleccionado == null || paqueteSeleccionado.isEmpty())) {           		 
+     	            	    (keywords==null || keywords.length == 0) || formaPago.isEmpty() || (formaPago.isEmpty() && (paqueteSeleccionado == null || paqueteSeleccionado.isEmpty()))) {           		 
      	            	    request.setAttribute("error", "Todos los campos son obligatorios.");
      	            	    request.getRequestDispatcher("/WEB-INF/empresa/altaOfertaLaboral.jsp").forward(request, response);
      	            	    
