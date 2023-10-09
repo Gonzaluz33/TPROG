@@ -8,9 +8,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Fabrica;
 import model.IControladorOfertas;
+import model.IControladorPublicaciones;
 import utils.DTOferta;
 import utils.DTPostulacion;
 import utils.DTPostulante;
+import utils.DTPublicacion;
 import utils.DTUsuario;
 import utils.LocalDateSerializer;
 import utils.LocalDateTimeAdapter;
@@ -44,13 +46,15 @@ public class ConsultaOferta extends HttpServlet {
     String nombreOferta = req.getParameter("nombreOferta");
     if (!nombreOferta.isEmpty()) {
       Fabrica factory = Fabrica.getInstance();
+      IControladorPublicaciones ICP = factory.getIControladorPublicaciones();
       IControladorOfertas ICO = factory.getIControladorOfertas();
       try {    
         Gson gsonAux = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
             .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
+        DTPublicacion publicacion = ICP.obtenerPublicacionAsociadaAOferta(nombreOferta).toDatatype();
         DTOferta oferta = ICO.obtenerDatosOferta(nombreOferta);
-        String ofertaJSON = gsonAux.toJson(oferta);
-        req.setAttribute("oferta", ofertaJSON);
+        String publicacionJSON = gsonAux.toJson(publicacion);
+        req.setAttribute("publicacion", publicacionJSON);
         
         UtilidadesJWT jwtUtil = UtilidadesJWT.obtenerInstancia();
         DTUsuario user = jwtUtil.obtenerDatosDeUsuarioJWT(req, resp);
