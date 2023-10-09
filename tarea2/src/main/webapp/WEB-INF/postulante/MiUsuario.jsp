@@ -116,7 +116,7 @@
         </div>
     </div>
     <div class="my-4 container d-flex justify-content-center">
-    <a href="visitante" class="btn btn-dark">Volver atrás</a>
+    <a onclick="window.history.back();"  class="btn btn-dark">Volver atrás</a>
 </div>     
 </main>
 </body>

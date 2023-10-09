@@ -134,7 +134,7 @@
 		                    }
 		                %>
 		<div class="my-4 container d-flex justify-content-center">
-    <a href="visitante" class="btn btn-dark">Volver atrás</a>
+    <a class="btn btn-dark" onclick="window.history.back();" >Volver atrás</a>
 </div>          
     </main>
 </body>
