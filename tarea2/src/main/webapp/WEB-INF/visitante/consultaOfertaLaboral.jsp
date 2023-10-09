@@ -47,7 +47,9 @@
 		                <div class="card-header">
 		                    <h3 class="fw-bold m-3"><%= publicacion.getDtOferta().getNombre() %></h3>
 		                    <div class="col-md-6">
+
 			                    <img src="<%= publicacion.getDtOferta().getUrlImagen() %>" class="img-fluid w-50 m-2" alt="Imagen de la oferta laboral">
+
 			                </div>
 		                </div>
 		                <div class="card-body">
@@ -74,7 +76,7 @@
 		                </div>
 		            </div>
 		            <div class="mt-2 mb-4">
-					            <a href="visitante" class="btn btn-dark">Volver atrás</a>
+					            <a onclick="window.history.back();"  class="btn btn-dark">Volver atrás</a>
 					</div>
 		             
 		        <%
