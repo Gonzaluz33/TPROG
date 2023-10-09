@@ -89,6 +89,7 @@
                         
                             </div>
                         </div>
+            	</div>
             </div>
               <%  String postulacionJSON = (String) request.getAttribute("postulacion");
 			    DTPostulacion postulacion = gson.fromJson(postulacionJSON, DTPostulacion.class);

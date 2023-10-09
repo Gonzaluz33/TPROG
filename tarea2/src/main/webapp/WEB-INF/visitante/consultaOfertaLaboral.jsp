@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="utils.DTOferta" %>
+<%@ page import="utils.DTPublicacion" %>
 <%@ page import="com.google.gson.Gson"%>
 <%@ page import="java.lang.reflect.Type"%>
 <%@ page import="com.google.gson.reflect.TypeToken"%>
@@ -37,29 +38,29 @@
        <main>
 		    <jsp:include page="/WEB-INF/template/NavBarVisitante.jsp" />
 		    <div class="container mt-3">
-		        <%  String ofertaJSON = (String) request.getAttribute("oferta");
-		            DTOferta oferta = gson.fromJson(ofertaJSON, DTOferta.class);
-		            if(oferta != null){
+		        <%  String publicacionJSON = (String) request.getAttribute("publicacion");
+		            DTPublicacion publicacion = gson.fromJson(publicacionJSON, DTPublicacion.class);
+		            if(publicacion != null){
 		        %>
 		            <div class="card mb-3">
 		                <div class="card-header">
-		                    <h3 class="fw-bold m-3"><%= oferta.getNombre() %></h3>
+		                    <h3 class="fw-bold m-3"><%= publicacion.getDtOferta().getNombre() %></h3>
 		                    <div class="col-md-6">
-			                    <img src="<%= oferta.getImagen() %>" class="img-fluid w-50 m-2" alt="Imagen de la oferta laboral">
+			                    <img src="<%= publicacion.getDtOferta().getUrlImagen() %>" class="img-fluid w-50 m-2" alt="Imagen de la oferta laboral">
 			                </div>
 		                </div>
 		                <div class="card-body">
-		                    <p><span class="fw-bold">Descripción:</span> <%= oferta.getDescripcion() %></p>
-		                    <p class="m-0"><span class="fw-bold">Remuneración:</span> <%= oferta.getRemuneracion() %> pesos uruguayos </p>
-		                    <p class="m-0"><span class="fw-bold">Horario:</span> <%= oferta.getHorario() %> </p>
-		                    <p class="m-0"><span class="fw-bold">Departamento:</span> <%= oferta.getDepartamento() %> </p>
-		                    <p class="m-0"><span class="fw-bold">Ciudad:</span> <%= oferta.getCiudad() %> </p>
-		                    <p class="m-0"><span class="fw-bold">Fecha de alta:</span> <%= oferta.getFechaAlta() %></p>
+		                    <p><span class="fw-bold">Descripción:</span> <%= publicacion.getDtOferta().getDescripcion() %></p>
+		                    <p class="m-0"><span class="fw-bold">Remuneración:</span> <%= publicacion.getDtOferta().getRemuneracion() %> pesos uruguayos </p>
+		                    <p class="m-0"><span class="fw-bold">Horario:</span> <%= publicacion.getDtOferta().getHorario() %> </p>
+		                    <p class="m-0"><span class="fw-bold">Departamento:</span> <%= publicacion.getDtOferta().getDepartamento() %> </p>
+		                    <p class="m-0"><span class="fw-bold">Ciudad:</span> <%= publicacion.getDtOferta().getCiudad() %> </p>
+		                    <p class="m-0"><span class="fw-bold">Fecha de alta:</span> <%= publicacion.getDtOferta().getFechaAlta() %></p>
 		                </div>
 		                <div class="card-footer">
 		                    
 		                    <p class="m-0"><span class="fw-bold"> Keywords:</span>
-		                        <% for(String keyword : oferta.getKeywords()){ %>
+		                        <% for(String keyword : publicacion.getDtOferta().getKeywords()){ %>
 		                        <span class="badge rounded-pill text-bg-secondary"><%= keyword %></span>
 		                           
 		                        <% } %>
