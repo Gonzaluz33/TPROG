@@ -34,6 +34,10 @@ public class InformacionPostulacion extends HttpServlet {
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NicknameNoExisteException, UsuarioNoEsEmpresaException {
 		UtilidadesJWT utilidadesJWT = UtilidadesJWT.obtenerInstancia();
 		String tipoUsuario = utilidadesJWT.obtenerTipoUsuarioPorRequest(req, resp);
+		DTUsuario user = utilidadesJWT.obtenerDatosDeUsuarioJWT(req, resp);
+		if(user!=null) {
+			req.setAttribute("imgPerfil", user.getUrlImagen());
+		}
 		
 		switch (tipoUsuario) {
 		case ("postulante"):

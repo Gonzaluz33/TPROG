@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Fabrica;
 import model.IControladorUsuario;
 import utils.DTEmpresa;
+import utils.DTUsuario;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,6 +37,10 @@ public class PostularAOferta extends HttpServlet {
 		List<DTEmpresa> empresas = new ArrayList<>();
 		empresas = icontuser.listarEmpresas();
 		req.setAttribute("empresas", empresas);
+		DTUsuario user = utilidadesJWT.obtenerDatosDeUsuarioJWT(req, resp);
+		if(user!=null) {
+			req.setAttribute("imgPerfil", user.getUrlImagen());
+		}
 		
     	switch(tipoUsuario) {
     		case ("postulante"):

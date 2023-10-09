@@ -13,11 +13,17 @@ import model.IControladorOfertas;
 import model.IControladorPublicaciones;
 import utils.DTOferta;
 import utils.DTTipoPublicacion;
+import utils.DTUsuario;
 
 @WebServlet(urlPatterns = { "/mostrarPostulacion/*", "/mostrarPostulacion"})
 public class MostrarPostulaciones extends HttpServlet{
     
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * @see HttpServlet#HttpServlet()
      */
     public MostrarPostulaciones() {
@@ -33,6 +39,10 @@ public class MostrarPostulaciones extends HttpServlet{
 		IControladorOfertas icontof = factory.getIControladorOfertas();
 		DTOferta oferta = icontof.obtenerDatosOferta(nombre);
         request.setAttribute("oferta", oferta);
+        DTUsuario user = utilidadesJWT.obtenerDatosDeUsuarioJWT(request, response);
+        if(user!= null) {
+        	 request.setAttribute("imgPerfil", user.getUrlImagen());
+        }
         switch(tipoUsuario) {
 		case "postulante":
 			request.getRequestDispatcher("/WEB-INF/postulante/dashboardPostulante.jsp").forward(request, response);

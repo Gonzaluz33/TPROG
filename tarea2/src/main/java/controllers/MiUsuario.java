@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Fabrica;
 import model.IControladorOfertas;
 import utils.DTEmpresa;
+import utils.DTOferta;
 import utils.DTPostulacion;
 import utils.DTPostulante;
 import utils.DTUsuario;
@@ -18,11 +19,13 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import excepciones.NicknameNoExisteException;
+import excepciones.UsuarioNoEsEmpresaException;
 import excepciones.UsuarioNoEsPostulanteException;
 
 /**
@@ -47,9 +50,9 @@ public class MiUsuario extends HttpServlet {
     	if(user != null) {
     		Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
     				.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
-    	
+    		req.setAttribute("imgPerfil", user.getUrlImagen());
     		if(user instanceof DTPostulante) {
-    			req.setAttribute("imgPerfil", user.getUrlImagen());
+    			
         		req.setAttribute("nickname", user.getNickname());
         		req.setAttribute("nombre", user.getNombre());
         		req.setAttribute("apellido", user.getApellido());
@@ -70,6 +73,23 @@ public class MiUsuario extends HttpServlet {
         		req.getRequestDispatcher("/WEB-INF/postulante/MiUsuario.jsp").forward(req, resp);
         	}else {
         		if(user  instanceof DTEmpresa) {
+        			req.setAttribute("nickname", user.getNickname());
+            		req.setAttribute("nombre", user.getNombre());
+            		req.setAttribute("apellido", user.getApellido());
+            		req.setAttribute("correo", user.getCorreo());
+            		Fabrica factory = Fabrica.getInstance();
+            		IControladorOfertas ICO = factory.getIControladorOfertas();
+            		Set<DTOferta> ofertas = null;
+            		try {
+						ofertas = ICO.obtenerOfertasVigentesDeEmpresa(user.getNickname());
+					} catch (NicknameNoExisteException | UsuarioNoEsEmpresaException e) {
+			
+					}
+            		if(ofertas != null && !ofertas.isEmpty()) {
+            			String ofertasJSON = gson.toJson(ofertas);
+            			req.setAttribute("ofertas", ofertasJSON);
+            		}
+            		
         			req.getRequestDispatcher("/WEB-INF/empresa/MiUsuario.jsp").forward(req, resp);
         		}
         	}

@@ -38,7 +38,10 @@ public class ConsultaTipos extends HttpServlet {
 		tiposPublicacion = icontpub.obtenerTipos();    	
 		req.setAttribute("tiposPublicacion", tiposPublicacion);
 		DTUsuario user = utilidadesJWT.obtenerDatosDeUsuarioJWT(req, resp);
-		req.setAttribute("imgPerfil", user.getUrlImagen());
+		if(user != null) {
+			req.setAttribute("imgPerfil", user.getUrlImagen());
+		}
+		
 		switch (tipoUsuario) {
 		case "postulante":
 			req.getRequestDispatcher("/WEB-INF/postulante/consultaTipoPublicacion.jsp").forward(req, resp);

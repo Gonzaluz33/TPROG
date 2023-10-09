@@ -10,14 +10,8 @@
 		          <li class="nav-item">
 		            <a class="nav-link active text-white" aria-current="page" href="/tarea2/consultaUsuario">Consulta de Usuario</a>
 		          </li>
-		          <li class="nav-item dropdown">
-		            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		              Paquetes y Tipos de Publicación
-		            </a>
-		            <ul class="dropdown-menu">
-		              <li><a class="dropdown-item" href="/tarea2/consultaPaquete">Consultar Paquetes</a></li>
-		              <li><a class="dropdown-item" href="/tarea2/consultaTipos">Consultar Tipos de Publicación</a></li>
-		            </ul>
+		          <li class="nav-item"> 
+		          <a class="nav-link active text-white" href="/tarea2/consultaTipos">Consultar Tipos de Publicación</a>
 		          </li>
 		        </ul>
 		      </div>

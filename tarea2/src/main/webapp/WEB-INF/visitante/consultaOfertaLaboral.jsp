@@ -41,7 +41,7 @@
 		            DTOferta oferta = gson.fromJson(ofertaJSON, DTOferta.class);
 		            if(oferta != null){
 		        %>
-		            <div class="card mb-3 p-3">
+		            <div class="card mb-3">
 		                <div class="card-header">
 		                    <h3 class="fw-bold m-3"><%= oferta.getNombre() %></h3>
 		                    <div class="col-md-6">
@@ -54,19 +54,21 @@
 		                    <p class="m-0"><span class="fw-bold">Horario:</span> <%= oferta.getHorario() %> </p>
 		                    <p class="m-0"><span class="fw-bold">Departamento:</span> <%= oferta.getDepartamento() %> </p>
 		                    <p class="m-0"><span class="fw-bold">Ciudad:</span> <%= oferta.getCiudad() %> </p>
+		                    <p class="m-0"><span class="fw-bold">Fecha de alta:</span> <%= oferta.getFechaAlta() %></p>
 		                </div>
 		                <div class="card-footer">
-		                    <p class="m-0"><span class="fw-bold">Fecha de alta:</span> <%= oferta.getFechaAlta() %></p>
+		                    
 		                    <p class="m-0"><span class="fw-bold"> Keywords:</span>
 		                        <% for(String keyword : oferta.getKeywords()){ %>
-		                            <span class="badge bg-info"><%= keyword %></span>
+		                        <span class="badge rounded-pill text-bg-secondary"><%= keyword %></span>
+		                           
 		                        <% } %>
 		                    </p>
 		                    
 		                </div>
 		            </div>
 		            <div class="mt-2 mb-4">
-					            <a href="visitante" class="btn btn-secondary">Volver atrás</a>
+					            <a href="visitante" class="btn btn-dark">Volver atrás</a>
 					</div>
 		             
 		        <%
