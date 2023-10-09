@@ -45,7 +45,7 @@
 		                <div class="card-header">
 		                    <h3 class="fw-bold m-3"><%= oferta.getNombre() %></h3>
 		                    <div class="col-md-6">
-			                    <img src="<%= oferta.getImagen() %>" class="img-fluid w-50 m-2" alt="Imagen de la oferta laboral">
+			                    <img src="<%= oferta.getUrlImagen() %>" class="img-fluid w-50 m-2" alt="Imagen de la oferta laboral">
 			                </div>
 		                </div>
 		                <div class="card-body">
