@@ -69,7 +69,12 @@ public class ManejadorOfertaLaboral {
 	public DTOferta obtenerOfertaLaboral(String nombreOferta) throws OfertaNoExisteException {
 		return coleccionOfertasLaborales.get(nombreOferta).toDataType();
 	}
-
+	
+	public OfertaLaboral getOfertaLaboral(String nombreOferta) throws OfertaNoExisteException {
+		return coleccionOfertasLaborales
+				.get(nombreOferta);
+	}
+	
 	public List<DTOferta> obtenerOfertasLaborales() {
 		Map<String, OfertaLaboral> ofertas = coleccionOfertasLaborales;
 		List<DTOferta> returnOfertas = new ArrayList<>();
@@ -148,6 +153,20 @@ public class ManejadorOfertaLaboral {
 				.filter(oferta -> oferta.getEmpresa().getNickname().equals(nicknameEmpresa))
 				.filter(oferta -> oferta.tienePublicacionVigente()).map(OfertaLaboral::toDataType)
 				.collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(DTOferta::getNombre))));
+	}
+	
+	public TreeSet<DTOferta> obtenerOfertasIngresadasDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException {
+	    ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+	    DTUsuario usuarioDT = manejadorU.obtenerUsuario(nicknameEmpresa);
+	    if (!(usuarioDT instanceof DTEmpresa))
+	        throw new UsuarioNoEsEmpresaException("El usuario con el nickname " + nicknameEmpresa + " no es una empresa.");
+	    return coleccionOfertasLaborales
+	            .values()
+	            .stream()
+	            .filter(oferta -> oferta.getEmpresa().getNickname().equals(nicknameEmpresa))
+	            .filter(oferta -> oferta.getEstado().equals(EnumEstadoOferta.INGRESADA))
+	            .map(OfertaLaboral::toDataType)
+	            .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(DTOferta::getNombre))));
 	}
 
 	/**

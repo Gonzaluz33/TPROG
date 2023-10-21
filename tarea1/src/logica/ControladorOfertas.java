@@ -92,6 +92,7 @@ public class ControladorOfertas implements IControladorOfertas{
 		OfertaLaboral o = manejadorOL.getOfertaLaboral(nombreOfertaLaboral);
 		o.setEstado(estado);
 	}
+	
 	public List<DTEmpresa> obtenerEmpresas(){
 		IControladorUsuario controlU = ControladorUsuarios.getInstance();
 		List<DTEmpresa> empresas = controlU.listarEmpresas();

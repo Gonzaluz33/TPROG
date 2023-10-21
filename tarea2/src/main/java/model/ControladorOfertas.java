@@ -38,8 +38,6 @@ public class ControladorOfertas implements IControladorOfertas {
 		mOL.addKeyword(key);
 	}
 	
-	
-
 	public void altaOferta(String nombre, String desc, String remuner, String horario, List<String> keywords,
 			String ciudad, String depa, String tipo, String empresa)
 			throws NombreExisteException, KeywordExisteException, NicknameNoExisteException {
@@ -131,6 +129,13 @@ public class ControladorOfertas implements IControladorOfertas {
 	    ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
 	    manejadorOL.confirmarOfertaLaboral(nombreOferta);
 	}
+	
+	public void actualizarEstadoOfertaLaboral(String nombreOfertaLaboral, EnumEstadoOferta estado) throws OfertaNoExisteException {
+		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+		OfertaLaboral o = manejadorOL.getOfertaLaboral(nombreOfertaLaboral);
+		o.setEstado(estado);
+	}
+
 	
 	public boolean verificarPertenenciaOferta(String nombreOferta, String nickname) throws OfertaNoExisteException {
         ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();

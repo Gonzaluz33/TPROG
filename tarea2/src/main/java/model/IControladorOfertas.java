@@ -56,6 +56,7 @@ public interface IControladorOfertas {
 	
 	public void confirmarOfertaLaboral(String nombreOferta) throws OfertaNoExisteException ;
 	
+	public void actualizarEstadoOfertaLaboral(String nombreOfertaLaboral, EnumEstadoOferta estado) throws OfertaNoExisteException;
 	
 	public boolean verificarPertenenciaOferta(String nombreOferta, String nickname) throws OfertaNoExisteException ;
 }

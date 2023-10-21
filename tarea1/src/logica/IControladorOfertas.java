@@ -13,6 +13,7 @@ import excepciones.OfertaNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
 import excepciones.UsuarioNoEsPostulanteException;
 import utils.DTOferta;
+import utils.EnumEstadoOferta;
 
 
 public interface IControladorOfertas {
@@ -49,6 +50,7 @@ public interface IControladorOfertas {
 	 */
 	public Set<DTOferta> obtenerOfertasVigentesDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException;
 
+	public void actualizarEstadoOfertaLaboral(String nombreOfertaLaboral, EnumEstadoOferta estado) throws OfertaNoExisteException;
 	
 	public TreeSet<DTOferta> obtenerOfertasIngresadasDeEmpresa(String nicknameEmpresa)throws NicknameNoExisteException, UsuarioNoEsEmpresaException;
 }
