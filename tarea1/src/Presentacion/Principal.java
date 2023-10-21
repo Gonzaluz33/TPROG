@@ -263,6 +263,7 @@ public class Principal {
 				 currentInternalFrame = altaOfertaLaboralInternalFrame;
 	            }
 		});	
+		menuOfertasLaborales.add(mItemOfertaLaboral);
 		
 		
 		
