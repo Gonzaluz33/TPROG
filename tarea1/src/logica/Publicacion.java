@@ -1,6 +1,6 @@
 package logica;
 
-import utils.DTPublicacion;
+import servidor.types.DTPublicacion;
 import java.time.LocalDate;
 
 public class Publicacion {

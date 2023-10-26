@@ -17,9 +17,9 @@ import excepciones.UsuarioNoEsEmpresaException;
 import logica.IControladorOfertas;
 import logica.IControladorUsuario;
 import logica.OfertaLaboral;
-import utils.DTEmpresa;
-import utils.DTOferta;
-import utils.EnumEstadoOferta;
+import servidor.types.DTEmpresa;
+import servidor.types.DTOferta;
+import servidor.types.EnumEstadoOferta;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;

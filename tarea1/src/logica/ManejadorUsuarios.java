@@ -7,10 +7,10 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 import excepciones.*;
-import utils.DTUsuario;
-import utils.DTEmpresa;
-import utils.DTOferta;
-import utils.DTPostulante;
+import servidor.types.DTUsuario;
+import servidor.types.DTEmpresa;
+import servidor.types.DTOferta;
+import servidor.types.DTPostulante;
 
 public class ManejadorUsuarios {
 

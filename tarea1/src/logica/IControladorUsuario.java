@@ -9,11 +9,11 @@ import excepciones.CorreoNoEncontradoException;
 import excepciones.CorreoRepetidoException;
 import excepciones.NicknameNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
-import utils.DTEmpresa;
-import utils.DTOferta;
-import utils.DTPostulante;
+import servidor.types.DTEmpresa;
+import servidor.types.DTOferta;
+import servidor.types.DTPostulante;
 import excepciones.UsuarioRepetidoException;
-import utils.DTUsuario;
+import servidor.types.DTUsuario;
 
 public interface IControladorUsuario {
 

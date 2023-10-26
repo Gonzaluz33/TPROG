@@ -11,8 +11,8 @@ import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 
 import logica.IControladorPublicaciones;
-import utils.DTPaquete;
-import utils.DTTupla_Cantidad_TipoPublicacion;
+import servidor.types.DTPaquete;
+import servidor.types.DTTupla_Cantidad_TipoPublicacion;
 
 import javax.swing.JLabel;
 import javax.swing.JComboBox;

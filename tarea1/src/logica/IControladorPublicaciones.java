@@ -6,9 +6,9 @@ import excepciones.TipoPublicExisteException;
 
 import java.util.List;
 
-import utils.DTPaquete;
-import utils.DTPublicacion;
-import utils.DTTipoPublicacion;
+import servidor.types.DTPaquete;
+import servidor.types.DTPublicacion;
+import servidor.types.DTTipoPublicacion;
 
 public interface IControladorPublicaciones {
 	 public List<DTTipoPublicacion> obtenerTipos();

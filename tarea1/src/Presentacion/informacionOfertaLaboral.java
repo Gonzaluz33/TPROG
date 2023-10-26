@@ -15,8 +15,8 @@ import javax.swing.table.JTableHeader;
 
 import excepciones.OfertaNoExisteException;
 import logica.IControladorOfertas;
-import utils.DTOferta;
-import utils.DTPostulacion;
+import servidor.types.DTOferta;
+import servidor.types.DTPostulacion;
 import utilsPresentacion.MultiLineCellRenderer;
 
 import java.awt.GridLayout;

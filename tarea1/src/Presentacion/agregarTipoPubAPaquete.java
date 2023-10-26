@@ -15,8 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JSpinner;
 
 import logica.IControladorPublicaciones;
-import utils.DTPaquete;
-import utils.DTTipoPublicacion;
+import servidor.types.DTPaquete;
+import servidor.types.DTTipoPublicacion;
 
 public class agregarTipoPubAPaquete extends JInternalFrame {
 	private static final long serialVersionUID = 1L;

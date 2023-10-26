@@ -19,9 +19,9 @@ import excepciones.NombreExisteException;
 import logica.IControladorOfertas;
 import logica.IControladorPublicaciones;
 import logica.IControladorUsuario;
-import utils.DTEmpresa;
-import utils.DTTipoPublicacion;
-import utils.DTUsuario;
+import servidor.types.DTEmpresa;
+import servidor.types.DTTipoPublicacion;
+import servidor.types.DTUsuario;
 
 import javax.swing.JSpinner;
 import java.awt.Button;

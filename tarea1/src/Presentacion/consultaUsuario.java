@@ -1,10 +1,10 @@
 package Presentacion;
 
-import utils.DTEmpresa;
-import utils.DTOferta;
-import utils.DTPostulacion;
-import utils.DTPostulante;
-import utils.DTUsuario;
+import servidor.types.DTEmpresa;
+import servidor.types.DTOferta;
+import servidor.types.DTPostulacion;
+import servidor.types.DTPostulante;
+import servidor.types.DTUsuario;
 import javax.swing.JInternalFrame;
 import java.awt.Panel;
 import javax.swing.JLabel;

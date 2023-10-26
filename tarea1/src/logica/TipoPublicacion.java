@@ -2,7 +2,7 @@ package logica;
 
 import java.time.LocalDate;
 
-import utils.DTTipoPublicacion;
+import servidor.types.DTTipoPublicacion;
 
 public class TipoPublicacion {
 	private String nombre;

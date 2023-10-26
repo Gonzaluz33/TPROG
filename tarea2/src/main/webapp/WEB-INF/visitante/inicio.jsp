@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
-<%@ page import="utils.DTOferta" %>
-<%@ page import="utils.DTPublicacion" %>
+<%@ page import="servidor.publicar.DtOferta" %>
+<%@ page import="servidor.publicar.DtPublicacion" %>
 <%@ page import="com.google.gson.Gson"%>
 <%@ page import="java.lang.reflect.Type"%>
 <%@ page import="com.google.gson.reflect.TypeToken"%>
@@ -125,9 +125,9 @@
 			           <div class="col-md-9 p-2 col-sm-12 mx-auto" id="mainContent">
 					    <% 
 					        String publicacionesJSON = (String) request.getAttribute("publicaciones");
-					        Type listType = new TypeToken<List<DTPublicacion>>() {}.getType();
-					        List<DTPublicacion> publicaciones = gson.fromJson(publicacionesJSON, listType);
-					        for(DTPublicacion publicacion : publicaciones) {
+					        Type listType = new TypeToken<List<DtPublicacion>>() {}.getType();
+					        List<DtPublicacion> publicaciones = gson.fromJson(publicacionesJSON, listType);
+					        for(DtPublicacion publicacion : publicaciones) {
 					    %>
 					        <div class="d-flex p-2  border border-dark align-items-center mb-3">
 					            <div style="width: 25%;">

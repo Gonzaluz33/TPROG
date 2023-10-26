@@ -24,8 +24,8 @@ import logica.ControladorOfertas;
 import logica.ControladorUsuarios;
 import logica.IControladorOfertas;
 import logica.IControladorUsuario;
-import utils.DTOferta;
-import utils.DTPostulante;
+import servidor.types.DTOferta;
+import servidor.types.DTPostulante;
 
 public class postularAPostulante extends JInternalFrame {
 	

@@ -8,7 +8,7 @@ import javax.swing.JTextField;
 
 
 import logica.IControladorPublicaciones;
-import utils.DTTipoPublicacion;
+import servidor.types.DTTipoPublicacion;
 
 import javax.swing.JTextArea;
 
@@ -19,6 +19,7 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JButton;
 
 public class informacionTipoPublicacion extends JInternalFrame {
+	private static final long serialVersionUID = 1L;
 	private IControladorPublicaciones controlPub;
 	private JTextField nombreField;
 	private JTextField duracionField;

@@ -2,9 +2,9 @@ package logica;
 
 import java.util.*;
 
-import utils.DTUsuario;
-import utils.DTEmpresa;
-import utils.DTOferta;
+import servidor.types.DTUsuario;
+import servidor.types.DTEmpresa;
+import servidor.types.DTOferta;
 
 /**
  * Representa a la empresa en el sistema.

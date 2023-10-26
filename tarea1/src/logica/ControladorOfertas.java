@@ -13,10 +13,10 @@ import excepciones.NicknameNoExisteException;
 import excepciones.OfertaNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
 import excepciones.UsuarioNoEsPostulanteException;
-import utils.DTEmpresa;
-import utils.DTOferta;
-import utils.DTPostulacion;
-import utils.EnumEstadoOferta;
+import servidor.types.DTEmpresa;
+import servidor.types.DTOferta;
+import servidor.types.DTPostulacion;
+import servidor.types.EnumEstadoOferta;
 
 public class ControladorOfertas implements IControladorOfertas {
 

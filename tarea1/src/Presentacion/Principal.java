@@ -1,6 +1,7 @@
 package Presentacion;
 
-import servidor.publicar.WebServices;
+import servidor.publicar.ServicioOfertas;
+import servidor.publicar.ServicioUsuarios;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,7 +39,7 @@ import logica.Fabrica;
 import logica.IControladorOfertas;
 import logica.IControladorPublicaciones;
 import logica.IControladorUsuario;
-import utils.EnumEstadoOferta;
+import servidor.types.EnumEstadoOferta;
 
 //import excepciones.OfertaNoExisteException;
 //import java.text.ParseException;
@@ -78,8 +79,10 @@ public class Principal {
 			public void run() {
 				try {
 					
-					WebServices p = new WebServices();
-			        p.publicar();
+					ServicioOfertas o = new ServicioOfertas();
+			        o.publicar();
+			        ServicioUsuarios u = new ServicioUsuarios();
+			        u.publicar();
 			        
 					Principal window = new Principal();
 					window.frame.setVisible(true);

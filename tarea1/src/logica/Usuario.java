@@ -1,6 +1,6 @@
 package logica;
 
-import utils.DTUsuario;
+import servidor.types.DTUsuario;
 
 /**
  * Representa al usuario en el sistema.

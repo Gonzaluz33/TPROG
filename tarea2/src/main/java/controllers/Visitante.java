@@ -1,22 +1,17 @@
 package controllers;
 
+import utils.*;
+import servidor.publicar.DtPublicacion;
+import servidor.publicar.DtPublicacionArray;
+import servidor.publicar.EnumEstadoOferta;
+import servidor.publicar.KeywordExisteException_Exception;
+import servidor.publicar.DtOferta;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Fabrica;
-import model.IControladorOfertas;
-import model.IControladorPublicaciones;
-import model.IControladorUsuario;
-import model.TokenBlacklist;
-import utils.DTEmpresa;
-import utils.DTPostulante;
-import utils.DTPublicacion;
-import utils.DTUsuario;
-import utils.EnumEstadoOferta;
-import utils.LocalDateSerializer;
-import utils.LocalDateTimeAdapter;
+import net.java.dev.jaxb.array.AnyTypeArray;
 import jakarta.servlet.http.Cookie;
 import java.io.IOException;
 import java.security.Key;
@@ -26,10 +21,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import excepciones.CorreoRepetidoException;
 import excepciones.NicknameNoExisteException;
 import excepciones.UsuarioRepetidoException;
@@ -44,7 +37,7 @@ import io.jsonwebtoken.security.Keys;
 @WebServlet("/visitante")
 public class Visitante extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String secret_Key = "6a2b5c8e1f4a7d0987654321abcdef09"; // Clave secreta para verificar JWT
+	//private static final String secret_Key = "6a2b5c8e1f4a7d0987654321abcdef09"; // Clave secreta para verificar JWT
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -55,44 +48,48 @@ public class Visitante extends HttpServlet {
 	}
 	
 
-    public static List<DTPublicacion> filtrarPublicacionesConfirmadas(List<DTPublicacion> publicaciones) {
+    /*public static List<DtPublicacion> filtrarPublicacionesConfirmadas(List<DtPublicacion> publicaciones) {
         return publicaciones.stream()
                 .filter(publicacion -> EnumEstadoOferta.CONFIRMADA.equals(publicacion.getDtOferta().getEstado()))
                 .collect(Collectors.toList());
-    }
+    }*/
+    
 
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException,
 			UsuarioRepetidoException, CorreoRepetidoException, NicknameNoExisteException {
-		Fabrica factory = Fabrica.getInstance();
-		IControladorOfertas ICO = factory.getIControladorOfertas();
-		IControladorPublicaciones ICP = factory.getIControladorPublicaciones();
 		
-		List<String> keywords = ICO.obtenerKeywords();
-		
+		servidor.publicar.ServicioOfertasService serviceOfertas = new servidor.publicar.ServicioOfertasService();
+        servidor.publicar.ServicioOfertas portOfertas = serviceOfertas.getServicioOfertasPort();
+        AnyTypeArray keywords = null;
+		try {
+			keywords = portOfertas.obtenerKeywords();
+		} catch (KeywordExisteException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Gson gson = new Gson();
 		String keywordsJSON = gson.toJson(keywords);
 		req.setAttribute("keywords", keywordsJSON);
 
 		Gson gsonAux = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
 				.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
-
 		String busqueda = req.getParameter("busqueda");
+		
 		String[] keywordsSeleccionadas = req.getParameterValues("keywords");
-		List<DTPublicacion> publicaciones = new ArrayList<>();
+		DtPublicacionArray publicaciones;
 
 		if (busqueda != null && !busqueda.isEmpty()) {
-			publicaciones = ICP.obtenerPublicacionesPorBusqueda(busqueda);
+			publicaciones = portOfertas.obtenerPublicacionesPorBusqueda(busqueda);
 		} else if (keywordsSeleccionadas != null && keywordsSeleccionadas.length > 0) {
-			List<String> keywordsAFiltrar = new ArrayList<>(Arrays.asList(keywordsSeleccionadas));
-			publicaciones = ICP.obtenerPublicacionesPorKeywords(keywordsAFiltrar);
+			
+			publicaciones = portOfertas.obtenerPublicaciones();
 		} else {
-
-			publicaciones = ICP.obtenerPublicaciones();
+			publicaciones = portOfertas.obtenerPublicaciones();
 		}
-		List<DTPublicacion> pubFiltered = filtrarPublicacionesConfirmadas(publicaciones);
-		String publicacionesJSON = gsonAux.toJson(pubFiltered);
+		//List<DTPublicacion> pubFiltered = filtrarPublicacionesConfirmadas(publicaciones);
+		String publicacionesJSON = gsonAux.toJson(publicaciones);
 		req.setAttribute("publicaciones", publicacionesJSON);
-
+		
 		Cookie[] cookies = req.getCookies();
 		String jwtCookieName = "jwt";
 		String jwt = null;
@@ -105,56 +102,31 @@ public class Visitante extends HttpServlet {
 			}
 		}
 		if (jwt != null) {
-
-			TokenBlacklist blacklist = TokenBlacklist.getInstance();
-			if (!blacklist.isTokenBlacklisted(jwt)) {
-				try {
-					Key secretKey = Keys.hmacShaKeyFor(secret_Key.getBytes());
-					Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(jwt);
-
-					Claims claims = claimsJws.getBody();
-					// Date expirationDate = claims.getExpiration();
-					String correo = (String) claims.get("email");
-					IControladorUsuario iconuser = factory.getIControladorUsuario();
-					if (iconuser.usuarioExiste(correo)) {
-						DTUsuario usuario = iconuser.consultarUsuarioPorCorreo(correo);
-						if (usuario instanceof DTEmpresa) {
-							resp.sendRedirect("empresa");
-						} else if (usuario instanceof DTPostulante) {
-							resp.sendRedirect("postulante");
-						}
-					} else {
-						// Eliminar la cookie JWT
-						Cookie jwtCookie = new Cookie("jwt", "");
-						jwtCookie.setMaxAge(0); // Establece la fecha de expiración en el pasado
-						resp.addCookie(jwtCookie);
-						req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
-					}
-
-				} catch (Exception e) {
-					// El JWT no es válido o ha expirado, maneja este caso según tus necesidades
-					req.setAttribute("sessionExpired", true);
-					// Eliminar la cookie JWT
-					Cookie jwtCookie = new Cookie("jwt", "");
-					jwtCookie.setMaxAge(0); // Establece la fecha de expiración en el pasado
-					resp.addCookie(jwtCookie);
-					req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
-				}
-
-			} else {
-				// El JWT esta en la blacklist
-				req.setAttribute("invalidToken", true);
-				// Eliminar la cookie JWT
+			servidor.publicar.ServicioUsuariosService service = new servidor.publicar.ServicioUsuariosService();
+	        servidor.publicar.ServicioUsuarios port = service.getServicioUsuariosPort();
+	        boolean esValido = port.validarToken(jwt);
+	        
+	        if(esValido){
+	        	String tipoUsuario = port.tipoUsuario(jwt);
+	        	if(tipoUsuario.equals("empresa")) {
+	        		resp.sendRedirect("empresa");
+	        	}else if(tipoUsuario.equals("postulante")){
+	        		resp.sendRedirect("postulante");
+	        	}else {
+	        		
+	        	}
+	        	
+	        }else {
+	        	req.setAttribute("invalidToken", true);
 				Cookie jwtCookie = new Cookie("jwt", "");
 				jwtCookie.setMaxAge(0);
 				resp.addCookie(jwtCookie);
 				req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
-			}
-
+	        }
+	        
 		} else {
 			req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
 		}
-
 	}
 
 	/**

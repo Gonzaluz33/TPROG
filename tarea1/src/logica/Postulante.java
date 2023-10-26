@@ -1,7 +1,7 @@
 package logica;
 
-import utils.DTPostulante;
-import utils.DTPostulacion;
+import servidor.types.DTPostulante;
+import servidor.types.DTPostulacion;
 
 import java.time.LocalDate;
 

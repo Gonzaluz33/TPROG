@@ -9,10 +9,10 @@ import excepciones.CorreoRepetidoException;
 import excepciones.NicknameNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
 import excepciones.UsuarioRepetidoException;
-import utils.DTEmpresa;
-import utils.DTOferta;
-import utils.DTPostulante;
-import utils.DTUsuario;
+import servidor.types.DTEmpresa;
+import servidor.types.DTOferta;
+import servidor.types.DTPostulante;
+import servidor.types.DTUsuario;
 
 public class ControladorUsuarios implements IControladorUsuario {
 

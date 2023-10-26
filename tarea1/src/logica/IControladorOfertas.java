@@ -1,6 +1,6 @@
 package logica;
 
-import utils.DTEmpresa;
+import servidor.types.DTEmpresa;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -12,9 +12,9 @@ import excepciones.NombreExisteException;
 import excepciones.OfertaNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
 import excepciones.UsuarioNoEsPostulanteException;
-import utils.DTOferta;
-import utils.DTPostulacion;
-import utils.EnumEstadoOferta;
+import servidor.types.DTOferta;
+import servidor.types.DTPostulacion;
+import servidor.types.EnumEstadoOferta;
 
 
 public interface IControladorOfertas {

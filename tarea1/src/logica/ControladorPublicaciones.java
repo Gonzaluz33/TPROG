@@ -5,10 +5,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import utils.DTOferta;
-import utils.DTPaquete;
-import utils.DTPublicacion;
-import utils.DTTipoPublicacion;
+import servidor.types.DTOferta;
+import servidor.types.DTPaquete;
+import servidor.types.DTPublicacion;
+import servidor.types.DTTipoPublicacion;
 import excepciones.TipoPublicExisteException;
 import excepciones.PaqueteExisteException;
 

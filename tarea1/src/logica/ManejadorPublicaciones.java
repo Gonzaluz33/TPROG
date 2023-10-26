@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 
 import excepciones.PaqueteExisteException;
 import excepciones.TipoPublicExisteException;
-import utils.DTPaquete;
-import utils.DTPublicacion;
-import utils.DTTipoPublicacion;
+import servidor.types.DTPaquete;
+import servidor.types.DTPublicacion;
+import servidor.types.DTTipoPublicacion;
 
 
 public class ManejadorPublicaciones {

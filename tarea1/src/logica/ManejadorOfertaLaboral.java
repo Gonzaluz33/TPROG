@@ -11,18 +11,18 @@ import java.util.Map;
 import java.util.Set;
 
 import excepciones.NombreExisteException;
-import utils.DTUsuario;
-import utils.EnumEstadoOferta;
+import servidor.types.DTUsuario;
+import servidor.types.EnumEstadoOferta;
 import java.time.LocalDateTime;
 import excepciones.OfertaNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
 import excepciones.UsuarioNoEsPostulanteException;
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
-import utils.DTEmpresa;
-import utils.DTOferta;
-import utils.DTPostulacion;
-import utils.DTPostulante;
+import servidor.types.DTEmpresa;
+import servidor.types.DTOferta;
+import servidor.types.DTPostulacion;
+import servidor.types.DTPostulante;
 
 public class ManejadorOfertaLaboral {
 	private Map<String, OfertaLaboral> coleccionOfertasLaborales = new TreeMap<String, OfertaLaboral>();

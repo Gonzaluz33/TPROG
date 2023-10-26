@@ -15,9 +15,9 @@ import java.util.Date;
 import java.util.List;
 
 import logica.IControladorUsuario;
-import utils.DTEmpresa;
-import utils.DTPostulante;
-import utils.DTUsuario;
+import servidor.types.DTEmpresa;
+import servidor.types.DTPostulante;
+import servidor.types.DTUsuario;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;

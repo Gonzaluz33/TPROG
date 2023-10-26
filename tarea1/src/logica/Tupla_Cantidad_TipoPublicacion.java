@@ -1,5 +1,5 @@
 package logica;
-import utils.DTTupla_Cantidad_TipoPublicacion;
+import servidor.types.DTTupla_Cantidad_TipoPublicacion;
 
 public class Tupla_Cantidad_TipoPublicacion{
 	private Integer cantidad;

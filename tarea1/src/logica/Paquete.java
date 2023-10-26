@@ -2,7 +2,7 @@ package logica;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import utils.DTPaquete;
+import servidor.types.DTPaquete;
 
 
 

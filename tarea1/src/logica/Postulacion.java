@@ -2,7 +2,7 @@ package logica;
 
 import java.time.LocalDateTime;
 
-import utils.DTPostulacion;
+import servidor.types.DTPostulacion;
 
 public class Postulacion {
 

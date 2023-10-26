@@ -1,9 +1,9 @@
 package logica;
 
-import utils.DTOferta;
-import utils.DTPostulacion;
-import utils.DTUsuario;
-import utils.EnumEstadoOferta;
+import servidor.types.DTOferta;
+import servidor.types.DTPostulacion;
+import servidor.types.DTUsuario;
+import servidor.types.EnumEstadoOferta;
 
 import java.time.LocalDate;
 //import java.time.LocalDateTime;

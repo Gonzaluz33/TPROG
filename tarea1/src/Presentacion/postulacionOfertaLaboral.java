@@ -29,8 +29,8 @@ import excepciones.OfertaNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
 import logica.IControladorOfertas;
 import logica.IControladorUsuario;
-import utils.DTEmpresa;
-import utils.DTOferta;
+import servidor.types.DTEmpresa;
+import servidor.types.DTOferta;
 import utilsPresentacion.CentrarColumnas;
 
 import java.awt.GridLayout;
