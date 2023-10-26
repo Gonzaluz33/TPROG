@@ -8,10 +8,15 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -131,7 +136,7 @@ public class altaPostulante extends JInternalFrame {
 		
 		String currentDirectory = System.getProperty("user.dir");
 		
-        String csvNacionalidades = currentDirectory + File.separator + "Datos" + File.separator + "Nacionalidades.csv";
+        String csvNacionalidades = currentDirectory + File.separator + "DatosCSV" + File.separator + "Nacionalidades.csv";
 		
 		String[] nacionalidades = cargarNacionalidadesDesdeCSV(csvNacionalidades);
 		
@@ -180,38 +185,43 @@ public class altaPostulante extends JInternalFrame {
 
 
 	public void registrarPostulante(ActionEvent e) {
-		String nick = this.nicknameField.getText();
-		String nombre = this.nombreField.getText();
-		String apellido = this.apellidoField.getText();
-		String email = this.correoField.getText();
-		String contraseña = this.contraseñaField.getPassword().toString();
-		String confContraseña = this.confContraseñaField.getPassword().toString();
-		int year = (Integer) this.ano.getValue();
-		String stringifiedMonth = this.mes.getValue() + "";
-		Integer month = Integer.parseInt(stringifiedMonth);
-		String stringifiedDay = this.dia.getValue() + "";
-		Integer day = Integer.parseInt(stringifiedDay);
-		Date date = new GregorianCalendar(year, month-1, day).getTime();
-		String nacion = (String) nacionalidadDropdown.getSelectedItem();
-		
-		if(checkFormulario()) {
-			  try {
-	                controlUsr.altaPostulante(nick, nombre, apellido, email, contraseña ,date, nacion);
-	                // Muestro éxito de la operación
+	    if (checkFormulario()) {
+	        String nick = this.nicknameField.getText();
+	        String nombre = this.nombreField.getText();
+	        String apellido = this.apellidoField.getText();
+	        String email = this.correoField.getText();
+	        String contraseña = new String(this.contraseñaField.getPassword());
+	     // Crear objeto Date
+	        Date date = new GregorianCalendar((Integer)ano.getValue(), (Integer)mes.getValue() - 1, (Integer)dia.getValue()).getTime();
+	        
+	        // Convertir Date a LocalDate
+	        LocalDate localDate = Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+	        
+	        String nacion = (String) nacionalidadDropdown.getSelectedItem();
+	        String imagenDefault = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+	        
+	        try {
+	            if (isValidEmail(email)) {
+	                controlUsr.altaPostulante(nick, nombre, apellido, email, contraseña, localDate, nacion, imagenDefault);
 	                JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
 	                        JOptionPane.INFORMATION_MESSAGE);
-	                
-	                
-	    			// Limpio el internal frame antes de cerrar la ventana
-		            limpiarFormulario();
-		            setVisible(false);
-		            
-
-	            } catch (UsuarioRepetidoException | CorreoRepetidoException err) {
-	                // Muestro error de registro
-	                JOptionPane.showMessageDialog(this, err.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+	                limpiarFormulario();
+	                setVisible(false);
+	            } else {
+	                JOptionPane.showMessageDialog(this, "El email ingresado no es válido.", "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
 	            }
-		}
+	        }
+	        catch(UsuarioRepetidoException | CorreoRepetidoException err){
+	            JOptionPane.showMessageDialog(this, err.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+	        }
+	    }
+	}
+	
+	public boolean isValidEmail(String email) {
+	    String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
+	    Pattern pattern = Pattern.compile(regex);
+	    Matcher matcher = pattern.matcher(email);
+	    return matcher.matches();
 	}
 	
 	public Boolean esValidoFecha() {
@@ -257,6 +267,12 @@ public class altaPostulante extends JInternalFrame {
 	    
 	    if(!contraseña.equals(confContraseña)) {
 	    	JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.", "Registrar Usuario",
+	                JOptionPane.ERROR_MESSAGE);
+	        return false;
+	    }
+	    
+	    if(contraseña.length() < 6) {
+	    	JOptionPane.showMessageDialog(this, "La contraseña debe tener al menos 6 caracteres.", "Registrar Usuario",
 	                JOptionPane.ERROR_MESSAGE);
 	        return false;
 	    }

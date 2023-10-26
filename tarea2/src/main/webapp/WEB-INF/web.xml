@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" version="6.0">
-  <display-name>tarea2</display-name>
+  <display-name>WebApp</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
@@ -167,5 +167,4 @@
     <servlet-name>ConfirmarPostulacion</servlet-name>
     <url-pattern>/ConfirmarPostulacion</url-pattern>
   </servlet-mapping>
-  
 </web-app>

@@ -19,6 +19,7 @@ import utils.DTPaquete;
 import utils.DTTipoPublicacion;
 
 public class agregarTipoPubAPaquete extends JInternalFrame {
+	private static final long serialVersionUID = 1L;
 	private IControladorPublicaciones controlPub;
 	private JComboBox<DTTipoPublicacion> listaTipoPub;
 	private JComboBox<DTPaquete> listaPaquetes;

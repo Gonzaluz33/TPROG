@@ -14,6 +14,7 @@ public class Paquete {
 	private Integer descuento;
 	private LocalDate fechaAlta;
 	private double costoAsociado;
+	private String url_imagen;
 	private List<Tupla_Cantidad_TipoPublicacion> listaDeTuplas = new ArrayList<>();
 	
 	public Paquete() {
@@ -23,21 +24,27 @@ public class Paquete {
 		this.setDescuento(0);
 		this.setCostoAsociado(0);
 		this.setListaDeTuplas(null);
+		this.setUrlImagen("");
 	}
 	
-	public Paquete(String nombre, String descripcion, Integer validez, Integer descuento, double costoAsociado, LocalDate fechaAlta) {
+	public Paquete(String nombre, String descripcion, Integer validez, Integer descuento, double costoAsociado, LocalDate fechaAlta,String url_imagen) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.validez = validez;
 		this.descuento = descuento;
 		this.costoAsociado = costoAsociado;
 		this.fechaAlta = fechaAlta;
+		this.url_imagen = url_imagen;
 	}
 	
     // Getters
     public String getNombre() {
         return nombre;
     }
+    public String getUrlImagen() {
+        return url_imagen;
+    }
+
 
     public String getDescripcion() {
         return descripcion;
@@ -66,8 +73,6 @@ public class Paquete {
     public LocalDate getFechaAlta() {
     	return fechaAlta;
     }
-    
-    
     public List<Tupla_Cantidad_TipoPublicacion> getListaDeTuplas(){
     	return listaDeTuplas;
     }
@@ -76,6 +81,10 @@ public class Paquete {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    public void setUrlImagen(String urlImagen) {
+        this.url_imagen = urlImagen;
+    }
+
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
@@ -93,15 +102,14 @@ public class Paquete {
         this.costoAsociado = costoAsociado;
     }
     
-    public void setFechaAlta(LocalDate d) {
-    	this.fechaAlta = d;
+    public void setFechaAlta(LocalDate feachaA) {
+    	this.fechaAlta = feachaA;
     }
     
-    public void setListaDeTuplas(List<Tupla_Cantidad_TipoPublicacion> l) {
-    	this.listaDeTuplas = l;
+    public void setListaDeTuplas(List<Tupla_Cantidad_TipoPublicacion> listTuplas) {
+    	this.listaDeTuplas = listTuplas;
     	
     }
-    
     
     public void agregarTipoPublicacion(Integer cant, TipoPublicacion tipoPublicacion) {
     	 boolean encontrado = false;
@@ -122,7 +130,7 @@ public class Paquete {
      * Retorna los datos del usuario como un DataType DTPaquete.
      */
     DTPaquete toDataType() {
-    	return new DTPaquete(getNombre(), getDescripcion(), getValidez(),getDescuento(), getCostoAsociado(), getFechaAlta(), getListaDeTuplas());
+    	return new DTPaquete(getNombre(), getDescripcion(), getValidez(),getDescuento(), getCostoAsociado(), getFechaAlta(), getListaDeTuplas(),getUrlImagen());
     }
 
 }

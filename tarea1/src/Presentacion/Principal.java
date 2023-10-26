@@ -27,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -41,6 +42,7 @@ import logica.Fabrica;
 import logica.IControladorOfertas;
 import logica.IControladorPublicaciones;
 import logica.IControladorUsuario;
+import utils.EnumEstadoOferta;
 
 public class Principal {
 	
@@ -263,7 +265,7 @@ public class Principal {
 				 currentInternalFrame = altaOfertaLaboralInternalFrame;
 	            }
 		});	
-		
+		menuOfertasLaborales.add(mItemOfertaLaboral);
 		
 		
 		JMenuItem mItemConsultaOfertaLaboral = new JMenuItem("Consulta de Oferta Laboral");
@@ -367,29 +369,31 @@ public class Principal {
 		    	try {
 		    		String currentDirectory = System.getProperty("user.dir");
 		    		
-		            String csvFilePostulantes = currentDirectory + File.separator + "Datos" + File.separator + "Postulantes.csv";
-					cargarDatosPostulantes(csvFilePostulantes);
+		            String csvFilePathPostulantes = currentDirectory + File.separator + "DatosCSV" + File.separator + "Postulantes.csv";
+					cargarDatosPostulantes(csvFilePathPostulantes);
+
+		            String csvFilePathEmpresas = currentDirectory + File.separator + "DatosCSV" + File.separator + "Empresas.csv";
+					cargarDatosEmpresas(csvFilePathEmpresas);
 					
+					String csvFilePathTiposPublicacion = currentDirectory + File.separator + "DatosCSV" + File.separator + "TiposPublicacion.csv";
+					cargarDatosTipoPublicacion(csvFilePathTiposPublicacion);
 					
-		            String csvFileEmpresas = currentDirectory + File.separator + "Datos" + File.separator + "Empresas.csv";
-					cargarDatosEmpresas(csvFileEmpresas);
+					String csvFilePathKeywords = currentDirectory + File.separator + "DatosCSV" + File.separator + "Keywords.csv";
+					cargarDatosKeywords(csvFilePathKeywords);
 					
-					String csvFileTiposPublicacion = currentDirectory + File.separator + "Datos" + File.separator + "TiposPublicacion.csv";
-					cargarDatosTipoPublicacion(csvFileTiposPublicacion);
+					String csvFileOfertaLaboral = currentDirectory + File.separator + "DatosCSV" + File.separator + "OfertasLaboralesPrueba.csv";
+					cargarDatosOfertasLaboralesPrueba(csvFileOfertaLaboral);
 					
-					String csvFileKeywords = currentDirectory + File.separator + "Datos" + File.separator + "Keywords.csv";
-					cargarDatosKeywords(csvFileKeywords);
+					String csvFilePostulaciones = currentDirectory + File.separator + "DatosCSV" + File.separator + "Postulaciones.csv";
+					cargarPostulaciones(csvFilePostulaciones);
 					
-					String csvFileOfertaLaboral = currentDirectory + File.separator + "Datos" + File.separator + "OfertasLaborales.csv";
-					cargarDatosOfertasLaborales(csvFileOfertaLaboral);
+					String csvFilePathPaquetes = currentDirectory + File.separator + "DatosCSV" + File.separator + "Paquetes.csv";
+					cargarDatosPaquetes(csvFilePathPaquetes);
 					
-					String csvFilePostulaciones = currentDirectory + File.separator + "Datos" + File.separator + "Postulaciones.csv";
-					cargarDatosPostulaciones(csvFilePostulaciones);
+					String csvFilePathTiposPublicacionPaquetes = currentDirectory + File.separator + "Datos" + File.separator + "TiposPublicacionPaquetes.csv";
+					cargarDatosTiposPublicacionPaquetes(csvFilePathTiposPublicacionPaquetes);
 					
-					String csvFilePaquetes = currentDirectory + File.separator + "Datos" + File.separator + "Paquetes.csv";
-					cargarDatosPaquetes(csvFilePaquetes);
-					String csvFileTiposPublicacionPaquetes = currentDirectory + File.separator + "Datos" + File.separator + "TiposPublicacionPaquetes.csv";
-					cargarDatosTiposPublicacionPaquetes(csvFileTiposPublicacionPaquetes);
+					 
 					
 					
 				} catch (UsuarioRepetidoException e1) {
@@ -406,16 +410,16 @@ public class Principal {
 				} catch (NicknameNoExisteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} catch (UsuarioNoEsPostulanteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (OfertaNoExisteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				} catch (CorreoRepetidoException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (PaqueteExisteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
@@ -434,240 +438,328 @@ public class Principal {
 		
 	}
 
-		private void cargarDatosPostulantes(String csvFile) throws UsuarioRepetidoException, CorreoRepetidoException {	
-		    String line = "";
-		    String cvsSplitBy = ";";
-		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-		        while ((line = br.readLine()) != null) {
-		            String[] postulanteData = line.split(cvsSplitBy);
-		            String nickname = "";
-		            String nombre = "";
-		            String apellido = "";
-		            String correo = "";
-		            Date fecha = null;
-		            String nacionalidad = "";
-		            if(postulanteData.length > 0) {
-		            	 nickname = postulanteData[0];
-		            	 nombre = postulanteData[1];
-		            	 apellido = postulanteData[2];
-		            	 correo = postulanteData[3];
-		            	 fecha = parseDate(postulanteData[4].trim());
-		            	 nacionalidad = postulanteData[5];
-		            	 ICU.altaPostulante(nickname, nombre, apellido, correo, " " ,fecha, nacionalidad);
-		            }
-		            
-		        }
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-		   
-		}
+	private LocalDate parseFechaNacimiento(String fechaNacimiento) {
+	    try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
 
-		private Date parseDate(String dateString) {
-		    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		    try {
-		        return formatter.parse(dateString);
-		    } catch (ParseException e) {
-		        e.printStackTrace();
-		        return null;
-		    }
-		}
-		
-		private void cargarDatosEmpresas(String csvFile) throws UsuarioRepetidoException, CorreoRepetidoException {	
-		    String line = "";
-		    String cvsSplitBy = ";";
-		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-		        while ((line = br.readLine()) != null) {
-		            String[] empresaData = line.split(cvsSplitBy);
-		            String nickname = "";
-		            String nombre = "";
-		            String apellido = "";
-		            String correo = "";
-		            String descripcion = "";
-		            String link = "";
-		            
-		            if(empresaData.length > 0) {
-		            	 nickname = empresaData[0];
-		            	 nombre = empresaData[1];
-		            	 apellido = empresaData[2];
-		            	 correo = empresaData[3];
-		            	 descripcion = empresaData[4];
-				         link = empresaData[5]; 
-		            	 ICU.altaEmpresa(nickname, nombre, apellido, correo, " ",nickname, descripcion, link);
-		            }
-		            
-		        }
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-		   
-		}
-		
-		private void cargarDatosTipoPublicacion(String csvFile) throws TipoPublicExisteException{	
-		    String line = "";
-		    String cvsSplitBy = ";";
-		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-		        while ((line = br.readLine()) != null) {
-		            String[] tiposPublicaionData = line.split(cvsSplitBy);
-		            String nombre = "";
-		            String desc = "";
-		            int exp = 0;
-		            Integer duracion = 0;
-		            Integer costo = 0;
-		           LocalDate alta = null;
-		            
-		            if(tiposPublicaionData.length > 0) {
-		            	 nombre = tiposPublicaionData[0];
-		            	 desc = tiposPublicaionData[1];
-		            	 exp = Integer.parseInt(tiposPublicaionData[2]) ;
-		            	 duracion = Integer.parseInt(tiposPublicaionData[3]) ;
-		            	 costo = Integer.parseInt(tiposPublicaionData[4]);
-		            	 alta = parseToLocalDate(tiposPublicaionData[5].trim());
-		            	 ICP.altaTipoPublicacionOL(nombre, desc, exp, duracion, costo, alta);
-		            }
-		            
-		        }
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-		   
-		}
-		
-		private void cargarDatosKeywords(String csvFile) throws KeywordExisteException{	
-		    String line = "";
-		    String cvsSplitBy = ";";
-		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-		        while ((line = br.readLine()) != null) {
-		            String[] tiposPublicaionData = line.split(cvsSplitBy);
-		            String nombre = "";         
-		            if(tiposPublicaionData.length > 0) {
-		            	 nombre = tiposPublicaionData[0];
-		            	 ICO.altaKeyword(nombre);
-		            }      
-		        }
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-		   
-		}
-		
-		private void cargarDatosOfertasLaborales(String csvFile) throws NombreExisteException, KeywordExisteException, NicknameNoExisteException{	
-		    String line = "";
-		    String cvsSplitBy = ";";
-		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-		        while ((line = br.readLine()) != null) {
-		            String[] ofertasLaboralesData = line.split(cvsSplitBy);
-		            String nombre = "";    
-		            String desc = ""; 
-		            String rem = ""; 
-		            String horario = ""; 
-		            List<String> keys = new ArrayList<>();
-		            String ciudad = ""; 
-		            String depa = ""; 
-		            String tipo = "";
-		            String empresa = ""; 
-		            
-		            
-		            if(ofertasLaboralesData.length > 0) {
-		            	
-		            	 nombre = ofertasLaboralesData[0];
-		            	 desc = ofertasLaboralesData[1];
-		            	 rem = ofertasLaboralesData[5];
-		            	 horario = ofertasLaboralesData[4];
-		            	 ciudad = ofertasLaboralesData[3];
-		            	 depa = ofertasLaboralesData[2];
-		            	 tipo = ofertasLaboralesData[7];
-		            	 empresa = ofertasLaboralesData[6];
-		            	 if(ofertasLaboralesData.length > 9) {
-			            	 keys = Arrays.asList(ofertasLaboralesData[9].split("/"));
-		            	 }
-		            	 ICO.altaOferta(nombre, desc, rem, horario, keys, ciudad, depa, tipo, empresa);
-		            }      
-		        }
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-		   
-		}
-		
-		private void cargarDatosPostulaciones(String csvFile) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException{	
-		    String line = "";
-		    String cvsSplitBy = ";";
-		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-		        while ((line = br.readLine()) != null) {
-		            String[] postulacionesData = line.split(cvsSplitBy);
-		            String nicknamePost = "";    
-		            String nombreOL = ""; 
-		            String cv = ""; 
-		            String motivacion = ""; 
-		            LocalDate fechaPostulacion = null; 
-		            
-		            if(postulacionesData.length > 0) {
-		            	nicknamePost = postulacionesData[0];
-		            	cv = postulacionesData[1];
-		            	nombreOL = postulacionesData[4];
-		            	motivacion = postulacionesData[2];
-		            	String fechaStr = postulacionesData[3];
-		            	fechaPostulacion = LocalDate.parse(fechaStr, formatter);
-		            	LocalDateTime fechaConTiempo = fechaPostulacion.atTime(00, 00, 0, 0);
-		            	ICO.postularAOferta(nombreOL, nicknamePost, cv, motivacion, fechaConTiempo);
-		            }      
-		        }
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-		   
-		}
-		
-		private void cargarDatosPaquetes(String csvFile) throws KeywordExisteException, PaqueteExisteException{	
-		    String line = "";
-		    String cvsSplitBy = ";";
-		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-		        while ((line = br.readLine()) != null) {
-		            String[] paquetesData = line.split(cvsSplitBy);
-		            String nombreTipo = "";
-		            String descripcionTipo = "";
-		            int validez = 0;
-		            int descuento = 0;
-		            String fechaAlta = "00/00/0000";
-		            if(paquetesData.length > 0) {
-		            	nombreTipo = paquetesData[0];
-		            	descripcionTipo = paquetesData[1];
-		            	validez = Integer.parseInt(paquetesData[2]);
-		            	descuento = Integer.parseInt(paquetesData[3]);
-		            	fechaAlta = paquetesData[4];
-		            	ICP.altaPaqueteTipoPublicacion(nombreTipo, descripcionTipo, validez, descuento,fechaAlta);
-		            }      
-		        }
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-		   
-		}
-		
-		private void cargarDatosTiposPublicacionPaquetes(String csvFile){	
-		    String line = "";
-		    String cvsSplitBy = ";";
-		    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-		        while ((line = br.readLine()) != null) {
-		            String[] tiposPublicaionPaquetesData = line.split(cvsSplitBy);
-		            String nombrePaquete = "";
-		            Integer cantidad = 0;
-		            String nombreTipoPublicacion = "";
-		            if(tiposPublicaionPaquetesData.length > 0) {
-		            	nombrePaquete = tiposPublicaionPaquetesData[0];
-		            	cantidad = Integer.parseInt(tiposPublicaionPaquetesData[2]);
-		            	nombreTipoPublicacion = tiposPublicaionPaquetesData[1];
-		            	 ICP.agregarTipoPublicacion(nombrePaquete,cantidad,nombreTipoPublicacion);
-		            }
-		            
-		        }
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-		   
-		}
+	        LocalDate fechaNacimientoParsed = LocalDate.parse(fechaNacimiento, formatter);
+	        LocalDate fechaActual = LocalDate.now();
+	        if (fechaNacimientoParsed.isBefore(fechaActual)) {
+	            return fechaNacimientoParsed;
+	        } else {
+	            return null;
+	        }
+	    } catch (DateTimeParseException e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+    private LocalDate parseFecha(String fecha) {
+	    try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	        LocalDate fechaParsed = LocalDate.parse(fecha, formatter);
+	            return fechaParsed;
+	    } catch (DateTimeParseException e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+    
+    
+    private void cargarDatosKeywords(String csvFile) throws KeywordExisteException{	
+	    String line = "";
+	    String cvsSplitBy = ";";
+	    try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
+	    	//br.readLine();
+	        while ((line = bufferReader.readLine()) != null) {
+	            String[] data = line.split(cvsSplitBy);
+	            String nombre = "";         
+	            if(data.length > 0) {
+	            	 nombre = data[0];
+	            	 Fabrica factory = Fabrica.getInstance();
+	            	 IControladorOfertas ICO = factory.getIControladorOfertas();
+	            	 ICO.altaKeyword(nombre);
+	            }      
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+    }
+	   
+    
+    private void cargarDatosPostulantes(String csvFile) throws UsuarioRepetidoException, CorreoRepetidoException {
+        String line;
+        String csvSplitBy = ";";
+        int iter = 1;
+        try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
+            // Leer la primera línea (encabezados) y descartarla si es necesario
+            //br.readLine();
+            while ((line = bufferReader.readLine()) != null) {
+                String[] datos = line.split(csvSplitBy);
+                String nickname = "";
+	            String nombre = "";
+	            String apellido = "";
+	            String correo = "";
+	            LocalDate fecha = null;
+	            String nacionalidad = "";
+	            String password = "";
+	            String url_imagen = "";
+	            if(datos.length > 0) {
+	            	 nickname = datos[0];
+	            	 nombre = datos[1];
+	            	 apellido = datos[2];
+	            	 correo = datos[3];
+	            	 fecha = parseFechaNacimiento(datos[4].trim());
+	            	 nacionalidad = datos[5];
+	            	 password = datos[6];
+	            	 url_imagen = "media/img/imgPostulantes/U"+iter+".jpg";
+	            	 iter++;
+	            	 Fabrica factory = Fabrica.getInstance();
+	            	 IControladorUsuario ICU = factory.getIControladorUsuario();
+	            	 ICU.altaPostulante(nickname, nombre, apellido, correo, password,fecha, nacionalidad,url_imagen);
+	            }
+           
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+ 
+      
+    }
+    
+    private void cargarDatosEmpresas(String csvFile) throws UsuarioRepetidoException, CorreoRepetidoException {	
+	    String line = "";
+	    String cvsSplitBy = ";";
+	    int iter = 11;
+	    try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
+	        while ((line = bufferReader.readLine()) != null) {
+	            String[] empresaData = line.split(cvsSplitBy);
+	            String nickname = "";
+	            String nombre = "";
+	            String apellido = "";
+	            String correo = "";
+	            String descripcion = "";
+	            String link = "";
+	            String password = "";
+	            String url_imagen = "";            
+	            if(empresaData.length > 0) {
+	            	 nickname = empresaData[0];
+	            	 nombre = empresaData[1];
+	            	 apellido = empresaData[2];
+	            	 correo = empresaData[3];
+	            	 descripcion = empresaData[4];
+			         link = empresaData[5]; 
+			         password = empresaData[6];
+			         url_imagen = "media/img/imgEmpresas/U"+iter+".jpg";
+	            	 iter++;
+			         Fabrica factory = Fabrica.getInstance();
+	            	 IControladorUsuario ICU = factory.getIControladorUsuario();
+	            	 ICU.altaEmpresa(nickname, nombre, apellido, correo, password,nickname, descripcion, link,url_imagen);
+	            }
+	            
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	   
+	}
+    private void cargarDatosTipoPublicacion(String csvFile) throws TipoPublicExisteException{	
+	    String line = "";
+	    String cvsSplitBy = ";";
+	    try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
+	        while ((line = bufferReader.readLine()) != null) {
+	            String[] tiposPublicaionData = line.split(cvsSplitBy);
+	            String nombre = "";
+	            String desc = "";
+	            int exp = 0;
+	            Integer duracion = 0;
+	            Integer costo = 0;
+	            LocalDate alta = null;	            
+	            if(tiposPublicaionData.length > 0) {
+	            	 nombre = tiposPublicaionData[0];
+	            	 desc = tiposPublicaionData[1];
+	            	 exp = Integer.parseInt(tiposPublicaionData[2]) ;
+	            	 duracion = Integer.parseInt(tiposPublicaionData[3]) ;
+	            	 costo = Integer.parseInt(tiposPublicaionData[4]);
+	            	 alta = parseFecha(tiposPublicaionData[5].trim());
+	            	 Fabrica factory = Fabrica.getInstance();
+	            	 IControladorPublicaciones ICP = factory.getIControladorPublicaciones();
+	            	 ICP.altaTipoPublicacionOL(nombre, desc, exp, duracion, costo, alta);
+	            }
+	            
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	   
+	}
+    
+    private void cargarDatosPaquetes(String csvFile) throws KeywordExisteException, PaqueteExisteException{	  
+	    String line = "";
+	    String cvsSplitBy = ";";
+	    int iter = 1;
+	    try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
+	        while ((line = bufferReader.readLine()) != null) {
+	            String[] paquetesData = line.split(cvsSplitBy);
+	            String nombreTipo = "";
+	            String descripcionTipo = "";
+	            int validez = 0;
+	            int descuento = 0;
+	            String fechaAlta = "00/00/0000";
+	            String url_imagen = "";
+	            if(paquetesData.length > 0) {
+	            	nombreTipo = paquetesData[0];
+	            	descripcionTipo = paquetesData[1];
+	            	validez = Integer.parseInt(paquetesData[2]);
+	            	descuento = Integer.parseInt(paquetesData[3]);
+	            	fechaAlta = paquetesData[4];
+	            	url_imagen = "media/img/imgPaquetes/Paq"+iter+".jpg";
+			        iter++;
+	             	Fabrica factory = Fabrica.getInstance();
+	            	IControladorPublicaciones ICP = factory.getIControladorPublicaciones();
+	            	ICP.altaPaqueteTipoPublicacion(nombreTipo, descripcionTipo, validez, descuento, fechaAlta,url_imagen);
+	            }      
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    } 
+	   
+	}
+    
+   private void cargarDatosTiposPublicacionPaquetes(String csvFile){	
+	    String line = "";
+	    String cvsSplitBy = ";";
+	    try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
+	        while ((line = bufferReader.readLine()) != null) {
+	            String[] tiposPublicaionPaquetesData = line.split(cvsSplitBy);
+	            String nombrePaquete = "";
+	            Integer cantidad = 0;
+	            String nombreTipoPublicacion = "";
+	            if(tiposPublicaionPaquetesData.length > 0) {
+	            	nombrePaquete = tiposPublicaionPaquetesData[0];
+	            	cantidad = Integer.parseInt(tiposPublicaionPaquetesData[2]);
+	            	nombreTipoPublicacion = tiposPublicaionPaquetesData[1];
+	            	Fabrica factory = Fabrica.getInstance();
+	            	IControladorPublicaciones ICP = factory.getIControladorPublicaciones();
+	            	ICP.agregarTipoPublicacion(nombrePaquete,cantidad,nombreTipoPublicacion);
+	            }
+	            
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	   
+	}
+   
+   
+   private void cargarDatosOfertasLaboralesPrueba(String csvFile) throws NombreExisteException, KeywordExisteException, NicknameNoExisteException{	
+	   	String line = "";
+	    String cvsSplitBy = ";";
+	    int iter = 1;
+	    try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
+	    	bufferReader.readLine();
+	        while ((line = bufferReader.readLine()) != null) {
+	            String[] ofertasLaboralesData = line.split(cvsSplitBy);
+	            String nombre = "";    
+	            String desc = ""; 
+	            String rem = ""; 
+	            String horario = ""; 
+	            List<String> keysList = new ArrayList<>();
+	            String ciudad = ""; 
+	            String depa = ""; 
+	            String tipo = "";
+	            String empresa = ""; 
+	            String url_imagen = "";  
+	            String estado = "";
+	            String formaPago = "";
+	            String compraPaquete = "";
+	            String paqueteSeleccionado = "";
+	            Fabrica factory = Fabrica.getInstance();
+           	 	IControladorOfertas ICO = factory.getIControladorOfertas();
+	            if(ofertasLaboralesData.length > 0) {
+	            	
+	            	 nombre = ofertasLaboralesData[0];
+	            	 desc = ofertasLaboralesData[1];
+	            	 rem = ofertasLaboralesData[5];
+	            	 horario = ofertasLaboralesData[4];
+	            	 ciudad = ofertasLaboralesData[3];
+	            	 depa = ofertasLaboralesData[2];
+	            	 tipo = ofertasLaboralesData[7];
+	            	 empresa = ofertasLaboralesData[6];
+	            	 estado = ofertasLaboralesData[9];
+	            	 compraPaquete = ofertasLaboralesData[10];
+	            	 if ("Sin paquete".equals(compraPaquete)) {
+	            		    formaPago = "General";
+	            		} else {
+	            		    formaPago = "Paquete adquirido previamente";
+	            		    paqueteSeleccionado = compraPaquete;
+	            		}
+
+	            	 
+			         url_imagen = "media/img/imgOfertas/O"+iter+".jpg";
+			         
+			         iter++;
+			         keysList = Arrays.asList(ofertasLaboralesData[12].split("/"));
+		                
+		             // Convertir la lista keysList a un array de String
+		             String[] keysArray = keysList.toArray(new String[0]);
+                     
+		             //cambio de string al enumerado el estado
+		             EnumEstadoOferta estadoEnum = null;
+		             if ("Ingresada".equals(estado)) {
+		                 estadoEnum = EnumEstadoOferta.INGRESADA;
+		             } else if ("Confirmada".equals(estado)) {
+		                 estadoEnum = EnumEstadoOferta.CONFIRMADA;
+		             } else if ("Rechazada".equals(estado)) {
+		                 estadoEnum = EnumEstadoOferta.RECHAZADA;
+		             }
+		             try {
+		                 ICO.altaOfertaWeb(nombre, desc, rem, horario, ciudad, depa, tipo, formaPago, paqueteSeleccionado,estadoEnum , keysArray, url_imagen, empresa);
+	            	 }catch(Exception e) {
+	            		 e.printStackTrace();
+	            	 }
+	            } 
+	            
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	   
+	}
+   
+   private void cargarPostulaciones(String csvFile) throws FileNotFoundException, IOException {
+	   String line = "";
+	   String cvsSplitBy = ";";
+	   try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
+		   while ((line = bufferReader.readLine()) != null) {
+			   //String nombreOfertaLaboral, String nicknamePostulante, String CVReducido, String motivacion,  LocalDateTime fechaPublic 
+			   String[] postulacionesData = line.split(cvsSplitBy);
+	           String nombre = "";    
+	           String motivacion = "";
+	           String nickname = ""; 
+	           String cv = "";
+
+	           LocalDateTime fecha = null;
+	           if(postulacionesData.length > 0) {
+	        	   nickname = postulacionesData[0];
+	        	   nombre = postulacionesData[4];
+	        	   cv = postulacionesData[1];
+	        	   motivacion = postulacionesData[2];
+	        	   fecha= parseFecha(postulacionesData[3].trim()).atStartOfDay();
+	        	   Fabrica factory = Fabrica.getInstance();
+	               IControladorOfertas ICO = factory.getIControladorOfertas();
+	               try {
+	            	   ICO.postularAOferta(nombre, nickname, cv, motivacion, fecha);
+            	   }catch(Exception e) {
+	            		 
+	            	 }
+	           }
+
+		   }
+	   }catch (IOException e) {
+	        e.printStackTrace();
+	    }
+   }
 		
 		
 

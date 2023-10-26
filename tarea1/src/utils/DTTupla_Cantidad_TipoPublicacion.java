@@ -8,22 +8,22 @@ public class DTTupla_Cantidad_TipoPublicacion {
 		this.setCantidad(cantidad);
 		this.setTipoPublicacion(tipo);
 	}
-	
-	//getters 
+
+	// getters
 	public Integer getCantidad() {
 		return cantidad;
 	}
-	
+
 	public String getTipoPublicacion() {
 		return tipoPublicacion;
 	}
-	
+
 	public void setCantidad(Integer cant) {
 		this.cantidad = cant;
 	}
-	
-	public void setTipoPublicacion(String s) {
-		this.tipoPublicacion = s;
+
+	public void setTipoPublicacion(String tipoP) {
+		this.tipoPublicacion = tipoP;
 	}
 
 }

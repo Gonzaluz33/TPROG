@@ -3,7 +3,8 @@ package logica;
 import utils.DTPostulante;
 import utils.DTPostulacion;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,27 +19,27 @@ import java.util.stream.Collectors;
  */
 public class Postulante extends Usuario{
 
-	private Date fechaNacimiento;
+	private LocalDate fechaNacimiento;
 	private String nacionalidad;
 	private Map<String, Postulacion> postulaciones;
 	
 	// constructores
 	public Postulante() {
 		super();
-		this.setFechaNacimiento(new Date());
+		this.setFechaNacimiento(LocalDate.now());
 		this.setNacionalidad(new String());
 		this.postulaciones = new HashMap<String, Postulacion>();
 	}
 	
-	public Postulante(String nickname, String nombre, String apellido, String correo, String contraseña ,Date fechaNacimiento, String nacionalidad) {
-		super(nickname, nombre, apellido, correo, contraseña);
+	public Postulante(String nickname, String nombre, String apellido, String correo, String contraseña ,LocalDate fechaNacimiento, String nacionalidad,String url_imagen) {
+		super(nickname, nombre, apellido, correo, contraseña,url_imagen);
 		this.setFechaNacimiento(fechaNacimiento);
 		this.setNacionalidad(nacionalidad);
 		this.postulaciones = new HashMap<String, Postulacion>();
 	}
 	
 	// getters
-	public Date getFechaNacimiento() {
+	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 	
@@ -54,8 +55,8 @@ public class Postulante extends Usuario{
 	}
 	
 	// setters
-	void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
+	void setFechaNacimiento(LocalDate fechaNacimiento2) {
+		this.fechaNacimiento = fechaNacimiento2;
 	}
 	
 	void setNacionalidad(String nacionalidad) {
@@ -74,7 +75,10 @@ public class Postulante extends Usuario{
 	 */
 	@Override
 	public DTPostulante toDataType() {
-		return new DTPostulante(getNickname(), getNombre(), getApellido(), getCorreo(), getContraseña() ,getFechaNacimiento(), getNacionalidad(), getPostulaciones());
+		DTPostulante dtt = new DTPostulante(getNickname(), getNombre(), getApellido(), getCorreo(), getContraseña(), getFechaNacimiento(), getNacionalidad(), getPostulaciones(), getUrlImagen());
+		return dtt;
 	}
+
 	
 }
+

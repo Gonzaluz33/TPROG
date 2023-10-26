@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.beans.PropertyVetoException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import excepciones.CorreoRepetidoException;
 import excepciones.UsuarioRepetidoException;
@@ -160,31 +162,40 @@ public class altaEmpresa extends JInternalFrame {
 		
 	}
 	
-	public void registrarEmpresa(ActionEvent arg0) {	
-		if (esValido()) {
-			String nick = this.nicknameField.getText();
-			String nombre = this.nombreField.getText();
-			String apellido = this.apellidoField.getText();
-			String email = this.correoField.getText();
-			String nomEmpresa = this.nombreEmpresaField.getText();
-			String contraseña = new String(this.contraseñaField.getPassword());
-;			String desc = this.descripcionField.getText();
-			String link = this.linkWebField.getText();
-			
-			try {
-				controlUsr.altaEmpresa(nick, nombre, apellido, email, contraseña ,nomEmpresa,desc, link);
-				//Muestro mensaje de éxito
-                JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
-                        JOptionPane.INFORMATION_MESSAGE);
-    			// Limpio el internal frame antes de cerrar la ventana
-                limpiarFormulario();
-                setVisible(false);
-			}
-			catch(UsuarioRepetidoException | CorreoRepetidoException err){
-				// Muestro error de registro
-                JOptionPane.showMessageDialog(this, err.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
-			}
-		}
+	public void registrarEmpresa(ActionEvent arg0) {    
+	    if (esValido()) {
+	        String nick = this.nicknameField.getText();
+	        String nombre = this.nombreField.getText();
+	        String apellido = this.apellidoField.getText();
+	        String email = this.correoField.getText();
+	        String nomEmpresa = this.nombreEmpresaField.getText();
+	        String contraseña = new String(this.contraseñaField.getPassword());
+	        String desc = this.descripcionField.getText();
+	        String link = this.linkWebField.getText();
+	        String imagenDefault = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+	        
+	        try {
+	            if (isValidEmail(email)) {
+	                controlUsr.altaEmpresa(nick, nombre, apellido, email, contraseña, nomEmpresa, desc, link, imagenDefault);
+	                JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
+	                        JOptionPane.INFORMATION_MESSAGE);
+	                limpiarFormulario();
+	                setVisible(false);
+	            } else {
+	                JOptionPane.showMessageDialog(this, "El email ingresado no es válido.", "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+	            }
+	        }
+	        catch(UsuarioRepetidoException | CorreoRepetidoException err){
+	            JOptionPane.showMessageDialog(this, err.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+	        }
+	    }
+	}
+
+	public boolean isValidEmail(String email) {
+	    String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
+	    Pattern pattern = Pattern.compile(regex);
+	    Matcher matcher = pattern.matcher(email);
+	    return matcher.matches();
 	}
 	
 	public Boolean esValido() {
@@ -208,8 +219,11 @@ public class altaEmpresa extends JInternalFrame {
 	    } else if(!contraseña.equals(confContraseña)) {
 	    	JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.", "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
 	    	return false;
-	    }
-	    else {
+	    } else if(contraseña.length() < 6) {
+	    	JOptionPane.showMessageDialog(this, "La contraseña debe tener al menos 6 caracteres.", "Registrar Usuario",
+	                JOptionPane.ERROR_MESSAGE);
+	        return false;
+	    }else {
 	        return true;
 	    }
 	}

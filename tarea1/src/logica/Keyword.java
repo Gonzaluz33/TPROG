@@ -8,14 +8,14 @@ public class Keyword {
 	}
 	
 	public Keyword(String nombre) {
-		this.setNombre(nombre);
+		this.nombre = nombre;
 	}
 	
 	public String getNombre() {
 		return nombre;
 	}
 	
-	public void setNombre(String n) {
-		this.nombre=n;
+	public void setNombre(String name) {
+		this.nombre = name;
 	}
 }

@@ -1,7 +1,7 @@
 package excepciones;
 
-public class KeywordNoExisteException extends Exception{
-	
+public class KeywordNoExisteException extends Exception {
+
 	private static final long serialVersionUID = 1L;
 
 	public KeywordNoExisteException() {

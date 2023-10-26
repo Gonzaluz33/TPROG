@@ -138,14 +138,11 @@ public class AceptarRechazarOfertaLaboral extends JInternalFrame {
 		DTOferta selectedOferta = (DTOferta) listaOfertasCombobox.getSelectedItem();
 		if (selectedOferta != null) {
 			try {
-				OfertaLaboral o = controlOL.getOfertaLaboral(selectedOferta.getNombre());
 				EnumEstadoOferta estado = (EnumEstadoOferta) listaEstadosCombobox.getSelectedItem();
-				o.setEstado(estado);
+				controlOL.cambiarEstadoOferta(estado,selectedOferta.getNombre());
 				JOptionPane.showMessageDialog(this, "Estado aplicado con éxito!", "Aceptar/Rechazar Oferta Laboral",
 			                JOptionPane.INFORMATION_MESSAGE);
-				
 			} catch (OfertaNoExisteException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}

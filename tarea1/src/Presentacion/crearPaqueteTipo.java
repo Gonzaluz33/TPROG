@@ -34,6 +34,7 @@ public class crearPaqueteTipo extends JInternalFrame {
 	private JSpinner validezSpinner;
 	private JSpinner descuentoSpinner;
 	private JTextField textFieldFecha;
+	private JTextField urlImagenField;
 	
 	/**
 	 * Create the frame.
@@ -89,6 +90,15 @@ public class crearPaqueteTipo extends JInternalFrame {
 		getContentPane().add(textFieldFecha);
 		textFieldFecha.setColumns(10);
 		
+		urlImagenField = new JTextField();
+		urlImagenField.setBounds(23, 450, 196, 20); // Ajusta la posición y el tamaño según necesites
+		getContentPane().add(urlImagenField);
+		urlImagenField.setColumns(10);
+
+		JLabel lblUrlImagen = new JLabel("URL de la Imagen:");
+		lblUrlImagen.setBounds(23, 433, 196, 14); // Ajusta la posición según necesites
+		getContentPane().add(lblUrlImagen);
+		
 		
 		
 		JButton btnAceptar = new JButton("Aceptar");
@@ -121,7 +131,7 @@ public class crearPaqueteTipo extends JInternalFrame {
 			 String descripcionTipo = this.descripcionField.getText();
 			 int validez = (int) this.validezSpinner.getValue();
 			 int descuento = (int) this.descuentoSpinner.getValue();
-			 
+			 String url_imagen = urlImagenField.getText();
 			 String fechaAlta = textFieldFecha.getText();
              SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
              formato.setLenient(false);  // Hacer que el formato sea estricto
@@ -134,7 +144,7 @@ public class crearPaqueteTipo extends JInternalFrame {
                      calendario.setTime(fecha);
                      int anio = calendario.get(Calendar.YEAR);
                      if (anio >= 1500 && anio <= 4000) {
-                    	 confirmarCrearPaquete( nombreTipo,descripcionTipo, validez, descuento,fechaAlta);
+                    	 confirmarCrearPaquete( nombreTipo,descripcionTipo, validez, descuento,fechaAlta,url_imagen);
                      } else {
                      	JOptionPane.showMessageDialog(null, "La fecha es válida pero el año está fuera del rango permitido."); 
                      }
@@ -143,15 +153,15 @@ public class crearPaqueteTipo extends JInternalFrame {
                  }
              }
              else {
-            	 confirmarCrearPaquete( nombreTipo,descripcionTipo, validez, descuento,fechaAlta);
+            	 confirmarCrearPaquete( nombreTipo,descripcionTipo, validez, descuento,fechaAlta,url_imagen);
             	 
              }
 		}
 	 }
 	
-	private void confirmarCrearPaquete(String nombreTipo, String descripcionTipo, int validez, int descuento, String fechaAlta) {
+	private void confirmarCrearPaquete(String nombreTipo, String descripcionTipo, int validez, int descuento, String fechaAlta, String url_imagen) {
 	   	 try {                		 
-				 controlPub.altaPaqueteTipoPublicacion(nombreTipo, descripcionTipo, validez, descuento,fechaAlta);
+				 controlPub.altaPaqueteTipoPublicacion(nombreTipo, descripcionTipo, validez, descuento,fechaAlta,url_imagen);
 				 //Muestro mensake de exito
 				 JOptionPane.showMessageDialog(this, "El paquete se ha creado con éxito", "Crear Paquete de Tipo de Publicacion",
 	                       JOptionPane.INFORMATION_MESSAGE);

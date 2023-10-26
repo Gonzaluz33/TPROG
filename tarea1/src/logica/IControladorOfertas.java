@@ -13,25 +13,27 @@ import excepciones.OfertaNoExisteException;
 import excepciones.UsuarioNoEsEmpresaException;
 import excepciones.UsuarioNoEsPostulanteException;
 import utils.DTOferta;
+import utils.DTPostulacion;
+import utils.EnumEstadoOferta;
 
 
 public interface IControladorOfertas {
 
-	public abstract void altaKeyword(String nombre) throws KeywordExisteException;
-	public abstract List<String> obtenerKeywords();
-	public void altaOferta(String nombre, String desc, String remuner, String horario, List<String> keywords, String ciudad, String depa, String tipo, String empresa) throws NombreExisteException, KeywordExisteException, NicknameNoExisteException;
 
+	public void altaKeyword(String nombre) throws KeywordExisteException;
+	public List<String> obtenerKeywords();
+	public void altaOferta(String nombre, String desc, String remuner, String horario, List<String> keywords, String ciudad, String depa, String tipo, String empresa) throws NombreExisteException, KeywordExisteException, NicknameNoExisteException;
+	public void altaOfertaWeb(String nombre, String descripcion, String renumeracion, String horario, String ciudad, String departanemto, String tipoPublicacion, String formaPago, String paqueteSeleccionado,EnumEstadoOferta estado, String[] Keywords,String urlImagen, String empresaActual ) throws NicknameNoExisteException, NombreExisteException, KeywordExisteException;
 	/**
 	 * Devuelve un DTOferta con la informacion de la oferta con el nombre brindado incluyendo sus postulaciones.
 	 * Si no existe una oferta con ese nombre en el sistema tira una OfertaNoExisteException.
 	 */
 	public DTOferta obtenerDatosOferta(String nombreOferta) throws OfertaNoExisteException;
-	
-	public OfertaLaboral getOfertaLaboral(String nombreOferta) throws OfertaNoExisteException;
-	
 	public List<DTEmpresa> obtenerEmpresas();
+	public List<DTOferta> obtenerOfertasLaborales();
 	
-	public void confirmarOfertaLaboral(String nombreOferta) throws OfertaNoExisteException ;
+	
+	
 
 	/**
 	 * Postula al postulante con nick "nicknamePostulante" a la oferta de nombre "nombreOfertaLaboral".
@@ -49,6 +51,16 @@ public interface IControladorOfertas {
 	 */
 	public Set<DTOferta> obtenerOfertasVigentesDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException;
 
+	public List<DTPostulacion> obtenerPostulacionesPorPostulante(String nicknamePostulante)
+            throws NicknameNoExisteException, UsuarioNoEsPostulanteException ;
+	public DTPostulacion estaPostuladoAOfertaLaboral(String nicknameUsuario, String nombreOfertaLaboral)
+            throws OfertaNoExisteException, NicknameNoExisteException, UsuarioNoEsPostulanteException ;
+	
+	public void confirmarOfertaLaboral(String nombreOferta) throws OfertaNoExisteException ;
+	
+	public void cambiarEstadoOferta(EnumEstadoOferta estado, String nombreOferta) throws OfertaNoExisteException;
+	
+	public boolean verificarPertenenciaOferta(String nombreOferta, String nickname) throws OfertaNoExisteException ;
 	
 	public TreeSet<DTOferta> obtenerOfertasIngresadasDeEmpresa(String nicknameEmpresa)throws NicknameNoExisteException, UsuarioNoEsEmpresaException;
 }

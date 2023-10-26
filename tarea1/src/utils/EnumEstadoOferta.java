@@ -1,3 +1,4 @@
+
 package utils;
 
 public enum EnumEstadoOferta {
@@ -5,3 +6,6 @@ public enum EnumEstadoOferta {
 	CONFIRMADA,
 	RECHAZADA
 }
+
+
+

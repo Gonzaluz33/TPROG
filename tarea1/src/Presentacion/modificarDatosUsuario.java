@@ -20,6 +20,7 @@ import utils.DTPostulante;
 import utils.DTUsuario;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 public class modificarDatosUsuario extends JInternalFrame {
 
@@ -157,7 +158,7 @@ public class modificarDatosUsuario extends JInternalFrame {
 			        }else {
 			        	DTPostulante postulante = (DTPostulante) usuario;
 			            getContentPane().add(lblFechaNacimiento);			            
-			            Date fecha = postulante.getFechaNacimiento();
+			            LocalDate fecha = postulante.getFechaNacimiento();
 			            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 			            String fechaFormateada = formato.format(fecha);
 			            textFieldFechaNacimiento.setText(fechaFormateada);

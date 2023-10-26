@@ -5,7 +5,8 @@ import utils.DTPostulacion;
 import utils.DTUsuario;
 import utils.EnumEstadoOferta;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+//import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,8 +19,11 @@ public class OfertaLaboral {
 	private String departamento;
 	private String horario;
 	private String remuneracion;
-	private LocalDateTime fechaAlta;
+	private LocalDate fechaAlta;
 	private EnumEstadoOferta estado;
+	private String formaPago;
+	private String urlImagen;
+	private String paqueteSeleccionado;
 	private Usuario empresa;
 	private List<Postulacion> postulaciones = new ArrayList<Postulacion>();
 	private List<Publicacion> publicaciones = new ArrayList<Publicacion>();
@@ -33,13 +37,27 @@ public class OfertaLaboral {
 		this.descripcion = new String();
 		this.fechaAlta = null;
 		this.estado = null;
+		this.urlImagen = null;
 		this.horario = new String();
 		this.nombre = new String();
 		this.remuneracion = new String();
 		this.empresa = new Empresa();
 	}
 	
-	public OfertaLaboral(String n, String desc, String c, String dep, String hora, EnumEstadoOferta estado ,LocalDateTime fecha, String remuneracion, Usuario emp) {
+	//constructor basico
+	public OfertaLaboral(String n, String desc, String c, String dep, String hora, LocalDate fecha,EnumEstadoOferta estado, String remuneracion, Usuario emp) {
+		this.setCiudad(c);
+		this.setDepartamento(dep);
+		this.setDescripcion(desc);
+		this.setFechaAlta(fecha);
+		this.setEstado(estado);
+		this.setHorario(hora);
+		this.setNombre(n);
+		this.setRemuneracion(remuneracion);
+		this.setEmpresa(emp);
+	}
+	//constructor con formaPago
+	public OfertaLaboral(String n, String desc, String c, String dep, String hora, LocalDate fecha,EnumEstadoOferta estado, String remuneracion, Usuario emp, String formaPago) {
 		this.setCiudad(c);
 		this.setDepartamento(dep);
 		this.setDescripcion(desc);
@@ -49,6 +67,25 @@ public class OfertaLaboral {
 		this.setNombre(n);
 		this.setRemuneracion(remuneracion);
 		this.setEmpresa(emp);
+		this.setFormaPago(formaPago);
+	}
+	
+	//constructor con URL
+	public OfertaLaboral(String n, String desc, String c, String dep, String hora, LocalDate fecha,EnumEstadoOferta estado, String remuneracion, String urlImagen, Usuario emp, String formaPago) {
+		this(n, desc, c, dep, hora, fecha, estado, remuneracion, emp, formaPago);
+		this.setUrlImagen(urlImagen);
+	}
+	//constructor con paquete
+	public OfertaLaboral(String n, String desc, String c, String dep, String hora, LocalDate fecha,EnumEstadoOferta estado, String remuneracion, Usuario emp,String formaPago, String paqueteSeleccionado) {
+		this(n, desc, c, dep, hora, fecha,estado, remuneracion, emp, formaPago);
+		this.setPaqueteSeleccionado(paqueteSeleccionado);
+	}
+	
+	//constructor con URL y paquete
+	public OfertaLaboral(String n, String desc, String c, String dep, String hora, LocalDate fecha,EnumEstadoOferta estado, String remuneracion, Usuario emp, String formaPago, String urlImagen, String paqueteSeleccionado) {
+	    this(n, desc, c, dep, hora, fecha,estado, remuneracion, emp, formaPago);
+	    this.setUrlImagen(urlImagen);
+	    this.setPaqueteSeleccionado(paqueteSeleccionado);
 	}
 	
 	public void addPublicacion(Publicacion pub) {
@@ -77,9 +114,13 @@ public class OfertaLaboral {
 	public String getRemuneracion() {
 		return remuneracion;
 	}
-	public LocalDateTime getFechaAlta() {
+	public LocalDate getFechaAlta() {
 		return fechaAlta;
 	}
+	public EnumEstadoOferta getEstado() {
+		return estado;
+	}
+
 	public List<Keyword> getKeywords(){
 		return keywords;
 	}
@@ -87,11 +128,17 @@ public class OfertaLaboral {
 		return empresa.toDataType();
 	}
 	
-	public EnumEstadoOferta getEstado() {
-		return estado;
+	public String getFormaPago() {
+	    return formaPago;
 	}
-
 	
+	public String getPaqueteSeleccionado() {
+	    return paqueteSeleccionado;
+	}
+	
+	public String getUrlImagen() {
+	    return urlImagen;
+	}
 	/**
 	 * Devuelve una lista sin ordenar de tipo DTPostulacion con todas las postulaciones asociadas a la oferta laboral.
 	 * Si no hay postulaciones asociadas a la oferta laboral devuelve una lista vacia.
@@ -106,28 +153,28 @@ public class OfertaLaboral {
 	}
 
 		
-	public void setNombre(String n) {
-		this.nombre = n;
+	public void setNombre(String name) {
+		this.nombre = name;
 	}
-	public void setDescripcion(String d) {
-		this.descripcion= d;
-	}
-	
-	public void setCiudad(String c) {
-		this.ciudad = c;
+	public void setDescripcion(String desc) {
+		this.descripcion= desc;
 	}
 	
-	public void setDepartamento(String d) {
-		this.departamento=d;
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
 	}
-	public void setHorario(String h) {
-		this.horario = h;
+	
+	public void setDepartamento(String depa) {
+		this.departamento = depa;
 	}
-	public void setRemuneracion(String r) {
-		this.remuneracion = r;
+	public void setHorario(String horario) {
+		this.horario = horario;
 	}
-	public void setFechaAlta(LocalDateTime fa) {
-		this.fechaAlta = fa;
+	public void setRemuneracion(String rem) {
+		this.remuneracion = rem;
+	}
+	public void setFechaAlta(LocalDate fechaA) {
+		this.fechaAlta = fechaA;
 	}
 	public void setPublicacion(ArrayList<Publicacion> pub) {
 		this.publicaciones = pub;
@@ -142,12 +189,26 @@ public class OfertaLaboral {
 		this.estado = estado;
 	}
 	
+	public void setFormaPago(String formaPago) {
+	    this.formaPago = formaPago;
+	}
+
+	public void setPaqueteSeleccionado(String paqueteSeleccionado) {
+	    this.paqueteSeleccionado = paqueteSeleccionado;
+	}
+	
+	public void setUrlImagen(String urlImagen) {
+	    this.urlImagen = urlImagen;
+	}
+	
 	/**
 	 * Añade la postulacion a la coleccion de postulaciones asociadas a la oferta laboral.
 	 */
 	public void asociarPostulacion(Postulacion postulacion) {
 		this.postulaciones.add(postulacion);
 	}
+	
+	
 
 	/**
 	 * Devuelve los datos de la oferta como un datatype DTOferta.
@@ -156,8 +217,7 @@ public class OfertaLaboral {
 		// creo una lista con las keywords asociadas a la oferta en formato String
 		List<String> listaKeywordsString = new ArrayList<String>();
 		this.keywords.stream().forEach(keyword -> listaKeywordsString.add(keyword.getNombre()));
-		
-		return new DTOferta(
+		DTOferta dto =  new DTOferta(
 				this.getNombre(),
 				this.getDescripcion(),
 				this.getCiudad(),
@@ -169,6 +229,20 @@ public class OfertaLaboral {
 				this.getPostulaciones(),
 				this.empresa.getNickname(),
 				listaKeywordsString);
+		
+		if(this.getUrlImagen() != null && !this.getUrlImagen().isEmpty()) { 
+		    dto.setUrlImagen(this.getUrlImagen()); 
+		}
+
+		if(this.getPaqueteSeleccionado() != null && !this.getPaqueteSeleccionado().isEmpty()) { 
+		    dto.setPaqueteSeleccionado(this.getPaqueteSeleccionado()); 
+		}
+
+		if(this.getFormaPago() != null && !this.getFormaPago().isEmpty()) { 
+		    dto.setFormaPago(this.getFormaPago()); 
+		}
+		
+		return dto;
 	}
 	
 	/**

@@ -1,7 +1,9 @@
 package logica;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 import excepciones.*;
@@ -27,27 +29,27 @@ public class ManejadorUsuarios {
 	/**
 	 * Crea la empresa y la agrega a coleccionUsuarios.
 	 */
-	void altaEmpresa(Empresa e) throws UsuarioRepetidoException, CorreoRepetidoException {
-		if (coleccionUsuarios.containsKey(e.getNickname().toLowerCase())){
+	void altaEmpresa(Empresa emp) throws UsuarioRepetidoException, CorreoRepetidoException {
+		if (coleccionUsuarios.containsKey(emp.getNickname().toLowerCase())){
 			throw new UsuarioRepetidoException("Ya existe un usuario con el nickname ingresado.");
 		}
-		if (coleccionCorreosUsuarios.containsKey(e.getCorreo()))
-			throw new CorreoRepetidoException("Ya existe un usuario con el correo " + e.getCorreo() + ".");
-		coleccionUsuarios.put(e.getNickname().toLowerCase(), e);
-		coleccionCorreosUsuarios.put(e.getCorreo(), e.getNickname());
+		if (coleccionCorreosUsuarios.containsKey(emp.getCorreo()))
+			throw new CorreoRepetidoException("Ya existe un usuario con el correo " + emp.getCorreo() + ".");
+		coleccionUsuarios.put(emp.getNickname().toLowerCase(), emp);
+		coleccionCorreosUsuarios.put(emp.getCorreo(), emp.getNickname());
 	}
 	
 	/**
 	 * Crea el postulante y lo agrega a coleccionUsuarios.
 	 */
-	void altaPostulante(Postulante p) throws UsuarioRepetidoException, CorreoRepetidoException {
-		if (coleccionUsuarios.containsKey(p.getNickname().toLowerCase())){
+	void altaPostulante(Postulante post) throws UsuarioRepetidoException, CorreoRepetidoException {
+		if (coleccionUsuarios.containsKey(post.getNickname().toLowerCase())){
 			throw new UsuarioRepetidoException("Ya existe un usuario con el nickname ingresado.");
 		}
-		if (coleccionCorreosUsuarios.containsKey(p.getCorreo()))
-			throw new CorreoRepetidoException("Ya existe un usuario con el correo " + p.getCorreo() + ".");
-		coleccionUsuarios.put(p.getNickname().toLowerCase(), p);
-		coleccionCorreosUsuarios.put(p.getCorreo(), p.getNickname());
+		if (coleccionCorreosUsuarios.containsKey(post.getCorreo()))
+			throw new CorreoRepetidoException("Ya existe un usuario con el correo " + post.getCorreo() + ".");
+		coleccionUsuarios.put(post.getNickname().toLowerCase(), post);
+		coleccionCorreosUsuarios.put(post.getCorreo(), post.getNickname());
 	}
 
 	/**
@@ -59,6 +61,16 @@ public class ManejadorUsuarios {
 		if (!coleccionUsuarios.containsKey(nicknameUsuario.toLowerCase()))
 			throw new NicknameNoExisteException("El usuario con el nickname " + nicknameUsuario + " no existe.");
 		return coleccionUsuarios.get(nicknameUsuario.toLowerCase()).toDataType();
+	}
+	
+	public DTUsuario obtenerUsuarioPorCorreo(String correo) throws CorreoNoEncontradoException, NicknameNoExisteException{
+		if (!coleccionCorreosUsuarios.containsKey(correo)){
+			throw new CorreoNoEncontradoException("Usuario Invalido");
+		}else {
+			Usuario user = getUsuarioXCorreo(correo);
+			return user.toDataType();
+		}
+		
 	}
 	
 	public Usuario getUsuario(String nickname) throws NicknameNoExisteException {
@@ -82,7 +94,8 @@ public class ManejadorUsuarios {
 	public List<DTUsuario> obtenerListaUsuarios() {
 		List<DTUsuario> listaUsuarios = new ArrayList<DTUsuario>();
 		for (Map.Entry<String, Usuario> entry : coleccionUsuarios.entrySet()) {
-			listaUsuarios.add(entry.getValue().toDataType());
+			Usuario usr = entry.getValue();
+			listaUsuarios.add(usr.toDataType());
 		}
 		listaUsuarios.sort(Comparator.comparing(DTUsuario::getNombre)
 				.thenComparing(DTUsuario::getApellido));
@@ -163,6 +176,8 @@ public class ManejadorUsuarios {
 			throw new NicknameNoExisteException("El usuario con el nickname " + nickFiltrado + " no existe.");
 		}
 	}
+	
+	
 	public void actualizarDatosPostulante(String nickname, String nuevoNombre,String nuevoApellido,String fechaNacimiento, String nacionalidad) throws NicknameNoExisteException {
 		String nicknameLowerCase = nickname.toLowerCase();
 		if (coleccionUsuarios.containsKey(nicknameLowerCase) ) {
@@ -170,20 +185,18 @@ public class ManejadorUsuarios {
 			Postulante postulante = (Postulante) user;
 			postulante.setNombre(nuevoNombre);
 			postulante.setApellido(nuevoApellido);
-
-			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-			Date fecha = null;
-
+			LocalDate fecha = null;
 			try {
-			    fecha = formato.parse(fechaNacimiento);
-			} catch (ParseException e) {
+			    fecha = LocalDate.parse(fechaNacimiento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+			    postulante.setFechaNacimiento(fecha);
+			} catch (DateTimeParseException e) {
 			    e.printStackTrace();
+			    // Aquí puedes manejar la excepción si la cadena de fecha no es válida
 			}
 
 			if (fecha != null) {
 				postulante.setFechaNacimiento(fecha);
 			}
-			
 			
 			postulante.setNacionalidad(nacionalidad);
 		} else {
@@ -200,3 +213,5 @@ public class ManejadorUsuarios {
 	}
 
 }
+
+

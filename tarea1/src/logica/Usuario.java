@@ -15,6 +15,7 @@ public class Usuario {
     private String apellido;
     private String correo; //unico
     private String contraseña;
+    private String url_imagen;
 
     // constructores
     public Usuario() {
@@ -23,14 +24,16 @@ public class Usuario {
         setApellido(new String());;
         setCorreo(new String());;
         setContraseña(new String());
+        setUrlImagen(new String());
     }
     
-    public Usuario(String nickname, String nombre, String apellido, String correo, String contraseña) {
+    public Usuario(String nickname, String nombre, String apellido, String correo, String contraseña, String url_imagen) {
         this.setNickname(nickname);
         this.setNombre(nombre);
         this.setApellido(apellido);
         this.setCorreo(correo);
         this.setContraseña(contraseña);
+        this.setUrlImagen(url_imagen);
     }
 
     // getters
@@ -54,7 +57,15 @@ public class Usuario {
         return contraseña;
     }
 
+    public String getUrlImagen() {
+        return url_imagen;
+    }
+
     // setters
+    public void setUrlImagen(String urlImagen) {
+        this.url_imagen = urlImagen;
+    }
+    
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
@@ -71,17 +82,19 @@ public class Usuario {
         this.correo = correo;
     }
     
-    public void setContraseña(String contraseña) {
-    	this.contraseña = contraseña;
+    public void setContraseña(String cont) {
+    	this.contraseña = cont;
     }
     
     /**
      * Retorna los datos del usuario como un DataType DTUsuario.
      */
     public DTUsuario toDataType() {
-    	if (this instanceof Empresa)
+    	if (this instanceof Empresa) {
     		return ( (Empresa) this ).toDataType();
+    	}
     	return ( (Postulante) this ).toDataType();
     }
 
 }
+
