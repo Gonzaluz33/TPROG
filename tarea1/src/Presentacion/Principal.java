@@ -1,5 +1,6 @@
 package Presentacion;
 
+import servidor.publicar.WebServices;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,10 +17,8 @@ import excepciones.CorreoRepetidoException;
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
 import excepciones.NombreExisteException;
-import excepciones.OfertaNoExisteException;
 import excepciones.PaqueteExisteException;
 import excepciones.TipoPublicExisteException;
-import excepciones.UsuarioNoEsPostulanteException;
 import excepciones.UsuarioRepetidoException;
 
 //para carga de datos
@@ -28,13 +27,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -43,6 +39,11 @@ import logica.IControladorOfertas;
 import logica.IControladorPublicaciones;
 import logica.IControladorUsuario;
 import utils.EnumEstadoOferta;
+
+//import excepciones.OfertaNoExisteException;
+//import java.text.ParseException;
+//import java.text.SimpleDateFormat;
+//import excepciones.UsuarioNoEsPostulanteException;
 
 public class Principal {
 	
@@ -76,6 +77,10 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
+					WebServices p = new WebServices();
+			        p.publicar();
+			        
 					Principal window = new Principal();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -90,6 +95,7 @@ public class Principal {
 	 * @throws PropertyVetoException 
 	 */
 	public Principal() throws PropertyVetoException {
+		
 		initialize();
 		//Inicializacion fabrica y controladores
 		Fabrica fabrica = Fabrica.getInstance();
@@ -240,7 +246,7 @@ public class Principal {
 		        try {
 					modificarDatosUsuarioInternalFrame = new modificarDatosUsuario(ICU);
 				} catch (PropertyVetoException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
 			    modificarDatosUsuarioInternalFrame.setResizable(false);
@@ -390,7 +396,7 @@ public class Principal {
 					String csvFilePathPaquetes = currentDirectory + File.separator + "DatosCSV" + File.separator + "Paquetes.csv";
 					cargarDatosPaquetes(csvFilePathPaquetes);
 					
-					String csvFilePathTiposPublicacionPaquetes = currentDirectory + File.separator + "Datos" + File.separator + "TiposPublicacionPaquetes.csv";
+					String csvFilePathTiposPublicacionPaquetes = currentDirectory + File.separator + "DatosCSV" + File.separator + "TiposPublicacionPaquetes.csv";
 					cargarDatosTiposPublicacionPaquetes(csvFilePathTiposPublicacionPaquetes);
 					
 					 
@@ -399,28 +405,28 @@ public class Principal {
 				} catch (UsuarioRepetidoException e1) {
 					e1.printStackTrace();
 				} catch (TipoPublicExisteException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				} catch (KeywordExisteException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				} catch (NombreExisteException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				} catch (NicknameNoExisteException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				} catch (CorreoRepetidoException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				} catch (PaqueteExisteException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
 		    }
@@ -761,15 +767,13 @@ public class Principal {
 	    }
    }
 		
-		
-
-		private LocalDate parseToLocalDate(String dateString) {
-		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		    try {
-		        return LocalDate.parse(dateString, formatter);
-		    } catch (DateTimeParseException e) {
-		        e.printStackTrace();
-		        return null;
-		    }
-		}
+	/*private LocalDate parseToLocalDate(String dateString) {
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	    try {
+	        return LocalDate.parse(dateString, formatter);
+	    } catch (DateTimeParseException e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}*/
 }

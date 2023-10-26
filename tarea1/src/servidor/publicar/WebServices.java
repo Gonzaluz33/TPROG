@@ -1,22 +1,19 @@
-/**
- * 
- */
 package servidor.publicar;
 
-/**
- * @author efviodo
- *
- */
-
 import logica.*;
-import servidor.types.DTUsuario;
+
+import java.lang.reflect.Array;
+/*import servidor.types.DTUsuario;
 import servidor.types.DTEmpresa;
 import servidor.types.DTPostulante;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.IOException;*/
+
+
+import excepciones.KeywordExisteException;
 import jakarta.jws.WebMethod;
-import jakarta.jws.WebParam;
+//import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import jakarta.jws.soap.SOAPBinding.ParameterStyle;
@@ -42,8 +39,16 @@ public class WebServices {
     public Endpoint getEndpoint() {
             return endpoint;
     }
-
+    
     @WebMethod
+    public Object[] obtenerKeywords() throws KeywordExisteException{
+        Fabrica factory = Fabrica.getInstance();
+        IControladorOfertas ICO = factory.getIControladorOfertas();
+        Object[] keywords = ICO.obtenerKeywords().toArray();
+        return keywords;
+    }
+
+    /*@WebMethod
     public String obtenerApellido(DataPersona dp){
         Logica l = new Logica();
         return l.obtenerApellido(dp);
@@ -66,6 +71,6 @@ public class WebServices {
                 throw e;
         }
         return byteArray;
-    }
+    }*/
 }
 

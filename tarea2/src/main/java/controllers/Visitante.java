@@ -66,7 +66,9 @@ public class Visitante extends HttpServlet {
 		Fabrica factory = Fabrica.getInstance();
 		IControladorOfertas ICO = factory.getIControladorOfertas();
 		IControladorPublicaciones ICP = factory.getIControladorPublicaciones();
+		
 		List<String> keywords = ICO.obtenerKeywords();
+		
 		Gson gson = new Gson();
 		String keywordsJSON = gson.toJson(keywords);
 		req.setAttribute("keywords", keywordsJSON);
