@@ -21,9 +21,9 @@ public class DTEmpresa extends DTUsuario {
 	private Set<DTOferta> ofertas;
 
 	// constructores
-	public DTEmpresa(String nickname, String nombre, String apellido, String correo, String contraseña,
+	public DTEmpresa(String nickname, String nombre, String apellido, String correo, String contrasenia,
 			String nombreEmpresa, String descripcion, String linkWeb, Set<DTOferta> ofertas, String url_imagen) {
-		super(nickname, nombre, apellido, correo, contraseña, url_imagen);
+		super(nickname, nombre, apellido, correo, contrasenia, url_imagen);
 		this.setNombreEmpresa(nombreEmpresa);
 		this.setDescripcion(descripcion);
 		this.setLinkWeb(linkWeb);

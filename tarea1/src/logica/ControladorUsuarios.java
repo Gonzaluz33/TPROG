@@ -76,7 +76,7 @@ public class ControladorUsuarios implements IControladorUsuario {
 		try {
 			ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
 			Usuario u = manejadorU.getUsuarioXCorreo(correo);
-			return BCrypt.checkpw(contraseña, u.getContraseña());
+			return BCrypt.checkpw(contraseña, u.getContrasenia());
 		} catch (NicknameNoExisteException e) {
 			return false;
 		}

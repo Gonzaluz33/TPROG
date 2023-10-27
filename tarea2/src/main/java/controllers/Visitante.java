@@ -11,7 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import net.java.dev.jaxb.array.AnyTypeArray;
+import net.java.dev.jaxb.array.StringArray;
 import jakarta.servlet.http.Cookie;
 import java.io.IOException;
 import java.security.Key;
@@ -56,39 +56,33 @@ public class Visitante extends HttpServlet {
     
 
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException,
-			UsuarioRepetidoException, CorreoRepetidoException, NicknameNoExisteException {
+			UsuarioRepetidoException, CorreoRepetidoException, NicknameNoExisteException, KeywordExisteException_Exception {
 		
 		servidor.publicar.ServicioOfertasService serviceOfertas = new servidor.publicar.ServicioOfertasService();
         servidor.publicar.ServicioOfertas portOfertas = serviceOfertas.getServicioOfertasPort();
-        AnyTypeArray keywords = null;
-		try {
-			keywords = portOfertas.obtenerKeywords();
-		} catch (KeywordExisteException_Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Gson gson = new Gson();
-		String keywordsJSON = gson.toJson(keywords);
-		req.setAttribute("keywords", keywordsJSON);
+        
+		StringArray keywords = portOfertas.obtenerKeywords();
+		req.setAttribute("keywords", keywords.getItem());
 
-		Gson gsonAux = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
-				.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
-		String busqueda = req.getParameter("busqueda");
+		//Gson gsonAux = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
+		//		.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
 		
-		String[] keywordsSeleccionadas = req.getParameterValues("keywords");
-		DtPublicacionArray publicaciones;
+		//String busqueda = req.getParameter("busqueda");
+		//String[] keywordsSeleccionadas = req.getParameterValues("keywords");
+		
 
-		if (busqueda != null && !busqueda.isEmpty()) {
+		/*if (busqueda != null && !busqueda.isEmpty()) {
 			publicaciones = portOfertas.obtenerPublicacionesPorBusqueda(busqueda);
 		} else if (keywordsSeleccionadas != null && keywordsSeleccionadas.length > 0) {
 			
 			publicaciones = portOfertas.obtenerPublicaciones();
 		} else {
 			publicaciones = portOfertas.obtenerPublicaciones();
-		}
+		}*/
+		DtPublicacionArray publicaciones = portOfertas.obtenerPublicaciones();
 		//List<DTPublicacion> pubFiltered = filtrarPublicacionesConfirmadas(publicaciones);
-		String publicacionesJSON = gsonAux.toJson(publicaciones);
-		req.setAttribute("publicaciones", publicacionesJSON);
+		//String publicacionesJSON = gsonAux.toJson(publicaciones);
+		req.setAttribute("publicaciones", publicaciones.getItem());
 		
 		Cookie[] cookies = req.getCookies();
 		String jwtCookieName = "jwt";
@@ -138,8 +132,8 @@ public class Visitante extends HttpServlet {
 		try {
 			processRequest(request, response);
 		} catch (ServletException | IOException | UsuarioRepetidoException | CorreoRepetidoException
-				| NicknameNoExisteException e) {
-			// TODO Auto-generated catch block
+				| NicknameNoExisteException | KeywordExisteException_Exception e) {
+
 			e.printStackTrace();
 		}
 	}
@@ -153,8 +147,8 @@ public class Visitante extends HttpServlet {
 		try {
 			processRequest(request, response);
 		} catch (ServletException | IOException | UsuarioRepetidoException | CorreoRepetidoException
-				| NicknameNoExisteException e) {
-			// TODO Auto-generated catch block
+				| NicknameNoExisteException | KeywordExisteException_Exception e) {
+
 			e.printStackTrace();
 		}
 	}

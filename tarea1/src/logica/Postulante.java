@@ -31,8 +31,8 @@ public class Postulante extends Usuario{
 		this.postulaciones = new HashMap<String, Postulacion>();
 	}
 	
-	public Postulante(String nickname, String nombre, String apellido, String correo, String contraseña ,LocalDate fechaNacimiento, String nacionalidad,String url_imagen) {
-		super(nickname, nombre, apellido, correo, contraseña,url_imagen);
+	public Postulante(String nickname, String nombre, String apellido, String correo, String contrasenia ,LocalDate fechaNacimiento, String nacionalidad,String url_imagen) {
+		super(nickname, nombre, apellido, correo, contrasenia,url_imagen);
 		this.setFechaNacimiento(fechaNacimiento);
 		this.setNacionalidad(nacionalidad);
 		this.postulaciones = new HashMap<String, Postulacion>();
@@ -75,7 +75,7 @@ public class Postulante extends Usuario{
 	 */
 	@Override
 	public DTPostulante toDataType() {
-		DTPostulante dtt = new DTPostulante(getNickname(), getNombre(), getApellido(), getCorreo(), getContraseña(), getFechaNacimiento(), getNacionalidad(), getPostulaciones(), getUrlImagen());
+		DTPostulante dtt = new DTPostulante(getNickname(), getNombre(), getApellido(), getCorreo(), getContrasenia(), getFechaNacimiento(), getNacionalidad(), getPostulaciones(), getUrlImagen());
 		return dtt;
 	}
 

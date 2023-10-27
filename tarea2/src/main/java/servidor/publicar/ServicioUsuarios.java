@@ -137,28 +137,23 @@ public interface ServicioUsuarios {
     /**
      * 
      * @param arg0
+     * @param arg1
      * @return
      *     returns boolean
+     * @throws NicknameNoExisteException_Exception
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/validarTokenRequest", output = "http://publicar.servidor/ServicioUsuarios/validarTokenResponse")
-    public boolean validarToken(
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/validarUsuarioRequest", output = "http://publicar.servidor/ServicioUsuarios/validarUsuarioResponse", fault = {
+        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/validarUsuario/Fault/NicknameNoExisteException")
+    })
+    public boolean validarUsuario(
         @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/usuarioExisteRequest", output = "http://publicar.servidor/ServicioUsuarios/usuarioExisteResponse")
-    public boolean usuarioExiste(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1)
+        throws NicknameNoExisteException_Exception
+    ;
 
     /**
      * 
@@ -170,6 +165,19 @@ public interface ServicioUsuarios {
     @WebResult(partName = "return")
     @Action(input = "http://publicar.servidor/ServicioUsuarios/tipoUsuarioRequest", output = "http://publicar.servidor/ServicioUsuarios/tipoUsuarioResponse")
     public String tipoUsuario(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/validarTokenRequest", output = "http://publicar.servidor/ServicioUsuarios/validarTokenResponse")
+    public boolean validarToken(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 
@@ -194,22 +202,14 @@ public interface ServicioUsuarios {
     /**
      * 
      * @param arg0
-     * @param arg1
      * @return
      *     returns boolean
-     * @throws NicknameNoExisteException_Exception
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/validarUsuarioRequest", output = "http://publicar.servidor/ServicioUsuarios/validarUsuarioResponse", fault = {
-        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/validarUsuario/Fault/NicknameNoExisteException")
-    })
-    public boolean validarUsuario(
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/usuarioExisteRequest", output = "http://publicar.servidor/ServicioUsuarios/usuarioExisteResponse")
+    public boolean usuarioExiste(
         @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1)
-        throws NicknameNoExisteException_Exception
-    ;
+        String arg0);
 
 }

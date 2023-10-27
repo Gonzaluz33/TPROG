@@ -13,6 +13,7 @@
 <%@ page import=" utils.LocalDateSerializer"%>
 <%@ page import="utils.LocalDateTimeAdapter"%>
 <%@ page import="java.net.URLEncoder" %>
+<%@ page import="net.java.dev.jaxb.array.StringArray" %>
 
 
 <!DOCTYPE html>
@@ -107,7 +108,7 @@
 			                <br>
 			                 <form action="visitante" method="get">
 						        <%
-						            List<String> keywordsList = gson.fromJson((String) request.getAttribute("keywords"), List.class);
+						        List<String> keywordsList = (List<String>) request.getAttribute("keywords");		           
 						        %>
 						        <% for(String keyword : keywordsList) { %>
 						            <div class="form-check">
@@ -124,9 +125,7 @@
 			            
 			           <div class="col-md-9 p-2 col-sm-12 mx-auto" id="mainContent">
 					    <% 
-					        String publicacionesJSON = (String) request.getAttribute("publicaciones");
-					        Type listType = new TypeToken<List<DtPublicacion>>() {}.getType();
-					        List<DtPublicacion> publicaciones = gson.fromJson(publicacionesJSON, listType);
+					    	List<DtPublicacion> publicaciones = (List<DtPublicacion>) request.getAttribute("publicaciones");
 					        for(DtPublicacion publicacion : publicaciones) {
 					    %>
 					        <div class="d-flex p-2  border border-dark align-items-center mb-3">

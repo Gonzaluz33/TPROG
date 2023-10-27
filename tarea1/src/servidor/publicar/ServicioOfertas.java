@@ -4,12 +4,11 @@ import logica.*;
 import servidor.types.DTOferta;
 import servidor.types.DTPublicacion;
 import servidor.types.DTTipoPublicacion;
-
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
 import excepciones.NombreExisteException;
@@ -43,17 +42,16 @@ public class ServicioOfertas {
             return endpoint;
     }
     
-    
-    //CONSULTAS
+    //funciona
     @WebMethod
-    public Object[] obtenerKeywords() throws KeywordExisteException{
+    public String[] obtenerKeywords() throws KeywordExisteException {
         Fabrica factory = Fabrica.getInstance();
         IControladorOfertas ICO = factory.getIControladorOfertas();
-        Object[] keywords = ICO.obtenerKeywords().toArray();
+        String[] keywords = ICO.obtenerKeywords().toArray(new String[0]);
         return keywords;
     }
     
-    
+    //funciona
     @WebMethod
     public DTPublicacion[] obtenerPublicacionesPorBusqueda(String busqueda) {
         Fabrica factory = Fabrica.getInstance();
@@ -77,7 +75,7 @@ public class ServicioOfertas {
     	return null;
     }*/
     
-    
+    //funciona
     @WebMethod
     public DTPublicacion[] obtenerPublicaciones() {
         Fabrica factory = Fabrica.getInstance();
@@ -87,6 +85,7 @@ public class ServicioOfertas {
         return publicaciones;
     }
     
+    //funciona
     @WebMethod
     public DTTipoPublicacion[] obtenerTipos() {
         Fabrica factory = Fabrica.getInstance();
@@ -96,6 +95,7 @@ public class ServicioOfertas {
         return tipos;
     }
     
+    //funciona
     @WebMethod
     public DTOferta obtenerDatosOferta(String nombreOferta) throws OfertaNoExisteException {
     	Fabrica factory = Fabrica.getInstance();
@@ -103,6 +103,7 @@ public class ServicioOfertas {
 		return ICO.obtenerDatosOferta(nombreOferta);
     }
     
+    //funciona
     @WebMethod
     public DTTipoPublicacion obtenerDatosTipoPublicacion(String nombre) {
     	Fabrica factory = Fabrica.getInstance();
@@ -111,6 +112,7 @@ public class ServicioOfertas {
     	
     }
     
+    //funciona
     @WebMethod
     public Publicacion obtenerPublicacionAsociadaAOferta(String nombreOferta) {
     	Fabrica factory = Fabrica.getInstance();
@@ -118,6 +120,7 @@ public class ServicioOfertas {
     	return ICP.obtenerPublicacionAsociadaAOferta(nombreOferta);
     }
     
+    //funciona
     @WebMethod
     public DTOferta[] obtenerOfertasVigentesDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException{
     	Fabrica factory = Fabrica.getInstance();
@@ -126,6 +129,7 @@ public class ServicioOfertas {
     	return todasOfertasVigentes.toArray(new DTOferta[0]);
     }
     
+    //funciona
     @WebMethod
     public DTPublicacion[] obtenerPublicacionesDeEmpresa(String nicknameEmpresa) {
     	Fabrica factory = Fabrica.getInstance();
@@ -158,7 +162,7 @@ public class ServicioOfertas {
 
     //ALTAS
     @WebMethod
-    public void altaOferta(String nombre,String desc,String remuner,String horario,List<String> keywords,String ciudad,
+    public void altaOferta(String nombre,String desc,String remuner,String horario,ArrayList<String> keywords,String ciudad,
     String depa,String tipo,String empresa) throws NombreExisteException, KeywordExisteException, NicknameNoExisteException{
     	 Fabrica factory = Fabrica.getInstance();
     	 IControladorOfertas ICO = factory.getIControladorOfertas();

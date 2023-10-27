@@ -30,13 +30,13 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AnyTypeArray }
+     * Create an instance of {@link StringArray }
      * 
      * @return
-     *     the new instance of {@link AnyTypeArray }
+     *     the new instance of {@link StringArray }
      */
-    public AnyTypeArray createAnyTypeArray() {
-        return new AnyTypeArray();
+    public StringArray createStringArray() {
+        return new StringArray();
     }
 
 }

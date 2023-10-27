@@ -14,7 +14,7 @@ public class DTUsuario {
 	private String nombre;
 	private String apellido;
 	private String correo;
-	private String contraseña;
+	private String contrasenia;
 	private String url_imagen;
 
 	// constructores
@@ -23,18 +23,18 @@ public class DTUsuario {
 		this.setNombre(new String());
 		this.setApellido(new String());
 		this.setCorreo(new String());
-		this.setContraseña(new String());
+		this.setContrasenia(new String());
 		this.setUrlImagen(new String());
 		;
 	}
 
-	public DTUsuario(String nickname, String nombre, String apellido, String correo, String contraseña,
+	public DTUsuario(String nickname, String nombre, String apellido, String correo, String contrasenia,
 			String url_imagen) {
 		this.setNickname(nickname);
 		this.setNombre(nombre);
 		this.setApellido(apellido);
 		this.setCorreo(correo);
-		this.setContraseña(contraseña);
+		this.setContrasenia(contrasenia);
 		this.setUrlImagen(url_imagen);
 	}
 
@@ -59,8 +59,8 @@ public class DTUsuario {
 		return correo;
 	}
 
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasenia() {
+		return contrasenia;
 	}
 
 	public String toString() {
@@ -88,8 +88,8 @@ public class DTUsuario {
 		this.correo = correo;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasenia(String contrasenia) {
+		this.contrasenia = contrasenia;
 	}
 
 }
