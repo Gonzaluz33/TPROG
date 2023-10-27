@@ -24,8 +24,10 @@ import jakarta.xml.bind.annotation.XmlRegistry;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _KeywordExisteException_QNAME = new QName("http://publicar.servidor/", "KeywordExisteException");
-    private final static QName _DtPublicacion_QNAME = new QName("http://publicar.servidor/", "dtPublicacion");
+    private final static QName _CorreoNoEncontradoException_QNAME = new QName("http://publicar.servidor/", "CorreoNoEncontradoException");
+    private final static QName _CorreoRepetidoException_QNAME = new QName("http://publicar.servidor/", "CorreoRepetidoException");
+    private final static QName _NicknameNoExisteException_QNAME = new QName("http://publicar.servidor/", "NicknameNoExisteException");
+    private final static QName _UsuarioRepetidoException_QNAME = new QName("http://publicar.servidor/", "UsuarioRepetidoException");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: servidor.publicar
@@ -35,33 +37,43 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link KeywordExisteException }
+     * Create an instance of {@link CorreoNoEncontradoException }
      * 
      * @return
-     *     the new instance of {@link KeywordExisteException }
+     *     the new instance of {@link CorreoNoEncontradoException }
      */
-    public KeywordExisteException createKeywordExisteException() {
-        return new KeywordExisteException();
+    public CorreoNoEncontradoException createCorreoNoEncontradoException() {
+        return new CorreoNoEncontradoException();
     }
 
     /**
-     * Create an instance of {@link DtPublicacion }
+     * Create an instance of {@link CorreoRepetidoException }
      * 
      * @return
-     *     the new instance of {@link DtPublicacion }
+     *     the new instance of {@link CorreoRepetidoException }
      */
-    public DtPublicacion createDtPublicacion() {
-        return new DtPublicacion();
+    public CorreoRepetidoException createCorreoRepetidoException() {
+        return new CorreoRepetidoException();
     }
 
     /**
-     * Create an instance of {@link DtOferta }
+     * Create an instance of {@link NicknameNoExisteException }
      * 
      * @return
-     *     the new instance of {@link DtOferta }
+     *     the new instance of {@link NicknameNoExisteException }
      */
-    public DtOferta createDtOferta() {
-        return new DtOferta();
+    public NicknameNoExisteException createNicknameNoExisteException() {
+        return new NicknameNoExisteException();
+    }
+
+    /**
+     * Create an instance of {@link UsuarioRepetidoException }
+     * 
+     * @return
+     *     the new instance of {@link UsuarioRepetidoException }
+     */
+    public UsuarioRepetidoException createUsuarioRepetidoException() {
+        return new UsuarioRepetidoException();
     }
 
     /**
@@ -75,69 +87,75 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DtPostulacion }
+     * Create an instance of {@link DtUsuario }
      * 
      * @return
-     *     the new instance of {@link DtPostulacion }
+     *     the new instance of {@link DtUsuario }
      */
-    public DtPostulacion createDtPostulacion() {
-        return new DtPostulacion();
+    public DtUsuario createDtUsuario() {
+        return new DtUsuario();
     }
 
     /**
-     * Create an instance of {@link LocalDateTime }
+     * Create an instance of {@link DtUsuarioArray }
      * 
      * @return
-     *     the new instance of {@link LocalDateTime }
+     *     the new instance of {@link DtUsuarioArray }
      */
-    public LocalDateTime createLocalDateTime() {
-        return new LocalDateTime();
+    public DtUsuarioArray createDtUsuarioArray() {
+        return new DtUsuarioArray();
     }
 
     /**
-     * Create an instance of {@link DtTipoPublicacion }
-     * 
-     * @return
-     *     the new instance of {@link DtTipoPublicacion }
-     */
-    public DtTipoPublicacion createDtTipoPublicacion() {
-        return new DtTipoPublicacion();
-    }
-
-    /**
-     * Create an instance of {@link DtPublicacionArray }
-     * 
-     * @return
-     *     the new instance of {@link DtPublicacionArray }
-     */
-    public DtPublicacionArray createDtPublicacionArray() {
-        return new DtPublicacionArray();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link KeywordExisteException }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CorreoNoEncontradoException }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link KeywordExisteException }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link CorreoNoEncontradoException }{@code >}
      */
-    @XmlElementDecl(namespace = "http://publicar.servidor/", name = "KeywordExisteException")
-    public JAXBElement<KeywordExisteException> createKeywordExisteException(KeywordExisteException value) {
-        return new JAXBElement<>(_KeywordExisteException_QNAME, KeywordExisteException.class, null, value);
+    @XmlElementDecl(namespace = "http://publicar.servidor/", name = "CorreoNoEncontradoException")
+    public JAXBElement<CorreoNoEncontradoException> createCorreoNoEncontradoException(CorreoNoEncontradoException value) {
+        return new JAXBElement<>(_CorreoNoEncontradoException_QNAME, CorreoNoEncontradoException.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DtPublicacion }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CorreoRepetidoException }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link DtPublicacion }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link CorreoRepetidoException }{@code >}
      */
-    @XmlElementDecl(namespace = "http://publicar.servidor/", name = "dtPublicacion")
-    public JAXBElement<DtPublicacion> createDtPublicacion(DtPublicacion value) {
-        return new JAXBElement<>(_DtPublicacion_QNAME, DtPublicacion.class, null, value);
+    @XmlElementDecl(namespace = "http://publicar.servidor/", name = "CorreoRepetidoException")
+    public JAXBElement<CorreoRepetidoException> createCorreoRepetidoException(CorreoRepetidoException value) {
+        return new JAXBElement<>(_CorreoRepetidoException_QNAME, CorreoRepetidoException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link NicknameNoExisteException }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link NicknameNoExisteException }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://publicar.servidor/", name = "NicknameNoExisteException")
+    public JAXBElement<NicknameNoExisteException> createNicknameNoExisteException(NicknameNoExisteException value) {
+        return new JAXBElement<>(_NicknameNoExisteException_QNAME, NicknameNoExisteException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UsuarioRepetidoException }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link UsuarioRepetidoException }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://publicar.servidor/", name = "UsuarioRepetidoException")
+    public JAXBElement<UsuarioRepetidoException> createUsuarioRepetidoException(UsuarioRepetidoException value) {
+        return new JAXBElement<>(_UsuarioRepetidoException_QNAME, UsuarioRepetidoException.class, null, value);
     }
 
 }

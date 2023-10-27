@@ -1,14 +1,22 @@
 package servidor.publicar;
 
 import logica.*;
+
+import servidor.types.DTUsuario;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import excepciones.CorreoNoEncontradoException;
+import excepciones.CorreoRepetidoException;
 /*import servidor.types.DTUsuario;
 import servidor.types.DTEmpresa;
 import servidor.types.DTPostulante;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;*/
-
-
+import excepciones.NicknameNoExisteException;
+import excepciones.UsuarioRepetidoException;
 import jakarta.jws.WebMethod;
 //import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
@@ -38,6 +46,7 @@ public class ServicioUsuarios {
             return endpoint;
     }
     
+    //VERIFICACIONES
     @WebMethod
     public boolean validarToken(String jwt){
     	Jwt tokenUtils = new Jwt();
@@ -49,30 +58,62 @@ public class ServicioUsuarios {
     	Jwt tokenUtils = new Jwt();
 		return tokenUtils.tipoUsuario(jwt);
     }
-
-    /*@WebMethod
-    public String obtenerApellido(DataPersona dp){
-        Logica l = new Logica();
-        return l.obtenerApellido(dp);
+    
+    @WebMethod 
+    public Boolean usuarioExiste(String correo){
+    	Fabrica factory = Fabrica.getInstance();
+		IControladorUsuario icontuser = factory.getIControladorUsuario();
+		return icontuser.usuarioExiste(correo);
     }
-    @WebMethod
-    public DataMaestro obtenerConvocados(String apellido){
-        Logica l = new Logica();
-        return l.obtenerConvocados(apellido);
+    
+    @WebMethod 
+    public Boolean validarUsuario(String correo, String contraseña) throws NicknameNoExisteException{
+    	Fabrica factory = Fabrica.getInstance();
+		IControladorUsuario icontuser = factory.getIControladorUsuario();
+		return icontuser.validarUsuario(correo, contraseña);
     }
+    
+    
+    //CONSULTAS
+    @WebMethod 
+    public DTUsuario consultarUsuarioPorCorreo(String correo) throws CorreoNoEncontradoException, NicknameNoExisteException{
+    	Fabrica factory = Fabrica.getInstance();
+		IControladorUsuario icontuser = factory.getIControladorUsuario();
+		return icontuser.consultarUsuarioPorCorreo(correo);
+    }
+    
     @WebMethod
-    public byte[] getFile(@WebParam(name = "fileName") String name)
-                    throws  IOException {
-        byte[] byteArray = null;
-        try {
-                File f = new File("files/" + name);
-                FileInputStream streamer = new FileInputStream(f);
-                byteArray = new byte[streamer.available()];
-                streamer.read(byteArray);
-        } catch (IOException e) {
-                throw e;
-        }
-        return byteArray;
-    }*/
+    public DTUsuario consultarUsuario(String nicknameUsuario) throws NicknameNoExisteException {
+    	Fabrica factory = Fabrica.getInstance();
+		IControladorUsuario icontuser = factory.getIControladorUsuario();
+		return icontuser.consultarUsuario(nicknameUsuario);
+    }
+    
+    @WebMethod
+    public DTUsuario[] listarUsuarios(){
+    	Fabrica factory = Fabrica.getInstance();
+		IControladorUsuario icontuser = factory.getIControladorUsuario();
+		List<DTUsuario> todosLosUsuarios = icontuser.listarUsuarios();
+		DTUsuario[] usuarios = todosLosUsuarios.toArray(new DTUsuario[0]);
+		return usuarios;
+    	
+    }
+    
+    //ALTAS
+    @WebMethod
+    public void altaEmpresa(String nickname, String nombre, String apellido, String email, String password, String nomEmpresa,
+    		String descripcion, String linkWeb, String url_imagen) throws UsuarioRepetidoException, CorreoRepetidoException {
+    	Fabrica factory = Fabrica.getInstance();
+		IControladorUsuario icontuser = factory.getIControladorUsuario();
+		icontuser.altaEmpresa(nickname, nombre, apellido, email, password, nomEmpresa,descripcion,linkWeb,url_imagen);
+    }
+    
+    @WebMethod
+    public void  altaPostulante(String nickname, String nombre, String apellido, String email, String contraseña,
+			LocalDate fechaNacimiento, String nacionalidad, String url_imagen) throws UsuarioRepetidoException, CorreoRepetidoException {
+    	Fabrica factory = Fabrica.getInstance();
+		IControladorUsuario icontuser = factory.getIControladorUsuario();
+		icontuser.altaPostulante(nickname, nombre, apellido, email, contraseña, fechaNacimiento, nacionalidad, url_imagen);
+    	
+    }
 }
-

@@ -3,13 +3,19 @@ package servidor.publicar;
 import logica.*;
 import servidor.types.DTOferta;
 import servidor.types.DTPublicacion;
+import servidor.types.DTTipoPublicacion;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import excepciones.KeywordExisteException;
+import excepciones.NicknameNoExisteException;
+import excepciones.NombreExisteException;
+import excepciones.OfertaNoExisteException;
+import excepciones.UsuarioNoEsEmpresaException;
+import excepciones.UsuarioNoEsPostulanteException;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
@@ -37,6 +43,8 @@ public class ServicioOfertas {
             return endpoint;
     }
     
+    
+    //CONSULTAS
     @WebMethod
     public Object[] obtenerKeywords() throws KeywordExisteException{
         Fabrica factory = Fabrica.getInstance();
@@ -63,6 +71,12 @@ public class ServicioOfertas {
         DTPublicacion[] publicaciones = listaPublicaciones.toArray(new DTPublicacion[0]);
         return publicaciones;
     }
+    /*
+    @WebMethod
+    public DTPublicacion[] obtenerPublicacionesPorKeywords(List<String> keywords) {
+    	return null;
+    }*/
+    
     
     @WebMethod
     public DTPublicacion[] obtenerPublicaciones() {
@@ -73,35 +87,83 @@ public class ServicioOfertas {
         return publicaciones;
     }
     
+    @WebMethod
+    public DTTipoPublicacion[] obtenerTipos() {
+        Fabrica factory = Fabrica.getInstance();
+        IControladorPublicaciones ICP = factory.getIControladorPublicaciones();
+        List<DTTipoPublicacion> todosLosTipos = ICP.obtenerTipos();
+        DTTipoPublicacion[] tipos = todosLosTipos.toArray(new DTTipoPublicacion[0]);
+        return tipos;
+    }
     
-    /*@WebMethod
-    public DTPublicacion[] obtenerPublicacionesPorKeywords(ArrayList<String> keywords) {
-        // Instancia del manejador
-        ManejadorPublicaciones manejadorPublicaciones = ManejadorPublicaciones.getInstance();
-        ArrayList<DTPublicacion> publicaciones = (ArrayList<DTPublicacion>) manejadorPublicaciones.obtenerPublicaciones();
+    @WebMethod
+    public DTOferta obtenerDatosOferta(String nombreOferta) throws OfertaNoExisteException {
+    	Fabrica factory = Fabrica.getInstance();
+    	IControladorOfertas ICO = factory.getIControladorOfertas();
+		return ICO.obtenerDatosOferta(nombreOferta);
+    }
+    
+    @WebMethod
+    public DTTipoPublicacion obtenerDatosTipoPublicacion(String nombre) {
+    	Fabrica factory = Fabrica.getInstance();
+        IControladorPublicaciones ICP = factory.getIControladorPublicaciones();
+		return ICP.obtenerDatosTipoPublicacion(nombre);
+    	
+    }
+    
+    @WebMethod
+    public Publicacion obtenerPublicacionAsociadaAOferta(String nombreOferta) {
+    	Fabrica factory = Fabrica.getInstance();
+    	IControladorPublicaciones ICP = factory.getIControladorPublicaciones();
+    	return ICP.obtenerPublicacionAsociadaAOferta(nombreOferta);
+    }
+    
+    @WebMethod
+    public DTOferta[] obtenerOfertasVigentesDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException{
+    	Fabrica factory = Fabrica.getInstance();
+    	IControladorOfertas ICO = factory.getIControladorOfertas();
+    	Set<DTOferta> todasOfertasVigentes = ICO.obtenerOfertasVigentesDeEmpresa(nicknameEmpresa);
+    	return todasOfertasVigentes.toArray(new DTOferta[0]);
+    }
+    
+    @WebMethod
+    public DTPublicacion[] obtenerPublicacionesDeEmpresa(String nicknameEmpresa) {
+    	Fabrica factory = Fabrica.getInstance();
+    	IControladorPublicaciones ICP = factory.getIControladorPublicaciones();
+    	List<DTPublicacion> todasPublicacionesEmpresa = ICP.obtenerPublicacionesDeEmpresa(nicknameEmpresa);
+    	return todasPublicacionesEmpresa.toArray(new DTPublicacion[0]);
+    }
+    
+    @WebMethod
+    public boolean verificarPertenenciaOferta(String nombreOferta, String nickname) throws OfertaNoExisteException {
+    	Fabrica factory = Fabrica.getInstance();
+    	IControladorOfertas ICO = factory.getIControladorOfertas();
+    	return ICO.verificarPertenenciaOferta(nombreOferta, nickname);
+    }
+    
+    @WebMethod
+    public void confirmarOfertaLaboral(String nombreOferta) throws OfertaNoExisteException {
+    	Fabrica factory = Fabrica.getInstance();
+    	IControladorOfertas ICO = factory.getIControladorOfertas();
+    	ICO.confirmarOfertaLaboral(nombreOferta);
+    }
+    
+    //POSTULACIONES
+    @WebMethod
+    public void postularAOferta(String nombreOfertaLaboral, String nicknamePostulante, String cvReducido, String motivacion, LocalDateTime fechaPostulacion) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException {
+    	Fabrica factory = Fabrica.getInstance();
+    	IControladorOfertas ICO = factory.getIControladorOfertas();
+    	ICO.postularAOferta(nombreOfertaLaboral, nicknamePostulante, cvReducido, motivacion, fechaPostulacion);
+    }
 
-        // Convertir las keywords a lowercase para la comparación
-        ArrayList<String> keywordsLowerCase = keywords.stream()
-            .map(String::toLowerCase)
-            .collect(Collectors.toCollection(ArrayList::new));
+    //ALTAS
+    @WebMethod
+    public void altaOferta(String nombre,String desc,String remuner,String horario,List<String> keywords,String ciudad,
+    String depa,String tipo,String empresa) throws NombreExisteException, KeywordExisteException, NicknameNoExisteException{
+    	 Fabrica factory = Fabrica.getInstance();
+    	 IControladorOfertas ICO = factory.getIControladorOfertas();
+    	 ICO.altaOferta(nombre, desc, remuner, horario, keywords, ciudad, depa, tipo, empresa);
+    }
 
-        // Filtrar las publicaciones por keywords
-        ArrayList<DTPublicacion> listaPublicacionesFiltradas = publicaciones.stream()
-            .filter(dtPublicacion -> {
-                DTOferta oferta = dtPublicacion.getDtOferta();
-                ArrayList<String> ofertaKeywords = new ArrayList<>(oferta.getKeywords());
-                ArrayList<String> ofertaKeywordsLowerCase = ofertaKeywords.stream()
-                    .map(String::toLowerCase)
-                    .collect(Collectors.toCollection(ArrayList::new));
-
-                return !Collections.disjoint(keywordsLowerCase, ofertaKeywordsLowerCase);
-            })
-            .collect(Collectors.toCollection(ArrayList::new));
-
-        // Convertir la lista filtrada a un array
-        DTPublicacion[] publicacionesFiltradas = listaPublicacionesFiltradas.toArray(new DTPublicacion[0]);
-
-        return publicacionesFiltradas;
-    }*/
 }
 
