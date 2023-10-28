@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TokenBlacklist {
-	private static final TokenBlacklist instance = new TokenBlacklist();
+	private static  TokenBlacklist instance;
 	private static Map<String, Long> blacklistedTokens = new HashMap<>();
 
 	public TokenBlacklist() {
@@ -12,7 +12,10 @@ public class TokenBlacklist {
 	}
 
 	public static TokenBlacklist getInstance() {
-		return instance;
+		 if (instance == null) {
+	            instance = new TokenBlacklist();
+	        }
+	        return instance;
 	}
 
 	public void blacklistToken(String token, Long expirationTime) {

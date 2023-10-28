@@ -1,7 +1,7 @@
 package servidor.publicar;
 
 import logica.*;
-
+import servidor.types.DTEmpresa;
 import servidor.types.DTUsuario;
 
 import java.time.LocalDate;
@@ -46,13 +46,32 @@ public class ServicioUsuarios {
             return endpoint;
     }
     
-    //VERIFICACIONES
+    //JWT
+    @WebMethod
+    public String generateJWT(String email, String tipo_usuario) {
+    	Jwt tokenUtils = new Jwt();
+    	return tokenUtils.generateJWT(email, tipo_usuario);
+    }
+    
     @WebMethod
     public boolean validarToken(String jwt){
     	Jwt tokenUtils = new Jwt();
 		return tokenUtils.validarUsuario(jwt);
     }
     
+    @WebMethod
+    public boolean isTokenBlacklisted(String token) {
+    	TokenBlacklist list = TokenBlacklist.getInstance();
+    	return list.isTokenBlacklisted(token);
+    }
+    
+    @WebMethod
+    public String obtenerCorreoPorJWT(String jwt) {
+    	Jwt tokenUtils = new Jwt();
+		return tokenUtils.obtenerCorreoPorJWT(jwt);
+    }
+    
+    //VERIFICACIONES
     @WebMethod
     public String tipoUsuario(String jwt){
     	Jwt tokenUtils = new Jwt();
@@ -73,6 +92,21 @@ public class ServicioUsuarios {
 		return icontuser.validarUsuario(correo, contraseña);
     }
     
+    @WebMethod 
+    public Boolean esPostulante(DTUsuario usuario){
+    	if( usuario instanceof DTUsuario) {
+    		return true;
+    	}
+		return false;
+    }
+    
+    @WebMethod 
+    public Boolean esEmpresa(DTUsuario usuario){
+    	if( usuario instanceof DTEmpresa) {
+    		return true;
+    	}
+		return false;
+    }
     
     //CONSULTAS
     @WebMethod 

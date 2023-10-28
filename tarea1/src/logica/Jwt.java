@@ -1,6 +1,8 @@
 package logica;
 
 import java.security.Key;
+import java.util.Date;
+
 import servidor.types.DTEmpresa;
 import servidor.types.DTPostulante;
 import servidor.types.DTUsuario;
@@ -8,6 +10,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 
 
@@ -17,6 +20,18 @@ public class Jwt {
 	public Jwt() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	public String generateJWT(String email, String tipo_usuario) {
+		long expirationTimeMillis = System.currentTimeMillis() + 3600000; // Tiempo de expiración (1 hora)
+		Key key = Keys.hmacShaKeyFor(secret_Key.getBytes());
+
+		String jwt = Jwts.builder().setSubject(email).claim("email", email).claim("tipoUsuario", tipo_usuario)
+				.setExpiration(new Date(expirationTimeMillis)).signWith(key, SignatureAlgorithm.HS256).compact();
+
+		return jwt;
+	}
+
 	
 	public boolean validarUsuario(String jwt){
 	  boolean isValid = false;
@@ -66,4 +81,29 @@ public class Jwt {
 			}
 			return out;
 	    }
+	
+	public String obtenerCorreoPorJWT(String jwt){
+		  String out = "invalido";
+	      TokenBlacklist blacklist = TokenBlacklist.getInstance();
+		  if (!blacklist.isTokenBlacklisted(jwt)) {
+			    try{
+					Key secretKey = Keys.hmacShaKeyFor(secret_Key.getBytes());
+					Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(jwt);
+					Claims claims = claimsJws.getBody();
+					String correo = (String) claims.get("email");
+					Fabrica factory = Fabrica.getInstance();
+					IControladorUsuario ICU = factory.getIControladorUsuario();
+					if (ICU.usuarioExiste(correo)) {
+						DTUsuario usuario = ICU.consultarUsuarioPorCorreo(correo);
+						out = usuario.getCorreo();
+					} else {
+						
+					}
+				} catch (Exception e) {
+					
+				}
+			}
+			return out;
+	    }
+	
 }
