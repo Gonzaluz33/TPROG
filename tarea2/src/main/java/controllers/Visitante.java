@@ -37,7 +37,6 @@ import io.jsonwebtoken.security.Keys;
 @WebServlet("/visitante")
 public class Visitante extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	//private static final String secret_Key = "6a2b5c8e1f4a7d0987654321abcdef09"; // Clave secreta para verificar JWT
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -48,41 +47,45 @@ public class Visitante extends HttpServlet {
 	}
 	
 
-    /*public static List<DtPublicacion> filtrarPublicacionesConfirmadas(List<DtPublicacion> publicaciones) {
+    public static List<DtPublicacion> filtrarPublicacionesConfirmadas(List<DtPublicacion> publicaciones) {
         return publicaciones.stream()
                 .filter(publicacion -> EnumEstadoOferta.CONFIRMADA.equals(publicacion.getDtOferta().getEstado()))
                 .collect(Collectors.toList());
-    }*/
+    }
     
-
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException,
 			UsuarioRepetidoException, CorreoRepetidoException, NicknameNoExisteException, KeywordExisteException_Exception {
 		
 		servidor.publicar.ServicioOfertasService serviceOfertas = new servidor.publicar.ServicioOfertasService();
         servidor.publicar.ServicioOfertas portOfertas = serviceOfertas.getServicioOfertasPort();
+        String userAgent = req.getHeader("User-Agent");
+        boolean isMobile = false;
+
+        if (userAgent != null) {
+            isMobile = userAgent.matches(".*(Android|iPhone|iPad|iPod|Windows Phone|webOS|BlackBerry|Mobile).*");
+        }
+
         
 		StringArray keywords = portOfertas.obtenerKeywords();
 		req.setAttribute("keywords", keywords.getItem());
 
-		//Gson gsonAux = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
-		//		.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
-		
-		//String busqueda = req.getParameter("busqueda");
-		//String[] keywordsSeleccionadas = req.getParameterValues("keywords");
-		
-
-		/*if (busqueda != null && !busqueda.isEmpty()) {
-			publicaciones = portOfertas.obtenerPublicacionesPorBusqueda(busqueda);
+		String busqueda = req.getParameter("busqueda");
+		String[] keywordsSeleccionadas = req.getParameterValues("keywords");
+		String keywordsString = "";
+		if (keywordsSeleccionadas != null) {
+		    keywordsString = String.join("/", keywordsSeleccionadas);
+		}
+		List<DtPublicacion> publicaciones = new ArrayList<>();
+		if (busqueda != null && !busqueda.isEmpty()) {
+			publicaciones = portOfertas.obtenerPublicacionesPorBusqueda(busqueda).getItem();
 		} else if (keywordsSeleccionadas != null && keywordsSeleccionadas.length > 0) {
-			
-			publicaciones = portOfertas.obtenerPublicaciones();
+			publicaciones = portOfertas.obtenerPublicacionesPorKeywords(keywordsString).getItem();
 		} else {
-			publicaciones = portOfertas.obtenerPublicaciones();
-		}*/
-		DtPublicacionArray publicaciones = portOfertas.obtenerPublicaciones();
-		//List<DTPublicacion> pubFiltered = filtrarPublicacionesConfirmadas(publicaciones);
-		//String publicacionesJSON = gsonAux.toJson(publicaciones);
-		req.setAttribute("publicaciones", publicaciones.getItem());
+			publicaciones = portOfertas.obtenerPublicaciones().getItem();
+		}
+		
+		List<DtPublicacion> pubFiltered = filtrarPublicacionesConfirmadas(publicaciones);
+		req.setAttribute("publicaciones", pubFiltered);
 		
 		Cookie[] cookies = req.getCookies();
 		String jwtCookieName = "jwt";
@@ -107,19 +110,37 @@ public class Visitante extends HttpServlet {
 	        	}else if(tipoUsuario.equals("postulante")){
 	        		resp.sendRedirect("postulante");
 	        	}else {
-	        		
-	        	}
-	        	
+	        		req.setAttribute("invalidToken", true);
+					Cookie jwtCookie = new Cookie("jwt", "");
+					jwtCookie.setMaxAge(0);
+					resp.addCookie(jwtCookie);
+					if (isMobile) {
+			        	req.getRequestDispatcher("/WEB-INF/mobile/inicio.jsp").forward(req, resp);
+			        } else {
+			        	req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
+			        	
+			        }
+	        	}	
 	        }else {
 	        	req.setAttribute("invalidToken", true);
 				Cookie jwtCookie = new Cookie("jwt", "");
 				jwtCookie.setMaxAge(0);
 				resp.addCookie(jwtCookie);
-				req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
+				if (isMobile) {
+		        	req.getRequestDispatcher("/WEB-INF/mobile/inicio.jsp").forward(req, resp);
+		        } else {
+		        	req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
+		        	
+		        }
 	        }
 	        
 		} else {
-			req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
+			if (isMobile) {
+	        	req.getRequestDispatcher("/WEB-INF/mobile/inicio.jsp").forward(req, resp);
+	        } else {
+	        	req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
+	        	
+	        }
 		}
 	}
 
@@ -133,7 +154,6 @@ public class Visitante extends HttpServlet {
 			processRequest(request, response);
 		} catch (ServletException | IOException | UsuarioRepetidoException | CorreoRepetidoException
 				| NicknameNoExisteException | KeywordExisteException_Exception e) {
-
 			e.printStackTrace();
 		}
 	}
@@ -148,7 +168,6 @@ public class Visitante extends HttpServlet {
 			processRequest(request, response);
 		} catch (ServletException | IOException | UsuarioRepetidoException | CorreoRepetidoException
 				| NicknameNoExisteException | KeywordExisteException_Exception e) {
-
 			e.printStackTrace();
 		}
 	}

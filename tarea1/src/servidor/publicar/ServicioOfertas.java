@@ -6,6 +6,7 @@ import servidor.types.DTPublicacion;
 import servidor.types.DTTipoPublicacion;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -69,11 +70,18 @@ public class ServicioOfertas {
         DTPublicacion[] publicaciones = listaPublicaciones.toArray(new DTPublicacion[0]);
         return publicaciones;
     }
-    /*
+    
+    //funciona
     @WebMethod
-    public DTPublicacion[] obtenerPublicacionesPorKeywords(List<String> keywords) {
-    	return null;
-    }*/
+    public DTPublicacion[] obtenerPublicacionesPorKeywords(String keywords) {
+        Fabrica factory = Fabrica.getInstance();
+        IControladorPublicaciones ICP = factory.getIControladorPublicaciones();
+        String[] keywordsArray = keywords.split("/");
+        List<String> keys = Arrays.asList(keywordsArray);
+        List<DTPublicacion> pub = ICP.obtenerPublicacionesPorKeywords(keys);
+        DTPublicacion[] publicaciones = pub.toArray(new DTPublicacion[0]);
+        return publicaciones;
+    }
     
     //funciona
     @WebMethod
