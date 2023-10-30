@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import="java.util.List" %>
-<%@ page import="utils.DTOferta" %>
-<%@ page import="utils.DTPublicacion" %>
+<%@ page import="servidor.publicar.DtOferta" %>
+<%@ page import="servidor.publicar.DtPublicacion" %>
 <%@ page import="com.google.gson.Gson"%>
 <%@ page import="java.lang.reflect.Type"%>
 <%@ page import="com.google.gson.reflect.TypeToken"%>
@@ -87,10 +87,8 @@
     </div>
     <div class="col-md-12 col-sm-12 mx-auto">
 					    <% 
-					        String publicacionesJSON = (String) request.getAttribute("publicaciones");
-					        Type listType = new TypeToken<List<DTPublicacion>>() {}.getType();
-					        List<DTPublicacion> publicaciones = gson.fromJson(publicacionesJSON, listType);
-					        for(DTPublicacion publicacion : publicaciones) {
+					        List<DtPublicacion> publicaciones = (List<DtPublicacion>) request.getAttribute("publicaciones");
+					        for(DtPublicacion publicacion : publicaciones) {
 					    %>
 					        <div class="d-flex p-2  border border-dark align-items-center mb-3">
 					            <div style="width: 25%;">
@@ -138,7 +136,7 @@
 			                <br>
 			                 <form action="postulante" method="get">
 						        <%
-						            List<String> keywordsList = gson.fromJson((String) request.getAttribute("keywords"), List.class);
+						            List<String> keywordsList = (List<String>) request.getAttribute("keywords");
 						        %>
 						        <% for(String keyword : keywordsList) { %>
 						            <div class="form-check">

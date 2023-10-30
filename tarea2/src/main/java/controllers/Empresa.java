@@ -1,5 +1,7 @@
 package controllers;
 
+import java.io.IOException;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -10,32 +12,39 @@ import net.java.dev.jaxb.array.StringArray;
 import servidor.publicar.DtPublicacionArray;
 import servidor.publicar.DtUsuario;
 import servidor.publicar.KeywordExisteException_Exception;
-import java.io.IOException;
-
 /**
- * Servlet implementation class Postulante
+ * Servlet implementation class Empresa
  */
-@WebServlet("/postulante")
-public class Postulante extends HttpServlet {
+@WebServlet ("/empresa")
+public class Empresa extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Postulante() {
+    public Empresa() {
         super();
         // TODO Auto-generated constructor stub
     }
     
-    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, KeywordExisteException_Exception {
+    /*
+    public static List<DTPublicacion> filtrarPublicacionesConfirmadas(List<DTPublicacion> publicaciones) {
+        return publicaciones.stream()
+                .filter(publicacion -> EnumEstadoOferta.CONFIRMADA.equals(publicacion.getDtOferta().getEstado()))
+                .collect(Collectors.toList());
+    }*/
+    
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, KeywordExisteException_Exception, IOException {
     	
+
     	servidor.publicar.ServicioOfertasService serviceOfertas = new servidor.publicar.ServicioOfertasService();
         servidor.publicar.ServicioOfertas portOfertas = serviceOfertas.getServicioOfertasPort();
     	servidor.publicar.ServicioUsuariosService serviceUsuarios = new servidor.publicar.ServicioUsuariosService();
 		servidor.publicar.ServicioUsuarios portUsuarios = serviceUsuarios.getServicioUsuariosPort();
-    	
+
         StringArray keywords = portOfertas.obtenerKeywords();
 		req.setAttribute("keywords", keywords.getItem());
+
 		/*
 		Gson gsonAux = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
 				.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
@@ -53,13 +62,14 @@ public class Postulante extends HttpServlet {
 
 			publicaciones = ICP.obtenerPublicaciones();
 		}
-
+		
 		List<DTPublicacion> pubFiltered = filtrarPublicacionesConfirmadas(publicaciones);
 		String publicacionesJSON = gsonAux.toJson(pubFiltered);*/
 		
 		DtPublicacionArray publicaciones = portOfertas.obtenerPublicaciones();
 		req.setAttribute("publicaciones", publicaciones.getItem());
-		boolean esValidoPostulante = false;
+		
+		boolean esValidoEmpresa = false;
 		Cookie[] cookies = req.getCookies();
 		String jwtCookieName = "jwt";
 		String jwt = null;
@@ -74,13 +84,12 @@ public class Postulante extends HttpServlet {
 		if (jwt != null) {	
 			if (!portUsuarios.isTokenBlacklisted(jwt)) {
 				try {
-					
 					if (portUsuarios.validarToken(jwt)) {
 						String correo = portUsuarios.obtenerCorreoPorJWT(jwt);
-						DtUsuario usuario = portUsuarios.consultarUsuarioPorCorreo(correo); 
-						if (portUsuarios.esPostulante(usuario)) {
-							esValidoPostulante = true;
-							String imagen = usuario.getUrlImagen();
+						DtUsuario usuario = portUsuarios.consultarUsuarioPorCorreo(correo);
+						if (portUsuarios.esEmpresa(usuario)) {
+							esValidoEmpresa = true;
+							String imagen = usuario.getUrlImagen();							
 							req.setAttribute("imgPerfil", imagen);
 						}
 					} 
@@ -88,18 +97,18 @@ public class Postulante extends HttpServlet {
 				} catch (Exception e) {
 
 				}
-
 			}
 
 		} 
-		
-    	if(esValidoPostulante) {
-    		req.getRequestDispatcher("/WEB-INF/postulante/dashboardPostulante.jsp").forward(req, resp);
+    	if(esValidoEmpresa) {
+    		req.getRequestDispatcher("/WEB-INF/empresa/dashboardEmpresa.jsp").forward(req, resp);
     	}else {
     		resp.sendRedirect("visitante");
-    	}
-    		
+    	} 	
+    	
     }
+    
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -107,7 +116,7 @@ public class Postulante extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			processRequest(request, response);
-		} catch (ServletException | IOException | KeywordExisteException_Exception e) {
+		} catch (ServletException | KeywordExisteException_Exception | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -118,7 +127,12 @@ public class Postulante extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		try {
+			processRequest(request, response);
+		} catch (ServletException | KeywordExisteException_Exception | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

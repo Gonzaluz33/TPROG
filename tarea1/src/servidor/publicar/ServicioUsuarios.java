@@ -71,6 +71,12 @@ public class ServicioUsuarios {
 		return tokenUtils.obtenerCorreoPorJWT(jwt);
     }
     
+    @WebMethod 
+    public void cerrarSesion(String jwt) {
+    	Jwt tokenUtils = new Jwt();
+    	tokenUtils.CerrarSesion(jwt);
+    }
+    
     //VERIFICACIONES
     @WebMethod
     public String tipoUsuario(String jwt){

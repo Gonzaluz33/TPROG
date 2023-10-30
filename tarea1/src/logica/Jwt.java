@@ -2,7 +2,6 @@ package logica;
 
 import java.security.Key;
 import java.util.Date;
-
 import servidor.types.DTEmpresa;
 import servidor.types.DTPostulante;
 import servidor.types.DTUsuario;
@@ -21,7 +20,6 @@ public class Jwt {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
 	public String generateJWT(String email, String tipo_usuario) {
 		long expirationTimeMillis = System.currentTimeMillis() + 3600000; // Tiempo de expiración (1 hora)
 		Key key = Keys.hmacShaKeyFor(secret_Key.getBytes());
@@ -32,7 +30,6 @@ public class Jwt {
 		return jwt;
 	}
 
-	
 	public boolean validarUsuario(String jwt){
 	  boolean isValid = false;
       TokenBlacklist blacklist = TokenBlacklist.getInstance();
@@ -106,4 +103,17 @@ public class Jwt {
 			return out;
 	    }
 	
+	public void CerrarSesion(String jwt) {
+		Key secretKey = Keys.hmacShaKeyFor(secret_Key.getBytes());
+        Jws<Claims> claimsJws = Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(jwt);
+
+        Claims claims = claimsJws.getBody();
+        Date expirationDate = claims.getExpiration();
+        long expirationTimeMillis = expirationDate.getTime();
+        TokenBlacklist blacklist = TokenBlacklist.getInstance();
+        blacklist.blacklistToken(jwt, expirationTimeMillis);
+	}
 }
