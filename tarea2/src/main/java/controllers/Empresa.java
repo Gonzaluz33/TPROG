@@ -36,7 +36,6 @@ public class Empresa extends HttpServlet {
     
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, KeywordExisteException_Exception, IOException {
     	
-
     	servidor.publicar.ServicioOfertasService serviceOfertas = new servidor.publicar.ServicioOfertasService();
         servidor.publicar.ServicioOfertas portOfertas = serviceOfertas.getServicioOfertasPort();
     	servidor.publicar.ServicioUsuariosService serviceUsuarios = new servidor.publicar.ServicioUsuariosService();
@@ -87,7 +86,7 @@ public class Empresa extends HttpServlet {
 					if (portUsuarios.validarToken(jwt)) {
 						String correo = portUsuarios.obtenerCorreoPorJWT(jwt);
 						DtUsuario usuario = portUsuarios.consultarUsuarioPorCorreo(correo);
-						if (portUsuarios.esEmpresa(usuario)) {
+						if (portUsuarios.tipoUsuario(jwt).equals("empresa")) {
 							esValidoEmpresa = true;
 							String imagen = usuario.getUrlImagen();							
 							req.setAttribute("imgPerfil", imagen);
@@ -127,12 +126,7 @@ public class Empresa extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		try {
-			processRequest(request, response);
-		} catch (ServletException | KeywordExisteException_Exception | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		doGet(request, response);
 	}
 
 }

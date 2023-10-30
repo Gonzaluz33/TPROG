@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import servidor.publicar.CorreoNoEncontradoException_Exception;
+import servidor.publicar.DtEmpresa;
+import servidor.publicar.DtPostulante;
 import servidor.publicar.DtUsuario;
 import servidor.publicar.NicknameNoExisteException_Exception;
 import java.io.IOException;
@@ -43,10 +45,11 @@ public class Login extends HttpServlet {
 		if (portUsuarios.usuarioExiste(login)) {
 			if (portUsuarios.validarUsuario(login, password)) {
 				DtUsuario user = portUsuarios.consultarUsuarioPorCorreo(login);
-				if (portUsuarios.esEmpresa(user)) {
+				if (user instanceof DtEmpresa) {
 					String jwt = portUsuarios.generateJWT(login, "empresa");
 					response.addCookie(new Cookie("jwt", jwt));
-				} else {
+				}  
+				if (user instanceof DtPostulante) {
 					String jwt = portUsuarios.generateJWT(login, "postulante");
 					response.addCookie(new Cookie("jwt", jwt));
 				}

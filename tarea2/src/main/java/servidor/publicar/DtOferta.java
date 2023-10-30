@@ -11,9 +11,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para dtOferta complex type.
+ * <p>Java class for dtOferta complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="dtOferta">
@@ -80,7 +80,7 @@ public class DtOferta {
     protected String nicknameEmpresa;
 
     /**
-     * Obtiene el valor de la propiedad nombre.
+     * Gets the value of the nombre property.
      * 
      * @return
      *     possible object is
@@ -92,7 +92,7 @@ public class DtOferta {
     }
 
     /**
-     * Define el valor de la propiedad nombre.
+     * Sets the value of the nombre property.
      * 
      * @param value
      *     allowed object is
@@ -104,7 +104,7 @@ public class DtOferta {
     }
 
     /**
-     * Obtiene el valor de la propiedad descripcion.
+     * Gets the value of the descripcion property.
      * 
      * @return
      *     possible object is
@@ -116,7 +116,7 @@ public class DtOferta {
     }
 
     /**
-     * Define el valor de la propiedad descripcion.
+     * Sets the value of the descripcion property.
      * 
      * @param value
      *     allowed object is
@@ -128,7 +128,7 @@ public class DtOferta {
     }
 
     /**
-     * Obtiene el valor de la propiedad ciudad.
+     * Gets the value of the ciudad property.
      * 
      * @return
      *     possible object is
@@ -140,7 +140,7 @@ public class DtOferta {
     }
 
     /**
-     * Define el valor de la propiedad ciudad.
+     * Sets the value of the ciudad property.
      * 
      * @param value
      *     allowed object is
@@ -152,7 +152,7 @@ public class DtOferta {
     }
 
     /**
-     * Obtiene el valor de la propiedad departamento.
+     * Gets the value of the departamento property.
      * 
      * @return
      *     possible object is
@@ -164,7 +164,7 @@ public class DtOferta {
     }
 
     /**
-     * Define el valor de la propiedad departamento.
+     * Sets the value of the departamento property.
      * 
      * @param value
      *     allowed object is
@@ -176,7 +176,7 @@ public class DtOferta {
     }
 
     /**
-     * Obtiene el valor de la propiedad horario.
+     * Gets the value of the horario property.
      * 
      * @return
      *     possible object is
@@ -188,7 +188,7 @@ public class DtOferta {
     }
 
     /**
-     * Define el valor de la propiedad horario.
+     * Sets the value of the horario property.
      * 
      * @param value
      *     allowed object is
@@ -200,7 +200,7 @@ public class DtOferta {
     }
 
     /**
-     * Obtiene el valor de la propiedad remuneracion.
+     * Gets the value of the remuneracion property.
      * 
      * @return
      *     possible object is
@@ -212,7 +212,7 @@ public class DtOferta {
     }
 
     /**
-     * Define el valor de la propiedad remuneracion.
+     * Sets the value of the remuneracion property.
      * 
      * @param value
      *     allowed object is
@@ -224,7 +224,7 @@ public class DtOferta {
     }
 
     /**
-     * Obtiene el valor de la propiedad fechaAlta.
+     * Gets the value of the fechaAlta property.
      * 
      * @return
      *     possible object is
@@ -236,7 +236,7 @@ public class DtOferta {
     }
 
     /**
-     * Define el valor de la propiedad fechaAlta.
+     * Sets the value of the fechaAlta property.
      * 
      * @param value
      *     allowed object is
@@ -248,7 +248,7 @@ public class DtOferta {
     }
 
     /**
-     * Obtiene el valor de la propiedad estado.
+     * Gets the value of the estado property.
      * 
      * @return
      *     possible object is
@@ -260,7 +260,7 @@ public class DtOferta {
     }
 
     /**
-     * Define el valor de la propiedad estado.
+     * Sets the value of the estado property.
      * 
      * @param value
      *     allowed object is
@@ -272,7 +272,7 @@ public class DtOferta {
     }
 
     /**
-     * Obtiene el valor de la propiedad urlImagen.
+     * Gets the value of the urlImagen property.
      * 
      * @return
      *     possible object is
@@ -284,7 +284,7 @@ public class DtOferta {
     }
 
     /**
-     * Define el valor de la propiedad urlImagen.
+     * Sets the value of the urlImagen property.
      * 
      * @param value
      *     allowed object is
@@ -296,7 +296,7 @@ public class DtOferta {
     }
 
     /**
-     * Obtiene el valor de la propiedad formaPago.
+     * Gets the value of the formaPago property.
      * 
      * @return
      *     possible object is
@@ -308,7 +308,7 @@ public class DtOferta {
     }
 
     /**
-     * Define el valor de la propiedad formaPago.
+     * Sets the value of the formaPago property.
      * 
      * @param value
      *     allowed object is
@@ -320,7 +320,7 @@ public class DtOferta {
     }
 
     /**
-     * Obtiene el valor de la propiedad paqueteSeleccionado.
+     * Gets the value of the paqueteSeleccionado property.
      * 
      * @return
      *     possible object is
@@ -332,7 +332,7 @@ public class DtOferta {
     }
 
     /**
-     * Define el valor de la propiedad paqueteSeleccionado.
+     * Sets the value of the paqueteSeleccionado property.
      * 
      * @param value
      *     allowed object is
@@ -406,7 +406,7 @@ public class DtOferta {
     }
 
     /**
-     * Obtiene el valor de la propiedad nicknameEmpresa.
+     * Gets the value of the nicknameEmpresa property.
      * 
      * @return
      *     possible object is
@@ -418,7 +418,7 @@ public class DtOferta {
     }
 
     /**
-     * Define el valor de la propiedad nicknameEmpresa.
+     * Sets the value of the nicknameEmpresa property.
      * 
      * @param value
      *     allowed object is

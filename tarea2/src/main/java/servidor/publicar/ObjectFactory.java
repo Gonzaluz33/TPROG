@@ -87,6 +87,26 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DtEmpresa }
+     * 
+     * @return
+     *     the new instance of {@link DtEmpresa }
+     */
+    public DtEmpresa createDtEmpresa() {
+        return new DtEmpresa();
+    }
+
+    /**
+     * Create an instance of {@link DtOferta }
+     * 
+     * @return
+     *     the new instance of {@link DtOferta }
+     */
+    public DtOferta createDtOferta() {
+        return new DtOferta();
+    }
+
+    /**
      * Create an instance of {@link LocalDate }
      * 
      * @return
@@ -94,6 +114,36 @@ public class ObjectFactory {
      */
     public LocalDate createLocalDate() {
         return new LocalDate();
+    }
+
+    /**
+     * Create an instance of {@link DtPostulacion }
+     * 
+     * @return
+     *     the new instance of {@link DtPostulacion }
+     */
+    public DtPostulacion createDtPostulacion() {
+        return new DtPostulacion();
+    }
+
+    /**
+     * Create an instance of {@link LocalDateTime }
+     * 
+     * @return
+     *     the new instance of {@link LocalDateTime }
+     */
+    public LocalDateTime createLocalDateTime() {
+        return new LocalDateTime();
+    }
+
+    /**
+     * Create an instance of {@link DtPostulante }
+     * 
+     * @return
+     *     the new instance of {@link DtPostulante }
+     */
+    public DtPostulante createDtPostulante() {
+        return new DtPostulante();
     }
 
     /**

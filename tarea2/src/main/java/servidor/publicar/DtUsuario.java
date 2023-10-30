@@ -4,6 +4,7 @@ package servidor.publicar;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
 import jakarta.xml.bind.annotation.XmlType;
 
 
@@ -39,6 +40,10 @@ import jakarta.xml.bind.annotation.XmlType;
     "correo",
     "contrasenia",
     "urlImagen"
+})
+@XmlSeeAlso({
+    DtEmpresa.class,
+    DtPostulante.class
 })
 public class DtUsuario {
 

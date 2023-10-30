@@ -2,6 +2,7 @@ package servidor.publicar;
 
 import logica.*;
 import servidor.types.DTEmpresa;
+import servidor.types.DTPostulante;
 import servidor.types.DTUsuario;
 
 import java.time.LocalDate;
@@ -99,19 +100,13 @@ public class ServicioUsuarios {
     }
     
     @WebMethod 
-    public Boolean esPostulante(DTUsuario usuario){
-    	if( usuario instanceof DTUsuario) {
-    		return true;
-    	}
-		return false;
+    public DTPostulante esPostulante(DTUsuario usuario){
+    	return (DTPostulante) usuario;
     }
     
     @WebMethod 
-    public Boolean esEmpresa(DTUsuario usuario){
-    	if( usuario instanceof DTEmpresa) {
-    		return true;
-    	}
-		return false;
+    public DTEmpresa esEmpresa(DTUsuario usuario){
+    	return (DTEmpresa) usuario;
     }
     
     //CONSULTAS

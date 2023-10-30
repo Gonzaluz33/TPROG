@@ -78,7 +78,7 @@ public class Postulante extends HttpServlet {
 					if (portUsuarios.validarToken(jwt)) {
 						String correo = portUsuarios.obtenerCorreoPorJWT(jwt);
 						DtUsuario usuario = portUsuarios.consultarUsuarioPorCorreo(correo); 
-						if (portUsuarios.esPostulante(usuario)) {
+						if (portUsuarios.tipoUsuario(jwt).equals("postulante")) {
 							esValidoPostulante = true;
 							String imagen = usuario.getUrlImagen();
 							req.setAttribute("imgPerfil", imagen);

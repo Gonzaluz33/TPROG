@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para dtPostulacion complex type.
+ * <p>Java class for dtPostulacion complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="dtPostulacion">
@@ -46,7 +46,7 @@ public class DtPostulacion {
     protected String motivacion;
 
     /**
-     * Obtiene el valor de la propiedad nicknamePostulante.
+     * Gets the value of the nicknamePostulante property.
      * 
      * @return
      *     possible object is
@@ -58,7 +58,7 @@ public class DtPostulacion {
     }
 
     /**
-     * Define el valor de la propiedad nicknamePostulante.
+     * Sets the value of the nicknamePostulante property.
      * 
      * @param value
      *     allowed object is
@@ -70,7 +70,7 @@ public class DtPostulacion {
     }
 
     /**
-     * Obtiene el valor de la propiedad nombreOfertaLaboral.
+     * Gets the value of the nombreOfertaLaboral property.
      * 
      * @return
      *     possible object is
@@ -82,7 +82,7 @@ public class DtPostulacion {
     }
 
     /**
-     * Define el valor de la propiedad nombreOfertaLaboral.
+     * Sets the value of the nombreOfertaLaboral property.
      * 
      * @param value
      *     allowed object is
@@ -94,7 +94,7 @@ public class DtPostulacion {
     }
 
     /**
-     * Obtiene el valor de la propiedad fecha.
+     * Gets the value of the fecha property.
      * 
      * @return
      *     possible object is
@@ -106,7 +106,7 @@ public class DtPostulacion {
     }
 
     /**
-     * Define el valor de la propiedad fecha.
+     * Sets the value of the fecha property.
      * 
      * @param value
      *     allowed object is
@@ -118,7 +118,7 @@ public class DtPostulacion {
     }
 
     /**
-     * Obtiene el valor de la propiedad cvReducido.
+     * Gets the value of the cvReducido property.
      * 
      * @return
      *     possible object is
@@ -130,7 +130,7 @@ public class DtPostulacion {
     }
 
     /**
-     * Define el valor de la propiedad cvReducido.
+     * Sets the value of the cvReducido property.
      * 
      * @param value
      *     allowed object is
@@ -142,7 +142,7 @@ public class DtPostulacion {
     }
 
     /**
-     * Obtiene el valor de la propiedad motivacion.
+     * Gets the value of the motivacion property.
      * 
      * @return
      *     possible object is
@@ -154,7 +154,7 @@ public class DtPostulacion {
     }
 
     /**
-     * Define el valor de la propiedad motivacion.
+     * Sets the value of the motivacion property.
      * 
      * @param value
      *     allowed object is
