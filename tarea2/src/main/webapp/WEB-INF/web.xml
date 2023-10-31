@@ -82,4 +82,14 @@
     <servlet-name>Empresa</servlet-name>
     <url-pattern>/Empresa</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MiUsuario</display-name>
+    <servlet-name>MiUsuario</servlet-name>
+    <servlet-class>controllers.MiUsuario</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MiUsuario</servlet-name>
+    <url-pattern>/MiUsuario</url-pattern>
+  </servlet-mapping>
 </web-app>

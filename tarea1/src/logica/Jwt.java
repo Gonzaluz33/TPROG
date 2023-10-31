@@ -97,11 +97,32 @@ public class Jwt {
 						
 					}
 				} catch (Exception e) {
-					
+					e.printStackTrace();
 				}
 			}
 			return out;
 	    }
+	
+	public DTUsuario obtenerDatosDeUsuarioJWT(String jwt) {
+		DTUsuario user = null;
+		TokenBlacklist blacklist = TokenBlacklist.getInstance();
+		if (!blacklist.isTokenBlacklisted(jwt)) {
+			try {
+				Key secretKey = Keys.hmacShaKeyFor(secret_Key.getBytes());
+				Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(jwt);
+				Claims claims = claimsJws.getBody();
+				String correo = (String) claims.get("email");
+				Fabrica factory = Fabrica.getInstance();
+				IControladorUsuario iconuser = factory.getIControladorUsuario();
+				if (iconuser.usuarioExiste(correo)) {
+					 user = iconuser.consultarUsuarioPorCorreo(correo); 
+				} 
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}}
+		return user;		
+	}
 	
 	public void CerrarSesion(String jwt) {
 		Key secretKey = Keys.hmacShaKeyFor(secret_Key.getBytes());

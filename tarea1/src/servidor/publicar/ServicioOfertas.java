@@ -2,6 +2,7 @@ package servidor.publicar;
 
 import logica.*;
 import servidor.types.DTOferta;
+import servidor.types.DTPostulacion;
 import servidor.types.DTPublicacion;
 import servidor.types.DTTipoPublicacion;
 import java.time.LocalDateTime;
@@ -166,6 +167,15 @@ public class ServicioOfertas {
     	Fabrica factory = Fabrica.getInstance();
     	IControladorOfertas ICO = factory.getIControladorOfertas();
     	ICO.postularAOferta(nombreOfertaLaboral, nicknamePostulante, cvReducido, motivacion, fechaPostulacion);
+    }
+    
+    @WebMethod
+    public DTPostulacion[] obtenerPostulacionesPorPostulante(String nicknamePostulante) throws NicknameNoExisteException, UsuarioNoEsPostulanteException{
+    	Fabrica factory = Fabrica.getInstance();
+    	IControladorOfertas ICO = factory.getIControladorOfertas();
+    	List<DTPostulacion> aux =  ICO.obtenerPostulacionesPorPostulante(nicknamePostulante);
+    	DTPostulacion[] postulaciones = aux.toArray(new DTPostulacion[0]);
+    	return postulaciones;
     }
 
     //ALTAS
