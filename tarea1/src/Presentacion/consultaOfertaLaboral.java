@@ -27,6 +27,7 @@ import logica.IControladorUsuario;
 import servidor.types.DTEmpresa;
 import servidor.types.DTOferta;
 import utilsPresentacion.CentrarColumnas;
+import servidor.types.EnumEstadoOferta;
 import utilsPresentacion.MultiLineCellRenderer;
 
 import javax.swing.JScrollBar;
@@ -54,6 +55,7 @@ public class consultaOfertaLaboral extends JInternalFrame {
 	private String Departamento;
 	private String Horario;
 	private String Remuneracion;
+	private String Estado;
 	private String fechaAlta;
 	
 	/**
@@ -68,6 +70,7 @@ public class consultaOfertaLaboral extends JInternalFrame {
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
 		informacionOfertaLaboralInternalFrame = new informacionOfertaLaboral(ico);
+		informacionOfertaLaboralInternalFrame.setLocation(31, 230);
 		informacionOfertaLaboralInternalFrame.setResizable(false);
 		informacionOfertaLaboralInternalFrame.setBorder(null);
 		informacionOfertaLaboralInternalFrame.setVisible(false);
@@ -97,22 +100,42 @@ public class consultaOfertaLaboral extends JInternalFrame {
                 tableModel.setRowCount(0); // Limpiar filas existentes
 				DTEmpresa selectedValue = (DTEmpresa) listaEmpresasCombobox.getSelectedItem();
 				if (selectedValue != null) {
-					Set<DTOferta> listadoOfertas = selectedValue.getOfertas();
+					Set<DTOferta> listadoOfertas = selectedValue.getOfertas();			
 					if(!listadoOfertas.isEmpty()) {
 						for (DTOferta item : listadoOfertas) {
-							nombreOferta = item.getNombre();
-							Descripcion = item.getDescripcion();
-							Ciudad = item.getCiudad();
-							Departamento = item.getDepartamento();
-							Horario = item.getHorario();
-							Remuneracion = item.getRemuneracion();
-							fechaAlta = item.getFechaAlta().format(formatter);
+							try {
+								DTOferta datosOferta = controlOL.obtenerDatosOferta(item.getNombre());
+								switch(datosOferta.getEstado()) {
+								case CONFIRMADA:
+									Estado = "Confirmada";
+									break;
+								case INGRESADA :
+									Estado = "Ingresada";
+									break;
+								case RECHAZADA :
+									Estado = "Rechazada";
+									break;
+								}			
+
+							nombreOferta = datosOferta.getNombre();
+							Descripcion = datosOferta.getDescripcion();
+							Ciudad = datosOferta.getCiudad();
+							Departamento = datosOferta.getDepartamento();
+							Horario = datosOferta.getHorario();
+							Remuneracion = datosOferta.getRemuneracion();
+							fechaAlta = datosOferta.getFechaAlta().format(formatter);
 							tableModel.addRow(new Object[] {nombreOferta, Descripcion, Ciudad, Departamento,
-									Horario,Remuneracion,fechaAlta});
+									Horario,Remuneracion,Estado,fechaAlta});
 						} 
+						catch (OfertaNoExisteException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
 					}
 				}		
-            }		
+			}
+			}
 		});
 		
 		JSeparator separator = new JSeparator();
@@ -142,12 +165,12 @@ public class consultaOfertaLaboral extends JInternalFrame {
 				
 			},
 			new String[] {
-				"Nombre", "Descripci\u00F3n", "Ciudad", "Departamento", "Horario", "Remuneraci\u00F3n", "Fecha de Alta", "Acciones"
+				"Nombre", "Descripci\u00F3n", "Ciudad", "Departamento", "Horario", "Remuneraci\u00F3n","Estado", "Fecha de Alta", "Acciones"
 			}
 		) {
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class
+				String.class, String.class, String.class, String.class, String.class, String.class,String.class, String.class, String.class
 			};
 			@SuppressWarnings({ "unchecked", "rawtypes" })
 			public Class getColumnClass(int columnIndex) {
@@ -168,8 +191,9 @@ public class consultaOfertaLaboral extends JInternalFrame {
 		tablaOfertaLaboral.getColumnModel().getColumn(4).setCellRenderer(new MultiLineCellRenderer());
 		tablaOfertaLaboral.getColumnModel().getColumn(5).setCellRenderer(new MultiLineCellRenderer());
 		tablaOfertaLaboral.getColumnModel().getColumn(6).setCellRenderer(new MultiLineCellRenderer());
-		tablaOfertaLaboral.getColumnModel().getColumn(7).setCellRenderer(new ButtonRenderer());
-		tablaOfertaLaboral.getColumnModel().getColumn(7).setCellEditor(new ButtonEditor(new JCheckBox(), informacionOfertaLaboralInternalFrame));
+		tablaOfertaLaboral.getColumnModel().getColumn(7).setCellRenderer(new MultiLineCellRenderer());
+		tablaOfertaLaboral.getColumnModel().getColumn(8).setCellRenderer(new ButtonRenderer());
+		tablaOfertaLaboral.getColumnModel().getColumn(8).setCellEditor(new ButtonEditor(new JCheckBox(), informacionOfertaLaboralInternalFrame));
 		JTableHeader headerOfertas = tablaOfertaLaboral.getTableHeader();
 		panelHeaders.add(headerOfertas);
 		tablaOfertaLaboral.setFont(new Font("Tahoma", Font.PLAIN, 11));

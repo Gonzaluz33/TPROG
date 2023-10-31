@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.time.LocalDateTime;
 
+
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
 import excepciones.NombreExisteException;
@@ -50,6 +51,8 @@ public interface IControladorOfertas {
 	 * Si no tiene ofertas vigentes asociadas devuelve una lista vacia.
 	 */
 	public Set<DTOferta> obtenerOfertasVigentesDeEmpresa(String nicknameEmpresa) throws NicknameNoExisteException, UsuarioNoEsEmpresaException;
+	
+	public void actualizarEstadoOfertaLaboral(String nombreOfertaLaboral, EnumEstadoOferta estado) throws OfertaNoExisteException;
 
 	public List<DTPostulacion> obtenerPostulacionesPorPostulante(String nicknamePostulante)
             throws NicknameNoExisteException, UsuarioNoEsPostulanteException ;

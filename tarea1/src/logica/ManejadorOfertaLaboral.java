@@ -66,6 +66,11 @@ public class ManejadorOfertaLaboral {
 	public DTOferta obtenerOfertaLaboral(String nombreOferta) throws OfertaNoExisteException {
 		return coleccionOfertasLaborales.get(nombreOferta).toDataType();
 	}
+	
+	public OfertaLaboral getOfertaLaboral(String nombreOferta) throws OfertaNoExisteException {
+		return coleccionOfertasLaborales
+				.get(nombreOferta);
+	}
 
 	public List<DTOferta> obtenerOfertasLaborales() {
 		Map<String, OfertaLaboral> ofertas = coleccionOfertasLaborales;

@@ -78,6 +78,11 @@ public class DTOferta {
 	    }
 
 	// getters
+	    
+	public String toString() {
+		return nombre;
+	}
+	    
 	public String getNombre() {
 		return nombre;
 	}

@@ -196,5 +196,12 @@ public class ControladorOfertas implements IControladorOfertas {
     	ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
 		manejadorOL.cambiarEstadoOferta(estado,nombreOferta);
     }
+    
+    public void actualizarEstadoOfertaLaboral(String nombreOfertaLaboral, EnumEstadoOferta estado) throws OfertaNoExisteException {
+		ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+		OfertaLaboral o = manejadorOL.getOfertaLaboral(nombreOfertaLaboral);
+		o.setEstado(estado);
+	}
+
 	
 }

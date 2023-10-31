@@ -151,7 +151,7 @@ public class AceptarRechazarOfertaLaboral extends JInternalFrame {
 	                JOptionPane.INFORMATION_MESSAGE);
 		}
 		else {
-			JOptionPane.showMessageDialog(this, "Debe seleccionar una Laboral", "Aceptar/Rechazar Oferta Laboral",
+			JOptionPane.showMessageDialog(this, "Debe seleccionar una Oferta Laboral", "Aceptar/Rechazar Oferta Laboral",
 	                JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
