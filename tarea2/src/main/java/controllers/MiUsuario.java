@@ -63,7 +63,7 @@ public class MiUsuario extends HttpServlet {
 	        		try {
 	        			DtPostulacionArray postulacionesDePostulante = portOfertas.obtenerPostulacionesPorPostulante(user.getNickname());
 	        			if(postulacionesDePostulante != null) {
-		        			req.setAttribute("postulaciones", postulacionesDePostulante);
+		        			req.setAttribute("postulaciones", postulacionesDePostulante.getItem());
 		        		}
 		        		req.getRequestDispatcher("/WEB-INF/postulante/MiUsuario.jsp").forward(req, resp);
 	    			} catch (NicknameNoExisteException_Exception | UsuarioNoEsPostulanteException_Exception e) {
