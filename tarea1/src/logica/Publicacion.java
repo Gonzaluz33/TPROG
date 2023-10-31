@@ -86,7 +86,7 @@ public class Publicacion {
 		return fechaActual.isBefore(fechaVencimiento);
 	}
 	
-	 public DTPublicacion toDatatype() {
+	public DTPublicacion toDatatype() {
 	        DTPublicacion dtPublicacion = new DTPublicacion();
 	        dtPublicacion.setId(this.id);
 	        dtPublicacion.setCostoAsociado(this.costoAsociado);
@@ -101,6 +101,6 @@ public class Publicacion {
 	        	dtPublicacion.setDtTipo(this.tipo.toDataType());
 	        }	        
 	        return dtPublicacion;
-	    }
+    }
 	
 }

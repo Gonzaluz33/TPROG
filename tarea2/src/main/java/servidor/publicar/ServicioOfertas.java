@@ -31,14 +31,19 @@ public interface ServicioOfertas {
      * 
      * @param arg0
      * @return
-     *     returns servidor.publicar.DtPublicacionArray
+     *     returns servidor.publicar.DtOferta
+     * @throws OfertaNoExisteException_Exception
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioOfertas/obtenerPublicacionesPorBusquedaRequest", output = "http://publicar.servidor/ServicioOfertas/obtenerPublicacionesPorBusquedaResponse")
-    public DtPublicacionArray obtenerPublicacionesPorBusqueda(
+    @Action(input = "http://publicar.servidor/ServicioOfertas/obtenerDatosOfertaRequest", output = "http://publicar.servidor/ServicioOfertas/obtenerDatosOfertaResponse", fault = {
+        @FaultAction(className = OfertaNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioOfertas/obtenerDatosOferta/Fault/OfertaNoExisteException")
+    })
+    public DtOferta obtenerDatosOferta(
         @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
+        String arg0)
+        throws OfertaNoExisteException_Exception
+    ;
 
     /**
      * 
@@ -54,12 +59,32 @@ public interface ServicioOfertas {
      * 
      * @param arg0
      * @return
+     *     returns servidor.publicar.DtOfertaArray
+     * @throws NicknameNoExisteException_Exception
+     * @throws UsuarioNoEsEmpresaException_Exception
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.servidor/ServicioOfertas/obtenerOfertasVigentesDeEmpresaRequest", output = "http://publicar.servidor/ServicioOfertas/obtenerOfertasVigentesDeEmpresaResponse", fault = {
+        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioOfertas/obtenerOfertasVigentesDeEmpresa/Fault/NicknameNoExisteException"),
+        @FaultAction(className = UsuarioNoEsEmpresaException_Exception.class, value = "http://publicar.servidor/ServicioOfertas/obtenerOfertasVigentesDeEmpresa/Fault/UsuarioNoEsEmpresaException")
+    })
+    public DtOfertaArray obtenerOfertasVigentesDeEmpresa(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0)
+        throws NicknameNoExisteException_Exception, UsuarioNoEsEmpresaException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
+     * @return
      *     returns servidor.publicar.DtPublicacionArray
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioOfertas/obtenerPublicacionesPorKeywordsRequest", output = "http://publicar.servidor/ServicioOfertas/obtenerPublicacionesPorKeywordsResponse")
-    public DtPublicacionArray obtenerPublicacionesPorKeywords(
+    @Action(input = "http://publicar.servidor/ServicioOfertas/obtenerPublicacionesPorBusquedaRequest", output = "http://publicar.servidor/ServicioOfertas/obtenerPublicacionesPorBusquedaResponse")
+    public DtPublicacionArray obtenerPublicacionesPorBusqueda(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 
@@ -67,35 +92,27 @@ public interface ServicioOfertas {
      * 
      * @param arg0
      * @return
-     *     returns servidor.publicar.Publicacion
+     *     returns servidor.publicar.DtTipoPublicacion
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioOfertas/obtenerPublicacionAsociadaAOfertaRequest", output = "http://publicar.servidor/ServicioOfertas/obtenerPublicacionAsociadaAOfertaResponse")
-    public Publicacion obtenerPublicacionAsociadaAOferta(
+    @Action(input = "http://publicar.servidor/ServicioOfertas/obtenerDatosTipoPublicacionRequest", output = "http://publicar.servidor/ServicioOfertas/obtenerDatosTipoPublicacionResponse")
+    public DtTipoPublicacion obtenerDatosTipoPublicacion(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 
     /**
      * 
      * @param arg0
-     * @param arg1
      * @return
-     *     returns boolean
-     * @throws OfertaNoExisteException_Exception
+     *     returns servidor.publicar.DtPublicacionArray
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioOfertas/verificarPertenenciaOfertaRequest", output = "http://publicar.servidor/ServicioOfertas/verificarPertenenciaOfertaResponse", fault = {
-        @FaultAction(className = OfertaNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioOfertas/verificarPertenenciaOferta/Fault/OfertaNoExisteException")
-    })
-    public boolean verificarPertenenciaOferta(
+    @Action(input = "http://publicar.servidor/ServicioOfertas/obtenerPublicacionesDeEmpresaRequest", output = "http://publicar.servidor/ServicioOfertas/obtenerPublicacionesDeEmpresaResponse")
+    public DtPublicacionArray obtenerPublicacionesDeEmpresa(
         @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1)
-        throws OfertaNoExisteException_Exception
-    ;
+        String arg0);
 
     /**
      * 
@@ -116,12 +133,12 @@ public interface ServicioOfertas {
      * 
      * @param arg0
      * @return
-     *     returns servidor.publicar.DtTipoPublicacion
+     *     returns servidor.publicar.Publicacion
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioOfertas/obtenerDatosTipoPublicacionRequest", output = "http://publicar.servidor/ServicioOfertas/obtenerDatosTipoPublicacionResponse")
-    public DtTipoPublicacion obtenerDatosTipoPublicacion(
+    @Action(input = "http://publicar.servidor/ServicioOfertas/obtenerPublicacionAsociadaAOfertaRequest", output = "http://publicar.servidor/ServicioOfertas/obtenerPublicacionAsociadaAOfertaResponse")
+    public Publicacion obtenerPublicacionAsociadaAOferta(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 
@@ -148,34 +165,60 @@ public interface ServicioOfertas {
     /**
      * 
      * @param arg0
+     * @param arg1
+     * @return
+     *     returns servidor.publicar.DtPostulacion
+     * @throws NicknameNoExisteException_Exception
+     * @throws OfertaNoExisteException_Exception
+     * @throws UsuarioNoEsPostulanteException_Exception
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.servidor/ServicioOfertas/estaPostuladoAOfertaLaboralRequest", output = "http://publicar.servidor/ServicioOfertas/estaPostuladoAOfertaLaboralResponse", fault = {
+        @FaultAction(className = OfertaNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioOfertas/estaPostuladoAOfertaLaboral/Fault/OfertaNoExisteException"),
+        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioOfertas/estaPostuladoAOfertaLaboral/Fault/NicknameNoExisteException"),
+        @FaultAction(className = UsuarioNoEsPostulanteException_Exception.class, value = "http://publicar.servidor/ServicioOfertas/estaPostuladoAOfertaLaboral/Fault/UsuarioNoEsPostulanteException")
+    })
+    public DtPostulacion estaPostuladoAOfertaLaboral(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1)
+        throws NicknameNoExisteException_Exception, OfertaNoExisteException_Exception, UsuarioNoEsPostulanteException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
      * @return
      *     returns servidor.publicar.DtPublicacionArray
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioOfertas/obtenerPublicacionesDeEmpresaRequest", output = "http://publicar.servidor/ServicioOfertas/obtenerPublicacionesDeEmpresaResponse")
-    public DtPublicacionArray obtenerPublicacionesDeEmpresa(
+    @Action(input = "http://publicar.servidor/ServicioOfertas/obtenerPublicacionesPorKeywordsRequest", output = "http://publicar.servidor/ServicioOfertas/obtenerPublicacionesPorKeywordsResponse")
+    public DtPublicacionArray obtenerPublicacionesPorKeywords(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 
     /**
      * 
      * @param arg0
+     * @param arg1
      * @return
-     *     returns servidor.publicar.DtOfertaArray
-     * @throws NicknameNoExisteException_Exception
-     * @throws UsuarioNoEsEmpresaException_Exception
+     *     returns boolean
+     * @throws OfertaNoExisteException_Exception
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioOfertas/obtenerOfertasVigentesDeEmpresaRequest", output = "http://publicar.servidor/ServicioOfertas/obtenerOfertasVigentesDeEmpresaResponse", fault = {
-        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioOfertas/obtenerOfertasVigentesDeEmpresa/Fault/NicknameNoExisteException"),
-        @FaultAction(className = UsuarioNoEsEmpresaException_Exception.class, value = "http://publicar.servidor/ServicioOfertas/obtenerOfertasVigentesDeEmpresa/Fault/UsuarioNoEsEmpresaException")
+    @Action(input = "http://publicar.servidor/ServicioOfertas/verificarPertenenciaOfertaRequest", output = "http://publicar.servidor/ServicioOfertas/verificarPertenenciaOfertaResponse", fault = {
+        @FaultAction(className = OfertaNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioOfertas/verificarPertenenciaOferta/Fault/OfertaNoExisteException")
     })
-    public DtOfertaArray obtenerOfertasVigentesDeEmpresa(
+    public boolean verificarPertenenciaOferta(
         @WebParam(name = "arg0", partName = "arg0")
-        String arg0)
-        throws NicknameNoExisteException_Exception, UsuarioNoEsEmpresaException_Exception
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1)
+        throws OfertaNoExisteException_Exception
     ;
 
     /**
@@ -212,17 +255,12 @@ public interface ServicioOfertas {
     /**
      * 
      * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     * @throws KeywordExisteException_Exception
+     *     returns servidor.publicar.DtTipoPublicacionArray
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioOfertas/obtenerKeywordsRequest", output = "http://publicar.servidor/ServicioOfertas/obtenerKeywordsResponse", fault = {
-        @FaultAction(className = KeywordExisteException_Exception.class, value = "http://publicar.servidor/ServicioOfertas/obtenerKeywords/Fault/KeywordExisteException")
-    })
-    public StringArray obtenerKeywords()
-        throws KeywordExisteException_Exception
-    ;
+    @Action(input = "http://publicar.servidor/ServicioOfertas/obtenerTiposRequest", output = "http://publicar.servidor/ServicioOfertas/obtenerTiposResponse")
+    public DtTipoPublicacionArray obtenerTipos();
 
     /**
      * 
@@ -270,29 +308,16 @@ public interface ServicioOfertas {
     /**
      * 
      * @return
-     *     returns servidor.publicar.DtTipoPublicacionArray
+     *     returns net.java.dev.jaxb.array.StringArray
+     * @throws KeywordExisteException_Exception
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioOfertas/obtenerTiposRequest", output = "http://publicar.servidor/ServicioOfertas/obtenerTiposResponse")
-    public DtTipoPublicacionArray obtenerTipos();
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns servidor.publicar.DtOferta
-     * @throws OfertaNoExisteException_Exception
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioOfertas/obtenerDatosOfertaRequest", output = "http://publicar.servidor/ServicioOfertas/obtenerDatosOfertaResponse", fault = {
-        @FaultAction(className = OfertaNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioOfertas/obtenerDatosOferta/Fault/OfertaNoExisteException")
+    @Action(input = "http://publicar.servidor/ServicioOfertas/obtenerKeywordsRequest", output = "http://publicar.servidor/ServicioOfertas/obtenerKeywordsResponse", fault = {
+        @FaultAction(className = KeywordExisteException_Exception.class, value = "http://publicar.servidor/ServicioOfertas/obtenerKeywords/Fault/KeywordExisteException")
     })
-    public DtOferta obtenerDatosOferta(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0)
-        throws OfertaNoExisteException_Exception
+    public StringArray obtenerKeywords()
+        throws KeywordExisteException_Exception
     ;
 
 }

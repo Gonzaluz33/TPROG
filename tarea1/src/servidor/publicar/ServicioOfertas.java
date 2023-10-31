@@ -177,6 +177,13 @@ public class ServicioOfertas {
     	DTPostulacion[] postulaciones = aux.toArray(new DTPostulacion[0]);
     	return postulaciones;
     }
+    
+    @WebMethod 
+    public DTPostulacion estaPostuladoAOfertaLaboral(String nicknameUsuario, String nombreOfertaLaboral) throws OfertaNoExisteException, NicknameNoExisteException, UsuarioNoEsPostulanteException {
+    	Fabrica factory = Fabrica.getInstance();
+    	IControladorOfertas ICO = factory.getIControladorOfertas();
+    	return ICO.estaPostuladoAOfertaLaboral(nicknameUsuario, nombreOfertaLaboral);
+    }
 
     //ALTAS
     @WebMethod

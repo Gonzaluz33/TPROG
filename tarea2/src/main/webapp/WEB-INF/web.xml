@@ -12,16 +12,6 @@
   </servlet>
   <servlet>
     <description></description>
-    <display-name>ConsultaOferta</display-name>
-    <servlet-name>ConsultaOferta</servlet-name>
-    <servlet-class>controllers.ConsultaOferta</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ConsultaOferta</servlet-name>
-    <url-pattern>/ConsultaOferta</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>ConsultaPaquete</display-name>
     <servlet-name>ConsultaPaquete</servlet-name>
     <servlet-class>controllers.ConsultaPaquete</servlet-class>
@@ -111,5 +101,15 @@
   <servlet-mapping>
     <servlet-name>MostrarTipo</servlet-name>
     <url-pattern>/MostrarTipo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ConsultaOferta</display-name>
+    <servlet-name>ConsultaOferta</servlet-name>
+    <servlet-class>controllers.ConsultaOferta</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConsultaOferta</servlet-name>
+    <url-pattern>/ConsultaOferta</url-pattern>
   </servlet-mapping>
 </web-app>

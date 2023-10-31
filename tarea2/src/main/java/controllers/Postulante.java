@@ -7,10 +7,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.java.dev.jaxb.array.StringArray;
+import servidor.publicar.DtPublicacion;
 import servidor.publicar.DtPublicacionArray;
 import servidor.publicar.DtUsuario;
+import servidor.publicar.EnumEstadoOferta;
 import servidor.publicar.KeywordExisteException_Exception;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Servlet implementation class Postulante
@@ -27,6 +32,13 @@ public class Postulante extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
+    public static List<DtPublicacion> filtrarPublicacionesConfirmadas(List<DtPublicacion> publicaciones) {
+        return publicaciones.stream()
+                .filter(publicacion -> EnumEstadoOferta.CONFIRMADA.equals(publicacion.getDtOferta().getEstado()))
+                .collect(Collectors.toList());
+    }
+
+    
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, KeywordExisteException_Exception {
     	
     	servidor.publicar.ServicioOfertasService serviceOfertas = new servidor.publicar.ServicioOfertasService();
@@ -36,29 +48,27 @@ public class Postulante extends HttpServlet {
     	
         StringArray keywords = portOfertas.obtenerKeywords();
 		req.setAttribute("keywords", keywords.getItem());
-		/*
-		Gson gsonAux = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
-				.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
-
+		
+	
 		String busqueda = req.getParameter("busqueda");
 		String[] keywordsSeleccionadas = req.getParameterValues("keywords");
-		List<DTPublicacion> publicaciones = new ArrayList<>();
+		String keywordsString = "";
+		if (keywordsSeleccionadas != null) {
+		    keywordsString = String.join("/", keywordsSeleccionadas);
+		}
+		List<DtPublicacion> publicaciones = new ArrayList<>();
 
 		if (busqueda != null && !busqueda.isEmpty()) {
-			publicaciones = ICP.obtenerPublicacionesPorBusqueda(busqueda);
+			publicaciones = portOfertas.obtenerPublicacionesPorBusqueda(busqueda).getItem();
 		} else if (keywordsSeleccionadas != null && keywordsSeleccionadas.length > 0) {
-			List<String> keywordsAFiltrar = new ArrayList<>(Arrays.asList(keywordsSeleccionadas));
-			publicaciones = ICP.obtenerPublicacionesPorKeywords(keywordsAFiltrar);
+			publicaciones = portOfertas.obtenerPublicacionesPorKeywords(keywordsString).getItem();
 		} else {
-
-			publicaciones = ICP.obtenerPublicaciones();
+			publicaciones = portOfertas.obtenerPublicaciones().getItem();
 		}
 
-		List<DTPublicacion> pubFiltered = filtrarPublicacionesConfirmadas(publicaciones);
-		String publicacionesJSON = gsonAux.toJson(pubFiltered);*/
+		List<DtPublicacion> pubFiltered = filtrarPublicacionesConfirmadas(publicaciones);
+		req.setAttribute("publicaciones", pubFiltered);
 		
-		DtPublicacionArray publicaciones = portOfertas.obtenerPublicaciones();
-		req.setAttribute("publicaciones", publicaciones.getItem());
 		boolean esValidoPostulante = false;
 		Cookie[] cookies = req.getCookies();
 		String jwtCookieName = "jwt";
