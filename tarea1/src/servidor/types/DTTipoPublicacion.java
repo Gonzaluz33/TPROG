@@ -1,6 +1,7 @@
 package servidor.types;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -47,8 +48,8 @@ public class DTTipoPublicacion {
 		return descripcion;
 	}
 	
-	public Integer getDuracion() {
-		return duracionPublicacion;
+	public String getDuracion() {
+		return duracionPublicacion.toString();
 	}
 	
 	public Integer getCosto() {

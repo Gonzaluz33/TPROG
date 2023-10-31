@@ -54,29 +54,34 @@ public class Jwt {
 	public String tipoUsuario(String jwt){
 		  String out = "invalido";
 	      TokenBlacklist blacklist = TokenBlacklist.getInstance();
-		  if (!blacklist.isTokenBlacklisted(jwt)) {
-			    try{
-					Key secretKey = Keys.hmacShaKeyFor(secret_Key.getBytes());
-					Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(jwt);
-					Claims claims = claimsJws.getBody();
-					String correo = (String) claims.get("email");
-					Fabrica factory = Fabrica.getInstance();
-					IControladorUsuario ICU = factory.getIControladorUsuario();
-					if (ICU.usuarioExiste(correo)) {
-						DTUsuario usuario = ICU.consultarUsuarioPorCorreo(correo);
-						if (usuario instanceof DTEmpresa) {
-							out = "empresa";
-						} else if (usuario instanceof DTPostulante) {
-							out = "postulante";
+		  if(jwt != null) {
+			  if (!blacklist.isTokenBlacklisted(jwt)) {
+				    try{
+						Key secretKey = Keys.hmacShaKeyFor(secret_Key.getBytes());
+						Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(jwt);
+						Claims claims = claimsJws.getBody();
+						String correo = (String) claims.get("email");
+						Fabrica factory = Fabrica.getInstance();
+						IControladorUsuario ICU = factory.getIControladorUsuario();
+						if (ICU.usuarioExiste(correo)) {
+							DTUsuario usuario = ICU.consultarUsuarioPorCorreo(correo);
+							if (usuario instanceof DTEmpresa) {
+								out = "empresa";
+							} else if (usuario instanceof DTPostulante) {
+								out = "postulante";
+							}
+						} else {
+							
 						}
-					} else {
+					} catch (Exception e) {
 						
 					}
-				} catch (Exception e) {
-					
 				}
-			}
-			return out;
+		  }
+		  else {
+			  out = "visitante";
+		  }
+		return out;
 	    }
 	
 	public String obtenerCorreoPorJWT(String jwt){

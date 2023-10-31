@@ -12,16 +12,6 @@
   </servlet>
   <servlet>
     <description></description>
-    <display-name>ConsultaUsuario</display-name>
-    <servlet-name>ConsultaUsuario</servlet-name>
-    <servlet-class>ConsultaUsuario</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ConsultaUsuario</servlet-name>
-    <url-pattern>/ConsultaUsuario</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>ConsultaOferta</display-name>
     <servlet-name>ConsultaOferta</servlet-name>
     <servlet-class>controllers.ConsultaOferta</servlet-class>
@@ -39,16 +29,6 @@
   <servlet-mapping>
     <servlet-name>ConsultaPaquete</servlet-name>
     <url-pattern>/ConsultaPaquete</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>ConsultaTipos</display-name>
-    <servlet-name>ConsultaTipos</servlet-name>
-    <servlet-class>controllers.ConsultaTipos</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ConsultaTipos</servlet-name>
-    <url-pattern>/ConsultaTipos</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -91,5 +71,45 @@
   <servlet-mapping>
     <servlet-name>MiUsuario</servlet-name>
     <url-pattern>/MiUsuario</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ConsultaUsuario</display-name>
+    <servlet-name>ConsultaUsuario</servlet-name>
+    <servlet-class>controllers.ConsultaUsuario</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConsultaUsuario</servlet-name>
+    <url-pattern>/ConsultaUsuario</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MostrarUsuario</display-name>
+    <servlet-name>MostrarUsuario</servlet-name>
+    <servlet-class>controllers.MostrarUsuario</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MostrarUsuario</servlet-name>
+    <url-pattern>/MostrarUsuario</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ConsultaTipos</display-name>
+    <servlet-name>ConsultaTipos</servlet-name>
+    <servlet-class>controllers.ConsultaTipos</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConsultaTipos</servlet-name>
+    <url-pattern>/ConsultaTipos</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MostrarTipo</display-name>
+    <servlet-name>MostrarTipo</servlet-name>
+    <servlet-class>controllers.MostrarTipo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MostrarTipo</servlet-name>
+    <url-pattern>/MostrarTipo</url-pattern>
   </servlet-mapping>
 </web-app>
