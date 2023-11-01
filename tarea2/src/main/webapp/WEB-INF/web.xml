@@ -112,4 +112,34 @@
     <servlet-name>ConsultaOferta</servlet-name>
     <url-pattern>/ConsultaOferta</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ConsultaPostulacionAOferta</display-name>
+    <servlet-name>ConsultaPostulacionAOferta</servlet-name>
+    <servlet-class>controllers.ConsultaPostulacionAOferta</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConsultaPostulacionAOferta</servlet-name>
+    <url-pattern>/ConsultaPostulacionAOferta</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PostularAOferta</display-name>
+    <servlet-name>PostularAOferta</servlet-name>
+    <servlet-class>controllers.PostularAOferta</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PostularAOferta</servlet-name>
+    <url-pattern>/PostularAOferta</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MostrarOfertasAPostular</display-name>
+    <servlet-name>MostrarOfertasAPostular</servlet-name>
+    <servlet-class>controllers.MostrarOfertasAPostular</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MostrarOfertasAPostular</servlet-name>
+    <url-pattern>/MostrarOfertasAPostular</url-pattern>
+  </servlet-mapping>
 </web-app>

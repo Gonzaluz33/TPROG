@@ -140,6 +140,16 @@ public class ServicioUsuarios {
     	
     }
     
+    @WebMethod
+    public DTEmpresa[] listarEmpresas(){
+    	Fabrica factory = Fabrica.getInstance();
+		IControladorUsuario icontuser = factory.getIControladorUsuario();
+		List<DTEmpresa> todasLasEmpresas = icontuser.listarEmpresas();
+		DTEmpresa[] empresas = todasLasEmpresas.toArray(new DTEmpresa[0]);
+		return empresas;
+    	
+    }
+    
     //ALTAS
     @WebMethod
     public void altaEmpresa(String nickname, String nombre, String apellido, String email, String password, String nomEmpresa,
