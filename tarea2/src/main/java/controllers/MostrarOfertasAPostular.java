@@ -13,8 +13,8 @@ import utils.LocalDateTimeAdapter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,7 +30,6 @@ public class MostrarOfertasAPostular extends HttpServlet {
 	private static servidor.publicar.ServicioUsuariosService service = new servidor.publicar.ServicioUsuariosService();
 	private static servidor.publicar.ServicioUsuarios portUsuarios = service.getServicioUsuariosPort();
     private static CookiesUtils cookies = CookiesUtils.obtenerInstancia();
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -39,14 +38,10 @@ public class MostrarOfertasAPostular extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    public Set<DtOferta> filtrarOfertasConfirmadas(Set<DtOferta> ofertas) {
-        Set<DtOferta> ofertasConfirmadas = new HashSet<>();
-        for (DtOferta oferta : ofertas) {
-            if (EnumEstadoOferta.CONFIRMADA.equals(oferta.getEstado())) {
-                ofertasConfirmadas.add(oferta);
-            }
-        }
-        return ofertasConfirmadas;
+	public List<DtOferta> filtrarOfertasConfirmadas(List<DtOferta> ofertas) {
+    	return ofertas.stream()
+        .filter(oferta -> EnumEstadoOferta.CONFIRMADA.equals(oferta.getEstado()))
+        .collect(Collectors.toList());
     }
     
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, NicknameNoExisteException_Exception, UsuarioNoEsEmpresaException_Exception {
@@ -54,8 +49,8 @@ public class MostrarOfertasAPostular extends HttpServlet {
     	if(jwt!=null) {
     		String nicknameEmpresa = request.getParameter("Empresa");
     		String tipoUsuario = portUsuarios.tipoUsuario(jwt);
-			Set<DtOferta> ofertas = (Set<DtOferta>) portOfertas.obtenerOfertasVigentesDeEmpresa(nicknameEmpresa).getItem();
-			Set<DtOferta> ofertasConfirmadas = filtrarOfertasConfirmadas(ofertas);
+			List<DtOferta> ofertas = portOfertas.obtenerOfertasVigentesDeEmpresa(nicknameEmpresa).getItem();
+			List<DtOferta> ofertasConfirmadas = filtrarOfertasConfirmadas(ofertas);
 			Gson gsonAux = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
     				.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
     		String ofertasJson = gsonAux.toJson(ofertasConfirmadas);

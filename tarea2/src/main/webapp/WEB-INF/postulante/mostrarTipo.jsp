@@ -56,7 +56,7 @@
                         <p class="m-0"><span class="fw-bold">Exposición: </span><%= tipo.getExposicion() %></p>
                         <p class="m-0"><span class="fw-bold">Duración: </span><%= tipo.getDuracionPublicacion() %> Días</p>
                         <p class="m-0"><span class="fw-bold">Costo: </span><%= tipo.getCosto() %></p>
-                        <p class="m-0"><span class="fw-bold">Fecha de Alta: </span><%= tipo.getFechaAlta().toString() %></p>
+                        <p class="m-0"><span class="fw-bold">Fecha de Alta: </span><%= tipo.getFechaAlta()%></p>
                     </div>
                 </div>
             </div>

@@ -25,7 +25,7 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "localDateTime")
+@XmlType(name = "CustomlocalDateTime", namespace = "http://publicar.servidor/")
 public class LocalDateTime {
 
 

@@ -142,4 +142,14 @@
     <servlet-name>MostrarOfertasAPostular</servlet-name>
     <url-pattern>/MostrarOfertasAPostular</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ConfirmarPostulacion</display-name>
+    <servlet-name>ConfirmarPostulacion</servlet-name>
+    <servlet-class>controllers.ConfirmarPostulacion</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConfirmarPostulacion</servlet-name>
+    <url-pattern>/ConfirmarPostulacion</url-pattern>
+  </servlet-mapping>
 </web-app>

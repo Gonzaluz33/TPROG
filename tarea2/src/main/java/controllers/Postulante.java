@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.java.dev.jaxb.array.StringArray;
 import servidor.publicar.DtPublicacion;
-import servidor.publicar.DtPublicacionArray;
 import servidor.publicar.DtUsuario;
 import servidor.publicar.EnumEstadoOferta;
 import servidor.publicar.KeywordExisteException_Exception;

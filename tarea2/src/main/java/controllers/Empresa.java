@@ -1,6 +1,8 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,9 +11,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.java.dev.jaxb.array.StringArray;
-import servidor.publicar.DtPublicacionArray;
-import servidor.publicar.DtUsuario;
-import servidor.publicar.KeywordExisteException_Exception;
+import servidor.publicar.*;
+import java.util.ArrayList;
 /**
  * Servlet implementation class Empresa
  */
@@ -27,12 +28,12 @@ public class Empresa extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    /*
-    public static List<DTPublicacion> filtrarPublicacionesConfirmadas(List<DTPublicacion> publicaciones) {
+    
+    public static List<DtPublicacion> filtrarPublicacionesConfirmadas(List<DtPublicacion> publicaciones) {
         return publicaciones.stream()
                 .filter(publicacion -> EnumEstadoOferta.CONFIRMADA.equals(publicacion.getDtOferta().getEstado()))
                 .collect(Collectors.toList());
-    }*/
+    }
     
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, KeywordExisteException_Exception, IOException {
     	
@@ -44,29 +45,26 @@ public class Empresa extends HttpServlet {
         StringArray keywords = portOfertas.obtenerKeywords();
 		req.setAttribute("keywords", keywords.getItem());
 
-		/*
-		Gson gsonAux = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
-				.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
-
 		String busqueda = req.getParameter("busqueda");
 		String[] keywordsSeleccionadas = req.getParameterValues("keywords");
-		List<DTPublicacion> publicaciones = new ArrayList<>();
-
-		if (busqueda != null && !busqueda.isEmpty()) {
-			publicaciones = ICP.obtenerPublicacionesPorBusqueda(busqueda);
-		} else if (keywordsSeleccionadas != null && keywordsSeleccionadas.length > 0) {
-			List<String> keywordsAFiltrar = new ArrayList<>(Arrays.asList(keywordsSeleccionadas));
-			publicaciones = ICP.obtenerPublicacionesPorKeywords(keywordsAFiltrar);
-		} else {
-
-			publicaciones = ICP.obtenerPublicaciones();
+		String keywordsString = "";
+		if (keywordsSeleccionadas != null) {
+		    keywordsString = String.join("/", keywordsSeleccionadas);
 		}
 		
-		List<DTPublicacion> pubFiltered = filtrarPublicacionesConfirmadas(publicaciones);
-		String publicacionesJSON = gsonAux.toJson(pubFiltered);*/
+		List<DtPublicacion> publicaciones = new ArrayList<>();
+
+		if (busqueda != null && !busqueda.isEmpty()) {
+			publicaciones = portOfertas.obtenerPublicacionesPorBusqueda(busqueda).getItem();
+		} else if (keywordsSeleccionadas != null && keywordsSeleccionadas.length > 0) {
+			publicaciones = portOfertas.obtenerPublicacionesPorKeywords(keywordsString).getItem();
+		} else {
+
+			publicaciones = portOfertas.obtenerPublicaciones().getItem();
+		}
 		
-		DtPublicacionArray publicaciones = portOfertas.obtenerPublicaciones();
-		req.setAttribute("publicaciones", publicaciones.getItem());
+		List<DtPublicacion> pubFiltered = filtrarPublicacionesConfirmadas(publicaciones);
+		req.setAttribute("publicaciones", pubFiltered);
 		
 		boolean esValidoEmpresa = false;
 		Cookie[] cookies = req.getCookies();
