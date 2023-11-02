@@ -152,4 +152,24 @@
     <servlet-name>ConfirmarPostulacion</servlet-name>
     <url-pattern>/ConfirmarPostulacion</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AltaOfertaLaboral</display-name>
+    <servlet-name>AltaOfertaLaboral</servlet-name>
+    <servlet-class>controllers.AltaOfertaLaboral</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AltaOfertaLaboral</servlet-name>
+    <url-pattern>/AltaOfertaLaboral</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MostrarPostulaciones</display-name>
+    <servlet-name>MostrarPostulaciones</servlet-name>
+    <servlet-class>controllers.MostrarPostulaciones</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MostrarPostulaciones</servlet-name>
+    <url-pattern>/MostrarPostulaciones</url-pattern>
+  </servlet-mapping>
 </web-app>

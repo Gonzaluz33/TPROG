@@ -78,7 +78,7 @@ public class MiUsuario extends HttpServlet {
 	            		req.setAttribute("correo", user.getCorreo());
 	            		DtPublicacionArray publicaciones = portOfertas.obtenerPublicacionesDeEmpresa(user.getNickname());
 	            		if(publicaciones != null && !publicaciones.getItem().isEmpty()) {
-	            			req.setAttribute("publicaciones", publicaciones);
+	            			req.setAttribute("publicaciones", publicaciones.getItem());
 	            		}
 	            		
 	        			req.getRequestDispatcher("/WEB-INF/empresa/MiUsuario.jsp").forward(req, resp);
