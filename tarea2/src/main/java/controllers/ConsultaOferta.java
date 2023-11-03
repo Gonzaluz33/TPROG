@@ -34,7 +34,7 @@ public class ConsultaOferta extends HttpServlet {
     // TODO Auto-generated constructor stub
   }
 
-  private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+  private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NicknameNoExisteException_Exception, UsuarioNoEsPostulanteException_Exception {
   	servidor.publicar.ServicioUsuariosService service = new servidor.publicar.ServicioUsuariosService();
 	servidor.publicar.ServicioUsuarios portUsuarios = service.getServicioUsuariosPort();
 	servidor.publicar.ServicioOfertasService serviceOfertas = new servidor.publicar.ServicioOfertasService();
@@ -42,32 +42,27 @@ public class ConsultaOferta extends HttpServlet {
 	CookiesUtils cookies = CookiesUtils.obtenerInstancia();
     String jwt = cookies.obtenerJWTEnCookies(req, resp);
     String tipoUsuario = "visitante";
-    
     String nombreOferta = req.getParameter("nombreOferta");
     if (!nombreOferta.isEmpty()) {
       try {    
-        Gson gsonAux = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
-            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
-        //DtPublicacion publicacion = portOfertas.obtenerPublicacionAsociadaAOferta(nombreOferta).toDataType();
+        DtPublicacion publicacion = portOfertas.obtenerPublicacionAsociadaAOferta(nombreOferta);
         DtOferta oferta = portOfertas.obtenerDatosOferta(nombreOferta);
-        //String publicacionJSON = gsonAux.toJson(publicacion);
-        //req.setAttribute("publicacion", publicacionJSON);
+        req.setAttribute("publicacion", publicacion);
         req.setAttribute("fecha", oferta.getFechaAlta());
-        
         if (jwt != null) {
           DtUsuario user = portUsuarios.obtenerDatosDeUsuarioJWT(jwt);
           tipoUsuario = portUsuarios.tipoUsuario(jwt);
           req.setAttribute("imgPerfil", (String) user.getUrlImagen());
           if (user instanceof DtPostulante) {
-            DtPostulacion mostrarPostulacion = null;
-            try {
-              mostrarPostulacion = portOfertas.estaPostuladoAOfertaLaboral(user.getNickname(), oferta.getNombre());
-            } catch (NicknameNoExisteException_Exception | OfertaNoExisteException_Exception | UsuarioNoEsPostulanteException_Exception e) {
-              // TODO: handle exception
-            }
-            if (mostrarPostulacion != null) {
-              String mostrarPostulacionJSON = gsonAux.toJson(mostrarPostulacion);
-              req.setAttribute("postulacion", mostrarPostulacionJSON);
+        	boolean  estaPostulado = portOfertas.estaPostuladoAOfertaBoolean(user.getNickname(), oferta.getNombre());  
+            if (estaPostulado) {
+            	DtPostulacion mostrarPostulacion = null;
+                try {
+                  mostrarPostulacion = portOfertas.estaPostuladoAOfertaLaboral(user.getNickname(), oferta.getNombre());
+                } catch (NicknameNoExisteException_Exception | OfertaNoExisteException_Exception | UsuarioNoEsPostulanteException_Exception e) {
+                  // TODO: handle exception
+                }
+              req.setAttribute("postulacion", mostrarPostulacion);
             }
           }
         }
@@ -93,7 +88,13 @@ public class ConsultaOferta extends HttpServlet {
    */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    processRequest(request, response);
+    try {
+		processRequest(request, response);
+	} catch (ServletException | IOException | NicknameNoExisteException_Exception
+			| UsuarioNoEsPostulanteException_Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
   }
 
   /**
@@ -101,6 +102,12 @@ public class ConsultaOferta extends HttpServlet {
    */
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    processRequest(request, response);
+    try {
+		processRequest(request, response);
+	} catch (ServletException | IOException | NicknameNoExisteException_Exception
+			| UsuarioNoEsPostulanteException_Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
   }
 }

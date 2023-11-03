@@ -3,9 +3,7 @@ import java.time.LocalDate;
 
 import excepciones.PaqueteExisteException;
 import excepciones.TipoPublicExisteException;
-
 import java.util.List;
-
 import servidor.types.DTPaquete;
 import servidor.types.DTPublicacion;
 import servidor.types.DTTipoPublicacion;
@@ -21,6 +19,6 @@ public interface IControladorPublicaciones {
 	 public List<DTPublicacion> obtenerPublicaciones();
 	 public List<DTPublicacion> obtenerPublicacionesPorBusqueda(String busqueda);
 	 public List<DTPublicacion> obtenerPublicacionesPorKeywords(List<String> keywords);
-	 public Publicacion obtenerPublicacionAsociadaAOferta(String nombreOferta);
+	 public DTPublicacion obtenerPublicacionAsociadaAOferta(String nombreOferta);
 	 public List<DTPublicacion> obtenerPublicacionesDeEmpresa(String nicknameEmpresa);
 }

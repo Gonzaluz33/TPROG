@@ -17,13 +17,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-          <jsp:include page="/WEB-INF/template/head.jsp"/>
-           <% Gson gson = new GsonBuilder()
-     		    .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
-     		    .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
-     		    .create(); 
-        %>
-        
+          <jsp:include page="/WEB-INF/template/head.jsp"/>   
     </head>
     <body>
         <header>
@@ -39,8 +33,8 @@
        <main>
 		    <jsp:include page="/WEB-INF/template/NavBarVisitante.jsp" />
 		    <div class="container mt-3">
-		        <%  String publicacionJSON = (String) request.getAttribute("publicacion");
-		            DtPublicacion publicacion = gson.fromJson(publicacionJSON, DtPublicacion.class);
+		        <% 
+		            DtPublicacion publicacion = (DtPublicacion) request.getAttribute("publicacion");
 		            if(publicacion != null){
 		        %>
 		            <div class="card mb-3">
@@ -58,11 +52,8 @@
 		                    <p class="m-0"><span class="fw-bold">Horario:</span> <%= publicacion.getDtOferta().getHorario() %> </p>
 		                    <p class="m-0"><span class="fw-bold">Departamento:</span> <%= publicacion.getDtOferta().getDepartamento() %> </p>
 		                    <p class="m-0"><span class="fw-bold">Ciudad:</span> <%= publicacion.getDtOferta().getCiudad() %> </p>
-		                    <p class="m-0"><span class="fw-bold">Fecha de alta:</span> <%
-			                    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-									LocalDate fecha = (LocalDate) request.getAttribute("fecha");
-				                     %> 
-				                     <%=fecha.format(formatter) %></p>
+		                    <p class="m-0"><span class="fw-bold">Fecha de alta:</span> 
+				                     <%=publicacion.getFechaAlta().toString()%></p>
 		                </div>
 		                <div class="card-footer">
 		                    

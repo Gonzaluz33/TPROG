@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for dtPostulacion complex type.
+ * <p>Clase Java para dtPostulacion complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>{@code
  * <complexType name="dtPostulacion">
@@ -18,7 +18,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *       <sequence>
  *         <element name="nicknamePostulante" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="nombreOfertaLaboral" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         <element name="fecha" type="{http://publicar.servidor/}localDateTime" minOccurs="0"/>
+ *         <element name="fecha" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="cvReducido" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="motivacion" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       </sequence>
@@ -41,12 +41,12 @@ public class DtPostulacion {
 
     protected String nicknamePostulante;
     protected String nombreOfertaLaboral;
-    protected LocalDateTime fecha;
+    protected String fecha;
     protected String cvReducido;
     protected String motivacion;
 
     /**
-     * Gets the value of the nicknamePostulante property.
+     * Obtiene el valor de la propiedad nicknamePostulante.
      * 
      * @return
      *     possible object is
@@ -58,7 +58,7 @@ public class DtPostulacion {
     }
 
     /**
-     * Sets the value of the nicknamePostulante property.
+     * Define el valor de la propiedad nicknamePostulante.
      * 
      * @param value
      *     allowed object is
@@ -70,7 +70,7 @@ public class DtPostulacion {
     }
 
     /**
-     * Gets the value of the nombreOfertaLaboral property.
+     * Obtiene el valor de la propiedad nombreOfertaLaboral.
      * 
      * @return
      *     possible object is
@@ -82,7 +82,7 @@ public class DtPostulacion {
     }
 
     /**
-     * Sets the value of the nombreOfertaLaboral property.
+     * Define el valor de la propiedad nombreOfertaLaboral.
      * 
      * @param value
      *     allowed object is
@@ -94,31 +94,31 @@ public class DtPostulacion {
     }
 
     /**
-     * Gets the value of the fecha property.
+     * Obtiene el valor de la propiedad fecha.
      * 
      * @return
      *     possible object is
-     *     {@link LocalDateTime }
+     *     {@link String }
      *     
      */
-    public LocalDateTime getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
     /**
-     * Sets the value of the fecha property.
+     * Define el valor de la propiedad fecha.
      * 
      * @param value
      *     allowed object is
-     *     {@link LocalDateTime }
+     *     {@link String }
      *     
      */
-    public void setFecha(LocalDateTime value) {
+    public void setFecha(String value) {
         this.fecha = value;
     }
 
     /**
-     * Gets the value of the cvReducido property.
+     * Obtiene el valor de la propiedad cvReducido.
      * 
      * @return
      *     possible object is
@@ -130,7 +130,7 @@ public class DtPostulacion {
     }
 
     /**
-     * Sets the value of the cvReducido property.
+     * Define el valor de la propiedad cvReducido.
      * 
      * @param value
      *     allowed object is
@@ -142,7 +142,7 @@ public class DtPostulacion {
     }
 
     /**
-     * Gets the value of the motivacion property.
+     * Obtiene el valor de la propiedad motivacion.
      * 
      * @return
      *     possible object is
@@ -154,7 +154,7 @@ public class DtPostulacion {
     }
 
     /**
-     * Sets the value of the motivacion property.
+     * Define el valor de la propiedad motivacion.
      * 
      * @param value
      *     allowed object is

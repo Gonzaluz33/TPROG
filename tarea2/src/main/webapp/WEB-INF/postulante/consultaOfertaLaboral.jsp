@@ -20,11 +20,6 @@
 
 <head>
      <jsp:include page="/WEB-INF/template/head.jsp"/>
-       <% Gson gson = new GsonBuilder()
-     		    .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
-     		    .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
-     		    .create(); 
-        %>
          <%   String imgPerfilJSON = (String) request.getAttribute("imgPerfil");
 		 %>
 </head>
@@ -52,8 +47,8 @@
     </header>
     <main>
          <jsp:include page="/WEB-INF/template/NavBarPostulante.jsp"/>
-          <%  String publicacionJSON = (String) request.getAttribute("publicacion");
-		            DtPublicacion publicacion = gson.fromJson(publicacionJSON, DtPublicacion.class);
+          <%
+		            DtPublicacion publicacion = (DtPublicacion) request.getAttribute("publicacion");
 		            if(publicacion != null){
 		        %>
         <div class="p-3 mt-5 d-flex flex-column">
@@ -81,11 +76,8 @@
                                
                             </div>
                             <div class="row d-flex  mt-3">
-                                <p class="m-0"><span class="fw-bold">Fecha de alta:</span>  <%
-			                    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-									LocalDate fecha = (LocalDate) request.getAttribute("fecha");
-				                     %> 
-				                     <%=fecha.format(formatter) %></p>
+                                <p class="m-0"><span class="fw-bold">Fecha de alta:</span>
+				                     <%=publicacion.getFechaAlta().toString() %></p>
                             </div>
                         
                             <div class="row d-flex  mt-3">
@@ -97,8 +89,8 @@
                         </div>
             	</div>
             </div>
-              <%  String postulacionJSON = (String) request.getAttribute("postulacion");
-			    DtPostulacion postulacion = gson.fromJson(postulacionJSON, DtPostulacion.class);
+              <% 
+			    DtPostulacion postulacion = (DtPostulacion) request.getAttribute("postulacion");
 			    if(postulacion != null){
 			%>
 			    <div class="container mt-5 mb-5">

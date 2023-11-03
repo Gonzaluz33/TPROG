@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -13,6 +15,7 @@ public class DTTipoPublicacion {
 	private String descripcion;
 	private Integer duracionPublicacion;
 	private Integer costo;
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	private LocalDate  fechaAlta;
 	private int exposicion;
 	

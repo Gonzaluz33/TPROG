@@ -122,8 +122,8 @@ public class ControladorPublicaciones implements IControladorPublicaciones {
             .collect(Collectors.toList());
     }
 
-    public Publicacion obtenerPublicacionAsociadaAOferta(String nombreOferta) {
+    public DTPublicacion obtenerPublicacionAsociadaAOferta(String nombreOferta) {
         ManejadorPublicaciones manejadorPublicaciones = ManejadorPublicaciones.getInstance();
-        return manejadorPublicaciones.obtenerPublicacionAsociadaAOferta(nombreOferta);
+        return manejadorPublicaciones.obtenerPublicacionAsociadaAOferta(nombreOferta).toDatatype();
     }
 }

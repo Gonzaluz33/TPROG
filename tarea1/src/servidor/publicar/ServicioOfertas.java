@@ -123,7 +123,7 @@ public class ServicioOfertas {
     
     //funciona
     @WebMethod
-    public Publicacion obtenerPublicacionAsociadaAOferta(String nombreOferta) {
+    public DTPublicacion obtenerPublicacionAsociadaAOferta(String nombreOferta) {
     	Fabrica factory = Fabrica.getInstance();
     	IControladorPublicaciones ICP = factory.getIControladorPublicaciones();
     	return ICP.obtenerPublicacionAsociadaAOferta(nombreOferta);
@@ -176,6 +176,18 @@ public class ServicioOfertas {
     	List<DTPostulacion> aux =  ICO.obtenerPostulacionesPorPostulante(nicknamePostulante);
     	DTPostulacion[] postulaciones = aux.toArray(new DTPostulacion[0]);
     	return postulaciones;
+    }
+    
+    @WebMethod 
+    public boolean estaPostuladoAOfertaBoolean(String nicknameUsuario, String nombreOfertaLaboral) throws OfertaNoExisteException, NicknameNoExisteException, UsuarioNoEsPostulanteException {
+    	boolean out = false;
+    	Fabrica factory = Fabrica.getInstance();
+    	IControladorOfertas ICO = factory.getIControladorOfertas();
+    	DTPostulacion esta = ICO.estaPostuladoAOfertaLaboral(nicknameUsuario, nombreOfertaLaboral);
+    	if(esta != null) {
+    		out = true;
+    	}
+    	return out;
     }
     
     @WebMethod 

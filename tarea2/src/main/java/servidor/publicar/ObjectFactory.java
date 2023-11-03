@@ -120,16 +120,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link LocalDate }
-     * 
-     * @return
-     *     the new instance of {@link LocalDate }
-     */
-    public LocalDate createLocalDate() {
-        return new LocalDate();
-    }
-
-    /**
      * Create an instance of {@link DtPostulacion }
      * 
      * @return
@@ -137,16 +127,6 @@ public class ObjectFactory {
      */
     public DtPostulacion createDtPostulacion() {
         return new DtPostulacion();
-    }
-
-    /**
-     * Create an instance of {@link LocalDateTime }
-     * 
-     * @return
-     *     the new instance of {@link LocalDateTime }
-     */
-    public LocalDateTime createLocalDateTime() {
-        return new LocalDateTime();
     }
 
     /**
@@ -160,6 +140,16 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link LocalDateTime }
+     * 
+     * @return
+     *     the new instance of {@link LocalDateTime }
+     */
+    public LocalDateTime createLocalDateTime() {
+        return new LocalDateTime();
+    }
+
+    /**
      * Create an instance of {@link ArrayList }
      * 
      * @return
@@ -167,36 +157,6 @@ public class ObjectFactory {
      */
     public ArrayList createArrayList() {
         return new ArrayList();
-    }
-
-    /**
-     * Create an instance of {@link Publicacion }
-     * 
-     * @return
-     *     the new instance of {@link Publicacion }
-     */
-    public Publicacion createPublicacion() {
-        return new Publicacion();
-    }
-
-    /**
-     * Create an instance of {@link OfertaLaboral }
-     * 
-     * @return
-     *     the new instance of {@link OfertaLaboral }
-     */
-    public OfertaLaboral createOfertaLaboral() {
-        return new OfertaLaboral();
-    }
-
-    /**
-     * Create an instance of {@link TipoPublicacion }
-     * 
-     * @return
-     *     the new instance of {@link TipoPublicacion }
-     */
-    public TipoPublicacion createTipoPublicacion() {
-        return new TipoPublicacion();
     }
 
     /**

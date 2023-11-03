@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -18,6 +20,7 @@ public class DTOferta {
 	    private String departamento;
 	    private String horario;
 	    private String remuneracion;
+	    @XmlJavaTypeAdapter(LocalDateAdapter.class)
 	    private LocalDate fechaAlta;
 	    private EnumEstadoOferta estado;
 	    private String urlImagen; // He cambiado 'imagen' por 'urlImagen' para ser consistente con OfertaLaboral.

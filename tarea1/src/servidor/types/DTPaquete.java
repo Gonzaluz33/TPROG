@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import logica.Tupla_Cantidad_TipoPublicacion;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -15,6 +16,7 @@ public class DTPaquete {
 	private Integer validez;
 	private Integer descuento;
 	private double costoAsociado;
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	private LocalDate fechaAlta;
 	private String url_imagen;
 	private List<Tupla_Cantidad_TipoPublicacion> listaDeTuplas;

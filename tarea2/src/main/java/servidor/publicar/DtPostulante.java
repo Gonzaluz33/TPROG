@@ -10,16 +10,16 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for dtPostulante complex type.
+ * <p>Clase Java para dtPostulante complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>{@code
  * <complexType name="dtPostulante">
  *   <complexContent>
  *     <extension base="{http://publicar.servidor/}dtUsuario">
  *       <sequence>
- *         <element name="fechaNacimiento" type="{http://publicar.servidor/}localDate" minOccurs="0"/>
+ *         <element name="fechaNacimiento" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="nacionalidad" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="postulaciones" type="{http://publicar.servidor/}dtPostulacion" maxOccurs="unbounded" minOccurs="0"/>
  *       </sequence>
@@ -40,37 +40,37 @@ public class DtPostulante
     extends DtUsuario
 {
 
-    protected LocalDate fechaNacimiento;
+    protected String fechaNacimiento;
     protected String nacionalidad;
     @XmlElement(nillable = true)
     protected List<DtPostulacion> postulaciones;
 
     /**
-     * Gets the value of the fechaNacimiento property.
+     * Obtiene el valor de la propiedad fechaNacimiento.
      * 
      * @return
      *     possible object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public LocalDate getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
     /**
-     * Sets the value of the fechaNacimiento property.
+     * Define el valor de la propiedad fechaNacimiento.
      * 
      * @param value
      *     allowed object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public void setFechaNacimiento(LocalDate value) {
+    public void setFechaNacimiento(String value) {
         this.fechaNacimiento = value;
     }
 
     /**
-     * Gets the value of the nacionalidad property.
+     * Obtiene el valor de la propiedad nacionalidad.
      * 
      * @return
      *     possible object is
@@ -82,7 +82,7 @@ public class DtPostulante
     }
 
     /**
-     * Sets the value of the nacionalidad property.
+     * Define el valor de la propiedad nacionalidad.
      * 
      * @param value
      *     allowed object is

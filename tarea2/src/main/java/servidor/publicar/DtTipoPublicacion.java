@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for dtTipoPublicacion complex type.
+ * <p>Clase Java para dtTipoPublicacion complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>{@code
  * <complexType name="dtTipoPublicacion">
@@ -20,7 +20,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *         <element name="descripcion" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="duracionPublicacion" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         <element name="costo" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
- *         <element name="fechaAlta" type="{http://publicar.servidor/}localDate" minOccurs="0"/>
+ *         <element name="fechaAlta" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="exposicion" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       </sequence>
  *     </restriction>
@@ -45,11 +45,11 @@ public class DtTipoPublicacion {
     protected String descripcion;
     protected Integer duracionPublicacion;
     protected Integer costo;
-    protected LocalDate fechaAlta;
+    protected String fechaAlta;
     protected int exposicion;
 
     /**
-     * Gets the value of the nombre property.
+     * Obtiene el valor de la propiedad nombre.
      * 
      * @return
      *     possible object is
@@ -61,7 +61,7 @@ public class DtTipoPublicacion {
     }
 
     /**
-     * Sets the value of the nombre property.
+     * Define el valor de la propiedad nombre.
      * 
      * @param value
      *     allowed object is
@@ -73,7 +73,7 @@ public class DtTipoPublicacion {
     }
 
     /**
-     * Gets the value of the descripcion property.
+     * Obtiene el valor de la propiedad descripcion.
      * 
      * @return
      *     possible object is
@@ -85,7 +85,7 @@ public class DtTipoPublicacion {
     }
 
     /**
-     * Sets the value of the descripcion property.
+     * Define el valor de la propiedad descripcion.
      * 
      * @param value
      *     allowed object is
@@ -97,7 +97,7 @@ public class DtTipoPublicacion {
     }
 
     /**
-     * Gets the value of the duracionPublicacion property.
+     * Obtiene el valor de la propiedad duracionPublicacion.
      * 
      * @return
      *     possible object is
@@ -109,7 +109,7 @@ public class DtTipoPublicacion {
     }
 
     /**
-     * Sets the value of the duracionPublicacion property.
+     * Define el valor de la propiedad duracionPublicacion.
      * 
      * @param value
      *     allowed object is
@@ -121,7 +121,7 @@ public class DtTipoPublicacion {
     }
 
     /**
-     * Gets the value of the costo property.
+     * Obtiene el valor de la propiedad costo.
      * 
      * @return
      *     possible object is
@@ -133,7 +133,7 @@ public class DtTipoPublicacion {
     }
 
     /**
-     * Sets the value of the costo property.
+     * Define el valor de la propiedad costo.
      * 
      * @param value
      *     allowed object is
@@ -145,31 +145,31 @@ public class DtTipoPublicacion {
     }
 
     /**
-     * Gets the value of the fechaAlta property.
+     * Obtiene el valor de la propiedad fechaAlta.
      * 
      * @return
      *     possible object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public LocalDate getFechaAlta() {
+    public String getFechaAlta() {
         return fechaAlta;
     }
 
     /**
-     * Sets the value of the fechaAlta property.
+     * Define el valor de la propiedad fechaAlta.
      * 
      * @param value
      *     allowed object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public void setFechaAlta(LocalDate value) {
+    public void setFechaAlta(String value) {
         this.fechaAlta = value;
     }
 
     /**
-     * Gets the value of the exposicion property.
+     * Obtiene el valor de la propiedad exposicion.
      * 
      */
     public int getExposicion() {
@@ -177,7 +177,7 @@ public class DtTipoPublicacion {
     }
 
     /**
-     * Sets the value of the exposicion property.
+     * Define el valor de la propiedad exposicion.
      * 
      */
     public void setExposicion(int value) {

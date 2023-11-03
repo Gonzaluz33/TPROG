@@ -3,6 +3,7 @@ package servidor.types;
 import java.time.LocalDateTime;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -10,7 +11,7 @@ public class DTPostulacion {
 
 	private String nicknamePostulante;
 	private String nombreOfertaLaboral;
-
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime fecha;
 	private String cvReducido;
 	private String motivacion;

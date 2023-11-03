@@ -65,7 +65,6 @@ public class Visitante extends HttpServlet {
             isMobile = userAgent.matches(".*(Android|iPhone|iPad|iPod|Windows Phone|webOS|BlackBerry|Mobile).*");
         }
 
-        
 		StringArray keywords = portOfertas.obtenerKeywords();
 		req.setAttribute("keywords", keywords.getItem());
 
@@ -118,7 +117,6 @@ public class Visitante extends HttpServlet {
 			        	req.getRequestDispatcher("/WEB-INF/mobile/inicio.jsp").forward(req, resp);
 			        } else {
 			        	req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
-			        	
 			        }
 	        	}	
 	        }else {

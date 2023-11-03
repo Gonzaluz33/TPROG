@@ -12,11 +12,11 @@ import java.util.ArrayList;
  */
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DTPostulante extends DTUsuario {
-
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	private LocalDate fechaNacimiento;
 	private String nacionalidad;
 	private List<DTPostulacion> postulaciones;

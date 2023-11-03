@@ -38,7 +38,6 @@
 		        }, 3000);
 		    });
 		</script>
-		
 		<%
 		    String mensaje = request.getParameter("mensaje");
 		    if (mensaje != null) {

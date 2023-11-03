@@ -128,6 +128,19 @@ public interface ServicioUsuarios {
      * 
      * @param arg0
      * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/obtenerCorreoPorJWTRequest", output = "http://publicar.servidor/ServicioUsuarios/obtenerCorreoPorJWTResponse")
+    public String obtenerCorreoPorJWT(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
      *     returns servidor.publicar.DtUsuario
      * @throws CorreoNoEncontradoException_Exception
      * @throws NicknameNoExisteException_Exception
@@ -143,19 +156,6 @@ public interface ServicioUsuarios {
         String arg0)
         throws CorreoNoEncontradoException_Exception, NicknameNoExisteException_Exception
     ;
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/obtenerCorreoPorJWTRequest", output = "http://publicar.servidor/ServicioUsuarios/obtenerCorreoPorJWTResponse")
-    public String obtenerCorreoPorJWT(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
 
     /**
      * 
@@ -188,6 +188,22 @@ public interface ServicioUsuarios {
      * @param arg0
      * @param arg1
      * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/generateJWTRequest", output = "http://publicar.servidor/ServicioUsuarios/generateJWTResponse")
+    public String generateJWT(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @return
      *     returns boolean
      * @throws NicknameNoExisteException_Exception
      */
@@ -207,49 +223,25 @@ public interface ServicioUsuarios {
     /**
      * 
      * @param arg0
-     * @param arg1
      * @return
-     *     returns java.lang.String
+     *     returns boolean
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/generateJWTRequest", output = "http://publicar.servidor/ServicioUsuarios/generateJWTResponse")
-    public String generateJWT(
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/usuarioExisteRequest", output = "http://publicar.servidor/ServicioUsuarios/usuarioExisteResponse")
+    public boolean usuarioExiste(
         @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
+        String arg0);
 
     /**
      * 
      * @param arg0
-     * @return
-     *     returns servidor.publicar.DtPostulante
      */
     @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/esPostulanteRequest", output = "http://publicar.servidor/ServicioUsuarios/esPostulanteResponse")
-    public DtPostulante esPostulante(
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/cerrarSesionRequest", output = "http://publicar.servidor/ServicioUsuarios/cerrarSesionResponse")
+    public void cerrarSesion(
         @WebParam(name = "arg0", partName = "arg0")
-        DtUsuario arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns servidor.publicar.DtUsuario
-     * @throws NicknameNoExisteException_Exception
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioRequest", output = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioResponse", fault = {
-        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/consultarUsuario/Fault/NicknameNoExisteException")
-    })
-    public DtUsuario consultarUsuario(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0)
-        throws NicknameNoExisteException_Exception
-    ;
+        String arg0);
 
     /**
      * 
@@ -280,25 +272,33 @@ public interface ServicioUsuarios {
     /**
      * 
      * @param arg0
+     * @return
+     *     returns servidor.publicar.DtUsuario
+     * @throws NicknameNoExisteException_Exception
      */
     @WebMethod
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/cerrarSesionRequest", output = "http://publicar.servidor/ServicioUsuarios/cerrarSesionResponse")
-    public void cerrarSesion(
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioRequest", output = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioResponse", fault = {
+        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/consultarUsuario/Fault/NicknameNoExisteException")
+    })
+    public DtUsuario consultarUsuario(
         @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
+        String arg0)
+        throws NicknameNoExisteException_Exception
+    ;
 
     /**
      * 
      * @param arg0
      * @return
-     *     returns boolean
+     *     returns servidor.publicar.DtPostulante
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/usuarioExisteRequest", output = "http://publicar.servidor/ServicioUsuarios/usuarioExisteResponse")
-    public boolean usuarioExiste(
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/esPostulanteRequest", output = "http://publicar.servidor/ServicioUsuarios/esPostulanteResponse")
+    public DtPostulante esPostulante(
         @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
+        DtUsuario arg0);
 
     /**
      * 
