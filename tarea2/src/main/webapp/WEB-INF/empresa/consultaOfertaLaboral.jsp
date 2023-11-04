@@ -92,8 +92,10 @@
 			                </div>
 			                <div class="row d-flex  mt-3">
 			                    <p class="m-0"><span class="fw-bold">Fecha de alta: </span> <%=publicacion.getFechaAlta().toString()%></p>
-			                    <p class="m-0"><span class="fw-bold">Forma de Pago: </span>Paquete</p>
-			                    <p class="m-0"><span class="fw-bold">Tipo de Paquete: </span><a href="#">Básico</a></p>
+			                    <p class="m-0"><span class="fw-bold">Forma de Pago: </span> <%=publicacion.getDtOferta().getFormaPago()%></p>
+			                   <% if (!publicacion.getDtOferta().getFormaPago().equals("General")) { %>
+								    <p class="m-0"><span class="fw-bold">Tipo de Paquete: </span><a href="#"><%= publicacion.getDtOferta().getPaqueteSeleccionado() %></a></p>
+								<% } %>
 			                </div>
 			    
 			                <div class="row d-flex  mt-3">

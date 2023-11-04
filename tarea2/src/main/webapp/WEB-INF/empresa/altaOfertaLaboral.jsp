@@ -166,10 +166,10 @@
                                     <div>
                                         <label class="form-check-label" for="inlineRadio2">Seleccione Paquete:</label>
                                         <select class="form-select" id="paqueteSelect" name="paqueteSeleccionado">
-                                            <option selected value="0">Premium</option>
-    										<option value="1">Destacado</option>
-   								 			<option value="2">Express</option>
-    										<option value="3">Básica</option>
+                                            <option selected value="Premium">Premium</option>
+    										<option value="Destacado">Destacado</option>
+   								 			<option value="Express">Express</option>
+    										<option value="Básica">Básica</option>
                                         </select>
                                     </div>
                                </div>
