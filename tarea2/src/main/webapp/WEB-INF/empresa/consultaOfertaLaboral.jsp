@@ -91,9 +91,7 @@
 			    
 			                </div>
 			                <div class="row d-flex  mt-3">
-			                    <p class="m-0"><span class="fw-bold">Fecha de alta: </span> <%
-			                    	
-				                     <%= publicacion.getFechaAlta().toString()%></p>
+			                    <p class="m-0"><span class="fw-bold">Fecha de alta: </span> <%publicacion.getFechaAlta().toString()%></p>
 			                    <p class="m-0"><span class="fw-bold">Forma de Pago: </span>Paquete</p>
 			                    <p class="m-0"><span class="fw-bold">Tipo de Paquete: </span><a href="#">Básico</a></p>
 			                </div>
