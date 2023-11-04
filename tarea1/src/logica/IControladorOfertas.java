@@ -42,7 +42,7 @@ public interface IControladorOfertas {
 	 * Si el usuario asociado al nick "nicknamePostulante" no es un postulante tira una UsuarioNoEsPostulanteException
 	 * Si no existe una oferta con el nombre "nombreOfertaLaboral" tira una OfertaNoExisteException.
 	 */
-	public void postularAOferta(String nombreOfertaLaboral, String nicknamePostulante, String cvReducido, String motivacion, LocalDateTime fechaPostulacion) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException;
+	public void postularAOferta(String nombreOfertaLaboral, String nicknamePostulante, String cvReducido, String motivacion, String fechaPostulacion) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException;
 	
     /**
 	 * Devuelve un set de tipo DTOferta con todas las ofertas vigentes asociadas a la empresa con el nickname "nicknameEmpresa" ordenadas alfabeticamente por el nombre de las ofertas.

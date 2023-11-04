@@ -165,7 +165,7 @@ public class ServicioOfertas {
     
     //POSTULACIONES
     @WebMethod
-    public void postularAOferta(String nombreOfertaLaboral, String nicknamePostulante, String cvReducido, String motivacion, LocalDateTime fechaPostulacion) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException {
+    public void postularAOferta(String nombreOfertaLaboral, String nicknamePostulante, String cvReducido, String motivacion, String fechaPostulacion) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException {
     	Fabrica factory = Fabrica.getInstance();
     	IControladorOfertas ICO = factory.getIControladorOfertas();
     	ICO.postularAOferta(nombreOfertaLaboral, nicknamePostulante, cvReducido, motivacion, fechaPostulacion);

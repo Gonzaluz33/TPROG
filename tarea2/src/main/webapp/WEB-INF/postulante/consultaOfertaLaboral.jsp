@@ -77,7 +77,7 @@
                             </div>
                             <div class="row d-flex  mt-3">
                                 <p class="m-0"><span class="fw-bold">Fecha de alta:</span>
-				                     <%=publicacion.getFechaAlta().toString() %></p>
+				                     <%= publicacion.getFechaAlta().toString()%></p>
                             </div>
                         
                             <div class="row d-flex  mt-3">
@@ -92,6 +92,9 @@
               <% 
 			    DtPostulacion postulacion = (DtPostulacion) request.getAttribute("postulacion");
 			    if(postulacion != null){
+			    	String fechaHoraStr = postulacion.getFecha();
+               		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");                 	
+               		LocalDate fecha = LocalDate.parse(fechaHoraStr, formatter);
 			%>
 			    <div class="container mt-5 mb-5">
 			        <div class="row justify-content-center">
@@ -106,7 +109,7 @@
 			                        <h4>Motivación:</h4>
 			                        <p><%=postulacion.getMotivacion()%></p>
 			                        <h4>Fecha:</h4>
-			                        <p><%=postulacion.getFecha()%></p> 
+			                        <p><%=fecha%></p> 
 			                    </div>
 			                </div>
 			            </div>

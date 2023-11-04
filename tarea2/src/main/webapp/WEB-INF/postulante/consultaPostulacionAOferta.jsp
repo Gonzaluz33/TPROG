@@ -2,6 +2,7 @@
 <%@page import="servidor.publicar.DtPostulacion"%>
 <%@page import="java.util.List"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.time.LocalDate"%>
 <%@ page import="java.net.URLEncoder" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -53,8 +54,9 @@
                         DtPostulante usuario = (DtPostulante) request.getAttribute("usuario");
                     	List<DtPostulacion> posts = (List<DtPostulacion>) usuario.getPostulaciones();
                     	for (DtPostulacion post: posts) {
-	                   		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	                        //String formattedDate = post.getFecha().format(formatter);
+                    		String fechaHoraStr = post.getFecha();
+	                   		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");                 	
+	                   		LocalDate fecha = LocalDate.parse(fechaHoraStr, formatter);
                     %>                    
 				      
 				      <div class="card mb-2 my-3">
@@ -65,7 +67,8 @@
 				      	
 				      	<p class="m-0 card-text"><span class="fw-bold">Motivacion: </span><%=post.getMotivacion() %></p>
                    		<p class="m-0 card-text"><span class="fw-bold">Cv reducido: </span><%=post.getCvReducido() %></p>
-                  		<p class="m-0 card-text"><span class="fw-bold">Fecha de postulacion: </span><%=post.getFecha() %></p>		
+                   		<p class="m-0 card-text"><span class="fw-bold">Fecha de postulacion: </span><%= fecha %></p>
+                  	
 				      </div>
 				      <div class="card-footer">
 				      <div >

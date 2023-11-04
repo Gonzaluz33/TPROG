@@ -10,6 +10,7 @@ import utils.CookiesUtils;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import excepciones.NicknameNoExisteException;
 import excepciones.OfertaNoExisteException;
@@ -89,7 +90,9 @@ public class ConfirmarPostulacion extends HttpServlet {
 			        String cvReducido = request.getParameter("cv");
 			        String motivacion = request.getParameter("motivacion");
 			        LocalDateTime fechaActual = LocalDateTime.now();
-					portOfertas.postularAOferta(NombreOferta, nicknamePostulante, cvReducido, motivacion, fechaActual);
+			        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			        String fechaActualComoString = fechaActual.format(formatter);
+					portOfertas.postularAOferta(NombreOferta, nicknamePostulante, cvReducido, motivacion, fechaActualComoString);
 					response.sendRedirect("postulante");
 					break;
 				case ("empresa"):

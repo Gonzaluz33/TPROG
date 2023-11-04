@@ -2,6 +2,7 @@ package logica;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -136,10 +137,13 @@ public class ControladorOfertas implements IControladorOfertas {
         String nicknamePostulante,
         String cvReducido,
         String motivacion,
-        LocalDateTime fechaPostulacion
+        String fechaPostulacion
     ) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException {
         ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
-        manejadorOL.postularAOferta(nombreOfertaLaboral, nicknamePostulante, cvReducido, motivacion, fechaPostulacion);
+        String fechaString = fechaPostulacion;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime fechaConvertida = LocalDateTime.parse(fechaString, formatter);
+        manejadorOL.postularAOferta(nombreOfertaLaboral, nicknamePostulante, cvReducido, motivacion, fechaConvertida);
     }
 
     public List<DTEmpresa> obtenerEmpresas() {

@@ -87,8 +87,6 @@
                     <th scope="col">Remuneración:</th>
                     <th scope="col">Horario:</th>
                     <th scope="col">Fecha de Alta:</th>
-                    <th scope="col">Estado:</th>
-                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -106,19 +104,6 @@
                 <td><%= publicacion.getDtOferta().getRemuneracion() %></td>
                 <td><%= publicacion.getDtOferta().getHorario() %></td>
                 <td><%= publicacion.getFechaAlta() %></td>
-                <td><%= publicacion.getDtOferta().getEstado().name() %></td>
-                <td>
-                    <%
-                        if(!publicacion.getDtOferta().getEstado().name().equals("CONFIRMADA")) {
-                    %>
-                        <form action="confirmarOferta" method="POST">
-                            <input type="hidden" name="nombreOferta" value="<%= publicacion.getDtOferta().getNombre() %>">
-                            <button type="submit" class="btn btn-success">Confirmar Oferta</button>
-                        </form>
-                    <%
-                        }
-                    %>
-                </td>
             </tr>
     <% 
         }
