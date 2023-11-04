@@ -47,7 +47,13 @@
 <body>
     <div class="error-container">
         <h1>Error de Alta</h1>
-        <p>Ya existe una oferta laboral con el nombre ingresado.</p>
+         <% if (request.getAttribute("error") != null) { %>
+		    <p>
+		        ${requestScope.error}
+		    </p>
+		<% } else {%>
+	        <p>Ha ocurrido un error.</p>
+		<% } %>
         <button onclick="goBack()">Volver Atrás</button>
     </div>
 

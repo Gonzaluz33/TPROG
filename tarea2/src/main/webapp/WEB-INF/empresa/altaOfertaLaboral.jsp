@@ -70,16 +70,13 @@
                                 <label class="form-label">Seleccione un Tipo de Publicación:</label>
                                 <select class="form-select" id="floatingSelect" name="tipoPublicacion">
 								    <%
-								        String tiposPubJson = (String) request.getAttribute("tiposPub");
-								        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
-								                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
-								        Type listType = new TypeToken<List<DtTipoPublicacion>>() {}.getType();
-								        List<DtTipoPublicacion> tiposPub = gson.fromJson(tiposPubJson, listType);
-								        for(DtTipoPublicacion tipo : tiposPub) {
+								    	List<DtTipoPublicacion> tiposPub = (List<DtTipoPublicacion>) request.getAttribute("tiposPub");
+								        if(tiposPub!=null){
+								    	for(DtTipoPublicacion tipo : tiposPub) {
 								    %>
 								        <option value="<%= tipo.getNombre() %>"><%= tipo.getNombre() %></option>
 								    <%
-								        }
+								        }}
 								    %>
 								</select>
                             </div>
@@ -145,14 +142,13 @@
                                 <label for="floatingTextarea2">Seleccione Keywords:</label>
                                 <select class="custom-select form-control" multiple name = "keywords">
 								    <%
-								        String keywordsJson = (String) request.getAttribute("keywords");
-								        Type listTypeStr = new TypeToken<List<String>>() {}.getType();
-								        List<String> keywords = gson.fromJson(keywordsJson, listTypeStr);
-								        for(String keyword : keywords) {
+								    	List<String> keywords = (List<String>) request.getAttribute("keywords");
+								        if(keywords !=null){
+								    	for(String keyword : keywords) {
 								    %>
 								        <option value="<%= keyword %>"><%= keyword %></option>
 								    <%
-								        }
+								        }}
 								    %>
 								</select>
                             </div>
@@ -190,7 +186,6 @@
             <a onclick="window.history.back();" class="btn btn-dark">Volver atrás</a>
         </div>
                 </div>
-            </div>
         </main>
         <script>
         $(document).ready(function() {

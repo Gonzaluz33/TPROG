@@ -210,10 +210,11 @@ public class ServicioOfertas {
     
     @WebMethod
     public void altaOfertaWeb(String nombre,String descripcion,String renumeracion,String horario,String ciudad,String departamento,
-    	    String tipoPublicacion,String formaPago,String paqueteSeleccionado,EnumEstadoOferta estado,String[] keywords, String urlImagen,String empresaActual) throws NicknameNoExisteException, NombreExisteException, KeywordExisteException {
+    	    String tipoPublicacion,String formaPago,String paqueteSeleccionado,EnumEstadoOferta estado,String keywords, String urlImagen,String empresaActual) throws NicknameNoExisteException, NombreExisteException, KeywordExisteException {
     	    	 Fabrica factory = Fabrica.getInstance();
     	    	 IControladorOfertas ICO = factory.getIControladorOfertas();
-    	    	 ICO.altaOfertaWeb(nombre, descripcion, renumeracion, horario, ciudad, departamento, tipoPublicacion, formaPago, paqueteSeleccionado, estado, keywords, urlImagen, empresaActual);    
+    	    	 String[] keywordsArray = keywords.split("/");
+    	    	 ICO.altaOfertaWeb(nombre, descripcion, renumeracion, horario, ciudad, departamento, tipoPublicacion, formaPago, paqueteSeleccionado, estado, keywordsArray, urlImagen, empresaActual);    
     }
     
 
