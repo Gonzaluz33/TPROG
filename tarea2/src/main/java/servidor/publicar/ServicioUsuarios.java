@@ -35,44 +35,6 @@ public interface ServicioUsuarios {
      * @param arg5
      * @param arg6
      * @param arg7
-     * @throws CorreoRepetidoException_Exception
-     * @throws UsuarioRepetidoException_Exception
-     */
-    @WebMethod
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/altaPostulanteRequest", output = "http://publicar.servidor/ServicioUsuarios/altaPostulanteResponse", fault = {
-        @FaultAction(className = UsuarioRepetidoException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/altaPostulante/Fault/UsuarioRepetidoException"),
-        @FaultAction(className = CorreoRepetidoException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/altaPostulante/Fault/CorreoRepetidoException")
-    })
-    public void altaPostulante(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2,
-        @WebParam(name = "arg3", partName = "arg3")
-        String arg3,
-        @WebParam(name = "arg4", partName = "arg4")
-        String arg4,
-        @WebParam(name = "arg5", partName = "arg5")
-        LocalDate arg5,
-        @WebParam(name = "arg6", partName = "arg6")
-        String arg6,
-        @WebParam(name = "arg7", partName = "arg7")
-        String arg7)
-        throws CorreoRepetidoException_Exception, UsuarioRepetidoException_Exception
-    ;
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @param arg3
-     * @param arg4
-     * @param arg5
-     * @param arg6
-     * @param arg7
      * @param arg8
      * @throws CorreoRepetidoException_Exception
      * @throws UsuarioRepetidoException_Exception
@@ -106,6 +68,44 @@ public interface ServicioUsuarios {
 
     /**
      * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @param arg3
+     * @param arg4
+     * @param arg5
+     * @param arg6
+     * @param arg7
+     * @throws CorreoRepetidoException_Exception
+     * @throws UsuarioRepetidoException_Exception
+     */
+    @WebMethod
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/altaPostulanteRequest", output = "http://publicar.servidor/ServicioUsuarios/altaPostulanteResponse", fault = {
+        @FaultAction(className = UsuarioRepetidoException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/altaPostulante/Fault/UsuarioRepetidoException"),
+        @FaultAction(className = CorreoRepetidoException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/altaPostulante/Fault/CorreoRepetidoException")
+    })
+    public void altaPostulante(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        String arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        String arg4,
+        @WebParam(name = "arg5", partName = "arg5")
+        String arg5,
+        @WebParam(name = "arg6", partName = "arg6")
+        String arg6,
+        @WebParam(name = "arg7", partName = "arg7")
+        String arg7)
+        throws CorreoRepetidoException_Exception, UsuarioRepetidoException_Exception
+    ;
+
+    /**
+     * 
      * @return
      *     returns servidor.publicar.DtUsuarioArray
      */
@@ -127,48 +127,23 @@ public interface ServicioUsuarios {
     /**
      * 
      * @param arg0
+     * @param arg1
      * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/obtenerCorreoPorJWTRequest", output = "http://publicar.servidor/ServicioUsuarios/obtenerCorreoPorJWTResponse")
-    public String obtenerCorreoPorJWT(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns servidor.publicar.DtUsuario
-     * @throws CorreoNoEncontradoException_Exception
+     *     returns boolean
      * @throws NicknameNoExisteException_Exception
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioPorCorreoRequest", output = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioPorCorreoResponse", fault = {
-        @FaultAction(className = CorreoNoEncontradoException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioPorCorreo/Fault/CorreoNoEncontradoException"),
-        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioPorCorreo/Fault/NicknameNoExisteException")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/validarUsuarioRequest", output = "http://publicar.servidor/ServicioUsuarios/validarUsuarioResponse", fault = {
+        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/validarUsuario/Fault/NicknameNoExisteException")
     })
-    public DtUsuario consultarUsuarioPorCorreo(
+    public boolean validarUsuario(
         @WebParam(name = "arg0", partName = "arg0")
-        String arg0)
-        throws CorreoNoEncontradoException_Exception, NicknameNoExisteException_Exception
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1)
+        throws NicknameNoExisteException_Exception
     ;
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns servidor.publicar.DtUsuario
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/obtenerDatosDeUsuarioJWTRequest", output = "http://publicar.servidor/ServicioUsuarios/obtenerDatosDeUsuarioJWTResponse")
-    public DtUsuario obtenerDatosDeUsuarioJWT(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
 
     /**
      * 
@@ -202,36 +177,20 @@ public interface ServicioUsuarios {
     /**
      * 
      * @param arg0
-     * @param arg1
      * @return
-     *     returns boolean
+     *     returns servidor.publicar.DtUsuario
      * @throws NicknameNoExisteException_Exception
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/validarUsuarioRequest", output = "http://publicar.servidor/ServicioUsuarios/validarUsuarioResponse", fault = {
-        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/validarUsuario/Fault/NicknameNoExisteException")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioRequest", output = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioResponse", fault = {
+        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/consultarUsuario/Fault/NicknameNoExisteException")
     })
-    public boolean validarUsuario(
+    public DtUsuario consultarUsuario(
         @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1)
+        String arg0)
         throws NicknameNoExisteException_Exception
     ;
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/usuarioExisteRequest", output = "http://publicar.servidor/ServicioUsuarios/usuarioExisteResponse")
-    public boolean usuarioExiste(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
 
     /**
      * 
@@ -260,32 +219,14 @@ public interface ServicioUsuarios {
      * 
      * @param arg0
      * @return
-     *     returns java.lang.String
+     *     returns servidor.publicar.DtEmpresa
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/tipoUsuarioRequest", output = "http://publicar.servidor/ServicioUsuarios/tipoUsuarioResponse")
-    public String tipoUsuario(
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/esEmpresaRequest", output = "http://publicar.servidor/ServicioUsuarios/esEmpresaResponse")
+    public DtEmpresa esEmpresa(
         @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns servidor.publicar.DtUsuario
-     * @throws NicknameNoExisteException_Exception
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioRequest", output = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioResponse", fault = {
-        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/consultarUsuario/Fault/NicknameNoExisteException")
-    })
-    public DtUsuario consultarUsuario(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0)
-        throws NicknameNoExisteException_Exception
-    ;
+        DtUsuario arg0);
 
     /**
      * 
@@ -304,13 +245,72 @@ public interface ServicioUsuarios {
      * 
      * @param arg0
      * @return
-     *     returns servidor.publicar.DtEmpresa
+     *     returns java.lang.String
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/esEmpresaRequest", output = "http://publicar.servidor/ServicioUsuarios/esEmpresaResponse")
-    public DtEmpresa esEmpresa(
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/tipoUsuarioRequest", output = "http://publicar.servidor/ServicioUsuarios/tipoUsuarioResponse")
+    public String tipoUsuario(
         @WebParam(name = "arg0", partName = "arg0")
-        DtUsuario arg0);
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/usuarioExisteRequest", output = "http://publicar.servidor/ServicioUsuarios/usuarioExisteResponse")
+    public boolean usuarioExiste(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/obtenerCorreoPorJWTRequest", output = "http://publicar.servidor/ServicioUsuarios/obtenerCorreoPorJWTResponse")
+    public String obtenerCorreoPorJWT(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns servidor.publicar.DtUsuario
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/obtenerDatosDeUsuarioJWTRequest", output = "http://publicar.servidor/ServicioUsuarios/obtenerDatosDeUsuarioJWTResponse")
+    public DtUsuario obtenerDatosDeUsuarioJWT(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns servidor.publicar.DtUsuario
+     * @throws CorreoNoEncontradoException_Exception
+     * @throws NicknameNoExisteException_Exception
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioPorCorreoRequest", output = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioPorCorreoResponse", fault = {
+        @FaultAction(className = CorreoNoEncontradoException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioPorCorreo/Fault/CorreoNoEncontradoException"),
+        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioPorCorreo/Fault/NicknameNoExisteException")
+    })
+    public DtUsuario consultarUsuarioPorCorreo(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0)
+        throws CorreoNoEncontradoException_Exception, NicknameNoExisteException_Exception
+    ;
 
 }

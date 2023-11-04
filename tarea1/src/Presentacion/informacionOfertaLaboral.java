@@ -158,6 +158,7 @@ public class informacionOfertaLaboral extends JInternalFrame {
 	    }
 	 	
 	 	public void mostrarDatosOferta() throws OfertaNoExisteException {
+	 		
 			String oferta = this.ofertaNombre;
 			//Obtengo datos oferta 
 			DTOferta datosOferta = controlOL.obtenerDatosOferta(oferta);
@@ -184,7 +185,7 @@ public class informacionOfertaLaboral extends JInternalFrame {
 					CV = elemento.getCvReducido();
 					Motivacion = elemento.getMotivacion();
 					Nickname = elemento.getNicknamePostulante();
-					tableModelPostulaciones.addRow(new Object[] {Nickname,FechaPostulacion, CV, Motivacion, });
+					tableModelPostulaciones.addRow(new Object[] {Nickname,FechaPostulacion, CV, Motivacion});
 		    	}	    	
 		    }
 		}

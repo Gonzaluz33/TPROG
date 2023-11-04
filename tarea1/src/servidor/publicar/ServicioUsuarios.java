@@ -161,7 +161,7 @@ public class ServicioUsuarios {
     
     @WebMethod
     public void  altaPostulante(String nickname, String nombre, String apellido, String email, String contraseña,
-			LocalDate fechaNacimiento, String nacionalidad, String url_imagen) throws UsuarioRepetidoException, CorreoRepetidoException {
+			String fechaNacimiento, String nacionalidad, String url_imagen) throws UsuarioRepetidoException, CorreoRepetidoException {
     	Fabrica factory = Fabrica.getInstance();
 		IControladorUsuario icontuser = factory.getIControladorUsuario();
 		icontuser.altaPostulante(nickname, nombre, apellido, email, contraseña, fechaNacimiento, nacionalidad, url_imagen);

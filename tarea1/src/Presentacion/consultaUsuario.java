@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -167,9 +168,7 @@ public class consultaUsuario extends JInternalFrame {
                     } else {
                     	renderizarComponentesEmpresa(false);
                     	renderizarComponentesPostulante(true);
-                    	
-                    	String fechaFormateada = new SimpleDateFormat("dd-MM-yyyy").format(((DTPostulante) selectedValue).getFechaNacimiento());
-                    	fecha = fechaFormateada.toString();
+                    	LocalDate fecha = ((DTPostulante) selectedValue).getFechaNacimiento();
                     	nacion = ((DTPostulante) selectedValue).getNacionalidad();
                     	DefaultTableModel tablePostModel = (DefaultTableModel) tablaPostulante.getModel();
                         tablePostModel.setRowCount(0); // Limpiar filas existentes

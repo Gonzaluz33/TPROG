@@ -55,7 +55,7 @@ public interface IControladorUsuario {
 	public Boolean validarUsuario(String correo, String contraseña) throws NicknameNoExisteException;
 
 	public void altaPostulante(String nickname, String nombre, String apellido, String email,
-			String contraseña, LocalDate fechaNacimiento, String nacionalidad, String url_imagen)
+			String contraseña, String fechaNacimiento, String nacionalidad, String url_imagen)
 			throws UsuarioRepetidoException, CorreoRepetidoException;
 
 	public void altaEmpresa(String nickname, String nombre, String apellido, String email, String contraseña,

@@ -509,7 +509,7 @@ public class Principal {
 	            String nombre = "";
 	            String apellido = "";
 	            String correo = "";
-	            LocalDate fecha = null;
+	            String fecha = null;
 	            String nacionalidad = "";
 	            String password = "";
 	            String url_imagen = "";
@@ -518,7 +518,7 @@ public class Principal {
 	            	 nombre = datos[1];
 	            	 apellido = datos[2];
 	            	 correo = datos[3];
-	            	 fecha = parseFechaNacimiento(datos[4].trim());
+	            	 fecha = datos[4].trim();
 	            	 nacionalidad = datos[5];
 	            	 password = datos[6];
 	            	 url_imagen = "media/img/imgPostulantes/U"+iter+".jpg";
@@ -748,16 +748,17 @@ public class Principal {
 	           String nickname = ""; 
 	           String cv = "";
 
-	           LocalDateTime fecha = null;
+	           String fecha = null;
 	           if(postulacionesData.length > 0) {
 	        	   nickname = postulacionesData[0];
 	        	   nombre = postulacionesData[4];
 	        	   cv = postulacionesData[1];
 	        	   motivacion = postulacionesData[2];
-	        	   fecha= parseFecha(postulacionesData[3].trim()).atStartOfDay();
+	        	   fecha= postulacionesData[3].trim();
 	        	   Fabrica factory = Fabrica.getInstance();
 	               IControladorOfertas ICO = factory.getIControladorOfertas();
 	               try {
+	            	   System.out.print("CARAGA POSTUL");
 	            	   ICO.postularAOferta(nombre, nickname, cv, motivacion, fecha);
             	   }catch(Exception e) {
 	            		 

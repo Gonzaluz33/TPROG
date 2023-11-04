@@ -2,6 +2,7 @@ package logica;
 
 import org.mindrot.jbcrypt.BCrypt;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 import excepciones.CorreoNoEncontradoException;
@@ -26,13 +27,15 @@ public class ControladorUsuarios implements IControladorUsuario {
 	}
 
 	public void altaPostulante(String nickname, String nombre, String apellido, String email, String contraseña,
-			LocalDate fechaNacimiento, String nacionalidad, String url_imagen)
+			String fechaNacimiento, String nacionalidad, String url_imagen)
 			throws UsuarioRepetidoException, CorreoRepetidoException {
 		
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+		LocalDate fechaLocalDate = LocalDate.parse(fechaNacimiento, formatter);
 		if(contraseña.length() >= 6) {
 			String contraseñaHasheada = BCrypt.hashpw(contraseña, BCrypt.gensalt());
-			Postulante p = new Postulante(nickname, nombre, apellido, email, contraseñaHasheada, fechaNacimiento,
+			Postulante p = new Postulante(nickname, nombre, apellido, email, contraseñaHasheada, fechaLocalDate,
 					nacionalidad, url_imagen);
 			manejadorU.altaPostulante(p);
 		}

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -196,13 +197,14 @@ public class altaPostulante extends JInternalFrame {
 	        
 	        // Convertir Date a LocalDate
 	        LocalDate localDate = Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
-	        
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+	        String dateString = localDate.format(formatter);
 	        String nacion = (String) nacionalidadDropdown.getSelectedItem();
 	        String imagenDefault = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
 	        
 	        try {
 	            if (isValidEmail(email)) {
-	                controlUsr.altaPostulante(nick, nombre, apellido, email, contraseña, localDate, nacion, imagenDefault);
+	                controlUsr.altaPostulante(nick, nombre, apellido, email, contraseña, dateString, nacion, imagenDefault);
 	                JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
 	                        JOptionPane.INFORMATION_MESSAGE);
 	                limpiarFormulario();
