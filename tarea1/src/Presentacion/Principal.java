@@ -744,6 +744,21 @@ public class Principal {
 	   
 	}
    
+   public static String convertirFecha(String fechaOriginal) {
+       // Parsear la fecha original a un objeto LocalDate
+       DateTimeFormatter formatterOriginal = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+       LocalDate fechaLocalDate = LocalDate.parse(fechaOriginal, formatterOriginal);
+
+       // Convertir el objeto LocalDate a un objeto LocalDateTime, añadiendo una hora específica (medianoche)
+       LocalDateTime fechaLocalDateTime = fechaLocalDate.atStartOfDay();
+
+       // Formatear el objeto LocalDateTime a una cadena en el formato deseado
+       DateTimeFormatter formatterConvertido = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+       String fechaConvertida = fechaLocalDateTime.format(formatterConvertido);
+
+       return fechaConvertida;
+   }
+   
    private void cargarPostulaciones(String csvFile) throws FileNotFoundException, IOException, NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException {
 	   String line = "";
 	   String cvsSplitBy = ";";
@@ -762,9 +777,10 @@ public class Principal {
 	        	   cv = postulacionesData[1];
 	        	   motivacion = postulacionesData[2];
 	        	   fecha= postulacionesData[3].trim();
+	               String fechaConvertida = convertirFecha(fecha);
 	        	   Fabrica factory = Fabrica.getInstance();
 	               IControladorOfertas ICO = factory.getIControladorOfertas();
-	               ICO.postularAOferta(nombre,nickname,cv,motivacion, fecha); 
+	               ICO.postularAOferta(nombre,nickname,cv,motivacion,fechaConvertida); 
 	           }
 
 		   }
