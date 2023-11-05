@@ -27,7 +27,10 @@ public class MostrarUsuario extends HttpServlet {
 		}
 		CookiesUtils cookies = CookiesUtils.obtenerInstancia();
         String jwt = cookies.obtenerJWTEnCookies(request, response);
-        String tipoUsuario = portUsuarios.tipoUsuario(jwt);
+        String tipoUsuario = "visitante";
+        if (jwt != null) {
+         tipoUsuario = portUsuarios.tipoUsuario(jwt);
+        }
         DtUsuario usuario = null;
 		try {
 			usuario = portUsuarios.consultarUsuario(usuarioSeleccionado);

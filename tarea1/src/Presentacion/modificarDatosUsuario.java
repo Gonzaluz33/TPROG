@@ -95,7 +95,7 @@ public class modificarDatosUsuario extends JInternalFrame {
         
         String currentDirectory = System.getProperty("user.dir");
 		
-        String csvNacionalidades = currentDirectory + File.separator + "Datos" + File.separator + "Nacionalidades.csv";
+        String csvNacionalidades = currentDirectory + File.separator + "DatosCSV" + File.separator + "Nacionalidades.csv";
 		
 		String[] nacionalidades = cargarNacionalidadesDesdeCSV(csvNacionalidades);
 		
@@ -160,7 +160,8 @@ public class modificarDatosUsuario extends JInternalFrame {
 			            getContentPane().add(lblFechaNacimiento);			            
 			            LocalDate fecha = postulante.getFechaNacimiento();
 			            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-			            String fechaFormateada = formato.format(fecha);
+			            Date date = java.sql.Date.valueOf(fecha);
+			            String fechaFormateada = formato.format(date);
 			            textFieldFechaNacimiento.setText(fechaFormateada);
 			            getContentPane().add(textFieldFechaNacimiento);
 			            getContentPane().add(lblNacionalidad);

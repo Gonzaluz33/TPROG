@@ -44,7 +44,7 @@ public class ConsultaUsuario extends HttpServlet {
     	servidor.publicar.ServicioUsuarios portUsuarios = service.getServicioUsuariosPort();
     	CookiesUtils cookies = CookiesUtils.obtenerInstancia();
         String jwt = cookies.obtenerJWTEnCookies(req, resp);
-        if(jwt!=null) {
+        if(jwt != null) {
         	String tipoUsuario = portUsuarios.tipoUsuario(jwt);
     		DtUsuarioArray usuarios = portUsuarios.listarUsuarios();
     		String nickname = req.getParameter("nickname");
@@ -70,8 +70,7 @@ public class ConsultaUsuario extends HttpServlet {
         			break;
         	}   	
             	
-        }
-        else {
+        } else {
         	DtUsuarioArray usuarios = portUsuarios.listarUsuarios();
     		String nickname = req.getParameter("nickname");
     		if(nickname != null) {

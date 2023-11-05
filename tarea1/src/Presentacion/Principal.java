@@ -18,8 +18,10 @@ import excepciones.CorreoRepetidoException;
 import excepciones.KeywordExisteException;
 import excepciones.NicknameNoExisteException;
 import excepciones.NombreExisteException;
+import excepciones.OfertaNoExisteException;
 import excepciones.PaqueteExisteException;
 import excepciones.TipoPublicExisteException;
+import excepciones.UsuarioNoEsPostulanteException;
 import excepciones.UsuarioRepetidoException;
 
 //para carga de datos
@@ -431,6 +433,12 @@ public class Principal {
 				} catch (IOException e1) {
 					
 					e1.printStackTrace();
+				} catch (UsuarioNoEsPostulanteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (OfertaNoExisteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 		    }
 		});
@@ -736,7 +744,7 @@ public class Principal {
 	   
 	}
    
-   private void cargarPostulaciones(String csvFile) throws FileNotFoundException, IOException {
+   private void cargarPostulaciones(String csvFile) throws FileNotFoundException, IOException, NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException {
 	   String line = "";
 	   String cvsSplitBy = ";";
 	   try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
@@ -747,8 +755,7 @@ public class Principal {
 	           String motivacion = "";
 	           String nickname = ""; 
 	           String cv = "";
-
-	           String fecha = null;
+	           String fecha = "";
 	           if(postulacionesData.length > 0) {
 	        	   nickname = postulacionesData[0];
 	        	   nombre = postulacionesData[4];
@@ -757,12 +764,7 @@ public class Principal {
 	        	   fecha= postulacionesData[3].trim();
 	        	   Fabrica factory = Fabrica.getInstance();
 	               IControladorOfertas ICO = factory.getIControladorOfertas();
-	               try {
-	            	   System.out.print("CARAGA POSTUL");
-	            	   ICO.postularAOferta(nombre, nickname, cv, motivacion, fecha);
-            	   }catch(Exception e) {
-	            		 
-	            	 }
+	               ICO.postularAOferta(nombre,nickname,cv,motivacion, fecha); 
 	           }
 
 		   }

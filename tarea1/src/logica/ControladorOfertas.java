@@ -140,8 +140,8 @@ public class ControladorOfertas implements IControladorOfertas {
         String fechaPostulacion
     ) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException {
         ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
-        String fechaString = fechaPostulacion;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String fechaString = fechaPostulacion + " 00:00:00";  // Hora predeterminada de medianoche
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         LocalDateTime fechaConvertida = LocalDateTime.parse(fechaString, formatter);
         manejadorOL.postularAOferta(nombreOfertaLaboral, nicknamePostulante, cvReducido, motivacion, fechaConvertida);
     }
