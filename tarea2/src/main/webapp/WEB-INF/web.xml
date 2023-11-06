@@ -172,4 +172,24 @@
     <servlet-name>MostrarPostulaciones</servlet-name>
     <url-pattern>/MostrarPostulaciones</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ModificarDatosUsuario</display-name>
+    <servlet-name>ModificarDatosUsuario</servlet-name>
+    <servlet-class>controllers.ModificarDatosUsuario</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ModificarDatosUsuario</servlet-name>
+    <url-pattern>/ModificarDatosUsuario</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ModificarContraseña</display-name>
+    <servlet-name>ModificarContraseña</servlet-name>
+    <servlet-class>controllers.ModificarContraseña</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ModificarContraseña</servlet-name>
+    <url-pattern>/ModificarContraseña</url-pattern>
+  </servlet-mapping>
 </web-app>
