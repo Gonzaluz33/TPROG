@@ -208,7 +208,7 @@ public class modificarDatosUsuario extends JInternalFrame {
 	                	if(((nuevoNombre.isEmpty()) || ( nuevoApellido.isEmpty()) || ( nombreEmpresa.isEmpty()) ||( descripcionEmpresa.isEmpty()) || ( linkWebEmpresa.isEmpty()))) {
 	                		JOptionPane.showMessageDialog(null, "Datos ingresados Invalidos!");
 	                	}else {
-	                		controladorUser.actualizarDatosEmpresa(nickFiltrado,nuevoNombre,nuevoApellido,nombreEmpresa,descripcionEmpresa,linkWebEmpresa);
+	                		//controladorUser.actualizarDatosEmpresa(nickFiltrado,nuevoNombre,nuevoApellido,nombreEmpresa,descripcionEmpresa,linkWebEmpresa);
 	                		JOptionPane.showMessageDialog(null, "Usuario actualizado con éxito");	
 	                	}
                 	}else {
@@ -230,7 +230,7 @@ public class modificarDatosUsuario extends JInternalFrame {
 			                	if(((nuevoNombre.isEmpty()) ||( nuevoApellido.isEmpty()) || ( fechaNacimiento.isEmpty()) ||( nacionalidad.isEmpty()))) {
 			                		JOptionPane.showMessageDialog(null, "Datos ingresados Invalidos!");
 			                	}else {
-			                		controladorUser.actualizarDatosPostulante(nickFiltrado,nuevoNombre,nuevoApellido,fechaNacimiento,nacionalidad);
+			                		//controladorUser.actualizarDatosPostulante(nickFiltrado,nuevoNombre,nuevoApellido,fechaNacimiento,nacionalidad);
 			                		JOptionPane.showMessageDialog(null, "Usuario actualizado con éxito");
 			                		
 			                	}	

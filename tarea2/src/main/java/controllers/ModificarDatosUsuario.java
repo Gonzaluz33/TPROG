@@ -64,7 +64,45 @@ public class ModificarDatosUsuario extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		 String jwt = cookies.obtenerJWTEnCookies(request, response);
+		 if(jwt!=null) {
+			 String tipoUsuario = portUsuarios.tipoUsuario(jwt);
+			 DtUsuario user = portUsuarios.obtenerDatosDeUsuarioJWT(jwt);
+			 switch(tipoUsuario) {
+	         	case "empresa":
+	         		request.getRequestDispatcher("/WEB-INF/empresa/modificarDatos.jsp").forward(request, response);
+	         		break;
+	         	case "postulante":
+	         		try {
+	         			String nickname = user.getNickname();
+	         			String nombre = request.getParameter("nombre");
+		                String apellido = request.getParameter("apellido");
+		                String nacionalidad = request.getParameter("nacionalidad");
+		                String url_imagen = request.getParameter("url_imagen");
+		                String fechaNacimiento = request.getParameter("fechaNacimiento");   
+		                if (nombre.isEmpty() || apellido.isEmpty() || nacionalidad.isEmpty() || url_imagen.isEmpty()) {
+		                	throw new Exception("Todos los campos son obligatorios.");
+			            }
+		                else {
+		                	portUsuarios.actualizarDatosPostulante(nickname, nombre, apellido, fechaNacimiento, nacionalidad, url_imagen);
+		                	request.getRequestDispatcher("/WEB-INF/postulante/dashboardPostulante.jsp").forward(request, response);
+		                }
+	         		}
+	         		catch(Exception e) {
+	         			request.setAttribute("error", e.getMessage());
+	    				request.getRequestDispatcher("/WEB-INF/errorPages/ofertaExiste.jsp").forward(request, response);
+	    				e.printStackTrace();
+	         		}
+	         		break;
+	         	default:
+	         		request.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(request, response);
+	         		break;
+	         }
+			 
+		 }
+		 else {
+			 request.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(request, response);
+		 }
 	}
 
 }

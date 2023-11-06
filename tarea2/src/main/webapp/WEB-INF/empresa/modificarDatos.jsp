@@ -42,30 +42,30 @@
 	<main>
 	 	<jsp:include page="/WEB-INF/template/NavBarEmpresa.jsp"/>
 	 	<div class="p-2 d-flex justify-content-center mt-3">	
-		<form class="col-6">
+		<form class="col-6" method="put">
 			  <div class="form-group">
 			    <label>Nombre</label>
-			    <input type="text" class="form-control" id="NombreField" value="<%= usuario.getNombre() %>">
+			    <input type="text" class="form-control" name="nombre" id="NombreField" value="<%= usuario.getNombre() %>">
 			  </div>
 			  <div class="form-group">
 			    <label>Apellido</label>
-			    <input type="text" class="form-control" id="ApellidoField" value="<%= usuario.getApellido() %>">
+			    <input type="text" class="form-control" name="apellido" id="ApellidoField" value="<%= usuario.getApellido() %>">
 			  </div>
 			  <div class="form-group">
 			    <label>Nombre de Empresa</label>
-			    <input type="text" class="form-control" id="ApellidoField" value="<%= usuario.getNombreEmpresa() %>" >
+			    <input type="text" class="form-control" name="nombre_empresa" id="nomEmpresaField" value="<%= usuario.getNombreEmpresa() %>" >
 			  </div>
 			  <div class="form-group">
 			    <label>Descripción</label>
-			    <textarea type="text" class="form-control" id="ApellidoField" rows="5"><%= usuario.getDescripcion() %></textarea>
+			    <textarea type="text" class="form-control" name="descripcion" id="descripcionField" rows="5"><%= usuario.getDescripcion() %></textarea>
 			  </div>
 			  <div class="form-group">
 			    <label>Link Web</label>
-			    <input type="text" class="form-control" id="ApellidoField" value="<%= usuario.getLinkWeb() %>">
+			    <input type="text" class="form-control" name="link_web" id="linkField" value="<%= usuario.getLinkWeb() %>">
 			  </div>
 			  <div class="form-group">
 			    <label>URL Imagen</label>
-			    <input type="text" class="form-control" id="URLImagenField" value="<%= usuario.getUrlImagen() %>" >
+			    <input type="text" class="form-control" name="url_imagen" id="URLImagenField" value="<%= usuario.getUrlImagen() %>" >
 			  </div>
               <div class="mt-4">
 			  	<button type="submit" class="btn btn-dark">Confirmar</button>

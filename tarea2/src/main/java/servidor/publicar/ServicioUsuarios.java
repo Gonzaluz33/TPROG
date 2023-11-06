@@ -129,21 +129,29 @@ public interface ServicioUsuarios {
      * @param arg0
      * @param arg1
      * @return
-     *     returns boolean
-     * @throws NicknameNoExisteException_Exception
+     *     returns java.lang.String
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/validarUsuarioRequest", output = "http://publicar.servidor/ServicioUsuarios/validarUsuarioResponse", fault = {
-        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/validarUsuario/Fault/NicknameNoExisteException")
-    })
-    public boolean validarUsuario(
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/generateJWTRequest", output = "http://publicar.servidor/ServicioUsuarios/generateJWTResponse")
+    public String generateJWT(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0,
         @WebParam(name = "arg1", partName = "arg1")
-        String arg1)
-        throws NicknameNoExisteException_Exception
-    ;
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/isTokenBlacklistedRequest", output = "http://publicar.servidor/ServicioUsuarios/isTokenBlacklistedResponse")
+    public boolean isTokenBlacklisted(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
 
     /**
      * 
@@ -163,32 +171,19 @@ public interface ServicioUsuarios {
      * @param arg0
      * @param arg1
      * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/generateJWTRequest", output = "http://publicar.servidor/ServicioUsuarios/generateJWTResponse")
-    public String generateJWT(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns servidor.publicar.DtUsuario
+     *     returns boolean
      * @throws NicknameNoExisteException_Exception
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioRequest", output = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioResponse", fault = {
-        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/consultarUsuario/Fault/NicknameNoExisteException")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/validarUsuarioRequest", output = "http://publicar.servidor/ServicioUsuarios/validarUsuarioResponse", fault = {
+        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/validarUsuario/Fault/NicknameNoExisteException")
     })
-    public DtUsuario consultarUsuario(
+    public boolean validarUsuario(
         @WebParam(name = "arg0", partName = "arg0")
-        String arg0)
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1)
         throws NicknameNoExisteException_Exception
     ;
 
@@ -201,45 +196,6 @@ public interface ServicioUsuarios {
     public void cerrarSesion(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/isTokenBlacklistedRequest", output = "http://publicar.servidor/ServicioUsuarios/isTokenBlacklistedResponse")
-    public boolean isTokenBlacklisted(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns servidor.publicar.DtEmpresa
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/esEmpresaRequest", output = "http://publicar.servidor/ServicioUsuarios/esEmpresaResponse")
-    public DtEmpresa esEmpresa(
-        @WebParam(name = "arg0", partName = "arg0")
-        DtUsuario arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns servidor.publicar.DtPostulante
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/esPostulanteRequest", output = "http://publicar.servidor/ServicioUsuarios/esPostulanteResponse")
-    public DtPostulante esPostulante(
-        @WebParam(name = "arg0", partName = "arg0")
-        DtUsuario arg0);
 
     /**
      * 
@@ -266,6 +222,103 @@ public interface ServicioUsuarios {
     public boolean usuarioExiste(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns servidor.publicar.DtUsuario
+     * @throws NicknameNoExisteException_Exception
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioRequest", output = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioResponse", fault = {
+        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/consultarUsuario/Fault/NicknameNoExisteException")
+    })
+    public DtUsuario consultarUsuario(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0)
+        throws NicknameNoExisteException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns servidor.publicar.DtPostulante
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/esPostulanteRequest", output = "http://publicar.servidor/ServicioUsuarios/esPostulanteResponse")
+    public DtPostulante esPostulante(
+        @WebParam(name = "arg0", partName = "arg0")
+        DtUsuario arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns servidor.publicar.DtEmpresa
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/esEmpresaRequest", output = "http://publicar.servidor/ServicioUsuarios/esEmpresaResponse")
+    public DtEmpresa esEmpresa(
+        @WebParam(name = "arg0", partName = "arg0")
+        DtUsuario arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @param arg3
+     * @param arg4
+     * @param arg5
+     * @param arg6
+     */
+    @WebMethod
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/actualizarDatosEmpresaRequest", output = "http://publicar.servidor/ServicioUsuarios/actualizarDatosEmpresaResponse")
+    public void actualizarDatosEmpresa(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        String arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        String arg4,
+        @WebParam(name = "arg5", partName = "arg5")
+        String arg5,
+        @WebParam(name = "arg6", partName = "arg6")
+        String arg6);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @param arg3
+     * @param arg4
+     * @param arg5
+     */
+    @WebMethod
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/actualizarDatosPostulanteRequest", output = "http://publicar.servidor/ServicioUsuarios/actualizarDatosPostulanteResponse")
+    public void actualizarDatosPostulante(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        String arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        String arg4,
+        @WebParam(name = "arg5", partName = "arg5")
+        String arg5);
 
     /**
      * 

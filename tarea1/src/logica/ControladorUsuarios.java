@@ -112,21 +112,22 @@ public class ControladorUsuarios implements IControladorUsuario {
 	}
 
 	public void actualizarDatosEmpresa(String nickFiltrado, String nuevoNombre, String nuevoApellido,
-			String nombreEmpresa, String descripcionEmpresa, String linkWebEmpresa) {
+			String nombreEmpresa, String descripcionEmpresa, String linkWebEmpresa, String urlImagen) {
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
 		try {
 			manejadorU.actualizarDatosEmpresa(nickFiltrado, nuevoNombre, nuevoApellido, nombreEmpresa,
-					descripcionEmpresa, linkWebEmpresa);
+					descripcionEmpresa, linkWebEmpresa, urlImagen);
 		} catch (NicknameNoExisteException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void actualizarDatosPostulante(String nickname, String nuevoNombre, String nuevoApellido,
-			String fechaNacimiento, String nacionalidad) {
+			String fechaNacimiento, String nacionalidad, String urlImagen) {
 		ManejadorUsuarios manejadorU = ManejadorUsuarios.getInstance();
 		try {
-			manejadorU.actualizarDatosPostulante(nickname, nuevoNombre, nuevoApellido, fechaNacimiento, nacionalidad);
+			manejadorU.actualizarDatosPostulante(nickname, nuevoNombre, nuevoApellido, fechaNacimiento, nacionalidad
+					,urlImagen);
 		} catch (NicknameNoExisteException e) {
 			e.printStackTrace();
 		}

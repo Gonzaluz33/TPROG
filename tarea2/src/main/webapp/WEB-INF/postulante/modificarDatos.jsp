@@ -42,14 +42,14 @@
 	<main>
 	 	<jsp:include page="/WEB-INF/template/NavBarPostulante.jsp"/>
 	 	<div class="p-2 d-flex justify-content-center mt-3">	
-		<form class="col-6">
+		<form class="col-6" method="post" action="modificarDatosUsuario">
 			  <div class="form-group">
 			    <label>Nombre</label>
-			    <input type="text" class="form-control" id="NombreField" value="<%= usuario.getNombre() %>">
+			    <input type="text" class="form-control" name="nombre" id="NombreField" value="<%= usuario.getNombre() %>">
 			  </div>
 			  <div class="form-group">
 			    <label>Apellido</label>
-			    <input type="text" class="form-control" id="ApellidoField"  value="<%= usuario.getApellido() %>">
+			    <input type="text" class="form-control" name="apellido" id="ApellidoField"  value="<%= usuario.getApellido() %>">
 			  </div>
 			  <div class="form-group mb-4">
                   <label for="nacionalidad">Nacionalidad:</label>
@@ -61,7 +61,7 @@
               </div>
 			  <div class="form-group">
 			    <label>URL Imagen</label>
-			    <input type="text" class="form-control" id="URLImagenField" value="<%= usuario.getUrlImagen() %>">
+			    <input type="text" class="form-control" name="url_imagen" id="URLImagenField" value="<%= usuario.getUrlImagen() %>">
 			  </div>
 			  <div class="form-group mb-2">
                   <label for="fechaNacimiento">Fecha de Nacimiento:</label>

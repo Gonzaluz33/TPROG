@@ -167,4 +167,23 @@ public class ServicioUsuarios {
 		icontuser.altaPostulante(nickname, nombre, apellido, email, contraseña, fechaNacimiento, nacionalidad, url_imagen);
     	
     }
+    
+    //Modificaciones
+    @WebMethod
+    public void actualizarDatosPostulante(String nickname, String nuevoNombre, String nuevoApellido,
+			String fechaNacimiento, String nacionalidad, String urlImagen){
+    	Fabrica factory = Fabrica.getInstance();
+		IControladorUsuario icontuser = factory.getIControladorUsuario();
+		icontuser.actualizarDatosPostulante(nickname, nuevoNombre, nuevoApellido, fechaNacimiento, nacionalidad, urlImagen);
+    }
+    
+    @WebMethod
+    public void actualizarDatosEmpresa(String nickname, String nuevoNombre, String nuevoApellido,
+			String nombreEmpresa, String descripcionEmpresa, String linkWebEmpresa, String urlImagen) {
+    	Fabrica factory = Fabrica.getInstance();
+		IControladorUsuario icontuser = factory.getIControladorUsuario();
+		icontuser.actualizarDatosEmpresa(nickname, nuevoNombre, nuevoApellido, nombreEmpresa, descripcionEmpresa, linkWebEmpresa, urlImagen);
+    }
+    
+    
 }
