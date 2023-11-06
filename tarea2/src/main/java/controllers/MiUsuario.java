@@ -59,7 +59,8 @@ public class MiUsuario extends HttpServlet {
 	        		req.setAttribute("nombre", user.getNombre());
 	        		req.setAttribute("apellido", user.getApellido());
 	        		req.setAttribute("correo", user.getCorreo());
-	        		
+	        		req.setAttribute("nacionalidad", ((DtPostulante) user).getNacionalidad());
+	        		req.setAttribute("fechaNacimiento", ((DtPostulante) user).getFechaNacimiento());
 	        		try {
 	        			DtPostulacionArray postulacionesDePostulante = portOfertas.obtenerPostulacionesPorPostulante(user.getNickname());
 	        			if(postulacionesDePostulante != null) {
@@ -76,6 +77,9 @@ public class MiUsuario extends HttpServlet {
 	            		req.setAttribute("nombre", user.getNombre());
 	            		req.setAttribute("apellido", user.getApellido());
 	            		req.setAttribute("correo", user.getCorreo());
+	            		req.setAttribute("descripcion", ((DtEmpresa) user).getDescripcion());
+	            		req.setAttribute("nombreEmpresa", ((DtEmpresa) user).getNombreEmpresa());
+	            		req.setAttribute("link_web", ((DtEmpresa) user).getLinkWeb());
 	            		DtPublicacionArray publicaciones = portOfertas.obtenerPublicacionesDeEmpresa(user.getNickname());
 	            		if(publicaciones != null && !publicaciones.getItem().isEmpty()) {
 	            			req.setAttribute("publicaciones", publicaciones.getItem());

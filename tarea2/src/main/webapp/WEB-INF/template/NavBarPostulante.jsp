@@ -32,6 +32,9 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="/tarea2/postularAOferta">Postular a Oferta Laboral</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/tarea2/modificarDatosUsuario">Modificar Datos Personales</a>
+                </li>
             </ul>
         </div>
     </div>

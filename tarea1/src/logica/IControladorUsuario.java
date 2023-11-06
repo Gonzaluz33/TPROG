@@ -74,8 +74,8 @@ public interface IControladorUsuario {
 			throws NicknameNoExisteException, UsuarioNoEsEmpresaException;
 
 	public void actualizarDatosEmpresa(String nickFiltrado, String nuevoNombre, String nuevoApellido,
-			String nombreEmpresa, String descripcionEmpresa, String linkWebEmpresa);
+			String nombreEmpresa, String descripcionEmpresa, String linkWebEmpresa, String urlImagen);
 
 	public void actualizarDatosPostulante(String nickname, String nuevoNombre, String nuevoApellido,
-			String fechaNacimiento, String nacionalidad);
+			String fechaNacimiento, String nacionalidad, String urlImagen);
 }

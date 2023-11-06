@@ -47,7 +47,7 @@
 				     <div class="d-flex px-2 mt-2">
 				         <a class="text-decoration-none text-black fw-bold " href="/tarea2/cerrar-sesion">Cerrar Sesión<i class="ms-2 fas fa-sign-out-alt"></i></a>
 				     </div>
- </div>
+ 				</div>
  				</div>
             </div>
         </nav>
@@ -71,6 +71,9 @@
                     <a href="/tarea2/postularAOferta" class="list-group-item list-group-item-action d-flex align-items-center">
                         <i class="fas fa-paper-plane me-3"></i> Postular a Oferta Laboral
                     </a>
+                    <a href="/tarea2/modificarDatosUsuario" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-paper-plane me-3"></i> Modificar Datos Personales
+                    </a>         
                 </div>
             </div>
         </div>

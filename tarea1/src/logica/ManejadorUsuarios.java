@@ -161,7 +161,8 @@ public class ManejadorUsuarios {
 		postulante.asociarPostulacion(postulacion, postulacion.getNombreOfertaLaboral());
 	}
 	
-	public void actualizarDatosEmpresa(String nickFiltrado,String nuevoNombre,String nuevoApellido,String nombreEmpresa,String descripcionEmpresa, String linkWebEmpresa) throws NicknameNoExisteException {
+	public void actualizarDatosEmpresa(String nickFiltrado,String nuevoNombre,String nuevoApellido,String nombreEmpresa,String descripcionEmpresa, String linkWebEmpresa
+			,String urlImagen) throws NicknameNoExisteException {
 		String nicknameLowerCase = nickFiltrado.toLowerCase();
 		if (coleccionUsuarios.containsKey(nicknameLowerCase) ) {
 			Usuario user = coleccionUsuarios.get(nicknameLowerCase);
@@ -171,6 +172,7 @@ public class ManejadorUsuarios {
 			empresa.setNombreEmpresa(nombreEmpresa);
 			empresa.setDescripcion(descripcionEmpresa);
 			empresa.setLinkWeb(linkWebEmpresa);
+			empresa.setUrlImagen(urlImagen);
 			
 		} else {
 			throw new NicknameNoExisteException("El usuario con el nickname " + nickFiltrado + " no existe.");
@@ -178,7 +180,8 @@ public class ManejadorUsuarios {
 	}
 	
 	
-	public void actualizarDatosPostulante(String nickname, String nuevoNombre,String nuevoApellido,String fechaNacimiento, String nacionalidad) throws NicknameNoExisteException {
+	public void actualizarDatosPostulante(String nickname, String nuevoNombre,String nuevoApellido,String fechaNacimiento, String nacionalidad
+			,String urlImagen) throws NicknameNoExisteException {
 		String nicknameLowerCase = nickname.toLowerCase();
 		if (coleccionUsuarios.containsKey(nicknameLowerCase) ) {
 			Usuario user = coleccionUsuarios.get(nicknameLowerCase);
@@ -187,7 +190,7 @@ public class ManejadorUsuarios {
 			postulante.setApellido(nuevoApellido);
 			LocalDate fecha = null;
 			try {
-			    fecha = LocalDate.parse(fechaNacimiento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+			    fecha = LocalDate.parse(fechaNacimiento, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 			    postulante.setFechaNacimiento(fecha);
 			} catch (DateTimeParseException e) {
 			    e.printStackTrace();
@@ -199,7 +202,8 @@ public class ManejadorUsuarios {
 			}
 			
 			postulante.setNacionalidad(nacionalidad);
-		} else {
+			postulante.setUrlImagen(urlImagen);
+			} else {
 			throw new NicknameNoExisteException("El usuario con el nickname " + nickname + " no existe.");
 		}
 	}

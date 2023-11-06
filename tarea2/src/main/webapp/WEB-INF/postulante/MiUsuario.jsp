@@ -27,8 +27,8 @@
          String nombreJSON = (String) request.getAttribute("nombre");
          String apellidoJSON = (String) request.getAttribute("apellido");
          String correoJSON = (String) request.getAttribute("correo");
-        
-            
+         String nacionalidad = (String) request.getAttribute("nacionalidad");
+         String fechaNacimiento = (String) request.getAttribute("fechaNacimiento");
 		 %>
 </head>
 <body>
@@ -75,6 +75,8 @@
                         <p class="m-0"><span class="fw-bold">Nombre: </span><%=nombreJSON%></p>
                         <p class="m-0"><span class="fw-bold">Apellido: </span><%=apellidoJSON%></p>
                         <p class="m-0"><span class="fw-bold">Email: </span><%=correoJSON%></p>
+                         <p class="m-0"><span class="fw-bold">Nacionalidad: </span><%=nacionalidad%></p>
+                          <p class="m-0"><span class="fw-bold">Fecha de Nacimiento: </span><%=fechaNacimiento%></p>
                     </div>
                 </div>
 

@@ -65,7 +65,6 @@ public class Principal {
 	private consultaOfertaLaboral consultaOfertaLaboralInternalFrame;
 	private altaTipoPublicacionOL altaTipoPublicacionOLInternalFrame;
 	private postulacionOfertaLaboral postulacionOfertaLaboralInternalFrame;
-	private modificarDatosUsuario modificarDatosUsuarioInternalFrame;
 	private crearPaqueteTipo crearPaqueteTipoInternalFrame;
 	private consultaPaquete consultaPaqueteInternalFrame;
 	private agregarTipoPubAPaquete agregarTipoAPaqueteInternalFrame;
@@ -240,28 +239,6 @@ public class Principal {
 	            }
 		});
 		menuUsuarios.add(mItemConsultaUsuario);
-		
-		JMenuItem mItemModificarDatosUsuario = new JMenuItem("Modificar datos de Usuario");
-		
-		mItemModificarDatosUsuario.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        if (currentInternalFrame != null) {
-		            currentInternalFrame.setVisible(false);
-		        }
-		        try {
-					modificarDatosUsuarioInternalFrame = new modificarDatosUsuario(ICU);
-				} catch (PropertyVetoException e1) {
-					
-					e1.printStackTrace();
-				}
-			    modificarDatosUsuarioInternalFrame.setResizable(false);
-			    modificarDatosUsuarioInternalFrame.setBorder(null);
-			    frame.getContentPane().add(modificarDatosUsuarioInternalFrame);
-		        modificarDatosUsuarioInternalFrame.setVisible(true);
-		        currentInternalFrame = modificarDatosUsuarioInternalFrame;
-		    }
-		});
-		menuUsuarios.add(mItemModificarDatosUsuario);
 
 		JMenuItem mItemOfertaLaboral = new JMenuItem("Alta de Oferta Laboral");
 		mItemOfertaLaboral.addActionListener(new ActionListener() {
