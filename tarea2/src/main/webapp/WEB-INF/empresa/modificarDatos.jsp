@@ -42,7 +42,7 @@
 	<main>
 	 	<jsp:include page="/WEB-INF/template/NavBarEmpresa.jsp"/>
 	 	<div class="p-2 d-flex justify-content-center mt-3">	
-		<form class="col-6" method="put">
+		<form class="col-6" method="post" action="modificarDatosUsuario">
 			  <div class="form-group">
 			    <label>Nombre</label>
 			    <input type="text" class="form-control" name="nombre" id="NombreField" value="<%= usuario.getNombre() %>">

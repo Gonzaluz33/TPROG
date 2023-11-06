@@ -26,7 +26,10 @@
          String nicknameJSON = (String) request.getAttribute("nickname");
          String nombreJSON = (String) request.getAttribute("nombre");
          String apellidoJSON = (String) request.getAttribute("apellido");
-         String correoJSON = (String) request.getAttribute("correo"); 
+         String correoJSON = (String) request.getAttribute("correo");
+         String nombreEmpresa = (String) request.getAttribute("nombreEmpresa"); 
+         String descripcion = (String) request.getAttribute("descripcion"); 
+         String linkWeb = (String) request.getAttribute("link_web"); 
 		 %>
 </head>
 
@@ -71,6 +74,16 @@
                         <p class="m-0"><span class="fw-bold">Nombre: </span><%=nombreJSON%></p>
                         <p class="m-0"><span class="fw-bold">Apellido: </span><%=apellidoJSON%></p>
                         <p class="m-0"><span class="fw-bold">Email: </span><%=correoJSON%></p>
+                        <p class="m-0"><span class="fw-bold">Nombre de Empresa: </span><%=nombreEmpresa%></p>
+                        <p class="m-0"><span class="fw-bold">Dsecripción: </span><%=descripcion%></p>
+                        <% 
+						   if (!linkWeb.equals("")) {
+						%>
+						   <p class="m-0"><span class="fw-bold">Link Web:</span> <%= linkWeb %></p>
+						<% 
+						   }
+						%>
+			            
                     </div>
                    
                 </div>

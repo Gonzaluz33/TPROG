@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error de Alta</title>
+    <title>Error</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -46,7 +46,7 @@
 </head>
 <body>
     <div class="error-container">
-        <h1>Error de Alta</h1>
+        <h1>Error</h1>
          <% if (request.getAttribute("error") != null) { %>
 		    <p>
 		        ${requestScope.error}

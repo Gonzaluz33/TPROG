@@ -190,7 +190,7 @@ public class ManejadorUsuarios {
 			postulante.setApellido(nuevoApellido);
 			LocalDate fecha = null;
 			try {
-			    fecha = LocalDate.parse(fechaNacimiento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+			    fecha = LocalDate.parse(fechaNacimiento, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 			    postulante.setFechaNacimiento(fecha);
 			} catch (DateTimeParseException e) {
 			    e.printStackTrace();

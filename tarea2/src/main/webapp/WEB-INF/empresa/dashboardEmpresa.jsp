@@ -71,16 +71,9 @@
 			        <a href="/tarea2/consultaPostulacionAOferta" class="list-group-item list-group-item-action d-flex align-items-center">
 			            <i class="fas fa-briefcase me-3"></i> Consulta de Postulación a Oferta Laboral
 			        </a>
-			        <div class="list-group-item list-group-item-action d-flex align-items-center">
-			          <i class="fas fa-paper-plane me-3"></i>
-			          <a class="nav-link dropdown-toggle"  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-			            Modificar Datos
-			          </a>
-			          <ul class="dropdown-menu">
-			            <li><a class="dropdown-item" href="/tarea2/modificarDatosUsuario">Modificar Datos Personales</a></li>
-			            <li><a class="dropdown-item" href="/tarea2/modificarContraseña">Modificar Contraseña</a></li>
-			          </ul>
-		        	</div>
+			        <a href="/tarea2/modificarDatosUsuario" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-paper-plane me-3"></i> Modificar Datos Personales
+                    </a>
 			    </div>
             </div>
         </div>
