@@ -277,7 +277,7 @@ public class postularAPostulante extends JInternalFrame {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 			String fechaComoString = fecha.format(formatter);
 			
-			controlOL.postularAOferta(oferta, postulantefinal, cv, motivacion, fechaComoString);
+			controlOL.postularAOferta(oferta, postulantefinal, cv, motivacion, fechaComoString, "");
 			JOptionPane.showMessageDialog(this, "Postulación realizada con éxito", "Postulación a Oferta Laboral",
                     JOptionPane.INFORMATION_MESSAGE);
 		 limpiarFormulario();
