@@ -125,7 +125,6 @@
 	    								<input type="hidden" name="nickname" value="<%= nickname %>">			                			
 	    								<input type="hidden" name="nombreOferta" value="<%= publicacion.getDtOferta().getNombre() %>">
 			                    		<button class="btn btn-danger" type="submit">Finalizar</button>
-			                    		<span><%= publicacion.getDtOferta().getEstado() %></span>
 			                    	</form>
 			                	</div>
 			                	<%} %>
