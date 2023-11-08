@@ -1,173 +1,141 @@
 package controllers;
 
-import utils.*;
 import servidor.publicar.DtPublicacion;
-import servidor.publicar.DtPublicacionArray;
 import servidor.publicar.EnumEstadoOferta;
 import servidor.publicar.KeywordExisteException_Exception;
-import servidor.publicar.DtOferta;
+import servidor.publicar.ServicioOfertas;
+import servidor.publicar.ServicioOfertasService;
+import servidor.publicar.ServicioUsuarios;
+import servidor.publicar.ServicioUsuariosService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import net.java.dev.jaxb.array.StringArray;
 import jakarta.servlet.http.Cookie;
 import java.io.IOException;
-import java.security.Key;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import excepciones.CorreoRepetidoException;
-import excepciones.NicknameNoExisteException;
-import excepciones.UsuarioRepetidoException;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
 
-/**
- * Servlet implementation class Visitante
- */
 @WebServlet("/visitante")
 public class Visitante extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    private static final String JWT_COOKIE_NAME = "jwt";
+    private ServicioOfertas portOfertas;
+    private ServicioUsuarios portUsuarios;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public Visitante() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
+    public Visitante() {
+        super();
+        ServicioOfertasService serviceOfertas = new ServicioOfertasService();
+        portOfertas = serviceOfertas.getServicioOfertasPort();
+        ServicioUsuariosService serviceUsuarios = new ServicioUsuariosService();
+        portUsuarios = serviceUsuarios.getServicioUsuariosPort();
+    }
 
-    public static List<DtPublicacion> filtrarPublicacionesConfirmadas(List<DtPublicacion> publicaciones) {
+    private List<DtPublicacion> filtrarPublicacionesConfirmadas(List<DtPublicacion> publicaciones) {
         return publicaciones.stream()
-                .filter(publicacion -> EnumEstadoOferta.CONFIRMADA.equals(publicacion.getDtOferta().getEstado()))
+                .filter(p -> EnumEstadoOferta.CONFIRMADA.equals(p.getDtOferta().getEstado()))
                 .collect(Collectors.toList());
     }
-    
-	private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException,
-			UsuarioRepetidoException, CorreoRepetidoException, NicknameNoExisteException, KeywordExisteException_Exception {
-		
-		servidor.publicar.ServicioOfertasService serviceOfertas = new servidor.publicar.ServicioOfertasService();
-        servidor.publicar.ServicioOfertas portOfertas = serviceOfertas.getServicioOfertasPort();
-        String userAgent = req.getHeader("User-Agent");
-        boolean isMobile = false;
 
-        if (userAgent != null) {
-            isMobile = userAgent.matches(".*(Android|iPhone|iPad|iPod|Windows Phone|webOS|BlackBerry|Mobile).*");
+    private void redirectToAppropriatePage(HttpServletRequest req, HttpServletResponse resp, boolean isMobile, String tipoUsuario) throws ServletException, IOException {
+        switch (tipoUsuario) {
+            case "empresa":
+                handleEmpresaUser(isMobile, resp);
+                break;
+            case "postulante":
+                resp.sendRedirect("postulante");
+                break;
+            default:
+                invalidateToken(req, resp, isMobile);
+                break;
         }
+    }
 
-		StringArray keywords = portOfertas.obtenerKeywords();
-		req.setAttribute("keywords", keywords.getItem());
+    private void handleEmpresaUser(boolean isMobile, HttpServletResponse resp) throws IOException, ServletException {
+        if (isMobile) {
+        	clearCookie(resp);
+            resp.sendRedirect("visitante");
+        } else {
+            resp.sendRedirect("empresa");
+        }
+    }
 
-		String busqueda = req.getParameter("busqueda");
-		String[] keywordsSeleccionadas = req.getParameterValues("keywords");
-		String keywordsString = "";
-		if (keywordsSeleccionadas != null) {
-		    keywordsString = String.join("/", keywordsSeleccionadas);
-		}
-		List<DtPublicacion> publicaciones = new ArrayList<>();
-		if (busqueda != null && !busqueda.isEmpty()) {
-			publicaciones = portOfertas.obtenerPublicacionesPorBusqueda(busqueda).getItem();
-		} else if (keywordsSeleccionadas != null && keywordsSeleccionadas.length > 0) {
-			publicaciones = portOfertas.obtenerPublicacionesPorKeywords(keywordsString).getItem();
-		} else {
-			publicaciones = portOfertas.obtenerPublicaciones().getItem();
-		}
-		
-		List<DtPublicacion> pubFiltered = filtrarPublicacionesConfirmadas(publicaciones);
-		req.setAttribute("publicaciones", pubFiltered);
-		
-		Cookie[] cookies = req.getCookies();
-		String jwtCookieName = "jwt";
-		String jwt = null;
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (jwtCookieName.equals(cookie.getName())) {
-					jwt = cookie.getValue();
-					break;
-				}
-			}
-		}
-		if (jwt != null) {
-			servidor.publicar.ServicioUsuariosService service = new servidor.publicar.ServicioUsuariosService();
-	        servidor.publicar.ServicioUsuarios port = service.getServicioUsuariosPort();
-	        boolean esValido = port.validarToken(jwt);
-	        
-	        if(esValido){
-	        	String tipoUsuario = port.tipoUsuario(jwt);
-	        	if(tipoUsuario.equals("empresa")) {
-	        		resp.sendRedirect("empresa");
-	        	}else if(tipoUsuario.equals("postulante")){
-	        		resp.sendRedirect("postulante");
-	        	}else {
-	        		req.setAttribute("invalidToken", true);
-					Cookie jwtCookie = new Cookie("jwt", "");
-					jwtCookie.setMaxAge(0);
-					resp.addCookie(jwtCookie);
-					if (isMobile) {
-			        	req.getRequestDispatcher("/WEB-INF/mobile/inicio.jsp").forward(req, resp);
-			        } else {
-			        	req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
-			        }
-	        	}	
-	        }else {
-	        	req.setAttribute("invalidToken", true);
-				Cookie jwtCookie = new Cookie("jwt", "");
-				jwtCookie.setMaxAge(0);
-				resp.addCookie(jwtCookie);
-				if (isMobile) {
-		        	req.getRequestDispatcher("/WEB-INF/mobile/inicio.jsp").forward(req, resp);
-		        } else {
-		        	req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
-		        	
-		        }
-	        }
-	        
-		} else {
-			if (isMobile) {
-	        	req.getRequestDispatcher("/WEB-INF/mobile/inicio.jsp").forward(req, resp);
-	        } else {
-	        	req.getRequestDispatcher("/WEB-INF/visitante/inicio.jsp").forward(req, resp);
-	        	
-	        }
-		}
-	}
+    private void invalidateToken(HttpServletRequest req, HttpServletResponse resp, boolean isMobile) throws ServletException, IOException {
+        req.setAttribute("invalidToken", true);
+        clearCookie(resp);
+        dispatchToLogin(req, resp, isMobile);
+    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		try {
+    private void clearCookie(HttpServletResponse resp) {
+        Cookie jwtCookie = new Cookie(JWT_COOKIE_NAME, "");
+        jwtCookie.setMaxAge(0);
+        resp.addCookie(jwtCookie);
+    }
+
+    private void dispatchToLogin(HttpServletRequest req, HttpServletResponse resp, boolean isMobile) throws ServletException, IOException {
+        String path = isMobile ? "/WEB-INF/mobile/loginMobile.jsp" : "/WEB-INF/visitante/inicio.jsp";
+        req.getRequestDispatcher(path).forward(req, resp);
+    }
+
+    private boolean isMobileRequest(HttpServletRequest req) {
+        String userAgent = req.getHeader("User-Agent");
+        return userAgent != null && userAgent.matches(".*(Android|iPhone|iPad|iPod|Windows Phone|webOS|BlackBerry|Mobile).*");
+    }
+
+    private String getJwtFromCookies(Cookie[] cookies) {
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (JWT_COOKIE_NAME.equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
+    }
+
+    protected void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, KeywordExisteException_Exception {
+        boolean isMobile = isMobileRequest(req);
+
+        req.setAttribute("keywords", portOfertas.obtenerKeywords().getItem());
+        String busqueda = req.getParameter("busqueda");
+        String[] keywordsSeleccionadas = req.getParameterValues("keywords");
+        List<DtPublicacion> publicaciones = getPublicaciones(busqueda, keywordsSeleccionadas);
+        req.setAttribute("publicaciones", filtrarPublicacionesConfirmadas(publicaciones));
+
+        String jwt = getJwtFromCookies(req.getCookies());
+        if (jwt != null && portUsuarios.validarToken(jwt)) {
+            redirectToAppropriatePage(req, resp, isMobile, portUsuarios.tipoUsuario(jwt));
+        } else {
+            dispatchToLogin(req, resp, isMobile);
+        }
+    }
+
+    private List<DtPublicacion> getPublicaciones(String busqueda, String[] keywordsSeleccionadas) {
+        if (busqueda != null && !busqueda.isEmpty()) {
+            return portOfertas.obtenerPublicacionesPorBusqueda(busqueda).getItem();
+        } else if (keywordsSeleccionadas != null && keywordsSeleccionadas.length > 0) {
+            String keywordsString = String.join("/", keywordsSeleccionadas);
+            return portOfertas.obtenerPublicacionesPorKeywords(keywordsString).getItem();
+        } else {
+            return portOfertas.obtenerPublicaciones().getItem();
+        }
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
 			processRequest(request, response);
-		} catch (ServletException | IOException | UsuarioRepetidoException | CorreoRepetidoException
-				| NicknameNoExisteException | KeywordExisteException_Exception e) {
+		} catch (ServletException | IOException | KeywordExisteException_Exception e) {
 			e.printStackTrace();
 		}
-	}
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		try {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
 			processRequest(request, response);
-		} catch (ServletException | IOException | UsuarioRepetidoException | CorreoRepetidoException
-				| NicknameNoExisteException | KeywordExisteException_Exception e) {
+		} catch (ServletException | IOException | KeywordExisteException_Exception e) {
 			e.printStackTrace();
 		}
-	}
-
+    }
 }
+
