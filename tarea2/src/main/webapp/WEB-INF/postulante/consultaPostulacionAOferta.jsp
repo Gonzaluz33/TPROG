@@ -68,7 +68,15 @@
 				      	<p class="m-0 card-text"><span class="fw-bold">Motivacion: </span><%=post.getMotivacion() %></p>
                    		<p class="m-0 card-text"><span class="fw-bold">Cv reducido: </span><%=post.getCvReducido() %></p>
                    		<p class="m-0 card-text"><span class="fw-bold">Fecha de postulacion: </span><%= fecha %></p>
-                  	
+                   		<%
+                   			if(!post.getUrlVideo().equals("")){
+                   		%>
+                  		<div class="d-flex mb-2 my-3 justify-content-center">
+							<iframe width="420" height="315"
+								src=<%=post.getUrlVideo()%>>
+							</iframe>				      	
+				      	</div>
+				      	<% } %>
 				      </div>
 				      <div class="card-footer">
 				      <div >
@@ -78,6 +86,7 @@
 				      </div>
 				      				     
 				      </div>
+				      
 					<% } %>
                     </div>
               		

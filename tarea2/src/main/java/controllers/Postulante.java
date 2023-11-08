@@ -7,10 +7,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.java.dev.jaxb.array.StringArray;
+import servidor.publicar.DtPostulante;
 import servidor.publicar.DtPublicacion;
 import servidor.publicar.DtUsuario;
 import servidor.publicar.EnumEstadoOferta;
 import servidor.publicar.KeywordExisteException_Exception;
+import servidor.publicar.NicknameNoExisteException_Exception;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,7 @@ import java.util.stream.Collectors;
 @WebServlet("/postulante")
 public class Postulante extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private String nickname;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -66,7 +70,7 @@ public class Postulante extends HttpServlet {
 
 		List<DtPublicacion> pubFiltered = filtrarPublicacionesConfirmadas(publicaciones);
 		req.setAttribute("publicaciones", pubFiltered);
-		
+				
 		boolean esValidoPostulante = false;
 		Cookie[] cookies = req.getCookies();
 		String jwtCookieName = "jwt";
@@ -88,8 +92,11 @@ public class Postulante extends HttpServlet {
 						DtUsuario usuario = portUsuarios.consultarUsuarioPorCorreo(correo); 
 						if (portUsuarios.tipoUsuario(jwt).equals("postulante")) {
 							esValidoPostulante = true;
+							this.nickname = usuario.getNickname();
 							String imagen = usuario.getUrlImagen();
 							req.setAttribute("imgPerfil", imagen);
+							
+							req.setAttribute("postulante", usuario.getNickname());
 						}
 					} 
 
@@ -124,9 +131,29 @@ public class Postulante extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
 
+        if (action != null && (action.equals("marcarFavorito")|| action.equals("desmarcarFavorito"))) {
+            try {
+				marcarDesmarcarFavorito(request, response);
+			} catch (NicknameNoExisteException_Exception | KeywordExisteException_Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        } else {
+            doGet(request, response);
+        }
+    }
+    
+    protected void marcarDesmarcarFavorito(HttpServletRequest request, HttpServletResponse response) throws NicknameNoExisteException_Exception, IOException, ServletException, KeywordExisteException_Exception {
+    	servidor.publicar.ServicioOfertasService serviceOfertas = new servidor.publicar.ServicioOfertasService();
+        servidor.publicar.ServicioOfertas portOfertas = serviceOfertas.getServicioOfertasPort();
+        
+    	String nombreOferta = request.getParameter("nombreOferta");
+    	String nickname = request.getParameter("nickname");
+
+    	portOfertas.agregarEliminarFavorito(nickname, nombreOferta);
+    	processRequest(request, response);
+    }
 }

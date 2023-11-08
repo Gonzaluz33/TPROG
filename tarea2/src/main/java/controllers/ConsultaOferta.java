@@ -53,6 +53,7 @@ public class ConsultaOferta extends HttpServlet {
           DtUsuario user = portUsuarios.obtenerDatosDeUsuarioJWT(jwt);
           tipoUsuario = portUsuarios.tipoUsuario(jwt);
           req.setAttribute("imgPerfil", (String) user.getUrlImagen());
+          req.setAttribute("nickname", (String) user.getNickname());
           if (user instanceof DtPostulante) {
         	boolean  estaPostulado = portOfertas.estaPostuladoAOfertaBoolean(user.getNickname(), oferta.getNombre());  
             if (estaPostulado) {
@@ -102,7 +103,51 @@ public class ConsultaOferta extends HttpServlet {
    */
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    try {
+	String action = request.getParameter("action");
+	if (action != null && (action.equals("marcarFavorito")|| action.equals("desmarcarFavorito"))) {
+        try {
+			marcarDesmarcarFavorito(request, response);
+		} catch (NicknameNoExisteException_Exception | KeywordExisteException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+	if (action != null && (action.equals("finalizar"))) {
+        try {
+			finalizar(request, response);
+		} catch (NicknameNoExisteException_Exception | OfertaNoExisteException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    } else {
+        doGet(request, response);
+    }
+  }
+  
+  protected void finalizar(HttpServletRequest request, HttpServletResponse response) throws NicknameNoExisteException_Exception, OfertaNoExisteException_Exception {
+    servidor.publicar.ServicioOfertasService serviceOfertas = new servidor.publicar.ServicioOfertasService();
+    servidor.publicar.ServicioOfertas portOfertas = serviceOfertas.getServicioOfertasPort();
+      
+  	String nombreOferta = request.getParameter("nombreOferta");
+  	String nickname = request.getParameter("nickname");
+  	portOfertas.finalizarOferta(nombreOferta);
+  	System.out.println(nombreOferta);
+  	try {
+		response.sendRedirect("empresa");
+	} catch (IOException  e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+  }
+  
+  protected void marcarDesmarcarFavorito(HttpServletRequest request, HttpServletResponse response) throws NicknameNoExisteException_Exception, IOException, ServletException, KeywordExisteException_Exception {
+  	servidor.publicar.ServicioOfertasService serviceOfertas = new servidor.publicar.ServicioOfertasService();
+    servidor.publicar.ServicioOfertas portOfertas = serviceOfertas.getServicioOfertasPort();
+      
+  	String nombreOferta = request.getParameter("nombreOferta");
+  	String nickname = request.getParameter("nickname");
+  	portOfertas.agregarEliminarFavorito(nickname, nombreOferta);
+  	try {
 		processRequest(request, response);
 	} catch (ServletException | IOException | NicknameNoExisteException_Exception
 			| UsuarioNoEsPostulanteException_Exception e) {

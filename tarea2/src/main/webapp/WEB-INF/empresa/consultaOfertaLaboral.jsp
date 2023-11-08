@@ -104,8 +104,9 @@
 		                        <% } %>
                         
                             </div>
-			                <div class="mt-4">
-			                    <div class="dropdown">
+			                <div class="row mt-4">
+			                    <div class="col dropdown">
+			                    	
 			                        <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 			                            Opciones
 			                        </button>
@@ -113,6 +114,21 @@
 			                            <li><a class="dropdown-item" href="mostrarPostulacion?nombre=<%= publicacion.getDtOferta().getNombre() %>">Ver listado de Postulantes</a></li>
 			                        </ul>
 			                    </div>
+			                    <%
+			                    	String nickname = (String) request.getAttribute("nickname");
+			                    	String empresa = publicacion.getDtOferta().getNicknameEmpresa();
+			                    	if (empresa.equals(nickname)) {
+			                    %>
+			                    <div class="col">
+			                		<form action="consultaOferta" method="post">
+			                			<input type="hidden" name="action" value="finalizar">
+	    								<input type="hidden" name="nickname" value="<%= nickname %>">			                			
+	    								<input type="hidden" name="nombreOferta" value="<%= publicacion.getDtOferta().getNombre() %>">
+			                    		<button class="btn btn-danger" type="submit">Finalizar</button>
+			                    		<span><%= publicacion.getDtOferta().getEstado() %></span>
+			                    	</form>
+			                	</div>
+			                	<%} %>
 			                </div>
 			            </div>
 			           

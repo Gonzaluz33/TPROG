@@ -11,6 +11,7 @@ public class Postulacion {
 	private String CVreducido;
 	private String motivacion;
 	private LocalDateTime fechaPublic;
+	private String urlVideo;
 	
 	// Constructores
 	public Postulacion(){
@@ -19,14 +20,16 @@ public class Postulacion {
 		this.CVreducido = new String();
 		this.motivacion = new String();
 		this.fechaPublic = null;
+		this.urlVideo = new String();
 	}
 	
-	public Postulacion(String nombreOfertaLaboral, String nicknamePostulante, String CVReducido, String motivacion,  LocalDateTime fechaPublic ) {
+	public Postulacion(String nombreOfertaLaboral, String nicknamePostulante, String CVReducido, String motivacion,  LocalDateTime fechaPublic, String urlVideo ) {
 		this.setNombreOfertaLaboral(nombreOfertaLaboral);
 		this.setNicknamePostulante(nicknamePostulante);
 		this.setCVReducido(CVReducido);
 		this.setMotivacion(motivacion);
 		this.setFechaPublic(fechaPublic);
+		this.setVideo(urlVideo);
 	}
 	
     // Setters
@@ -50,6 +53,9 @@ public class Postulacion {
         this.fechaPublic = fechaPublic;
     }
     
+    public void setVideo(String urlVid) {
+    	this.urlVideo = urlVid;
+    }
     // Getters
     public String getNombreOfertaLaboral() {
     	return nombreOfertaLaboral;
@@ -66,6 +72,10 @@ public class Postulacion {
     public String getMotivacion() {
         return motivacion;
     }
+    
+    public String getUrlVideo() {
+        return urlVideo;
+    }
 
     public LocalDateTime getFechaPublic() {
         return fechaPublic;
@@ -75,7 +85,7 @@ public class Postulacion {
      * Retorna los datos de la postulacion como un DTPostulacion.
      */
     public DTPostulacion toDataType() {
-    	return new DTPostulacion(getNicknamePostulante(), getNombreOfertaLaboral(), getFechaPublic(), getCVReducido(), getMotivacion());
+    	return new DTPostulacion(getNicknamePostulante(), getNombreOfertaLaboral(), getFechaPublic(), getCVReducido(), getMotivacion(), getUrlVideo());
     }
 
 }

@@ -21,6 +21,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *         <element name="fecha" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="cvReducido" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="motivacion" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         <element name="urlVideo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       </sequence>
  *     </restriction>
  *   </complexContent>
@@ -35,7 +36,8 @@ import jakarta.xml.bind.annotation.XmlType;
     "nombreOfertaLaboral",
     "fecha",
     "cvReducido",
-    "motivacion"
+    "motivacion",
+    "urlVideo"
 })
 public class DtPostulacion {
 
@@ -44,6 +46,7 @@ public class DtPostulacion {
     protected String fecha;
     protected String cvReducido;
     protected String motivacion;
+    protected String urlVideo;
 
     /**
      * Obtiene el valor de la propiedad nicknamePostulante.
@@ -163,6 +166,30 @@ public class DtPostulacion {
      */
     public void setMotivacion(String value) {
         this.motivacion = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad urlVideo.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getUrlVideo() {
+        return urlVideo;
+    }
+
+    /**
+     * Define el valor de la propiedad urlVideo.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setUrlVideo(String value) {
+        this.urlVideo = value;
     }
 
 }

@@ -15,6 +15,8 @@ public class DTPostulacion {
 	private LocalDateTime fecha;
 	private String cvReducido;
 	private String motivacion;
+	private String urlVideo;
+
 
 	// constructores
 	public DTPostulacion() {
@@ -23,15 +25,18 @@ public class DTPostulacion {
 		this.setFecha(null);
 		this.setCvReducido(new String());
 		this.setMotivacion(new String());
+		this.setUrlVideo(new String());
 	}
 
 	public DTPostulacion(String nicknamePostulante, String nombreOfertaLaboral, LocalDateTime fecha, String cvReducido,
-			String motivacion) {
+			String motivacion, String urlVideo) {
 		this.setNicknamePostulante(nicknamePostulante);
 		this.setNombreOfertaLaboral(nombreOfertaLaboral);
 		this.setFecha(fecha);
 		this.setCvReducido(cvReducido);
 		this.setMotivacion(motivacion);
+		this.setUrlVideo(urlVideo);
+
 	}
 
 	// getters
@@ -53,6 +58,10 @@ public class DTPostulacion {
 
 	public String getMotivacion() {
 		return this.motivacion;
+	}
+	
+	public String getVideo() {
+		return this.urlVideo;
 	}
 
 	// setters
@@ -76,4 +85,7 @@ public class DTPostulacion {
 		this.motivacion = motivacion;
 	}
 
+	private void setUrlVideo(String urlVid) {
+		this.urlVideo = urlVid;
+	}
 }

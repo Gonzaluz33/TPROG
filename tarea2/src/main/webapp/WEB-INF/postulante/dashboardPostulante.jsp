@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ page import="java.util.List" %>
 <%@ page import="servidor.publicar.DtOferta" %>
+<%@ page import="servidor.publicar.DtPostulante" %>
 <%@ page import="servidor.publicar.DtPublicacion" %>
 <%@ page import="com.google.gson.Gson"%>
 <%@ page import="java.lang.reflect.Type"%>
@@ -24,6 +25,8 @@
         %>
         <%   String imgPerfilJSON = (String) request.getAttribute("imgPerfil");
 		 %>
+
+		 
 	</head>
 	<body>
     <header>
@@ -90,12 +93,47 @@
     </div>
     <div class="col-md-12 col-sm-12 mx-auto">
 					    <% 
+					    	String postu = (String) request.getAttribute("postulante");
 					        List<DtPublicacion> publicaciones = (List<DtPublicacion>) request.getAttribute("publicaciones");
 					        for(DtPublicacion publicacion : publicaciones) {
 					    %>
-					        <div class="d-flex p-2  border border-dark align-items-center mb-3">
+					        <div class="d-flex p-2  border border-dark align-items-center mb-3">			    
 					            <div style="width: 25%;">
 					                <img class="w-75" src="<%= publicacion.getDtOferta().getUrlImagen()%>" alt="">
+					                <%
+						                boolean encontrado = false;
+						        		for (DtPostulante post : publicacion.getDtOferta().getFaveados()) {
+						        		    if (post.getNickname().equals(postu)) {
+						        		        encontrado = true;
+						        		        break;
+						        		    }
+						        		}
+					                		
+					                	if (encontrado == true) {
+					                %>
+					                <form action="postulante" method="post">
+					                
+						                <input type="hidden" name="action" value="desmarcarFavorito">
+						                <input type="hidden" name="nickname" value="<%= postu %>">
+	    								<input type="hidden" name="nombreOferta" value="<%= publicacion.getDtOferta().getNombre() %>">
+						                <button type="submit" class="w-75 mt-4 btn btn-outline-danger"
+						                	id="favorito_<%= publicacion.getDtOferta().getNombre() %>">
+						                	Desmarcar <span class="badge rounded-pill bg-dark"><%= publicacion.getDtOferta().getFaveados().size()%></span>
+						                </button>
+						            </form>
+						                <% } else {%>
+									<form action="postulante" method="post">
+						                
+						                <input type="hidden" name="action" value="marcarFavorito">
+        	    						<input type="hidden" name="nickname" value="<%= postu %>">
+						                
+	    								<input type="hidden" name="nombreOferta" value="<%= publicacion.getDtOferta().getNombre() %>">
+						                <button type="submit" class="w-75 mt-4 btn btn-outline-success"
+						                	id="favorito_<%= publicacion.getDtOferta().getNombre() %>">
+						                	Marcar <span class="badge rounded-pill bg-dark"><%= publicacion.getDtOferta().getFaveados().size()%></span>
+						                </button>
+					                </form>
+					                <%} %>
 					            </div>
 					            <div class="w-75">
 					                <div class="d-flex flex-column">

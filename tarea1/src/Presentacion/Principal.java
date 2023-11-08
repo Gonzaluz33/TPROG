@@ -757,7 +757,7 @@ public class Principal {
 	               String fechaConvertida = convertirFecha(fecha);
 	        	   Fabrica factory = Fabrica.getInstance();
 	               IControladorOfertas ICO = factory.getIControladorOfertas();
-	               ICO.postularAOferta(nombre,nickname,cv,motivacion,fechaConvertida); 
+	               ICO.postularAOferta(nombre,nickname,cv,motivacion,fechaConvertida, ""); 
 	           }
 
 		   }
