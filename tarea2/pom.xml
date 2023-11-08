@@ -17,6 +17,21 @@
 	    <version>0.11.2</version> <!-- Asegúrate de usar la misma versión que jjwt-api -->
 	</dependency>
 	<dependency>
+	    <groupId>io.jsonwebtoken</groupId>
+	    <artifactId>jjwt-api</artifactId>
+	    <version>0.11.2</version> <!-- Asegúrate de usar la versión correcta -->
+	</dependency>
+	<dependency>
+	    <groupId>io.jsonwebtoken</groupId>
+	    <artifactId>jjwt-impl</artifactId>
+	    <version>0.11.2</version> <!-- Asegúrate de usar la misma versión que jjwt-api -->
+	</dependency>
+	<dependency>
+		    <groupId>io.jsonwebtoken</groupId>
+		    <artifactId>jjwt-jackson</artifactId>
+		    <version>0.11.2</version>
+	</dependency>
+	<dependency>
         <groupId>org.mindrot</groupId>
         <artifactId>jbcrypt</artifactId>
         <version>0.4</version> <!-- Reemplaza con la última versión disponible -->
@@ -31,6 +46,11 @@
     	<artifactId>jaxws-rt</artifactId>
     	<version>4.0.0</version>
     </dependency>
+    <dependency>
+	    <groupId>io.jsonwebtoken</groupId>
+	    <artifactId>jjwt-impl</artifactId>
+    <version>0.12.3</version>
+</dependency>
   </dependencies>
   <build>
     <resources>
