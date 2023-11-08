@@ -2,6 +2,7 @@ package logica;
 
 import servidor.types.DTOferta;
 import servidor.types.DTPostulacion;
+import servidor.types.DTPostulante;
 import servidor.types.DTUsuario;
 import servidor.types.EnumEstadoOferta;
 
@@ -27,6 +28,7 @@ public class OfertaLaboral {
 	private Usuario empresa;
 	private List<Postulacion> postulaciones = new ArrayList<Postulacion>();
 	private List<Publicacion> publicaciones = new ArrayList<Publicacion>();
+	private List<Postulante> faveados = new ArrayList<Postulante>();
 	private List<Keyword> keywords = new ArrayList<Keyword>();
 	
 	
@@ -139,6 +141,16 @@ public class OfertaLaboral {
 	public String getUrlImagen() {
 	    return urlImagen;
 	}
+	
+	public List<DTPostulante> getFaveados() {
+		if (this.postulaciones.isEmpty())
+			return new ArrayList<DTPostulante>();
+		return this.faveados
+				.stream()
+				.map(Postulante::toDataType)
+				.collect(Collectors.toList());
+	}
+	
 	/**
 	 * Devuelve una lista sin ordenar de tipo DTPostulacion con todas las postulaciones asociadas a la oferta laboral.
 	 * Si no hay postulaciones asociadas a la oferta laboral devuelve una lista vacia.
@@ -208,7 +220,17 @@ public class OfertaLaboral {
 		this.postulaciones.add(postulacion);
 	}
 	
+	public void asociarFavorito(Postulante postulante) {
+		this.faveados.add(postulante);
+	}
 	
+	public void desasociarPostulante(Postulante postulante) {
+		this.faveados.remove(postulante);
+	}
+	
+	public Boolean checkFav(Postulante postulante) {
+		return faveados.contains(postulante);
+	}
 
 	/**
 	 * Devuelve los datos de la oferta como un datatype DTOferta.
@@ -228,6 +250,7 @@ public class OfertaLaboral {
 				this.getEstado(),
 				this.getPostulaciones(),
 				this.empresa.getNickname(),
+				this.getFaveados(),
 				listaKeywordsString);
 		
 		if(this.getUrlImagen() != null && !this.getUrlImagen().isEmpty()) { 

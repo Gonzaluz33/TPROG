@@ -35,6 +35,44 @@ public interface ServicioUsuarios {
      * @param arg5
      * @param arg6
      * @param arg7
+     * @throws CorreoRepetidoException_Exception
+     * @throws UsuarioRepetidoException_Exception
+     */
+    @WebMethod
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/altaPostulanteRequest", output = "http://publicar.servidor/ServicioUsuarios/altaPostulanteResponse", fault = {
+        @FaultAction(className = UsuarioRepetidoException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/altaPostulante/Fault/UsuarioRepetidoException"),
+        @FaultAction(className = CorreoRepetidoException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/altaPostulante/Fault/CorreoRepetidoException")
+    })
+    public void altaPostulante(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1,
+        @WebParam(name = "arg2", partName = "arg2")
+        String arg2,
+        @WebParam(name = "arg3", partName = "arg3")
+        String arg3,
+        @WebParam(name = "arg4", partName = "arg4")
+        String arg4,
+        @WebParam(name = "arg5", partName = "arg5")
+        String arg5,
+        @WebParam(name = "arg6", partName = "arg6")
+        String arg6,
+        @WebParam(name = "arg7", partName = "arg7")
+        String arg7)
+        throws CorreoRepetidoException_Exception, UsuarioRepetidoException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @param arg2
+     * @param arg3
+     * @param arg4
+     * @param arg5
+     * @param arg6
+     * @param arg7
      * @param arg8
      * @throws CorreoRepetidoException_Exception
      * @throws UsuarioRepetidoException_Exception
@@ -68,44 +106,6 @@ public interface ServicioUsuarios {
 
     /**
      * 
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @param arg3
-     * @param arg4
-     * @param arg5
-     * @param arg6
-     * @param arg7
-     * @throws CorreoRepetidoException_Exception
-     * @throws UsuarioRepetidoException_Exception
-     */
-    @WebMethod
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/altaPostulanteRequest", output = "http://publicar.servidor/ServicioUsuarios/altaPostulanteResponse", fault = {
-        @FaultAction(className = UsuarioRepetidoException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/altaPostulante/Fault/UsuarioRepetidoException"),
-        @FaultAction(className = CorreoRepetidoException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/altaPostulante/Fault/CorreoRepetidoException")
-    })
-    public void altaPostulante(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1,
-        @WebParam(name = "arg2", partName = "arg2")
-        String arg2,
-        @WebParam(name = "arg3", partName = "arg3")
-        String arg3,
-        @WebParam(name = "arg4", partName = "arg4")
-        String arg4,
-        @WebParam(name = "arg5", partName = "arg5")
-        String arg5,
-        @WebParam(name = "arg6", partName = "arg6")
-        String arg6,
-        @WebParam(name = "arg7", partName = "arg7")
-        String arg7)
-        throws CorreoRepetidoException_Exception, UsuarioRepetidoException_Exception
-    ;
-
-    /**
-     * 
      * @return
      *     returns servidor.publicar.DtUsuarioArray
      */
@@ -128,14 +128,14 @@ public interface ServicioUsuarios {
      * 
      * @param arg0
      * @return
-     *     returns boolean
+     *     returns servidor.publicar.DtEmpresa
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/isTokenBlacklistedRequest", output = "http://publicar.servidor/ServicioUsuarios/isTokenBlacklistedResponse")
-    public boolean isTokenBlacklisted(
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/esEmpresaRequest", output = "http://publicar.servidor/ServicioUsuarios/esEmpresaResponse")
+    public DtEmpresa esEmpresa(
         @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
+        DtUsuario arg0);
 
     /**
      * 
@@ -166,63 +166,8 @@ public interface ServicioUsuarios {
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/validarTokenRequest", output = "http://publicar.servidor/ServicioUsuarios/validarTokenResponse")
-    public boolean validarToken(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/generateJWTRequest", output = "http://publicar.servidor/ServicioUsuarios/generateJWTResponse")
-    public String generateJWT(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns servidor.publicar.DtEmpresa
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/esEmpresaRequest", output = "http://publicar.servidor/ServicioUsuarios/esEmpresaResponse")
-    public DtEmpresa esEmpresa(
-        @WebParam(name = "arg0", partName = "arg0")
-        DtUsuario arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns servidor.publicar.DtPostulante
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/esPostulanteRequest", output = "http://publicar.servidor/ServicioUsuarios/esPostulanteResponse")
-    public DtPostulante esPostulante(
-        @WebParam(name = "arg0", partName = "arg0")
-        DtUsuario arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/usuarioExisteRequest", output = "http://publicar.servidor/ServicioUsuarios/usuarioExisteResponse")
-    public boolean usuarioExiste(
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/isTokenBlacklistedRequest", output = "http://publicar.servidor/ServicioUsuarios/isTokenBlacklistedResponse")
+    public boolean isTokenBlacklisted(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 
@@ -242,10 +187,26 @@ public interface ServicioUsuarios {
     /**
      * 
      * @param arg0
+     * @return
+     *     returns boolean
      */
     @WebMethod
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/cerrarSesionRequest", output = "http://publicar.servidor/ServicioUsuarios/cerrarSesionResponse")
-    public void cerrarSesion(
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/usuarioExisteRequest", output = "http://publicar.servidor/ServicioUsuarios/usuarioExisteResponse")
+    public boolean usuarioExiste(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/validarTokenRequest", output = "http://publicar.servidor/ServicioUsuarios/validarTokenResponse")
+    public boolean validarToken(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 
@@ -271,12 +232,38 @@ public interface ServicioUsuarios {
      * 
      * @param arg0
      * @return
+     *     returns servidor.publicar.DtPostulante
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/esPostulanteRequest", output = "http://publicar.servidor/ServicioUsuarios/esPostulanteResponse")
+    public DtPostulante esPostulante(
+        @WebParam(name = "arg0", partName = "arg0")
+        DtUsuario arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @return
      *     returns java.lang.String
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/obtenerCorreoPorJWTRequest", output = "http://publicar.servidor/ServicioUsuarios/obtenerCorreoPorJWTResponse")
-    public String obtenerCorreoPorJWT(
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/generateJWTRequest", output = "http://publicar.servidor/ServicioUsuarios/generateJWTResponse")
+    public String generateJWT(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     */
+    @WebMethod
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/cerrarSesionRequest", output = "http://publicar.servidor/ServicioUsuarios/cerrarSesionResponse")
+    public void cerrarSesion(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 
@@ -297,21 +284,14 @@ public interface ServicioUsuarios {
      * 
      * @param arg0
      * @return
-     *     returns servidor.publicar.DtUsuario
-     * @throws CorreoNoEncontradoException_Exception
-     * @throws NicknameNoExisteException_Exception
+     *     returns java.lang.String
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioPorCorreoRequest", output = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioPorCorreoResponse", fault = {
-        @FaultAction(className = CorreoNoEncontradoException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioPorCorreo/Fault/CorreoNoEncontradoException"),
-        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioPorCorreo/Fault/NicknameNoExisteException")
-    })
-    public DtUsuario consultarUsuarioPorCorreo(
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/obtenerCorreoPorJWTRequest", output = "http://publicar.servidor/ServicioUsuarios/obtenerCorreoPorJWTResponse")
+    public String obtenerCorreoPorJWT(
         @WebParam(name = "arg0", partName = "arg0")
-        String arg0)
-        throws CorreoNoEncontradoException_Exception, NicknameNoExisteException_Exception
-    ;
+        String arg0);
 
     /**
      * 
@@ -365,5 +345,25 @@ public interface ServicioUsuarios {
         String arg5,
         @WebParam(name = "arg6", partName = "arg6")
         String arg6);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns servidor.publicar.DtUsuario
+     * @throws CorreoNoEncontradoException_Exception
+     * @throws NicknameNoExisteException_Exception
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioPorCorreoRequest", output = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioPorCorreoResponse", fault = {
+        @FaultAction(className = CorreoNoEncontradoException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioPorCorreo/Fault/CorreoNoEncontradoException"),
+        @FaultAction(className = NicknameNoExisteException_Exception.class, value = "http://publicar.servidor/ServicioUsuarios/consultarUsuarioPorCorreo/Fault/NicknameNoExisteException")
+    })
+    public DtUsuario consultarUsuarioPorCorreo(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0)
+        throws CorreoNoEncontradoException_Exception, NicknameNoExisteException_Exception
+    ;
 
 }

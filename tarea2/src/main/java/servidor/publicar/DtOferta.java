@@ -32,6 +32,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *         <element name="formaPago" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="paqueteSeleccionado" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="postulaciones" type="{http://publicar.servidor/}dtPostulacion" maxOccurs="unbounded" minOccurs="0"/>
+ *         <element name="faveados" type="{http://publicar.servidor/}dtPostulante" maxOccurs="unbounded" minOccurs="0"/>
  *         <element name="keywords" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *         <element name="nicknameEmpresa" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       </sequence>
@@ -56,6 +57,7 @@ import jakarta.xml.bind.annotation.XmlType;
     "formaPago",
     "paqueteSeleccionado",
     "postulaciones",
+    "faveados",
     "keywords",
     "nicknameEmpresa"
 })
@@ -75,6 +77,8 @@ public class DtOferta {
     protected String paqueteSeleccionado;
     @XmlElement(nillable = true)
     protected List<DtPostulacion> postulaciones;
+    @XmlElement(nillable = true)
+    protected List<DtPostulante> faveados;
     @XmlElement(nillable = true)
     protected List<String> keywords;
     protected String nicknameEmpresa;
@@ -372,6 +376,37 @@ public class DtOferta {
             postulaciones = new ArrayList<>();
         }
         return this.postulaciones;
+    }
+
+    /**
+     * Gets the value of the faveados property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the Jakarta XML Binding object.
+     * This is why there is not a {@code set} method for the faveados property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getFaveados().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link DtPostulante }
+     * 
+     * 
+     * @return
+     *     The value of the faveados property.
+     */
+    public List<DtPostulante> getFaveados() {
+        if (faveados == null) {
+            faveados = new ArrayList<>();
+        }
+        return this.faveados;
     }
 
     /**

@@ -165,10 +165,10 @@ public class ServicioOfertas {
     
     //POSTULACIONES
     @WebMethod
-    public void postularAOferta(String nombreOfertaLaboral, String nicknamePostulante, String cvReducido, String motivacion, String fechaPostulacion) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException {
+    public void postularAOferta(String nombreOfertaLaboral, String nicknamePostulante, String cvReducido, String motivacion, String fechaPostulacion, String urlVideo) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException {
     	Fabrica factory = Fabrica.getInstance();
     	IControladorOfertas ICO = factory.getIControladorOfertas();
-    	ICO.postularAOferta(nombreOfertaLaboral, nicknamePostulante, cvReducido, motivacion, fechaPostulacion);
+    	ICO.postularAOferta(nombreOfertaLaboral, nicknamePostulante, cvReducido, motivacion, fechaPostulacion, urlVideo);
     }
     
     @WebMethod
@@ -217,6 +217,19 @@ public class ServicioOfertas {
     	    	 ICO.altaOfertaWeb(nombre, descripcion, renumeracion, horario, ciudad, departamento, tipoPublicacion, formaPago, paqueteSeleccionado, estado, keywordsArray, urlImagen, empresaActual);    
     }
     
+    @WebMethod
+    public void agregarEliminarFavorito(String nickname, String nombreOferta) throws NicknameNoExisteException {
+    	Fabrica factory = Fabrica.getInstance();
+   	 	IControladorOfertas ICO = factory.getIControladorOfertas();
+   	 	ICO.agregarEliminarFavorito(nickname, nombreOferta);
+    }
+    
+    @WebMethod
+    public void finalizarOferta(String nombreOferta) throws OfertaNoExisteException {
+    	Fabrica factory = Fabrica.getInstance();
+   	 	IControladorOfertas ICO = factory.getIControladorOfertas();
+   	 	ICO.actualizarEstadoOfertaLaboral(nombreOferta, EnumEstadoOferta.FINALIZADA);
+    }
 
 }
 

@@ -8,7 +8,8 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 public enum EnumEstadoOferta {
 	INGRESADA,
 	CONFIRMADA,
-	RECHAZADA
+	RECHAZADA,
+	FINALIZADA
 }
 
 

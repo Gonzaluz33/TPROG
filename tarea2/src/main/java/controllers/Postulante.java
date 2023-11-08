@@ -7,8 +7,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import servidor.publicar.DtPublicacion;
+import servidor.publicar.DtUsuario;
 import servidor.publicar.EnumEstadoOferta;
 import servidor.publicar.KeywordExisteException_Exception;
+import servidor.publicar.NicknameNoExisteException_Exception;
 import servidor.publicar.ServicioOfertas;
 import servidor.publicar.ServicioOfertasService;
 import servidor.publicar.ServicioUsuarios;
@@ -66,6 +68,9 @@ public class Postulante extends HttpServlet {
         String jwt = getJwtFromCookies(req.getCookies());
         if (jwt != null && portUsuarios.validarToken(jwt)) {
             String tipoUsuario = portUsuarios.tipoUsuario(jwt);
+            DtUsuario usuario = portUsuarios.obtenerDatosDeUsuarioJWT(jwt);
+            
+            req.setAttribute("postulante", usuario.getNickname());
             if ("postulante".equals(tipoUsuario)) {
                 if (isMobile) {
                     dispatchToPage(req, resp, "/WEB-INF/mobile/inicio.jsp");
@@ -94,14 +99,47 @@ public class Postulante extends HttpServlet {
     
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ServletException | IOException | KeywordExisteException_Exception e) {
-            // Properly log the exception and handle it, if required
-            throw new ServletException(e);
-        }
+    	 String action = request.getParameter("action");
+         if (action != null && (action.equals("marcarFavorito")|| action.equals("desmarcarFavorito"))) {
+             try {
+ 				marcarDesmarcarFavorito(request, response);
+ 			} catch (NicknameNoExisteException_Exception | KeywordExisteException_Exception e) {
+ 				// TODO Auto-generated catch block
+ 				e.printStackTrace();
+ 			}
+         } else {
+             try {
+				processRequest(request, response);
+			} catch (ServletException | IOException | KeywordExisteException_Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+         }
+    }
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		try {
+			processRequest(request, response);
+		} catch (ServletException | IOException | KeywordExisteException_Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+    
+    protected void marcarDesmarcarFavorito(HttpServletRequest request, HttpServletResponse response) throws NicknameNoExisteException_Exception, IOException, ServletException, KeywordExisteException_Exception {
+    	servidor.publicar.ServicioOfertasService serviceOfertas = new servidor.publicar.ServicioOfertasService();
+        servidor.publicar.ServicioOfertas portOfertas = serviceOfertas.getServicioOfertasPort();
+        
+    	String nombreOferta = request.getParameter("nombreOferta");
+    	String jwt = this.getJwtFromCookies(request.getCookies());
+    	String nickname = portUsuarios.obtenerDatosDeUsuarioJWT(jwt).getNickname();
+    	portOfertas.agregarEliminarFavorito(nickname, nombreOferta);
+    	processRequest(request, response);
     }
 
   
 }
+	
+
 	

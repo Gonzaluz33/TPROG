@@ -9,6 +9,7 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import logica.Postulante;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -27,6 +28,7 @@ public class DTOferta {
 	    private String formaPago;
 	    private String paqueteSeleccionado;
 	    private List<DTPostulacion> postulaciones;
+	    private List<DTPostulante> faveados;
 	    private List<String> keywords;
 	    private String nicknameEmpresa;
 
@@ -43,6 +45,7 @@ public class DTOferta {
 	        this.setUrlImagen(urlImagen);
 	        this.setPostulacion(new ArrayList<DTPostulacion>());
 	        this.setNicknameEmpresa(new String());
+	        this.setFaveados(new ArrayList<DTPostulante>());
 	        this.setKeywords(new ArrayList<String>());
 	    }
 
@@ -59,6 +62,7 @@ public class DTOferta {
 	        this.setFechaAlta(fechaAlta);
 	        this.setEstado(estado);
 	        this.setPostulacion(null);
+	        this.setFaveados(new ArrayList<DTPostulante>());
 	        this.setNicknameEmpresa(nicknameEmpresa);
 	        this.setKeywords(keywords);
 	    }
@@ -66,7 +70,7 @@ public class DTOferta {
 	    // Constructor CON lista de postulaciones asociadas a la oferta laboral.
 	    public DTOferta(String nombre, String descripcion, String ciudad, String departamento, String horario, 
 	                    String remuneracion, LocalDate fechaAlta, EnumEstadoOferta estado,
-	                    List<DTPostulacion> postulaciones, String nicknameEmpresa, List<String> keywords) {
+	                    List<DTPostulacion> postulaciones, String nicknameEmpresa, List<DTPostulante> faveados, List<String> keywords) {
 	        this.setNombre(nombre);
 	        this.setDescripcion(descripcion);
 	        this.setCiudad(ciudad);
@@ -77,6 +81,7 @@ public class DTOferta {
 	        this.setEstado(estado);
 	        this.setPostulacion(postulaciones);
 	        this.setNicknameEmpresa(nicknameEmpresa);
+	        this.setFaveados(faveados);
 	        this.setKeywords(keywords);
 	    }
 
@@ -112,6 +117,10 @@ public class DTOferta {
 
 	public List<DTPostulacion> getPostulaciones() {
 		return postulaciones;
+	}
+	
+	public List<DTPostulante> getFaveados() {
+		return faveados;
 	}
 
 	public LocalDate getFechaAlta() {
@@ -171,6 +180,10 @@ public class DTOferta {
 	public void setPostulacion(List<DTPostulacion> postulaciones) {
 		this.postulaciones = postulaciones;
 	}
+	
+	public void setFaveados(List<DTPostulante> faveados) {
+		this.faveados = faveados;
+	}
 
 	public void setFechaAlta(LocalDate fecha) {
 		this.fechaAlta = fecha;
@@ -198,6 +211,17 @@ public class DTOferta {
 	
 	public void setFormaPago(String formaPago) {
 	    this.formaPago = formaPago;
+	}
+	
+	public Boolean checkFavString(String postulante) {
+		boolean encontrado = false;
+		for (DTPostulante post : faveados) {
+		    if (post.getNickname().equals(postulante)) {
+		        encontrado = true;
+		        break;
+		    }
+		}
+		return encontrado;
 	}
 
 }

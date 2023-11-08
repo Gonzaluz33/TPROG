@@ -137,13 +137,14 @@ public class ControladorOfertas implements IControladorOfertas {
         String nicknamePostulante,
         String cvReducido,
         String motivacion,
-        String fechaPostulacion
+        String fechaPostulacion,
+        String urlVideo
     ) throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException {
         ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
         String fechaString = fechaPostulacion;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime fechaConvertida = LocalDateTime.parse(fechaString, formatter);
-        manejadorOL.postularAOferta(nombreOfertaLaboral, nicknamePostulante, cvReducido, motivacion, fechaConvertida);
+        manejadorOL.postularAOferta(nombreOfertaLaboral, nicknamePostulante, cvReducido, motivacion, fechaConvertida, urlVideo);
     }
 
     public List<DTEmpresa> obtenerEmpresas() {
@@ -207,5 +208,11 @@ public class ControladorOfertas implements IControladorOfertas {
 		o.setEstado(estado);
 	}
 
+	public void agregarEliminarFavorito(String nickname, String nombreOferta) throws NicknameNoExisteException {
+        ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+        ControladorUsuarios controladorUsuarios = ControladorUsuarios.getInstance();
+        Postulante usuarioPostulante = (Postulante) controladorUsuarios.obtenerUsuario(nickname);
+        manejadorOL.agregarEliminarFavorito(usuarioPostulante, nombreOferta);
+	}
 	
 }

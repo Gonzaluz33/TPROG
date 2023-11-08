@@ -95,6 +95,12 @@
                             <textarea class="form-control" id="motivacion" name="motivacion" placeholder="Ingrese Motivación:" rows="10"></textarea>
                         </div>
                     </div>
+                    <div class="row mb-3 justify-content-center">
+                    	<div>
+                    		<input class="form-control" id="urlVideo" name="urlVideo" placeholder="Ingrese Url de su video">
+                    	</div>
+                    	
+                    </div>
                     <div class="d-flex justify-content-between">
                         <button onClick="retroceder()" type="button" class="btn btn-dark">Volver atrás</button>
                         <button type="submit" class="btn btn-dark">Confirmar</button>

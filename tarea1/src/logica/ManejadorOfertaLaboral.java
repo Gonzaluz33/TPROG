@@ -77,8 +77,10 @@ public class ManejadorOfertaLaboral {
 		List<DTOferta> returnOfertas = new ArrayList<>();
 
 		for (OfertaLaboral oferta : ofertas.values()) {
-			DTOferta dtoOferta = oferta.toDataType();
-			returnOfertas.add(dtoOferta);
+			if (!oferta.getEstado().equals(EnumEstadoOferta.FINALIZADA)) {
+				DTOferta dtoOferta = oferta.toDataType();
+				returnOfertas.add(dtoOferta);
+			}
 		}
 
 		return returnOfertas;
@@ -104,7 +106,7 @@ public class ManejadorOfertaLaboral {
 	 * existe una oferta con ese nombre tira una OfertaNoExisteException.
 	 */
 	public void postularAOferta(String nombreOfertaLaboral, String nicknamePostulante, String cvReducido,
-			String motivacion, LocalDateTime fechaPostulacion)
+			String motivacion, LocalDateTime fechaPostulacion, String urlVideo)
 			throws NicknameNoExisteException, UsuarioNoEsPostulanteException, OfertaNoExisteException {
 		OfertaLaboral oferta = this.coleccionOfertasLaborales.get(nombreOfertaLaboral);
 
@@ -126,7 +128,7 @@ public class ManejadorOfertaLaboral {
 
 		// si nunca habia postulado a la oferta entonces creo la nueva postulacion
 		Postulacion postulacion = new Postulacion(nombreOfertaLaboral, nicknamePostulante, cvReducido, motivacion,
-				fechaPostulacion);
+				fechaPostulacion, urlVideo);
 		oferta.asociarPostulacion(postulacion);
 		manejadorU.postularAOferta(postulacion);
 	}
@@ -231,6 +233,25 @@ public class ManejadorOfertaLaboral {
 	public void cambiarEstadoOferta(EnumEstadoOferta estado, String nombreOferta) throws OfertaNoExisteException {
 		OfertaLaboral oferta = this.coleccionOfertasLaborales.get(nombreOferta);
 		oferta.setEstado(estado);
+	}
+	
+	public void agregarEliminarFavorito(Postulante postulante, String nombreOferta) {
+		OfertaLaboral oferta = this.coleccionOfertasLaborales.get(nombreOferta);
+		if (!oferta.checkFav(postulante)) {
+			oferta.asociarFavorito(postulante);
+		} else {
+			oferta.desasociarPostulante(postulante);
+		}
+	}
+	
+	public void finalizarOferta(Empresa empresa, String nombreOferta) {
+		OfertaLaboral oferta = this.coleccionOfertasLaborales.get(nombreOferta);
+		System.out.println(oferta.getEstado());
+
+		if (oferta.getEmpresa().equals(empresa.toDataType())) {
+			oferta.setEstado(EnumEstadoOferta.FINALIZADA);
+			System.out.println(oferta.getEstado());
+		}
 	}
 
 }

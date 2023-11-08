@@ -89,10 +89,11 @@ public class ConfirmarPostulacion extends HttpServlet {
 			        String nicknamePostulante = portUsuarios.obtenerDatosDeUsuarioJWT(jwt).getNickname();
 			        String cvReducido = request.getParameter("cv");
 			        String motivacion = request.getParameter("motivacion");
+			        String urlVideo = request.getParameter("urlVideo");
 			        LocalDateTime fechaActual = LocalDateTime.now();
 			        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 			        String fechaActualComoString = fechaActual.format(formatter);
-					portOfertas.postularAOferta(NombreOferta, nicknamePostulante, cvReducido, motivacion, fechaActualComoString);
+					portOfertas.postularAOferta(NombreOferta, nicknamePostulante, cvReducido, motivacion, fechaActualComoString, urlVideo);
 					response.sendRedirect("postulante");
 					break;
 				case ("empresa"):
