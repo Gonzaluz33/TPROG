@@ -63,7 +63,7 @@
     <main>
         <jsp:include page="/WEB-INF/template/NavBarEmpresa.jsp"/>
         <div class="d-flex flex-column p-5">
-            <div class="d-flex  gap-5">
+            <div class="d-flex flex-column gap-5">
                 <div class="d-flex justify-content-center">
                     <img width="250" height="250" src="<%=imgPerfilJSON%>" alt="">
                 </div>
@@ -83,34 +83,11 @@
 						<% 
 						   }
 						%>
-			            
                     </div>
-                   
                 </div>
-                <div class="d-flex gap-5">
-                    <div>
-                        <h2>Paquetes Adquiridos:</h2>
-                        <p class="m-0"><span class="fw-bold">Nickname: </span><%=nicknameJSON%></p>
-                        <p class="m-0"><span class="fw-bold">Nombre: </span><%=nombreJSON%></p>
-                        <p class="m-0"><span class="fw-bold">Apellido: </span><%=apellidoJSON%></p>
-                        <p class="m-0"><span class="fw-bold">Email: </span><%=correoJSON%></p>
-                        <p class="m-0"><span class="fw-bold">Nombre de Empresa: </span><%=nombreEmpresa%></p>
-                        <p class="m-0"><span class="fw-bold">Dsecripción: </span><%=descripcion%></p>
-                        <% 
-						   if (!linkWeb.equals("")) {
-						%>
-						   <p class="m-0"><span class="fw-bold">Link Web:</span> <%= linkWeb %></p>
-						<% 
-						   }
-						%>
-			            
-                    </div>
-                   
-                </div>
-            </div>
-
+			</div>
             <div class=" mt-4">
-    <div>
+    	<div>
         <h2>Ofertas Laborales:</h2>
         <table class="table table-hover">
             <thead>
@@ -155,10 +132,10 @@
         </table>
     </div>
 </div>
-            </div>
-             <div class="mt-4 mb-5 text-center">
-            <a onclick="window.history.back();" class="btn btn-dark">Volver atrás</a>
         </div>
+             <div class="mt-4 mb-5 text-center">
+            	<a onclick="window.history.back();" class="btn btn-dark">Volver atrás</a>
+        	</div>
   
     </main>
 </body>
