@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para dtPublicacion complex type.
+ * <p>Java class for dtPublicacion complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="dtPublicacion">
@@ -49,7 +49,7 @@ public class DtPublicacion {
     protected DtTipoPublicacion dtTipo;
 
     /**
-     * Obtiene el valor de la propiedad id.
+     * Gets the value of the id property.
      * 
      * @return
      *     possible object is
@@ -61,7 +61,7 @@ public class DtPublicacion {
     }
 
     /**
-     * Define el valor de la propiedad id.
+     * Sets the value of the id property.
      * 
      * @param value
      *     allowed object is
@@ -73,7 +73,7 @@ public class DtPublicacion {
     }
 
     /**
-     * Obtiene el valor de la propiedad costoAsociado.
+     * Gets the value of the costoAsociado property.
      * 
      * @return
      *     possible object is
@@ -85,7 +85,7 @@ public class DtPublicacion {
     }
 
     /**
-     * Define el valor de la propiedad costoAsociado.
+     * Sets the value of the costoAsociado property.
      * 
      * @param value
      *     allowed object is
@@ -97,7 +97,7 @@ public class DtPublicacion {
     }
 
     /**
-     * Obtiene el valor de la propiedad fechaAlta.
+     * Gets the value of the fechaAlta property.
      * 
      * @return
      *     possible object is
@@ -109,7 +109,7 @@ public class DtPublicacion {
     }
 
     /**
-     * Define el valor de la propiedad fechaAlta.
+     * Sets the value of the fechaAlta property.
      * 
      * @param value
      *     allowed object is
@@ -121,7 +121,7 @@ public class DtPublicacion {
     }
 
     /**
-     * Obtiene el valor de la propiedad fechaVencimiento.
+     * Gets the value of the fechaVencimiento property.
      * 
      * @return
      *     possible object is
@@ -133,7 +133,7 @@ public class DtPublicacion {
     }
 
     /**
-     * Define el valor de la propiedad fechaVencimiento.
+     * Sets the value of the fechaVencimiento property.
      * 
      * @param value
      *     allowed object is
@@ -145,7 +145,7 @@ public class DtPublicacion {
     }
 
     /**
-     * Obtiene el valor de la propiedad dtOferta.
+     * Gets the value of the dtOferta property.
      * 
      * @return
      *     possible object is
@@ -157,7 +157,7 @@ public class DtPublicacion {
     }
 
     /**
-     * Define el valor de la propiedad dtOferta.
+     * Sets the value of the dtOferta property.
      * 
      * @param value
      *     allowed object is
@@ -169,7 +169,7 @@ public class DtPublicacion {
     }
 
     /**
-     * Obtiene el valor de la propiedad dtTipo.
+     * Gets the value of the dtTipo property.
      * 
      * @return
      *     possible object is
@@ -181,7 +181,7 @@ public class DtPublicacion {
     }
 
     /**
-     * Define el valor de la propiedad dtTipo.
+     * Sets the value of the dtTipo property.
      * 
      * @param value
      *     allowed object is

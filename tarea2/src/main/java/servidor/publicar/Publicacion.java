@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para publicacion complex type.
+ * <p>Java class for publicacion complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="publicacion">
@@ -49,7 +49,7 @@ public class Publicacion {
     protected TipoPublicacion tipo;
 
     /**
-     * Obtiene el valor de la propiedad alta.
+     * Gets the value of the alta property.
      * 
      * @return
      *     possible object is
@@ -61,7 +61,7 @@ public class Publicacion {
     }
 
     /**
-     * Define el valor de la propiedad alta.
+     * Sets the value of the alta property.
      * 
      * @param value
      *     allowed object is
@@ -73,7 +73,7 @@ public class Publicacion {
     }
 
     /**
-     * Obtiene el valor de la propiedad costo.
+     * Gets the value of the costo property.
      * 
      * @return
      *     possible object is
@@ -85,7 +85,7 @@ public class Publicacion {
     }
 
     /**
-     * Define el valor de la propiedad costo.
+     * Sets the value of the costo property.
      * 
      * @param value
      *     allowed object is
@@ -97,7 +97,7 @@ public class Publicacion {
     }
 
     /**
-     * Obtiene el valor de la propiedad fin.
+     * Gets the value of the fin property.
      * 
      * @return
      *     possible object is
@@ -109,7 +109,7 @@ public class Publicacion {
     }
 
     /**
-     * Define el valor de la propiedad fin.
+     * Sets the value of the fin property.
      * 
      * @param value
      *     allowed object is
@@ -121,7 +121,7 @@ public class Publicacion {
     }
 
     /**
-     * Obtiene el valor de la propiedad id.
+     * Gets the value of the id property.
      * 
      * @return
      *     possible object is
@@ -133,7 +133,7 @@ public class Publicacion {
     }
 
     /**
-     * Define el valor de la propiedad id.
+     * Sets the value of the id property.
      * 
      * @param value
      *     allowed object is
@@ -145,7 +145,7 @@ public class Publicacion {
     }
 
     /**
-     * Obtiene el valor de la propiedad oferta.
+     * Gets the value of the oferta property.
      * 
      * @return
      *     possible object is
@@ -157,7 +157,7 @@ public class Publicacion {
     }
 
     /**
-     * Define el valor de la propiedad oferta.
+     * Sets the value of the oferta property.
      * 
      * @param value
      *     allowed object is
@@ -169,7 +169,7 @@ public class Publicacion {
     }
 
     /**
-     * Obtiene el valor de la propiedad tipo.
+     * Gets the value of the tipo property.
      * 
      * @return
      *     possible object is
@@ -181,7 +181,7 @@ public class Publicacion {
     }
 
     /**
-     * Define el valor de la propiedad tipo.
+     * Sets the value of the tipo property.
      * 
      * @param value
      *     allowed object is

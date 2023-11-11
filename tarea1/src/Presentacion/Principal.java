@@ -369,7 +369,7 @@ public class Principal {
 					String csvFilePathKeywords = currentDirectory + File.separator + "DatosCSV" + File.separator + "Keywords.csv";
 					cargarDatosKeywords(csvFilePathKeywords);
 					
-					String csvFileOfertaLaboral = currentDirectory + File.separator + "DatosCSV" + File.separator + "OfertasLaboralesPrueba.csv";
+					String csvFileOfertaLaboral = currentDirectory + File.separator + "DatosCSV" + File.separator + "OfertasLaboralesPrueba2.csv";
 					cargarDatosOfertasLaboralesPrueba(csvFileOfertaLaboral);
 					
 					String csvFilePostulaciones = currentDirectory + File.separator + "DatosCSV" + File.separator + "Postulaciones.csv";
@@ -381,8 +381,8 @@ public class Principal {
 					String csvFilePathTiposPublicacionPaquetes = currentDirectory + File.separator + "DatosCSV" + File.separator + "TiposPublicacionPaquetes.csv";
 					cargarDatosTiposPublicacionPaquetes(csvFilePathTiposPublicacionPaquetes);
 					
-					 
-					
+					String csvFilePathPostulantesOfertasLaboralesFavoritas = currentDirectory + File.separator + "DatosCSV" + File.separator + "PostulantesOfertasLaboralesFavoritas.csv";
+					cargarPostulantesOfertasLaboralesFavoritas(csvFilePathPostulantesOfertasLaboralesFavoritas);
 					
 				} catch (UsuarioRepetidoException e1) {
 					e1.printStackTrace();
@@ -748,16 +748,18 @@ public class Principal {
 	           String nickname = ""; 
 	           String cv = "";
 	           String fecha = "";
+	           String urlVideo = "";
 	           if(postulacionesData.length > 0) {
 	        	   nickname = postulacionesData[0];
 	        	   nombre = postulacionesData[4];
 	        	   cv = postulacionesData[1];
 	        	   motivacion = postulacionesData[2];
 	        	   fecha= postulacionesData[3].trim();
+	        	   urlVideo=postulacionesData[5];
 	               String fechaConvertida = convertirFecha(fecha);
 	        	   Fabrica factory = Fabrica.getInstance();
 	               IControladorOfertas ICO = factory.getIControladorOfertas();
-	               ICO.postularAOferta(nombre,nickname,cv,motivacion,fechaConvertida, ""); 
+	               ICO.postularAOferta(nombre,nickname,cv,motivacion,fechaConvertida, urlVideo); 
 	           }
 
 		   }
@@ -765,6 +767,30 @@ public class Principal {
 	        e.printStackTrace();
 	    }
    }
+   
+   private void cargarPostulantesOfertasLaboralesFavoritas(String csvFile) throws FileNotFoundException, IOException, NicknameNoExisteException {
+	   String line = "";
+	   String cvsSplitBy = ";";
+	   try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
+		   while ((line = bufferReader.readLine()) != null) {
+			   String[] postulacionesData = line.split(cvsSplitBy);
+			   String nickname = ""; 
+	           String nombreOferta = "";    
+	           if(postulacionesData.length > 0) {
+	        	   nickname = postulacionesData[0];
+	        	   nombreOferta = postulacionesData[1];
+	        	   Fabrica factory = Fabrica.getInstance();
+	               IControladorOfertas ICO = factory.getIControladorOfertas();
+	               ICO.agregarEliminarFavorito(nickname, nombreOferta);
+	           }
+
+		   }
+	   }catch (IOException e) {
+	        e.printStackTrace();
+	    }
+   }
+   
+   
 		
 	/*private LocalDate parseToLocalDate(String dateString) {
 	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

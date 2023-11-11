@@ -78,7 +78,7 @@
 		 </descriptorRefs>
 		 <archive>
 		 <manifest>
-		 <mainClass>Presentacion.Principal.java</mainClass>
+		 <mainClass>Presentacion.Principal</mainClass>
 		 </manifest>
 		 </archive>
 		</configuration>
