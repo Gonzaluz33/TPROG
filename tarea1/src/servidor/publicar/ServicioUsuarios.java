@@ -1,12 +1,15 @@
 package servidor.publicar;
-
+import java.io.InputStream;
+import java.util.Properties;
 import logica.*;
 import servidor.types.DTEmpresa;
 import servidor.types.DTPostulante;
 import servidor.types.DTUsuario;
 
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Properties;
 
 import excepciones.CorreoNoEncontradoException;
 import excepciones.CorreoRepetidoException;
@@ -32,15 +35,34 @@ import jakarta.xml.ws.Endpoint;
 public class ServicioUsuarios {
 
     private Endpoint endpoint = null;
+    private static  String endpointRouteServicioUsuarios  = "";
     //Constructor
     public ServicioUsuarios(){}
 
     //Operaciones las cuales quiero publicar
-
     @WebMethod(exclude = true)
     public void publicar(){
-         endpoint = Endpoint.publish("http://localhost:9128/serviciousuarios", this);
-    }
+    	 try (InputStream input = getClass().getClassLoader().getResourceAsStream(".properties")) {
+             Properties prop = new Properties();
+
+             if (input == null) {
+                 System.out.println("Sorry, unable to find config.properties");
+                 return;
+             }
+
+             // Carga las propiedades del archivo
+             prop.load(input);
+
+             // Ahora puedes usar las propiedades como necesites
+             endpointRouteServicioUsuarios = prop.getProperty("serviceUsuarios");
+             endpoint = Endpoint.publish(endpointRouteServicioUsuarios, this);
+
+
+         } catch (Exception ex) {
+             ex.printStackTrace();
+         }
+     }
+    
 
     @WebMethod(exclude = true)
     public Endpoint getEndpoint() {

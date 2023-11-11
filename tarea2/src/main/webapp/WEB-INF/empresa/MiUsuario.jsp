@@ -63,7 +63,7 @@
     <main>
         <jsp:include page="/WEB-INF/template/NavBarEmpresa.jsp"/>
         <div class="d-flex flex-column p-5">
-            <div class="d-flex  gap-5">
+            <div class="d-flex flex-column gap-5">
                 <div class="d-flex justify-content-center">
                     <img width="250" height="250" src="<%=imgPerfilJSON%>" alt="">
                 </div>
@@ -83,14 +83,11 @@
 						<% 
 						   }
 						%>
-			            
                     </div>
-                   
                 </div>
-            </div>
-
+			</div>
             <div class=" mt-4">
-    <div>
+    	<div>
         <h2>Ofertas Laborales:</h2>
         <table class="table table-hover">
             <thead>
@@ -100,6 +97,7 @@
                     <th scope="col">Remuneración:</th>
                     <th scope="col">Horario:</th>
                     <th scope="col">Fecha de Alta:</th>
+                    <th scope="col">Estado:</th>
                 </tr>
             </thead>
             <tbody>
@@ -111,12 +109,21 @@
                 //LocalDate fechaAlta = publicacion.getDtOferta().getFechaAlta();
                 //String formattedDate = (fechaAlta != null) ? fechaAlta.format(formatter) : "N/A";
     %>
-            <tr>
-                <td class="fw-bold"><%= publicacion.getDtOferta().getNombre() %></td>
-                <td><%=publicacion.getDtTipo().getNombre()%></td>
+            <tr> 
+           		<td class="fw-bold"> 
+					<a class="text-dark" href="consultaOferta?nombreOferta=<%= URLEncoder.encode(publicacion.getDtOferta().getNombre(), "UTF-8") %>">
+				        <%= publicacion.getDtOferta().getNombre() %>
+				    </a>
+				</td>
+                <td>
+                  	<a class="text-dark" href="mostrarTipo?nombre=<%= URLEncoder.encode(publicacion.getDtTipo().getNombre(), "UTF-8") %>">
+				        <%= publicacion.getDtTipo().getNombre() %>
+				    </a>
+				</td>
                 <td><%= publicacion.getDtOferta().getRemuneracion() %></td>
                 <td><%= publicacion.getDtOferta().getHorario() %></td>
                 <td><%= publicacion.getFechaAlta() %></td>
+                <td><%= publicacion.getDtOferta().getEstado().name() %></td>
             </tr>
     <% 
         }
@@ -125,10 +132,10 @@
         </table>
     </div>
 </div>
-            </div>
-             <div class="mt-4 mb-5 text-center">
-            <a onclick="window.history.back();" class="btn btn-dark">Volver atrás</a>
         </div>
+             <div class="mt-4 mb-5 text-center">
+            	<a onclick="window.history.back();" class="btn btn-dark">Volver atrás</a>
+        	</div>
   
     </main>
 </body>

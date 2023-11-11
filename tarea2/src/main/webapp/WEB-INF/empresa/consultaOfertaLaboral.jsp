@@ -14,6 +14,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="servidor.publicar.DtOferta" %>
+<%@ page import="servidor.publicar.EnumEstadoOferta" %>
 <%@ page import="servidor.publicar.DtPublicacion" %>
 <%@ page import="com.google.gson.Gson"%>
 <%@ page import="java.lang.reflect.Type"%>
@@ -25,6 +26,7 @@
 <%@ page import=" utils.LocalDateSerializer"%>
 <%@ page import="utils.LocalDateTimeAdapter"%>
 <%@ page import="java.net.URLEncoder" %>
+
 <%@page import="java.time.format.DateTimeFormatter"%>
 
 <!DOCTYPE html>
@@ -86,9 +88,8 @@
                                 <p class="m-0"><span class="fw-bold">Horario: </span> <%= publicacion.getDtOferta().getHorario() %> </p>
                                 <p class="m-0"><span class="fw-bold">Departamento: </span><%= publicacion.getDtOferta().getDepartamento() %></p>
                                 <p class="m-0"><span class="fw-bold">Ciudad: </span><%= publicacion.getDtOferta().getCiudad() %> </p>
-			    
 			                    <p class="m-0"><span class="fw-bold">Tipo de Publicacion:</span> <%= publicacion.getDtTipo().getNombre()%> <a href="mostrarTipo?nombre=<%= publicacion.getDtTipo().getNombre()%>">Ver más</a></p>
-			    
+			    				<p class="m-0"><span class="fw-bold">Estado: </span><%= publicacion.getDtOferta().getEstado() %> </p>
 			                </div>
 			                <div class="row d-flex  mt-3">
 			                    <p class="m-0"><span class="fw-bold">Fecha de alta: </span> <%=publicacion.getFechaAlta().toString()%></p>
@@ -124,7 +125,11 @@
 			                			<input type="hidden" name="action" value="finalizar">
 	    								<input type="hidden" name="nickname" value="<%= nickname %>">			                			
 	    								<input type="hidden" name="nombreOferta" value="<%= publicacion.getDtOferta().getNombre() %>">
-			                    		<button class="btn btn-danger" type="submit">Finalizar</button>
+			                    		
+										<% if (!publicacion.getDtOferta().getEstado().name().equals("FINALIZADA")) { %>
+										    <button class="btn btn-danger" type="submit">Finalizar</button>
+										<% } %>
+																		
 			                    	</form>
 			                	</div>
 			                	<%} %>
@@ -144,5 +149,5 @@
 		                %>
     </main>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
 </html>

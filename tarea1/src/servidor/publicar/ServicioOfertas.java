@@ -1,4 +1,6 @@
 package servidor.publicar;
+import java.io.InputStream;
+import java.util.Properties;
 
 import logica.*;
 import servidor.types.DTOferta;
@@ -31,6 +33,7 @@ import jakarta.xml.ws.Endpoint;
 public class ServicioOfertas {
 
     private Endpoint endpoint = null;
+    private static  String endpointRouteServicioOfertas  = "";
     //Constructor
     public ServicioOfertas(){}
 
@@ -38,7 +41,23 @@ public class ServicioOfertas {
 
     @WebMethod(exclude = true)
     public void publicar(){
-         endpoint = Endpoint.publish("http://localhost:9128/servicioofertas", this);
+    	 try (InputStream input = getClass().getClassLoader().getResourceAsStream(".properties")) {
+             Properties prop = new Properties();
+
+             if (input == null) {
+                 System.out.println("Sorry, unable to find config.properties");
+                 return;
+             }
+
+             // Carga las propiedades del archivo
+             prop.load(input);
+
+             // Ahora puedes usar las propiedades como necesites
+             endpointRouteServicioOfertas = prop.getProperty("serviceOfertas");
+             endpoint = Endpoint.publish(endpointRouteServicioOfertas, this);
+         } catch (Exception ex) {
+             ex.printStackTrace();
+         }
     }
 
     @WebMethod(exclude = true)

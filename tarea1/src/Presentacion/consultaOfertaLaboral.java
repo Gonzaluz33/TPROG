@@ -115,6 +115,9 @@ public class consultaOfertaLaboral extends JInternalFrame {
 								case RECHAZADA :
 									Estado = "Rechazada";
 									break;
+								case FINALIZADA :
+									Estado = "Finalizada";
+									break;
 								}			
 
 							nombreOferta = datosOferta.getNombre();
