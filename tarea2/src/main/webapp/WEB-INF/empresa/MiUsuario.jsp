@@ -87,6 +87,26 @@
                     </div>
                    
                 </div>
+                <div class="d-flex gap-5">
+                    <div>
+                        <h2>Paquetes Adquiridos:</h2>
+                        <p class="m-0"><span class="fw-bold">Nickname: </span><%=nicknameJSON%></p>
+                        <p class="m-0"><span class="fw-bold">Nombre: </span><%=nombreJSON%></p>
+                        <p class="m-0"><span class="fw-bold">Apellido: </span><%=apellidoJSON%></p>
+                        <p class="m-0"><span class="fw-bold">Email: </span><%=correoJSON%></p>
+                        <p class="m-0"><span class="fw-bold">Nombre de Empresa: </span><%=nombreEmpresa%></p>
+                        <p class="m-0"><span class="fw-bold">Dsecripción: </span><%=descripcion%></p>
+                        <% 
+						   if (!linkWeb.equals("")) {
+						%>
+						   <p class="m-0"><span class="fw-bold">Link Web:</span> <%= linkWeb %></p>
+						<% 
+						   }
+						%>
+			            
+                    </div>
+                   
+                </div>
             </div>
 
             <div class=" mt-4">
@@ -100,6 +120,7 @@
                     <th scope="col">Remuneración:</th>
                     <th scope="col">Horario:</th>
                     <th scope="col">Fecha de Alta:</th>
+                    <th scope="col">Estado:</th>
                 </tr>
             </thead>
             <tbody>
@@ -111,12 +132,21 @@
                 //LocalDate fechaAlta = publicacion.getDtOferta().getFechaAlta();
                 //String formattedDate = (fechaAlta != null) ? fechaAlta.format(formatter) : "N/A";
     %>
-            <tr>
-                <td class="fw-bold"><%= publicacion.getDtOferta().getNombre() %></td>
-                <td><%=publicacion.getDtTipo().getNombre()%></td>
+            <tr> 
+           		<td class="fw-bold"> 
+					<a class="text-dark" href="consultaOferta?nombreOferta=<%= URLEncoder.encode(publicacion.getDtOferta().getNombre(), "UTF-8") %>">
+				        <%= publicacion.getDtOferta().getNombre() %>
+				    </a>
+				</td>
+                <td>
+                  	<a class="text-dark" href="mostrarTipo?nombre=<%= URLEncoder.encode(publicacion.getDtTipo().getNombre(), "UTF-8") %>">
+				        <%= publicacion.getDtTipo().getNombre() %>
+				    </a>
+				</td>
                 <td><%= publicacion.getDtOferta().getRemuneracion() %></td>
                 <td><%= publicacion.getDtOferta().getHorario() %></td>
                 <td><%= publicacion.getFechaAlta() %></td>
+                <td><%= publicacion.getDtOferta().getEstado().name() %></td>
             </tr>
     <% 
         }

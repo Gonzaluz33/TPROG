@@ -71,6 +71,7 @@ public class Postulante extends HttpServlet {
             DtUsuario usuario = portUsuarios.obtenerDatosDeUsuarioJWT(jwt);
             
             req.setAttribute("postulante", usuario.getNickname());
+            req.setAttribute("imgPerfil", usuario.getUrlImagen());
             if ("postulante".equals(tipoUsuario)) {
                 if (isMobile) {
                     dispatchToPage(req, resp, "/WEB-INF/mobile/inicio.jsp");
