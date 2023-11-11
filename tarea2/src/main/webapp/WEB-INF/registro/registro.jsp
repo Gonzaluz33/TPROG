@@ -9,6 +9,82 @@
    <script src="media/js/jquery-3.7.1.min.js?v=<?php echo time(); ?>"></script>
     <title>Trabajo.uy</title>
 </head>
+<script type="text/javascript">
+	function verificarDisponibilidadEmail(esEmpresa) {
+		let email;
+		if (esEmpresa) {
+			email = document.getElementById("email").value;
+		} else {
+			email = document.getElementById("emailPost").value;
+		}	    
+		if (email.trim() !== "") {
+	        $.post("./verificarEmail", { email: email })
+	            .done(function (respuesta) {
+					var disponible = respuesta == true;
+					if (disponible){
+						esEmpresa ? 
+		                	mostrarMensajeDisponibilidadEmailEmpresa("Email disponible")
+		                	: mostrarMensajeDisponibilidadEmailPost("Email disponible");
+					} else {
+						esEmpresa ? 
+		                	mostrarMensajeDisponibilidadEmailEmpresa("Email no disponible")
+		                	: mostrarMensajeDisponibilidadEmailPost("Email no disponible");
+					}
+	            })
+	            .fail(function () {
+	                mostrarMensajeDisponibilidad("Email no disponible");
+	            });
+	    } else {
+	    	mostrarMensajeDisponibilidad("");
+	    }
+	}
+	
+	function verificarDisponibilidadNickname(esEmpresa) {
+		let nickname;
+		if (esEmpresa) {
+			nickname = document.getElementById("nickname").value;
+		} else {
+			nickname = document.getElementById("nicknamePost").value;
+		}
+	     
+	    if (nickname.trim() !== "") {
+	        $.post("./verificarNickname", { nickname: nickname})
+	            .done(function (respuesta) {
+	            	var disponible = respuesta == true;
+					if (disponible){
+						esEmpresa ? 
+		                	mostrarMensajeDisponibilidadNicknameEmpresa("Nickname disponible")
+		                	: mostrarMensajeDisponibilidadNicknamePost("Nickname disponible");
+					} else {
+		            	esEmpresa ?
+	            			mostrarMensajeDisponibilidadNicknameEmpresa("Nickname no disponible")
+	            			: mostrarMensajeDisponibilidadNicknamePost("Nickname no disponible");
+					}	            })
+	            .fail(function () {
+	                mostrarMensajeDisponibilidad("Email no disponible");
+	            });
+	    } else {
+	        mostrarMensajeDisponibilidad("holi");
+	    }
+	}
+	
+	function mostrarMensajeDisponibilidadEmailPost(mensaje) {
+	    var mensajeElemento = document.getElementById("emailPost");
+	    mensajeElemento.innerHTML = mensaje;
+	}
+	function mostrarMensajeDisponibilidadEmailEmpresa(mensaje) {
+	    var mensajeElemento = document.getElementById("emailEmpresa");
+	    mensajeElemento.innerHTML = mensaje;
+	}
+	function mostrarMensajeDisponibilidadNicknamePost(mensaje) {
+	    var mensajeElemento = document.getElementById("nickPost");
+	    mensajeElemento.innerHTML = mensaje;
+	}
+	function mostrarMensajeDisponibilidadNicknameEmpresa(mensaje) {
+	    var mensajeElemento = document.getElementById("nickEmpresa");
+	    mensajeElemento.innerHTML = mensaje;
+	}
+</script>
 <body> 
     <main>
 		<% if (request.getAttribute("error") != null) { %>
@@ -42,7 +118,9 @@
                                             <input type="hidden" name="action" value="altaPostulante">
                                             <div class="form-group mb-2">
                                                 <label for="nickname">Nickname:</label>
-                                                <input type="text" id="nickname" name="nickname" class="form-control" required>
+                                                <input type="text" id="nicknamePost" name="nickname" class="form-control" oninput="verificarDisponibilidadNickname(false)" required>
+                                                <span id="nickPost"></span>
+                                                
                                             </div>
                                             <div class="form-group mb-2">
 					                              <label for="nombre">Nombre:</label>
@@ -54,7 +132,8 @@
 					                          </div>
 					                          <div class="form-group mb-2">
 					                              <label for="email">Email:</label>
-					                              <input type="email" id="email" name="email" class="form-control" required>
+					                              <input type="email" id="emailPost" name="email" class="form-control" oninput="verificarDisponibilidadEmail(false)" required>
+					                          	  <span id="emailPost"></span>
 					                          </div>
 					                          <div class="form-group mb-2">
 					                              <label for="fechaNacimiento">Fecha de Nacimiento:</label>
@@ -86,7 +165,8 @@
                                            <input type="hidden" name="action" value="altaEmpresa">
                                            <div class="form-group mb-2">
 					                            <label for="nickname">Nickname:</label>
-					                            <input class="form-control" type="text" id="nickname" name="nickname" required>
+					                            <input class="form-control" type="text" id="nickname" name="nickname" oninput="verificarDisponibilidadNickname(true)" required>
+					                            <span id="nickEmpresa"></span>
 					                        </div>
 					                
 					                        
@@ -104,7 +184,8 @@
 					                       
 					                        <div class="form-group mb-2">
 					                            <label for="email">Email:</label>
-					                            <input class="form-control" type="email" id="email" name="email" required>
+					                            <input class="form-control" type="email" id="email" name="email" oninput="verificarDisponibilidadEmail(true)" required>
+					                            <span id="emailEmpresa"></span>
 					                        </div>
 					                
 					                        
