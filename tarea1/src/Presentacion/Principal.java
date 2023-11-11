@@ -707,6 +707,9 @@ public class Principal {
 		             } else if ("Rechazada".equals(estado)) {
 		                 estadoEnum = EnumEstadoOferta.RECHAZADA;
 		             }
+		             else if ("Finalizada".equals(estado)) {
+		                 estadoEnum = EnumEstadoOferta.FINALIZADA;
+		             }
 		             try {
 		                 ICO.altaOfertaWeb(nombre, desc, rem, horario, ciudad, depa, tipo, formaPago, paqueteSeleccionado,estadoEnum , keysArray, url_imagen, empresa);
 	            	 }catch(Exception e) {
@@ -741,7 +744,6 @@ public class Principal {
 	   String cvsSplitBy = ";";
 	   try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
 		   while ((line = bufferReader.readLine()) != null) {
-			   //String nombreOfertaLaboral, String nicknamePostulante, String CVReducido, String motivacion,  LocalDateTime fechaPublic 
 			   String[] postulacionesData = line.split(cvsSplitBy);
 	           String nombre = "";    
 	           String motivacion = "";
@@ -789,16 +791,5 @@ public class Principal {
 	        e.printStackTrace();
 	    }
    }
-   
-   
-		
-	/*private LocalDate parseToLocalDate(String dateString) {
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	    try {
-	        return LocalDate.parse(dateString, formatter);
-	    } catch (DateTimeParseException e) {
-	        e.printStackTrace();
-	        return null;
-	    }
-	}*/
+
 }
