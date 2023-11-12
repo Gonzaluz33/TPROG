@@ -757,7 +757,9 @@ public class Principal {
 	        	   cv = postulacionesData[1];
 	        	   motivacion = postulacionesData[2];
 	        	   fecha= postulacionesData[3].trim();
-	        	   urlVideo=postulacionesData[5];
+	        	   if(postulacionesData.length > 5) {
+	        		   urlVideo=postulacionesData[5];
+	        	   }
 	               String fechaConvertida = convertirFecha(fecha);
 	        	   Fabrica factory = Fabrica.getInstance();
 	               IControladorOfertas ICO = factory.getIControladorOfertas();
