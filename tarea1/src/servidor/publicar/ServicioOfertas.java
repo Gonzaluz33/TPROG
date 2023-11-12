@@ -1,4 +1,6 @@
 package servidor.publicar;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -34,6 +36,7 @@ public class ServicioOfertas {
 
     private Endpoint endpoint = null;
     private static  String endpointRouteServicioOfertas  = "";
+    private static String rutaArchivo = System.getProperty("user.home") + File.separator + "trabajoUy" + File.separator + ".properties";
     //Constructor
     public ServicioOfertas(){}
 
@@ -41,14 +44,11 @@ public class ServicioOfertas {
 
     @WebMethod(exclude = true)
     public void publicar(){
-    	 try (InputStream input = getClass().getClassLoader().getResourceAsStream(".properties")) {
+    	 try (InputStream input = new FileInputStream(rutaArchivo)) {
              Properties prop = new Properties();
-
-             if (input == null) {
-                 System.out.println("Sorry, unable to find config.properties");
-                 return;
-             }
-
+             System.out.println("RUTA ARCHIVO");
+             System.out.println(rutaArchivo);
+             
              // Carga las propiedades del archivo
              prop.load(input);
 
