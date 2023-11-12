@@ -47,20 +47,19 @@ public class ServicioUsuarios {
     public void publicar(){
     	 try (InputStream input = new FileInputStream(rutaArchivo)) {
              Properties prop = new Properties();
+
              System.out.println("RUTA ARCHIVO");
              System.out.println(rutaArchivo);
-             
+
              // Carga las propiedades del archivo
              prop.load(input);
 
-             // Ahora puedes usar las propiedades como necesites
-             endpointRouteServicioUsuarios = prop.getProperty("serviceUsuarios");
-             endpoint = Endpoint.publish(endpointRouteServicioUsuarios, this);
 
-
-         } catch (Exception ex) {
-             ex.printStackTrace();
-         }
+            endpointRouteServicioUsuarios = prop.getProperty("serviceUsuarios");
+            endpoint = Endpoint.publish(endpointRouteServicioUsuarios, this);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
      }
     
 

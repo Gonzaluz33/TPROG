@@ -46,11 +46,10 @@
     	<version>4.0.0</version>
     </dependency>
     <dependency>
-    <groupId>jakarta.servlet</groupId>
-    <artifactId>jakarta.servlet-api</artifactId>
-    <version>5.0.0</version>
-    <scope>provided</scope>
-</dependency>
+ <groupId>org.apache.tomcat</groupId>
+ <artifactId>tomcat-servlet-api</artifactId>
+ <version>10.1.11</version>
+ </dependency>
   </dependencies>
   <build>
 	  <finalName>${artifactId}</finalName>

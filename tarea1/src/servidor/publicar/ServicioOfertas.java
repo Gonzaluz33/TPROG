@@ -52,12 +52,11 @@ public class ServicioOfertas {
              // Carga las propiedades del archivo
              prop.load(input);
 
-             // Ahora puedes usar las propiedades como necesites
-             endpointRouteServicioOfertas = prop.getProperty("serviceOfertas");
-             endpoint = Endpoint.publish(endpointRouteServicioOfertas, this);
-         } catch (Exception ex) {
-             ex.printStackTrace();
-         }
+            endpointRouteServicioOfertas = prop.getProperty("serviceOfertas");
+            endpoint = Endpoint.publish(endpointRouteServicioOfertas, this);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @WebMethod(exclude = true)
