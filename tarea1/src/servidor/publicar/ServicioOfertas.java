@@ -1,4 +1,5 @@
 package servidor.publicar;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -41,23 +42,20 @@ public class ServicioOfertas {
 
     @WebMethod(exclude = true)
     public void publicar(){
-    	 try (InputStream input = getClass().getClassLoader().getResourceAsStream(".properties")) {
-             Properties prop = new Properties();
+    	try {
 
-             if (input == null) {
-                 System.out.println("Sorry, unable to find config.properties");
-                 return;
-             }
+            FileInputStream input = new FileInputStream("config.properties");
+            Properties prop = new Properties();
 
-             // Carga las propiedades del archivo
-             prop.load(input);
 
-             // Ahora puedes usar las propiedades como necesites
-             endpointRouteServicioOfertas = prop.getProperty("serviceOfertas");
-             endpoint = Endpoint.publish(endpointRouteServicioOfertas, this);
-         } catch (Exception ex) {
-             ex.printStackTrace();
-         }
+            prop.load(input);
+
+
+            endpointRouteServicioOfertas = prop.getProperty("serviceOfertas");
+            endpoint = Endpoint.publish(endpointRouteServicioOfertas, this);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @WebMethod(exclude = true)

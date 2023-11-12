@@ -1,4 +1,5 @@
 package servidor.publicar;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 import logica.*;
@@ -42,25 +43,20 @@ public class ServicioUsuarios {
     //Operaciones las cuales quiero publicar
     @WebMethod(exclude = true)
     public void publicar(){
-    	 try (InputStream input = getClass().getClassLoader().getResourceAsStream(".properties")) {
-             Properties prop = new Properties();
+    	try {
 
-             if (input == null) {
-                 System.out.println("Sorry, unable to find config.properties");
-                 return;
-             }
-
-             // Carga las propiedades del archivo
-             prop.load(input);
-
-             // Ahora puedes usar las propiedades como necesites
-             endpointRouteServicioUsuarios = prop.getProperty("serviceUsuarios");
-             endpoint = Endpoint.publish(endpointRouteServicioUsuarios, this);
+            FileInputStream input = new FileInputStream("config.properties");
+            Properties prop = new Properties();
 
 
-         } catch (Exception ex) {
-             ex.printStackTrace();
-         }
+            prop.load(input);
+
+
+            endpointRouteServicioUsuarios = prop.getProperty("serviceUsuarios");
+            endpoint = Endpoint.publish(endpointRouteServicioUsuarios, this);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
      }
     
 
