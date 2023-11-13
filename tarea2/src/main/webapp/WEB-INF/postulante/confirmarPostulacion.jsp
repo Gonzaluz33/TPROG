@@ -89,10 +89,10 @@
                 <form action="confirmarPostulacion?NombreOferta=<%= oferta.getNombre() %>" method="post">
                     <div class="row mb-3">
                         <div class="col">
-                            <textarea class="form-control" id="cv" name="cv" placeholder="Ingrese CV reducido" rows="10"></textarea>
+                            <textarea class="form-control" id="cv" name="cv" placeholder="Ingrese CV reducido" rows="10" required></textarea>
                         </div>
                         <div class="col">
-                            <textarea class="form-control" id="motivacion" name="motivacion" placeholder="Ingrese Motivación:" rows="10"></textarea>
+                            <textarea class="form-control" id="motivacion" name="motivacion" placeholder="Ingrese Motivación:" rows="10" required></textarea>
                         </div>
                     </div>
                     <div class="row mb-3 justify-content-center">
