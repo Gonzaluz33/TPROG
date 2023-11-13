@@ -249,5 +249,11 @@ public class ServicioOfertas {
    	 	ICO.actualizarEstadoOfertaLaboral(nombreOferta, EnumEstadoOferta.FINALIZADA);
     }
 
+    @WebMethod
+    public void seleccionarPostulaciones(String nombreOferta, String postulaciones) throws OfertaNoExisteException {
+    	Fabrica factory = Fabrica.getInstance();
+   	 	IControladorOfertas ICO = factory.getIControladorOfertas();
+   	 	ICO.seleccionarPostulaciones(nombreOferta, postulaciones);
+    }
 }
 

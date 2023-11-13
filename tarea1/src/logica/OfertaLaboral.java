@@ -232,6 +232,15 @@ public class OfertaLaboral {
 		return faveados.contains(postulante);
 	}
 
+	public Postulacion getPostulacionNickname(String nickname) {
+		for (Postulacion post : postulaciones) {
+            if (post.getNicknamePostulante().equals(nickname)) {
+                return post; // Persona encontrada
+            }
+        }
+		return null;
+	}
+	
 	/**
 	 * Devuelve los datos de la oferta como un datatype DTOferta.
 	 */

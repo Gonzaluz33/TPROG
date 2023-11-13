@@ -12,6 +12,7 @@ public class Postulacion {
 	private String motivacion;
 	private LocalDateTime fechaPublic;
 	private String urlVideo;
+	private int resultado;
 	
 	// Constructores
 	public Postulacion(){
@@ -21,6 +22,7 @@ public class Postulacion {
 		this.motivacion = new String();
 		this.fechaPublic = null;
 		this.urlVideo = new String();
+		this.resultado = 0;
 	}
 	
 	public Postulacion(String nombreOfertaLaboral, String nicknamePostulante, String CVReducido, String motivacion,  LocalDateTime fechaPublic, String urlVideo ) {
@@ -56,6 +58,10 @@ public class Postulacion {
     public void setVideo(String urlVid) {
     	this.urlVideo = urlVid;
     }
+    
+    public void setResultado(int res) {
+    	this.resultado = res;
+    }
     // Getters
     public String getNombreOfertaLaboral() {
     	return nombreOfertaLaboral;
@@ -81,11 +87,15 @@ public class Postulacion {
         return fechaPublic;
     }
     
+    public int getResultado() {
+    	return resultado;
+    }
+    
     /**
      * Retorna los datos de la postulacion como un DTPostulacion.
      */
     public DTPostulacion toDataType() {
-    	return new DTPostulacion(getNicknamePostulante(), getNombreOfertaLaboral(), getFechaPublic(), getCVReducido(), getMotivacion(), getUrlVideo());
+    	return new DTPostulacion(getNicknamePostulante(), getNombreOfertaLaboral(), getFechaPublic(), getCVReducido(), getMotivacion(), getUrlVideo(), getResultado());
     }
 
 }

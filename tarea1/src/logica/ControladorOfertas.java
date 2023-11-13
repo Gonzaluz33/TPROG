@@ -215,4 +215,8 @@ public class ControladorOfertas implements IControladorOfertas {
         manejadorOL.agregarEliminarFavorito(usuarioPostulante, nombreOferta);
 	}
 	
+	public void seleccionarPostulaciones(String nombreOferta, String postulaciones) {
+        ManejadorOfertaLaboral manejadorOL = ManejadorOfertaLaboral.getInstance();
+        manejadorOL.seleccionarPostulaciones(nombreOferta,postulaciones);
+	}
 }
