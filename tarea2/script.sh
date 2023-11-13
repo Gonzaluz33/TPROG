@@ -39,6 +39,14 @@ mvn clean install
 
 if [ $? -eq 0 ]; then
     echo "Maven build exitoso."
+	    # Ruta del archivo .war que quieres mover
+	archivo_war="target/tarea2.war"
+
+	# Directorio destino
+	destino="$HOME/Desktop/apache-tomcat/webapps"
+
+	# Mover el archivo
+	mv "$archivo_war" "$destino"
 else
     echo "Maven build falló."
     exit 1
