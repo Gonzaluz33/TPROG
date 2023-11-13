@@ -253,5 +253,16 @@ public class ManejadorOfertaLaboral {
 			System.out.println(oferta.getEstado());
 		}
 	}
+	
+	public void seleccionarPostulaciones(String nombreOferta, String postulaciones) {
+		OfertaLaboral oferta = this.coleccionOfertasLaborales.get(nombreOferta);
+		int index = 1;
+		String[] postulacionesArray = postulaciones.split(",");
+		for (String nick: postulacionesArray) {
+			Postulacion post = oferta.getPostulacionNickname(nick);
+			post.setResultado(index);
+			index ++;
+		}
+	}
 
 }

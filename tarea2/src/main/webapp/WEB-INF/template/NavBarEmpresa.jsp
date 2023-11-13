@@ -30,6 +30,9 @@
                     <a class="nav-link text-white" href="/tarea2/consultaPostulacionAOferta">Consulta de Postulación a Oferta Laboral</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link text-white" href="/tarea2/mostrarSeleccionarOferta">Seleccionar Postulaciones</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link text-white" href="/tarea2/modificarDatosUsuario">Modificar Datos Personales</a>
                 </li>
             </ul>

@@ -63,6 +63,7 @@
                 <p class="m-0"><span class="fw-bold">Motivacion: </span><%= post.getMotivacion() %></p>
                 <p class="m-0"><span class="fw-bold">Cv reducido: </span><%= post.getCvReducido() %></p>
                 <p class="m-0"><span class="fw-bold">Fecha de postulacion: </span><%= post.getFecha() %></p>
+                <p class="m-0"><span class="fw-bold">Resultado: </span><%= post.getResultado() %></p>
                 <%
                 	if(!post.getUrlVideo().equals("")){
                	%>

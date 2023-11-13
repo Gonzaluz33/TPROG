@@ -71,6 +71,9 @@
 			        <a href="/tarea2/consultaPostulacionAOferta" class="list-group-item list-group-item-action d-flex align-items-center">
 			            <i class="fas fa-briefcase me-3"></i> Consulta de Postulación a Oferta Laboral
 			        </a>
+			        <a href="/tarea2/mostrarSeleccionarOferta" class="list-group-item list-group-item-action d-flex align-items-center">
+			            <i class="fas fa-check2 me-3"></i> Seleccionar Postulacion a Oferta Laboral
+			        </a>
 			        <a href="/tarea2/modificarDatosUsuario" class="list-group-item list-group-item-action d-flex align-items-center">
                         <i class="fas fa-paper-plane me-3"></i> Modificar Datos Personales
                     </a>

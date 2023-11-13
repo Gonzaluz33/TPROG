@@ -67,4 +67,5 @@ public interface IControladorOfertas {
 	
 	public TreeSet<DTOferta> obtenerOfertasIngresadasDeEmpresa(String nicknameEmpresa)throws NicknameNoExisteException, UsuarioNoEsEmpresaException;
 	public void agregarEliminarFavorito(String nickname, String nombreOferta) throws NicknameNoExisteException;
+	public void seleccionarPostulaciones(String nombreOferta, String postulaciones);
 }
