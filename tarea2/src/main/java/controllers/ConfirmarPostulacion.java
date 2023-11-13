@@ -89,6 +89,9 @@ public class ConfirmarPostulacion extends HttpServlet {
 			        String nicknamePostulante = portUsuarios.obtenerDatosDeUsuarioJWT(jwt).getNickname();
 			        String cvReducido = request.getParameter("cv");
 			        String motivacion = request.getParameter("motivacion");
+			        if(cvReducido.isEmpty() || motivacion.isEmpty()) {
+			        	throw new Exception("Debes ingresar tu CV y una motivación!");
+			        }
 			        String urlVideo = request.getParameter("urlVideo");
 			        LocalDateTime fechaActual = LocalDateTime.now();
 			        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
@@ -111,6 +114,11 @@ public class ConfirmarPostulacion extends HttpServlet {
 				e.printStackTrace();
 			} catch (UsuarioNoEsPostulanteException_Exception e) {
 				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				request.setAttribute("error", e.getMessage());
+				request.getRequestDispatcher("/WEB-INF/errorPages/ofertaExiste.jsp").forward(request, response);
 				e.printStackTrace();
 			}
 			

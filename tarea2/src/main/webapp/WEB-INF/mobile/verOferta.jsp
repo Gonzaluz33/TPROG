@@ -12,8 +12,6 @@
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="net.java.dev.jaxb.array.StringArray" %>
 <%@page import="java.time.format.DateTimeFormatter"%>
-
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -36,12 +34,12 @@
             </button>
              <% if (genero.equals("Femenino")) { %>
 
-            <a class="navbar-brand fw-bold text-uppercase" href="#">Bienvenida <%=name%></a>
+            <a class="navbar-brand fw-bold text-uppercase" href="visitante">Bienvenida <%=name%></a>
                 <div id="profile_img_container">
 					    <img id="profile_img" src="<%=imgPerfilJSON%>" class="rounded-circle" alt="Foto de perfil" style="width:40px; height:40px; border: 2px solid black;">
                 </div>
              <% } else { %>
-           		<a class="navbar-brand fw-bold text-uppercase" href="#">Bienvenido <%=name%></a>
+           		<a class="navbar-brand fw-bold text-uppercase" href="visitante">Bienvenido <%=name%></a>
                 <div id="profile_img_container">
 					    <img id="profile_img" src="<%=imgPerfilJSON%>" class="rounded-circle" alt="Foto de perfil" style="width:40px; height:40px; border: 2px solid black;">
                 </div>
@@ -69,7 +67,7 @@
         <div class="row">
             <div class="col-12 align-items-center d-flex ms-2">
                 <div>
-    <button class="badge rounded-pill" onclick="location.href='visitante'">
+    <button class="badge rounded-pill" onclick="window.history.back()">
         <span class="badge rounded-pill p-2">
             <i class="text-black bi bi-caret-left-fill me-2"></i>
             <span class="text-dark fw-bold">Volver Atrás</span>

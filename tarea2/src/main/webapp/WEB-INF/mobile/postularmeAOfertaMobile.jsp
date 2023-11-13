@@ -36,12 +36,12 @@
             </button>
              <% if (genero.equals("Femenino")) { %>
 
-            <a class="navbar-brand fw-bold text-uppercase" href="#">Bienvenida <%=name%></a>
+            <a class="navbar-brand fw-bold text-uppercase" href="visitante">Bienvenida <%=name%></a>
                 <div id="profile_img_container">
 					    <img id="profile_img" src="<%=imgPerfilJSON%>" class="rounded-circle" alt="Foto de perfil" style="width:40px; height:40px; border: 2px solid black;">
                 </div>
              <% } else { %>
-           		<a class="navbar-brand fw-bold text-uppercase" href="#">Bienvenido <%=name%></a>
+           		<a class="navbar-brand fw-bold text-uppercase" href="visitante">Bienvenido <%=name%></a>
                 <div id="profile_img_container">
 					    <img id="profile_img" src="<%=imgPerfilJSON%>" class="rounded-circle" alt="Foto de perfil" style="width:40px; height:40px; border: 2px solid black;">
                 </div>
@@ -147,15 +147,15 @@
                 <form method="post" action="confirmarPostulacion?NombreOferta=<%= publicacion.getDtOferta().getNombre() %>">
                     <div class="mb-4">
                         <label for="cvAbreviado" class="form-label fw-bold text-black ms-2">CV Abreviado:</label>
-                        <textarea class="form-control rounded" name="cv" id="cv" rows="5" placeholder="Introduce tu CV abreviado aquí..."></textarea>
+                        <textarea class="form-control rounded" name="cv" id="cv" rows="5" placeholder="Introduce tu CV abreviado aquí..." required></textarea>
                     </div>
                     <div class="mb-4">
                         <label for="motivacion" class="form-label fw-bold text-black ms-2">Motivación:</label>
-                        <textarea class="form-control rounded" name="motivacion" id="motivacion" rows="5" placeholder="¿Por qué estás interesado en esta oferta?"></textarea>
+                        <textarea class="form-control rounded" name="motivacion" id="motivacion" rows="5" placeholder="¿Por qué estás interesado en esta oferta?" required></textarea>
                     </div>
                     <div class="mb-4">
-                        <label for="motivacion" class="form-label fw-bold text-black ms-2">UrlVideo:</label>
-                        <textarea class="form-control rounded" name="urlVideo" id="urlVideo" rows="2" placeholder="¿Por qué estás interesado en esta oferta?"></textarea>
+                        <label for="motivacion" class="form-label fw-bold text-black ms-2">Url Video:</label>
+                        <textarea class="form-control rounded" name="urlVideo" id="urlVideo" rows="2" placeholder="Ingresa una URL a un video de presentación"></textarea>
                     </div>
                     
                     <div class="d-flex justify-content-center">

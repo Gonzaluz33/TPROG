@@ -30,12 +30,12 @@
         <div class="container-fluid mx-lg-3">
             <% if (genero.equals("Femenino")) { %>
 
-            <a class="navbar-brand fw-bold text-uppercase" href="#">Bienvenida <%=name%></a>
+            <a class="navbar-brand fw-bold text-uppercase" href="visitante">Bienvenida <%=name%></a>
                 <div id="profile_img_container">
 					    <img id="profile_img" src="<%=imgPerfilJSON%>" class="rounded-circle" alt="Foto de perfil" style="width:40px; height:40px; border: 2px solid black;">
                 </div>
              <% } else { %>
-           		<a class="navbar-brand fw-bold text-uppercase" href="#">Bienvenido <%=name%></a>
+           		<a class="navbar-brand fw-bold text-uppercase" href="visitante">Bienvenido <%=name%></a>
                 <div id="profile_img_container">
 					    <img id="profile_img" src="<%=imgPerfilJSON%>" class="rounded-circle" alt="Foto de perfil" style="width:40px; height:40px; border: 2px solid black;">
                 </div>
