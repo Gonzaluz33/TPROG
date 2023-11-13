@@ -9,9 +9,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for dtUsuario complex type.
+ * <p>Clase Java para dtUsuario complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>{@code
  * <complexType name="dtUsuario">
@@ -56,7 +56,7 @@ public class DtUsuario {
     protected String urlImagen;
 
     /**
-     * Gets the value of the nickname property.
+     * Obtiene el valor de la propiedad nickname.
      * 
      * @return
      *     possible object is
@@ -68,7 +68,7 @@ public class DtUsuario {
     }
 
     /**
-     * Sets the value of the nickname property.
+     * Define el valor de la propiedad nickname.
      * 
      * @param value
      *     allowed object is
@@ -80,7 +80,7 @@ public class DtUsuario {
     }
 
     /**
-     * Gets the value of the nombre property.
+     * Obtiene el valor de la propiedad nombre.
      * 
      * @return
      *     possible object is
@@ -92,7 +92,7 @@ public class DtUsuario {
     }
 
     /**
-     * Sets the value of the nombre property.
+     * Define el valor de la propiedad nombre.
      * 
      * @param value
      *     allowed object is
@@ -104,7 +104,7 @@ public class DtUsuario {
     }
 
     /**
-     * Gets the value of the apellido property.
+     * Obtiene el valor de la propiedad apellido.
      * 
      * @return
      *     possible object is
@@ -116,7 +116,7 @@ public class DtUsuario {
     }
 
     /**
-     * Sets the value of the apellido property.
+     * Define el valor de la propiedad apellido.
      * 
      * @param value
      *     allowed object is
@@ -128,7 +128,7 @@ public class DtUsuario {
     }
 
     /**
-     * Gets the value of the correo property.
+     * Obtiene el valor de la propiedad correo.
      * 
      * @return
      *     possible object is
@@ -140,7 +140,7 @@ public class DtUsuario {
     }
 
     /**
-     * Sets the value of the correo property.
+     * Define el valor de la propiedad correo.
      * 
      * @param value
      *     allowed object is
@@ -152,7 +152,7 @@ public class DtUsuario {
     }
 
     /**
-     * Gets the value of the contrasenia property.
+     * Obtiene el valor de la propiedad contrasenia.
      * 
      * @return
      *     possible object is
@@ -164,7 +164,7 @@ public class DtUsuario {
     }
 
     /**
-     * Sets the value of the contrasenia property.
+     * Define el valor de la propiedad contrasenia.
      * 
      * @param value
      *     allowed object is
@@ -176,7 +176,7 @@ public class DtUsuario {
     }
 
     /**
-     * Gets the value of the urlImagen property.
+     * Obtiene el valor de la propiedad urlImagen.
      * 
      * @return
      *     possible object is
@@ -188,7 +188,7 @@ public class DtUsuario {
     }
 
     /**
-     * Sets the value of the urlImagen property.
+     * Define el valor de la propiedad urlImagen.
      * 
      * @param value
      *     allowed object is

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define la ruta al archivo .properties
-PROPERTIES_FILE="/ens/home01/g/gonzalo.luz/trabajoUy/.properties"
+PROPERTIES_FILE="$HOME/trabajoUy/.properties"
 
 # Leer las URLs de los servicios del archivo .properties
 SERVICE_OFERTAS_URL=$(grep "serviceOfertas" $PROPERTIES_FILE | cut -d'=' -f2)
@@ -11,7 +11,7 @@ SERVICE_USUARIOS_URL=$(grep "serviceUsuarios" $PROPERTIES_FILE | cut -d'=' -f2)
 execute_wsimport() {
     local service_url=$1
     echo "Ejecutando wsimport para $service_url"
-    wsimport -keep -s src/main/java "${service_url}?wsdl"
+    lib/jaxws-ri/bin/wsimport.sh -keep -s src/main/java "${service_url}?wsdl"
 
     if [ $? -ne 0 ]; then
         echo "wsimport falló para $service_url"
@@ -24,6 +24,9 @@ if [ -z "$SERVICE_OFERTAS_URL" ] || [ -z "$SERVICE_USUARIOS_URL" ]; then
     echo "Una o más URLs de servicios no fueron encontradas en el archivo .properties"
     exit 1
 fi
+cd /lib/jaxws-ri/bin/
+chmod 777 *.sh
+cd -
 
 # Ejecutar wsimport para cada servicio
 execute_wsimport $SERVICE_OFERTAS_URL
