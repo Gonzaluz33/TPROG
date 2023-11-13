@@ -42,6 +42,7 @@ import jakarta.xml.bind.annotation.XmlType;
     "urlImagen"
 })
 @XmlSeeAlso({
+    DtEmpresa.class,
     DtPostulante.class
 })
 public class DtUsuario {

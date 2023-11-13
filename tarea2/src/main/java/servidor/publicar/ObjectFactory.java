@@ -24,13 +24,10 @@ import jakarta.xml.bind.annotation.XmlRegistry;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _KeywordExisteException_QNAME = new QName("http://publicar.servidor/", "KeywordExisteException");
+    private final static QName _CorreoNoEncontradoException_QNAME = new QName("http://publicar.servidor/", "CorreoNoEncontradoException");
+    private final static QName _CorreoRepetidoException_QNAME = new QName("http://publicar.servidor/", "CorreoRepetidoException");
     private final static QName _NicknameNoExisteException_QNAME = new QName("http://publicar.servidor/", "NicknameNoExisteException");
-    private final static QName _NombreExisteException_QNAME = new QName("http://publicar.servidor/", "NombreExisteException");
-    private final static QName _OfertaNoExisteException_QNAME = new QName("http://publicar.servidor/", "OfertaNoExisteException");
-    private final static QName _UsuarioNoEsEmpresaException_QNAME = new QName("http://publicar.servidor/", "UsuarioNoEsEmpresaException");
-    private final static QName _UsuarioNoEsPostulanteException_QNAME = new QName("http://publicar.servidor/", "UsuarioNoEsPostulanteException");
-    private final static QName _DtPublicacion_QNAME = new QName("http://publicar.servidor/", "dtPublicacion");
+    private final static QName _UsuarioRepetidoException_QNAME = new QName("http://publicar.servidor/", "UsuarioRepetidoException");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: servidor.publicar
@@ -40,13 +37,23 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link KeywordExisteException }
+     * Create an instance of {@link CorreoNoEncontradoException }
      * 
      * @return
-     *     the new instance of {@link KeywordExisteException }
+     *     the new instance of {@link CorreoNoEncontradoException }
      */
-    public KeywordExisteException createKeywordExisteException() {
-        return new KeywordExisteException();
+    public CorreoNoEncontradoException createCorreoNoEncontradoException() {
+        return new CorreoNoEncontradoException();
+    }
+
+    /**
+     * Create an instance of {@link CorreoRepetidoException }
+     * 
+     * @return
+     *     the new instance of {@link CorreoRepetidoException }
+     */
+    public CorreoRepetidoException createCorreoRepetidoException() {
+        return new CorreoRepetidoException();
     }
 
     /**
@@ -60,53 +67,33 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link NombreExisteException }
+     * Create an instance of {@link UsuarioRepetidoException }
      * 
      * @return
-     *     the new instance of {@link NombreExisteException }
+     *     the new instance of {@link UsuarioRepetidoException }
      */
-    public NombreExisteException createNombreExisteException() {
-        return new NombreExisteException();
+    public UsuarioRepetidoException createUsuarioRepetidoException() {
+        return new UsuarioRepetidoException();
     }
 
     /**
-     * Create an instance of {@link OfertaNoExisteException }
+     * Create an instance of {@link DtUsuario }
      * 
      * @return
-     *     the new instance of {@link OfertaNoExisteException }
+     *     the new instance of {@link DtUsuario }
      */
-    public OfertaNoExisteException createOfertaNoExisteException() {
-        return new OfertaNoExisteException();
+    public DtUsuario createDtUsuario() {
+        return new DtUsuario();
     }
 
     /**
-     * Create an instance of {@link UsuarioNoEsEmpresaException }
+     * Create an instance of {@link DtEmpresa }
      * 
      * @return
-     *     the new instance of {@link UsuarioNoEsEmpresaException }
+     *     the new instance of {@link DtEmpresa }
      */
-    public UsuarioNoEsEmpresaException createUsuarioNoEsEmpresaException() {
-        return new UsuarioNoEsEmpresaException();
-    }
-
-    /**
-     * Create an instance of {@link UsuarioNoEsPostulanteException }
-     * 
-     * @return
-     *     the new instance of {@link UsuarioNoEsPostulanteException }
-     */
-    public UsuarioNoEsPostulanteException createUsuarioNoEsPostulanteException() {
-        return new UsuarioNoEsPostulanteException();
-    }
-
-    /**
-     * Create an instance of {@link DtPublicacion }
-     * 
-     * @return
-     *     the new instance of {@link DtPublicacion }
-     */
-    public DtPublicacion createDtPublicacion() {
-        return new DtPublicacion();
+    public DtEmpresa createDtEmpresa() {
+        return new DtEmpresa();
     }
 
     /**
@@ -140,86 +127,49 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DtUsuario }
+     * Create an instance of {@link DtEmpresaArray }
      * 
      * @return
-     *     the new instance of {@link DtUsuario }
+     *     the new instance of {@link DtEmpresaArray }
      */
-    public DtUsuario createDtUsuario() {
-        return new DtUsuario();
+    public DtEmpresaArray createDtEmpresaArray() {
+        return new DtEmpresaArray();
     }
 
     /**
-     * Create an instance of {@link DtTipoPublicacion }
+     * Create an instance of {@link DtUsuarioArray }
      * 
      * @return
-     *     the new instance of {@link DtTipoPublicacion }
+     *     the new instance of {@link DtUsuarioArray }
      */
-    public DtTipoPublicacion createDtTipoPublicacion() {
-        return new DtTipoPublicacion();
+    public DtUsuarioArray createDtUsuarioArray() {
+        return new DtUsuarioArray();
     }
 
     /**
-     * Create an instance of {@link ArrayList }
-     * 
-     * @return
-     *     the new instance of {@link ArrayList }
-     */
-    public ArrayList createArrayList() {
-        return new ArrayList();
-    }
-
-    /**
-     * Create an instance of {@link DtPublicacionArray }
-     * 
-     * @return
-     *     the new instance of {@link DtPublicacionArray }
-     */
-    public DtPublicacionArray createDtPublicacionArray() {
-        return new DtPublicacionArray();
-    }
-
-    /**
-     * Create an instance of {@link DtOfertaArray }
-     * 
-     * @return
-     *     the new instance of {@link DtOfertaArray }
-     */
-    public DtOfertaArray createDtOfertaArray() {
-        return new DtOfertaArray();
-    }
-
-    /**
-     * Create an instance of {@link DtTipoPublicacionArray }
-     * 
-     * @return
-     *     the new instance of {@link DtTipoPublicacionArray }
-     */
-    public DtTipoPublicacionArray createDtTipoPublicacionArray() {
-        return new DtTipoPublicacionArray();
-    }
-
-    /**
-     * Create an instance of {@link DtPostulacionArray }
-     * 
-     * @return
-     *     the new instance of {@link DtPostulacionArray }
-     */
-    public DtPostulacionArray createDtPostulacionArray() {
-        return new DtPostulacionArray();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link KeywordExisteException }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CorreoNoEncontradoException }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link KeywordExisteException }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link CorreoNoEncontradoException }{@code >}
      */
-    @XmlElementDecl(namespace = "http://publicar.servidor/", name = "KeywordExisteException")
-    public JAXBElement<KeywordExisteException> createKeywordExisteException(KeywordExisteException value) {
-        return new JAXBElement<>(_KeywordExisteException_QNAME, KeywordExisteException.class, null, value);
+    @XmlElementDecl(namespace = "http://publicar.servidor/", name = "CorreoNoEncontradoException")
+    public JAXBElement<CorreoNoEncontradoException> createCorreoNoEncontradoException(CorreoNoEncontradoException value) {
+        return new JAXBElement<>(_CorreoNoEncontradoException_QNAME, CorreoNoEncontradoException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CorreoRepetidoException }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link CorreoRepetidoException }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://publicar.servidor/", name = "CorreoRepetidoException")
+    public JAXBElement<CorreoRepetidoException> createCorreoRepetidoException(CorreoRepetidoException value) {
+        return new JAXBElement<>(_CorreoRepetidoException_QNAME, CorreoRepetidoException.class, null, value);
     }
 
     /**
@@ -236,68 +186,16 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link NombreExisteException }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link UsuarioRepetidoException }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link NombreExisteException }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link UsuarioRepetidoException }{@code >}
      */
-    @XmlElementDecl(namespace = "http://publicar.servidor/", name = "NombreExisteException")
-    public JAXBElement<NombreExisteException> createNombreExisteException(NombreExisteException value) {
-        return new JAXBElement<>(_NombreExisteException_QNAME, NombreExisteException.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link OfertaNoExisteException }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link OfertaNoExisteException }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://publicar.servidor/", name = "OfertaNoExisteException")
-    public JAXBElement<OfertaNoExisteException> createOfertaNoExisteException(OfertaNoExisteException value) {
-        return new JAXBElement<>(_OfertaNoExisteException_QNAME, OfertaNoExisteException.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UsuarioNoEsEmpresaException }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link UsuarioNoEsEmpresaException }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://publicar.servidor/", name = "UsuarioNoEsEmpresaException")
-    public JAXBElement<UsuarioNoEsEmpresaException> createUsuarioNoEsEmpresaException(UsuarioNoEsEmpresaException value) {
-        return new JAXBElement<>(_UsuarioNoEsEmpresaException_QNAME, UsuarioNoEsEmpresaException.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UsuarioNoEsPostulanteException }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link UsuarioNoEsPostulanteException }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://publicar.servidor/", name = "UsuarioNoEsPostulanteException")
-    public JAXBElement<UsuarioNoEsPostulanteException> createUsuarioNoEsPostulanteException(UsuarioNoEsPostulanteException value) {
-        return new JAXBElement<>(_UsuarioNoEsPostulanteException_QNAME, UsuarioNoEsPostulanteException.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DtPublicacion }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link DtPublicacion }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://publicar.servidor/", name = "dtPublicacion")
-    public JAXBElement<DtPublicacion> createDtPublicacion(DtPublicacion value) {
-        return new JAXBElement<>(_DtPublicacion_QNAME, DtPublicacion.class, null, value);
+    @XmlElementDecl(namespace = "http://publicar.servidor/", name = "UsuarioRepetidoException")
+    public JAXBElement<UsuarioRepetidoException> createUsuarioRepetidoException(UsuarioRepetidoException value) {
+        return new JAXBElement<>(_UsuarioRepetidoException_QNAME, UsuarioRepetidoException.class, null, value);
     }
 
 }

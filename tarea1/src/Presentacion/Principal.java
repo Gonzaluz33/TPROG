@@ -384,6 +384,10 @@ public class Principal {
 					String csvFilePathPostulantesOfertasLaboralesFavoritas = currentDirectory + File.separator + "DatosCSV" + File.separator + "PostulantesOfertasLaboralesFavoritas.csv";
 					cargarPostulantesOfertasLaboralesFavoritas(csvFilePathPostulantesOfertasLaboralesFavoritas);
 					
+					String csvFilePathResultadoPostulacion = currentDirectory + File.separator + "DatosCSV" + File.separator + "ResultadoPostulacion.csv";
+					cargarResultadoPostulacion(csvFilePathResultadoPostulacion);
+
+					
 				} catch (UsuarioRepetidoException e1) {
 					e1.printStackTrace();
 				} catch (TipoPublicExisteException e1) {
@@ -787,6 +791,28 @@ public class Principal {
 	               IControladorOfertas ICO = factory.getIControladorOfertas();
 	               ICO.agregarEliminarFavorito(nickname, nombreOferta);
 	           }
+
+		   }
+	   }catch (IOException e) {
+	        e.printStackTrace();
+	    }
+   }
+   
+   private void cargarResultadoPostulacion(String csvFile) throws FileNotFoundException, IOException {
+	   String line = "";
+	   String cvsSplitBy = ";";
+	   try (BufferedReader bufferReader = new BufferedReader(new FileReader(csvFile))) {
+		   while ((line = bufferReader.readLine()) != null) {
+			   String[] resultadoData = line.split(cvsSplitBy);
+			   String nombreOferta = ""; 
+	           String postulaciones = "";    
+	           if(resultadoData.length > 1) { // Updated condition
+	        	    nombreOferta = resultadoData[0];
+	        	    postulaciones = resultadoData[1];
+	        	    Fabrica factory = Fabrica.getInstance();
+	        	    IControladorOfertas ICO = factory.getIControladorOfertas();
+	        	    ICO.seleccionarPostulaciones(nombreOferta, postulaciones);
+	        	}
 
 		   }
 	   }catch (IOException e) {

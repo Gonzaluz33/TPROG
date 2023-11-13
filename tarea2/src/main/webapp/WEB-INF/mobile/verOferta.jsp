@@ -119,7 +119,7 @@
                         </div>
                         <hr>
                         <div class="mb-2">
-                            <strong>Tipo Publicación:</strong> <%= publicacion.getDtTipo().getNombre()%> : <a class="fw-bold text-decoration-none text-black" href="mostrarTipo?nombre=<%= publicacion.getDtTipo().getNombre()%>">Ver más ></a>
+                            <strong>Tipo Publicación:</strong> <%= publicacion.getDtTipo().getNombre()%> 
                         </div>
                         <hr>
                         <div class="mb-2">

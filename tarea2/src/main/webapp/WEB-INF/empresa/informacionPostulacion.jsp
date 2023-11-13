@@ -47,35 +47,43 @@
         <%
             DtOferta oferta = (DtOferta) request.getAttribute("oferta");
             List<DtPostulacion> posts = (List<DtPostulacion>) oferta.getPostulaciones();
-        %>
-        <h2 class="mb-4">Postulaciones a <%= oferta.getNombre() %> :</h2>
-        <% 
-            for (DtPostulacion post: posts) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                //String formattedDate = post.getFecha().format(formatter);
-        %>
-        <div class="card mb-4">
-        <div class="card-header">
-        	 <h5 class="card-title"><%= post.getNicknamePostulante() %></h5>
-        </div>
-            <div class="card-body">
-               
-                <p class="m-0"><span class="fw-bold">Motivacion: </span><%= post.getMotivacion() %></p>
-                <p class="m-0"><span class="fw-bold">Cv reducido: </span><%= post.getCvReducido() %></p>
-                <p class="m-0"><span class="fw-bold">Fecha de postulacion: </span><%= post.getFecha() %></p>
-                <p class="m-0"><span class="fw-bold">Resultado: </span><%= post.getResultado() %></p>
-                <%
-                	if(!post.getUrlVideo().equals("")){
-               	%>
-             	<div class="d-flex mb-2 my-3 justify-content-center">
-					<iframe width="420" height="315"
-						src=<%=post.getUrlVideo()%>>
-					</iframe>				      	
-		      	</div>
-		      	<% } %>
-            </div>
+            if (posts == null || posts.isEmpty()) {
             
-        </div>
+        %>
+         <h2>No se han encontrado postulaciones.</h2>
+        <%
+		    } else {
+		%>
+        <h2 class="mb-4">Postulaciones a <%= oferta.getNombre() %> :</h2>
+	        <% 
+	            for (DtPostulacion post: posts) {
+	                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	                //String formattedDate = post.getFecha().format(formatter);
+	        %>
+	        <div class="card mb-4">
+	        <div class="card-header">
+	        	 <h5 class="card-title"><%= post.getNicknamePostulante() %></h5>
+	        </div>
+	            <div class="card-body">
+	               
+	                <p class="m-0"><span class="fw-bold">Motivacion: </span><%= post.getMotivacion() %></p>
+	                <p class="m-0"><span class="fw-bold">Cv reducido: </span><%= post.getCvReducido() %></p>
+	                <p class="m-0"><span class="fw-bold">Fecha de postulacion: </span><%= post.getFecha() %></p>
+	                <p class="m-0"><span class="fw-bold">Resultado: </span><%= post.getResultado() %></p>
+	                <%
+	                	if(!post.getUrlVideo().equals("")){
+	               	%>
+	             	<% if (post.getUrlVideo() != null && post.getUrlVideo().length() > 5) { %>
+					    <div class="d-flex mb-2 my-3 justify-content-center">
+					        <iframe width="420" height="315" src="<%= post.getUrlVideo() %>"></iframe>
+					    </div>
+					<% } %>
+	
+			      	<% } %>
+	            </div>
+	            
+	        </div>
+        	<% } %>
         <% } %>
     </div>
      <div class="mt-4 mb-5 text-center">

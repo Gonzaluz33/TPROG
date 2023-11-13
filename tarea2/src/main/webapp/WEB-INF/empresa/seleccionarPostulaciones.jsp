@@ -80,8 +80,12 @@
 		    		<%
 			            DtOferta oferta = (DtOferta) request.getAttribute("oferta");
 			            List<DtPostulacion> posts = (List<DtPostulacion>) oferta.getPostulaciones();
-			            
+			            if (posts == null || posts.isEmpty()) {
 			        %>
+			         <h2>No se han encontrado postulaciones.</h2>
+					<%
+					    } else {
+					%>
 			        <h2 class="mb-4">Postulaciones a <%= oferta.getNombre() %> :</h2>
 			        <% 
 			    		int index = 1;
@@ -113,11 +117,12 @@
 			            		<input type="number" name="posiciones[]" value="<%= index++ %>" min=1  max="<%= listaSize %>" style="width: 50px;" />
 			        		</p>
 			        </div>
+					<div class="mt-4 text-center">	
+						<button type="submit" class="btn ml-4 btn-dark">Enviar Posiciones</button>
+					</div>
 			</div>
+						<% } %>
 			<% } %>
-			<div class="mt-4 text-center">	
-				<button type="submit" class="btn ml-4 btn-dark">Enviar Posiciones</button>
-			</div>
 				
 		</form>
 		 <div class="mt-4 text-center">

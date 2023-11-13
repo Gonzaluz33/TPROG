@@ -91,10 +91,8 @@ public class SeleccionarPostulaciones extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String[] posiciones = request.getParameterValues("posiciones[]");
-		for (String posicion : posiciones) {
-		    System.out.println("Posición recibida: " + posicion);
-		}
 	    String posts = obtenerStringOrdenado(posiciones, this.oferta.getPostulaciones());
+	    System.out.println(posts);
 	    
 	    try {
 			portOfertas.seleccionarPostulaciones(this.oferta.getNombre(), posts);
@@ -113,14 +111,12 @@ public class SeleccionarPostulaciones extends HttpServlet {
 	    for (String posicion : posiciones) {
 	        int index = Integer.parseInt(posicion)-1;
 	        if (index >= 0 && index < posts.size()) {
-	        	System.out.println(posts.get(index).getNicknamePostulante());
 	            postsOrdenados += posts.get(index).getNicknamePostulante() + ",";
 	        }
 	    }
 	    if (postsOrdenados.endsWith(",")) {
 	        postsOrdenados = postsOrdenados.substring(0, postsOrdenados.length() - 1);
 	    }
-	    System.out.println(postsOrdenados);
 	    return postsOrdenados;
 	}
 }
