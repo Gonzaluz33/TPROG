@@ -22,6 +22,7 @@ import servidor.publicar.UsuarioNoEsPostulanteException_Exception;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -45,10 +46,14 @@ public class verPostulaciones extends HttpServlet {
         portUsuarios = serviceUsuarios.getServicioUsuariosPort();
     }
 
-
     private boolean isMobileRequest(HttpServletRequest req) {
         String userAgent = req.getHeader("User-Agent");
-        return userAgent != null && userAgent.matches(".*(Android|iPhone|iPad|iPod|Windows Phone|webOS|BlackBerry|Mobile).*");
+        if(userAgent == null) {
+        	return false;
+        }
+        userAgent.toLowerCase();
+        Pattern mobilePattern = Pattern.compile("mobi|android|iphone|webos|blackberry", Pattern.CASE_INSENSITIVE);
+        return mobilePattern.matcher(userAgent).find();
     }
 
     private String getJwtFromCookies(Cookie[] cookies) {
@@ -64,7 +69,7 @@ public class verPostulaciones extends HttpServlet {
         req.getRequestDispatcher(page).forward(req, resp);
     }
     
-    /*public static String predecirGenero(String nombre) {
+    public static String predecirGenero(String nombre) {
 
         nombre = nombre.toLowerCase();
         String[] terminacionesFemeninas = {"a", "ia", "ra", "na", "da", "la"};
@@ -74,25 +79,6 @@ public class verPostulaciones extends HttpServlet {
             }
         }
         return "Masculino";
-    }*/
-    
-    public static String predecirGenero(String nombre) {
-        try {
-            HttpClient client = HttpClient.newHttpClient();
-            String url = "https://api.genderize.io?name=" + nombre;
-
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .build();
-
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            JsonObject jsonResponse = JsonParser.parseString(response.body()).getAsJsonObject();
-
-            return jsonResponse.get("gender").getAsString().equals("male") ? "Masculino" : "Femenino";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Desconocido";
-        }
     }
 
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, KeywordExisteException_Exception {

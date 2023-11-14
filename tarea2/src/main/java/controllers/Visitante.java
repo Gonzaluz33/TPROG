@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Cookie;
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @WebServlet("/visitante")
@@ -80,7 +81,12 @@ public class Visitante extends HttpServlet {
 
     private boolean isMobileRequest(HttpServletRequest req) {
         String userAgent = req.getHeader("User-Agent");
-        return userAgent != null && userAgent.matches(".*(Android|iPhone|iPad|iPod|Windows Phone|webOS|BlackBerry|Mobile).*");
+        if(userAgent == null) {
+        	return false;
+        }
+        userAgent.toLowerCase();
+        Pattern mobilePattern = Pattern.compile("mobi|android|iphone|webos|blackberry", Pattern.CASE_INSENSITIVE);
+        return mobilePattern.matcher(userAgent).find();
     }
 
     private String getJwtFromCookies(Cookie[] cookies) {

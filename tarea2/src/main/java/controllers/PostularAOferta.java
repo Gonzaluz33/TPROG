@@ -37,7 +37,6 @@ public class PostularAOferta extends HttpServlet {
    
     
     public static List<DtUsuario> obtenerEmpresasConPublicacionesConfirmadas() {
-  
         List<DtUsuario> empresasConPublicacionesConfirmadas = new ArrayList<>();
         List<DtEmpresa> todasLasEmpresas = portUsuarios.listarEmpresas().getItem();
         
@@ -65,7 +64,6 @@ public class PostularAOferta extends HttpServlet {
     		if(user!=null) {
     			req.setAttribute("imgPerfil", user.getUrlImagen());
     		}
-    		
         	switch(tipoUsuario) {
         		case ("postulante"):
         			req.getRequestDispatcher("/WEB-INF/postulante/PostularAOferta.jsp").forward(req, resp);

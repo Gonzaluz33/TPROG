@@ -22,6 +22,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -46,10 +47,15 @@ public class Postulante extends HttpServlet {
                 .filter(p -> EnumEstadoOferta.CONFIRMADA.equals(p.getDtOferta().getEstado()))
                 .collect(Collectors.toList());
     }
-
+    
     private boolean isMobileRequest(HttpServletRequest req) {
         String userAgent = req.getHeader("User-Agent");
-        return userAgent != null && userAgent.matches(".*(Android|iPhone|iPad|iPod|Windows Phone|webOS|BlackBerry|Mobile).*");
+        if(userAgent == null) {
+        	return false;
+        }
+        userAgent.toLowerCase();
+        Pattern mobilePattern = Pattern.compile("mobi|android|iphone|webos|blackberry", Pattern.CASE_INSENSITIVE);
+        return mobilePattern.matcher(userAgent).find();
     }
 
     private String getJwtFromCookies(Cookie[] cookies) {
@@ -66,8 +72,7 @@ public class Postulante extends HttpServlet {
     }
     
     
-    /*public static String predecirGenero(String nombre) {
-
+    public static String predecirGenero(String nombre) {
         nombre = nombre.toLowerCase();
         String[] terminacionesFemeninas = {"a", "ia", "ra", "na", "da", "la"};
         for (String terminacion : terminacionesFemeninas) {
@@ -76,25 +81,6 @@ public class Postulante extends HttpServlet {
             }
         }
         return "Masculino";
-    }*/
-    
-    public static String predecirGenero(String nombre) {
-        try {
-            HttpClient client = HttpClient.newHttpClient();
-            String url = "https://api.genderize.io?name=" + nombre;
-
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .build();
-
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            JsonObject jsonResponse = JsonParser.parseString(response.body()).getAsJsonObject();
-
-            return jsonResponse.get("gender").getAsString().equals("male") ? "Masculino" : "Femenino";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Desconocido";
-        }
     }
 
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, KeywordExisteException_Exception {
@@ -106,8 +92,7 @@ public class Postulante extends HttpServlet {
         String jwt = getJwtFromCookies(req.getCookies());
         if (jwt != null && portUsuarios.validarToken(jwt)) {
             String tipoUsuario = portUsuarios.tipoUsuario(jwt);
-            DtUsuario usuario = portUsuarios.obtenerDatosDeUsuarioJWT(jwt);
-            
+            DtUsuario usuario = portUsuarios.obtenerDatosDeUsuarioJWT(jwt);       
             req.setAttribute("postulante", usuario.getNickname());
             req.setAttribute("imgPerfil", usuario.getUrlImagen());
             req.setAttribute("nombre", usuario.getNombre());
@@ -171,7 +156,6 @@ public class Postulante extends HttpServlet {
     protected void marcarDesmarcarFavorito(HttpServletRequest request, HttpServletResponse response) throws NicknameNoExisteException_Exception, IOException, ServletException, KeywordExisteException_Exception {
     	servidor.publicar.ServicioOfertasService serviceOfertas = new servidor.publicar.ServicioOfertasService();
         servidor.publicar.ServicioOfertas portOfertas = serviceOfertas.getServicioOfertasPort();
-        
     	String nombreOferta = request.getParameter("nombreOferta");
     	String jwt = this.getJwtFromCookies(request.getCookies());
     	String nickname = portUsuarios.obtenerDatosDeUsuarioJWT(jwt).getNickname();
